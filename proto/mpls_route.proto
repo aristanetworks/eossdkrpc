@@ -1,0 +1,457 @@
+// Copyright (c) 2022 Arista Networks, Inc.  All rights reserved.
+// Arista Networks, Inc. Confidential and Proprietary.
+
+syntax = "proto3";
+
+package eos.remote;
+
+import "mpls_route_types.proto";
+import "rpc_types.proto";
+
+service MplsRouteMgrService {
+
+   /**
+   * Subscription to monitor changes to MPLS routes in hardware. This request stays
+   * active until the client cancels or the server shuts down.
+   *
+   * Request:
+   *    ack = set to true if an immediate acknowledgement is desired.
+   *    One of these options:
+   *       all = true if all MPLS routes should be watched.
+   *       route_key = the route key of a particular MPLS route to watch.
+   * Response:
+   *    One of these options:
+   *       ack = if true the agent is now actively watching for events.
+   *       on_mpls_route_set = the specified MPLS route has been programmed to
+   *                           hardware or assigned a new FEC ID.
+   *       on_mpls_route_del = the specified MPLS route has been deleted from
+   *                           hardware.
+   *       on_mpls_fec_set = the specified MPLS FEC has been created or updated in
+   *                         hardware.
+   *       on_mpls_fec_del = the specified MPLS FEC has been removed from hardware.
+   *
+   * EosSdk reference: eos::mpls_route_handler (class)
+   */
+   rpc watch( MplsRouteWatchRequest ) returns (stream MplsRouteWatchResponse ) {}
+
+   /**
+   * Initiate a MPLS resync proccess. Starts a blank configuration to be applied once
+   * resync_complete is called.
+   *
+   * Request:
+   *    empty
+   * Response:
+   *    none
+   *
+   * EosSdk reference: eos::mpls_route_mgr::resync_init
+   */
+   rpc resync_init( MplsRouteResyncInitRequest ) returns (
+      MplsRouteResyncInitResponse ) {}
+
+   /**
+   * Ends the current MPLS resync process. Deletes the current configuration and
+   * applies all changes since resync_init was called.
+   *
+   * Request:
+   *    empty
+   * Response:
+   *    none
+   *
+   * EosSdk reference: eos::mpls_route_mgr::resync_complete
+   */
+   rpc resync_complete( MplsRouteResyncCompleteRequest ) returns (
+      MplsRouteResyncCompleteResponse ) {}
+
+   /**
+   * Returns a list of all configured MPLS routes.
+   *
+   * Request:
+   *    empty
+   * Response:
+   *    route (list) = the configured MPLS routes.
+   *
+   * EosSdk reference: eos::mpls_route_mgr::mpls_route_iter
+   */
+   rpc mpls_routes( MplsRoutesRequest ) returns ( stream MplsRoutesResponse ) {}
+
+   /**
+   * Returns a list of all MPLS routes in hardware.
+   *
+   * Request:
+   *    empty
+   * Response:
+   *    route_key (list) = the keys of the MPLS routes in hardware.
+   *
+   * EosSdk reference: eos::mpls_route_mgr::mpls_route_status_iter_t
+   */
+   rpc mpls_route_statuses( MplsRouteStatusesRequest ) returns (
+      stream MplsRouteStatusesResponse ) {}
+
+   /**
+   * Returns a list of configured MPLS vias for a specified route.
+   *
+   * Request:
+   *    route_key = the key of the route to query.
+   * Response:
+   *    route_via (list) = the vias configured for the route.
+   *
+   * EosSdk reference: eos::mpls_route_mgr::mpls_route_via_iter_t
+   */
+   rpc mpls_route_vias( MplsRouteViasRequest ) returns (
+      stream MplsRouteViasResponse ) {}
+
+   /**
+   * Returns a list of MPLS vias in hardware for a specified MPLS route or FEC.
+   *
+   * The vias returned for a MPLS FEC are unbound meaning they do not have a
+   * route key.
+   *
+   * Request:
+   *    One of these options:
+   *       route_key = the key of the route to query.
+   *       fec_id = the ID of the fec to query.
+   * Response:
+   *    route_via (list) = the vias in hardware for the MPLS route key or FEC.
+   *
+   * EosSdk reference: eos::mpls_route_mgr::mpls_route_via_status_iter_t
+   */
+   rpc mpls_route_via_statuses( MplsRouteViaStatusesRequest ) returns (
+      stream MplsRouteViaStatusesResponse ) {}
+
+   /**
+   * Queries whether the specified route or via exists in the switch config.
+   *
+   * Request:
+   *    One of these options:
+   *       route_key = the key of the route to query.
+   *       route_via = the route via to query.
+   * Response:
+   *    exists = true if the route or via exists in the switch config otherwise
+   *             false.
+   *
+   * EosSdk reference: eos::mpls_route_mgr::exists
+   */
+   rpc exists( MplsRouteExistsRequest ) returns ( MplsRouteExistsResponse ) {}
+
+   /**
+   * Inserts or updates an MPLS static route in the switch config.
+   *
+   * Request:
+   *    route = the MPLS route to insert or update.
+   * Response:
+   *    none
+   *
+   * EosSdk reference: eos::mpls_route_mgr::mpls_route_set
+   */
+   rpc mpls_route_set( MplsRouteSetRequest ) returns ( MplsRouteSetResponse ) {}
+
+   /**
+   * Inserts or updates multiple MPLS static routes in the switch config in a single
+   * call.
+   *
+   * Request:
+   *    requests = list of MplsRouteSetRequests.
+   * Response:
+   *    processed = number of consecutive successful requests.
+   *    status = success or error details in the event of failure.
+   *
+   * EosSdk reference: eos::mpls_route_mgr::mpls_route_set
+   */
+   rpc bulk_mpls_route_set( BulkMplsRouteSetRequest ) returns (
+      BulkMplsRouteSetResponse ) {}
+
+   /**
+   * Removes the MPLS route and all vias matching its route key.
+   *
+   * Request:
+   *    route_key = the route key of the route to remove.
+   * Response:
+   *    none
+   *
+   * EosSdk reference: eos::mpls_route_mgr::mpls_route_del
+   */
+   rpc mpls_route_del( MplsRouteDelRequest ) returns ( MplsRouteDelResponse ) {}
+
+   /**
+   * Removes multiple MPLS routes and all vias matching their route keys in a single
+   * call.
+   *
+   * Request:
+   *    requests = list of MplsRouteDelRequests.
+   * Response:
+   *     processed = number of consecutive successful requests.
+   *     status = success or error details in the event of failure.
+   *
+   * EosSdk reference: eos::mpls_route_mgr::mpls_route_del
+   */
+   rpc bulk_mpls_route_del( BulkMplsRouteDelRequest ) returns (
+      BulkMplsRouteDelResponse ) {}
+
+   /**
+   * Add the specified via to its associated MPLS route.
+   *
+   * Request:
+   *    route_via = the via to add to the route.
+   * Response:
+   *    none
+   *
+   * EosSdk reference: eos::mpls_route_mgr::mpls_route_via_set
+   */
+   rpc mpls_route_via_set( MplsRouteViaSetRequest ) returns (
+      MplsRouteViaSetResponse ) {}
+
+   /**
+   * Adds multiple vias to their associated MPLS routes in a single call.
+   *
+   * Request:
+   *    requests = list of MplsRouteViaSetRequests.
+   * Response:
+   *    processed = number of consecutive successful requests.
+   *    status = success or error details in the event of failure.
+   *
+   * EosSdk reference: eos::mpls_route_mgr::mpls_route_via_set
+   */
+   rpc bulk_mpls_route_via_set( BulkMplsRouteViaSetRequest ) returns (
+      BulkMplsRouteViaSetResponse ) {}
+
+   /**
+   * Removes the specified via from its associated MPLS route. If all vias are
+   * removed from a route it will still exist but it will have no nexthop
+   * information.
+   *
+   * Request:
+   *    route_via = the via to remove.
+   * Response:
+   *    none
+   *
+   * EosSdk reference: eos::mpls_route_mgr::mpls_route_via_del
+   */
+   rpc mpls_route_via_del( MplsRouteViaDelRequest ) returns (
+      MplsRouteViaDelResponse ) {}
+
+   /**
+   * Removes multiple vias from their associated MPLS routes in a single call.
+   * If all vias are removed from a route it will still exist but it will have
+   * no nexthop information.
+   *
+   * Request:
+   *    requests = list of MplsRouteViaDelRequests.
+   * Response:
+   *    none
+   *
+   * EosSdk reference: eos::mpls_route_mgr::mpls_route_via_del
+   */
+   rpc bulk_mpls_route_via_del( BulkMplsRouteViaDelRequest ) returns (
+      BulkMplsRouteViaDelResponse ) {}
+
+   /**
+   * Returns the FEC ID corresponding to the specified MPLS route key if the route is
+   * programmed in hardware. If it is not programmed in hardware then the FEC ID will
+   * be 0 denoting that it is not set.
+   *
+   * Request:
+   *    route_key = the route key.
+   * Response:
+   *    fec_id = the FEC ID if the route key is programmed in hardware otherwise 0.
+   *
+   * EosSdk reference: eos::mpls_route_mgr::mpls_route_fec_id
+   */
+   rpc fec_id( MplsRouteFecIdRequest ) returns ( MplsRouteFecIdResponse ) {}
+
+   /**
+   * Returns the active metric that is being used in hardware to forward traffic for
+   * the specified MPLS route key, or 0 if the route key does not have any active
+   * vias programmed.
+   *
+   * Request:
+   *    route_key = the route key to query. Its metric value is not used.
+   * Response:
+   *    metric = the metric being used in hardware to forward traffic for the
+   *             specified route key or 0 if it does not have any active vias
+   *             programmed.
+   *
+   * EosSdk reference: eos::mpls_route_mgr::mpls_route_metric
+   */
+   rpc metric( MplsRouteMetricRequest ) returns (
+      MplsRouteMetricResponse ) {}
+
+}
+
+message MplsRouteWatchRequest {
+   bool ack = 1;
+   oneof overload {
+      bool all = 2;
+      MplsRouteKey route_key = 3;
+   }
+}
+
+/**
+* Notification for when an MPLS route is to be programmed into hardware or when it is
+* assigned a new FEC ID.
+*/
+message OnMplsRouteSet {
+   // The route key of the MPLS route that triggered the event.
+   MplsRouteKey route_key = 1;
+   // The ID of the MPLS route's associated FEC.
+   MplsFecId fec_id = 2;
+}
+
+/**
+* Notification for when an MPLS route is deleted from hardware.
+*/
+message OnMplsRouteDel {
+   // The route key of the MPLS route that triggered the event.
+   MplsRouteKey route_key = 1;
+}
+
+/**
+* Notification for when an MPLS FEC is created or updated in hardware.
+*/
+message OnMplsFecSet {
+   // The ID of the FEC which triggered the event.
+   MplsFecId fec_id = 1;
+}
+
+/**
+* Notification for when an MPLS FEC is removed from hardware.
+*/
+message OnMplsFecDel {
+   // The ID of the FEC which triggered the event.
+   MplsFecId fec_id = 1;
+}
+
+message MplsRouteWatchResponse {
+   oneof event {
+      bool ack = 1;
+      OnMplsRouteSet on_mpls_route_set = 2;
+      OnMplsRouteDel on_mpls_route_del = 3;
+      OnMplsFecSet on_mpls_fec_set = 4;
+      OnMplsFecDel on_mpls_fec_del = 5;
+   }
+}
+
+message MplsRouteResyncInitRequest {}
+
+message MplsRouteResyncInitResponse {}
+
+message MplsRouteResyncCompleteRequest{}
+
+message MplsRouteResyncCompleteResponse {}
+
+message MplsRoutesRequest {}
+
+message MplsRoutesResponse {
+   MplsRoute route = 1;
+}
+
+message MplsRouteStatusesRequest {}
+
+message MplsRouteStatusesResponse {
+   MplsRouteKey route_key = 1;
+}
+
+message MplsRouteViasRequest {
+   MplsRouteKey route_key = 1;
+}
+
+message MplsRouteViasResponse {
+   MplsRouteVia route_via = 1;
+}
+
+message MplsRouteViaStatusesRequest {
+   oneof overloads {
+      MplsRouteKey route_key = 1;
+      MplsFecId fec_id = 2;
+   }
+}
+
+message MplsRouteViaStatusesResponse {
+   MplsRouteVia route_via = 1;
+}
+
+message MplsRouteExistsRequest {
+   oneof overloads {
+      MplsRouteKey route_key = 1;
+      MplsRouteVia route_via = 2;
+   }
+}
+
+message MplsRouteExistsResponse {
+   bool exists = 1;
+}
+
+message MplsRouteSetRequest {
+   MplsRoute route = 1;
+}
+
+message MplsRouteSetResponse {}
+
+message BulkMplsRouteSetRequest {
+   repeated MplsRouteSetRequest requests = 1;
+}
+
+message BulkMplsRouteSetResponse {
+   uint64 processed = 1;
+   RpcResponseStatus status = 2;
+}
+
+message MplsRouteDelRequest  {
+   MplsRouteKey route_key = 1;
+}
+
+message MplsRouteDelResponse {}
+
+message BulkMplsRouteDelRequest {
+   repeated MplsRouteDelRequest requests = 1;
+}
+
+message BulkMplsRouteDelResponse {
+   uint64 processed = 1;
+   RpcResponseStatus status = 2;
+}
+
+message MplsRouteViaSetRequest {
+   MplsRouteVia route_via = 1;
+}
+
+message MplsRouteViaSetResponse {}
+
+message BulkMplsRouteViaSetRequest {
+   repeated MplsRouteViaSetRequest requests = 1;
+}
+
+message BulkMplsRouteViaSetResponse {
+   uint64 processed = 1;
+   RpcResponseStatus status = 2;
+}
+
+message MplsRouteViaDelRequest {
+   MplsRouteVia route_via = 1;
+}
+
+message MplsRouteViaDelResponse {}
+
+message BulkMplsRouteViaDelRequest {
+   repeated MplsRouteViaDelRequest requests = 1;
+}
+
+message BulkMplsRouteViaDelResponse {
+   uint64 processed = 1;
+   RpcResponseStatus status = 2;
+}
+
+message MplsRouteFecIdRequest {
+   MplsRouteKey route_key = 1;
+}
+
+message MplsRouteFecIdResponse {
+   MplsFecId fec_id = 1;
+}
+
+message MplsRouteMetricRequest {
+   MplsRouteKey route_key = 1;
+}
+
+message MplsRouteMetricResponse {
+   uint32 metric = 1;
+}

@@ -1,0 +1,84 @@
+// Copyright (c) 2021 Arista Networks, Inc.  All rights reserved.
+// Arista Networks, Inc. Confidential and Proprietary.
+
+syntax = "proto3";
+
+package eos.remote;
+
+import "acl_types.proto";
+import "intf_types.proto";
+
+message PolicyMap {
+   PolicyMapKey key = 1;
+   map<uint32, PolicyMapRule> rules = 2;
+}
+
+message PolicyMapAction {
+   PolicyActionType action_type = 1;
+   string nexthop_group_name = 2;
+   repeated bytes nexthops = 3;
+   string vrf = 4;
+   uint32 dscp = 5; // Must be in range 0 to 255
+   uint32 traffic_class = 6; // Must be in range 0 to 255
+}
+
+message PolicyMapKey {
+   string name = 1;
+   PolicyFeature feature = 2;
+}
+
+message PolicyMapRule {
+   PolicyMapKey class_map_key = 1;
+   PolicyMapRuleType policy_map_rule_type = 2;
+   AclRuleIp raw_rule = 3;
+   repeated PolicyMapAction actions = 4;
+}
+
+message PolicyMapHwStatuses {
+   repeated PolicyMapStatusValue status_values = 1;
+}
+
+message PolicyMapStatusValue {
+   PolicyMapHwStatusKey hw_status_key = 1;
+   PolicyMapStatus status = 2;
+}
+
+message PolicyMapHwStatusKey {
+   IntfId intf_id = 1;
+   AclDirection direction = 2;
+}
+
+// A hardware feature a policy map can be used with.
+enum PolicyFeature {
+   POLICY_FEATURE_NULL = 0;
+   POLICY_FEATURE_PBR = 1;
+   POLICY_FEATURE_QOS = 2;
+   POLICY_FEATURE_TAP_AGG = 3;
+}
+
+// The actions a policy map rule may apply to classified packets.
+enum PolicyActionType {
+   POLICY_ACTION_NULL = 0;
+   POLICY_ACTION_NONE = 1;
+   POLICY_ACTION_DROP = 2;
+   POLICY_ACTION_NEXTHOP = 3;
+   POLICY_ACTION_NEXTHOP_GROUP = 4;
+   POLICY_ACTION_DSCP = 5;
+   POLICY_ACTION_TRAFFIC_CLASS = 6;
+}
+
+enum PolicyMapRuleType {
+   POLICY_RULE_TYPE_NOT_SET = 0;
+   POLICY_RULE_TYPE_CLASSMAP = 1;
+   POLICY_RULE_TYPE_IPV4 = 2;
+   POLICY_RULE_TYPE_IPV6 = 3;
+}
+
+// The policy map hardware status type.
+enum PolicyMapStatus {
+   POLICY_STATUS_NULL = 0;
+   POLICY_STATUS_NOT_FOUND = 1;
+   POLICY_STATUS_IN_PROGRESS = 2;
+   POLICY_STATUS_FAILED = 3;
+   POLICY_STATUS_SUCCESS = 4;
+}

@@ -1,0 +1,17 @@
+// Copyright (c) 2021 Arista Networks, Inc.  All rights reserved.
+// Arista Networks, Inc. Confidential and Proprietary.
+
+syntax = "proto3";
+
+package eos.remote;
+
+enum IpVersion {
+   IP_VERSION_NONE = 0;
+   IP_VERSION_4 = 4;
+   IP_VERSION_6 = 6;
+}
+
+message Prefix {
+   bytes ip_addr = 1;
+   int32 length = 2;
+}

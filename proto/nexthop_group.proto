@@ -1,0 +1,308 @@
+// Copyright (c) 2021 Arista Networks, Inc.  All rights reserved.
+// Arista Networks, Inc. Confidential and Proprietary.
+
+syntax = "proto3";
+
+package eos.remote;
+
+import "rpc_types.proto";
+import "nexthop_group_types.proto";
+
+service NexthopGroupMgrService {
+   /**
+    * Subscription to monitor changes on nexthop groups. This request
+    * stays active until the client cancels or the server shuts down.
+    * When all = false and no name is specified, this request has no effect.
+    * 
+    * Request:
+    *    ack = set to true when an ackowledgment is desired.
+    *    One of these options:
+    *       all = true
+    *       name = name of a particular nexthop group to watch.
+    * Response: Events are streamed as changes happen:
+    *    ack = if true, this not an event and the fields below are invalid.
+    *    name = interface whose status changed (ignored on confirmation).
+    *    One of the following changes:
+    *       active_status = there was a change in the active status.
+    *       nhg_programmed = NHG has been programmed.
+    *    version_id = the nexthop group's version ID if it has been programmed.
+    *    
+    * EosSdk reference: eos::nexthop_group_handler (class)
+    */
+   rpc watch( WatchNexthopGroupRequest ) returns ( stream WatchNexthopGroupResponse ) {}
+
+   /**
+    * Initiates a resync process. Starts a blank configuration to be applied
+    * once resync_complete is called.
+    *
+    * Request:
+    *    empty
+    * Response:
+    *    none
+    *
+    * EosSdk reference: eos::nexthop_group_mgr::resync_init
+    */
+   rpc resync_init( ResyncNexthopGroupInitRequest ) returns ( ResyncNexthopGroupInitResponse ) {}
+
+   /**
+    * Deletes current configuration and applies all changes since resync_init has
+    * been called last.
+    *
+    * Request:
+    *    empty
+    * Response:
+    *    none
+    *
+    * EosSdk reference: eos::nexthop_group_mgr::resync_complete
+    */
+   rpc resync_complete( ResyncNexthopGroupCompleteRequest ) returns ( ResyncNexthopGroupCompleteResponse ) {}
+
+   /**
+    * Returns a list of all configured nexthop groups.
+    *
+    * Request:
+    *    empty
+    * Response:
+    *    nhg = configured nexthop group.
+    *
+    * EosSdk reference: eos::nexthop_group_mgr::nexthop_group_iter
+    */
+   rpc nexthop_groups( NexthopGroupsRequest ) returns ( stream NexthopGroupsResponse ) {}
+
+   /**
+    * Returns a list of all programmed nexthop groups.
+    *
+    * Request:
+    *    empty
+    * Response:
+    *    nhg = programmed nexthop group.
+    *
+    * EosSdk reference: eos::nexthop_group_mgr::programmed_nexthop_group_iter
+    */
+   rpc programmed_nexthop_groups( ProgrammedNexthopGroupsRequest ) returns ( stream ProgrammedNexthopGroupsResponse ) {}
+
+   /**
+    * Returns the nexthop group specified by name, if exists.
+    *
+    * Request:
+    *    name = name of the nexthop group to search.
+    * Response:
+    *    nhg = nexthop group (empty if not found).
+    *
+    * EosSdk reference: eos::nexthop_group_mgr::nexthop_group
+    */
+   rpc nexthop_group( NexthopGroupRequest ) returns ( NexthopGroupResponse ) {}
+
+   /**
+    * Returns the counter corresponding to the given nexthop group name and entry.
+    *
+    * Request:
+    *    name = name of the nexthop group to search.
+    *    entry = entry number (16-bit).
+    * Response:
+    *    counter = counter data (empty if not found).
+    *
+    * EosSdk reference: eos::nexthop_group_mgr::counter
+    */
+   rpc counter( CounterRequest ) returns ( CounterResponse ) {}
+
+   /**
+    * Queries if the nexthop group with given name exists.
+    *
+    * Request:
+    *    name = name of the nexthop_group.
+    * Response:
+    *    exists = true if the nexthop group exists.
+    *
+    * EosSdk reference: eos::nexthop_group_mgr::exists
+    */
+   rpc exists( NexthopGroupExistsRequest ) returns ( NexthopGroupExistsResponse ) {}
+
+   /**
+    * Queries whether a nexthop group is active
+    *
+    * Request:
+    *    name = name of the nexthop group.
+    * Response:
+    *    active = true if the specified group is active.
+    *
+    * EosSdk reference: eos::nexthop_group_mgr::active
+    */
+   rpc active( NexthopGroupActiveRequest ) returns ( NexthopGroupActiveResponse ) {}
+
+   /**
+    * Creates or updates a nexthop group and returns its version ID.
+    *
+    * Request:
+    *    nhg = details of the new group
+    * Response:
+    *    version_id = the nexthop group's version ID.
+    *
+    * EosSdk reference: eos::nexthop_group_mgr::nexthop_group_set
+    */
+   rpc nexthop_group_set( NexthopGroupSetRequest ) returns ( NexthopGroupSetResponse ) {}
+
+   /**
+    * Creates or updates multiple nexthops groups in a single call and returns their version IDs.
+    *
+    * Request:
+    *    requests = list of NexthopGroupSetRequest
+    * Response:
+    *    processed = number of consecutive successful requests.
+    *    status = success or error details in case of failure.
+    *    responses = list of NexthopGroupSetResponse.
+    *
+    * EosSdk reference: eos::nexthop_group_mgr::nexthop_group_set
+    */
+   rpc bulk_nexthop_group_set( BulkNexthopGroupSetRequest ) returns ( BulkNexthopGroupSetResponse ) {}
+
+   /**
+    * Deletes a nexthop group.
+    *
+    * Request:
+    *    name = name of the nexthop group to delete.
+    * Response:
+    *    none
+    *
+    * EosSdk reference: eos::nexthop_group_mgr::nexthop_group_del
+    */
+   rpc nexthop_group_del( NexthopGroupDelRequest ) returns ( NexthopGroupDelResponse ) {}
+
+   /**
+    * Deletes multiple nexthop groups in a single call.
+    *
+    * Request:
+    *    requests = list of NexthopGroupDelRequest
+    * Response:
+    *    processed = number of consecutive successful requests.
+    *    status = success or error details in case of failure.
+    *
+    * EosSdk reference: eos::nexthop_group_mgr::nexthop_group_del
+    */
+   rpc bulk_nexthop_group_del( BulkNexthopGroupDelRequest ) returns ( BulkNexthopGroupDelResponse ) {}
+
+   /**
+    * Queries a programmed nexthop group by name.
+    *
+    * Request:
+    *    name = name of the programmed nexthop group.
+    * Response:
+    *    nhg = details of the nexthop group (empty if not found).
+    *
+    * EosSdk reference: eos::nexthop_group_mgr::programmed_nexthop_group
+    */
+   rpc programmed_nexthop_group( ProgrammedNexthopGroupRequest ) returns ( ProgrammedNexthopGroupResponse ) {}
+}
+
+message WatchNexthopGroupRequest {
+   oneof overloads {
+      bool all = 1;
+      string name = 2;
+   }
+   bool ack = 3;
+}
+
+message WatchNexthopGroupResponse {
+   string name = 1;
+   oneof events {
+      bool active_status = 2;
+      bool nhg_programmed = 3;
+   }
+   // Only present when event is for a programmed callback.
+   uint32 version_id = 4;
+   bool ack = 5;
+}
+
+message ResyncNexthopGroupInitRequest {}
+
+message ResyncNexthopGroupInitResponse {}
+
+message ResyncNexthopGroupCompleteRequest {}
+
+message ResyncNexthopGroupCompleteResponse {}
+
+message NexthopGroupsRequest {}
+
+message NexthopGroupsResponse {
+   NexthopGroup nhg = 1; 
+}
+
+message ProgrammedNexthopGroupsRequest {}
+
+message ProgrammedNexthopGroupsResponse {
+   string name = 1; 
+}
+
+message NexthopGroupRequest {
+   string name = 1; 
+}
+
+message NexthopGroupResponse {
+   NexthopGroup nhg = 1; 
+}
+
+message CounterRequest {
+   string name = 1;
+   uint32 entry = 2;
+}
+
+message CounterResponse {
+   NexthopGroupCounter counter = 1; 
+}
+
+message NexthopGroupExistsRequest {
+   string name = 1; 
+}
+
+message NexthopGroupExistsResponse {
+   bool exists = 1; 
+}
+
+message NexthopGroupActiveRequest {
+   string name = 1; 
+}
+
+message NexthopGroupActiveResponse {
+   bool active = 1; 
+}
+
+message NexthopGroupSetRequest {
+   NexthopGroup nhg = 1; 
+}
+
+message NexthopGroupSetResponse {
+   uint32 version_id = 1;
+}
+
+message BulkNexthopGroupSetRequest {
+   repeated NexthopGroupSetRequest requests = 1;
+}
+
+message BulkNexthopGroupSetResponse {
+   uint64 processed = 1;
+   RpcResponseStatus status = 2;
+   repeated NexthopGroupSetResponse responses = 3;
+}
+
+message NexthopGroupDelRequest {
+   string name = 1; 
+}
+
+message NexthopGroupDelResponse {}
+
+message BulkNexthopGroupDelRequest {
+   repeated NexthopGroupDelRequest requests = 1;
+}
+
+message BulkNexthopGroupDelResponse {
+   uint64 processed = 1;
+   RpcResponseStatus status = 2;
+}
+
+message ProgrammedNexthopGroupRequest {
+   string name = 1; 
+}
+
+message ProgrammedNexthopGroupResponse {
+   NexthopGroup nhg = 1; 
+}
