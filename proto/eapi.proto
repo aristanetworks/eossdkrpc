@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package eos.remote;
+
+service EapiMgrService {
+   rpc run_show_cmd( EapiCmd ) returns ( EapiResponse ) {}
+
+   rpc run_config_cmds( EapiCmd ) returns ( EapiResponse ) {}
+}
+
+message EapiCmd {
+   repeated string command = 1;
+}
+
+message EapiResponse {
+   bool success = 1;
+   uint32 error_code = 2;
+   string error_message = 3;
+   repeated string responses = 4;
+   string raw_response = 5;
+}

@@ -1,0 +1,9 @@
+checks:
+  include:
+    - endOfFileNewline
+    - noTrailingWhitespaces
+    - pythonFromFuture
+
+files:
+  exclude:
+    - proto/

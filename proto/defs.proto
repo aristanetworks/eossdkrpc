@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package eos.remote;
+
+message Void {}
+
+message Bool {
+   bool value = 1;
+}
+
+message Prefix {
+   bytes ip_addr = 1;
+   int32 length = 2;
+}

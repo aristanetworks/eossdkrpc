@@ -1,0 +1,64 @@
+Summary: Protobufs for communicating with EosSdkRpc and EosSdkRpcClient
+Name: EosSdkRpcProtos
+Version: 1.0.3
+Release: %{?release:%{release}}%{!?release:eng}
+Source0: %{name}-%{version}.tar.gz
+License: Arista Networks
+Group: Arista/Software
+BuildRoot: %{_tmppath}/%{name}-root
+Url: http://www.AristaNetworks.com
+
+# NOTE: Please do NOT put the names of macros into any comments in this
+#       file, or you will find yourself wading through very baffling RPM
+#       error messages.
+
+%{expand: %define _eosgosrc %(echo $EOSGOSRC) }
+%{expand: %define _eosgopkg %(echo $EOSGOPKG) }
+
+%description
+Protobufs for communicating with the EosSdkRpc and EosSdkRpcClient.
+This package contains the generated python protobufs.
+
+%package devel
+Summary: EosRemoteSdk devel package
+Group: Arista/Development Files
+
+%description devel
+EosRemoteSdk files used by other packages during development.
+
+%prep
+%setup -q
+
+%build
+%arista_build
+
+%install
+%arista_install
+# Please do not change this section.
+# See src/Hello/Hello.spec for details, the gist of which is,
+# workspace VM's won't work if "make install" in each package doesn't
+# get the tree into a bootable state, and putting fancy logic into the
+# 'install' rule in the spec file makes it less likely that "make
+# install" will be adequate.
+
+%clean
+
+%files
+%defattr(-,root,root)
+%{_datadir}/EosSdkRpcProtos/proto/bgp.proto
+%{_datadir}/EosSdkRpcProtos/proto/bgp_path.proto
+%{_datadir}/EosSdkRpcProtos/proto/defs.proto
+%{_datadir}/EosSdkRpcProtos/proto/eapi.proto
+%{python_sitelib}/bgp_pb2.py*
+%{python_sitelib}/bgp_pb2_grpc.py*
+%{python_sitelib}/bgp_path_pb2.py*
+%{python_sitelib}/bgp_path_pb2_grpc.py*
+%{python_sitelib}/defs_pb2.py*
+%{python_sitelib}/defs_pb2_grpc.py*
+%{python_sitelib}/eapi_pb2.py*
+%{python_sitelib}/eapi_pb2_grpc.py*
+
+%files devel
+%defattr(-,root,root)
+%{_includedir}/EosSdkRpcProtos
+%{_libdir}/libEosSdkRpcProtos.a

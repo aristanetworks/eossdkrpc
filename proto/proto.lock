@@ -1,0 +1,505 @@
+{
+  "definitions": [
+    {
+      "protopath": "bgp.proto",
+      "def": {
+        "enums": [
+          {
+            "name": "BgpPeerStates",
+            "enum_fields": [
+              {
+                "name": "PEER_UNKNOWN"
+              },
+              {
+                "name": "PEER_IDLE",
+                "integer": 1
+              },
+              {
+                "name": "PEER_CONNECT",
+                "integer": 2
+              },
+              {
+                "name": "PEER_ACTIVE",
+                "integer": 3
+              },
+              {
+                "name": "PEER_OPENSENT",
+                "integer": 4
+              },
+              {
+                "name": "PEER_OPENCONFIRM",
+                "integer": 5
+              },
+              {
+                "name": "PEER_ESTABLISHED",
+                "integer": 6
+              }
+            ]
+          },
+          {
+            "name": "BgpPeerEvent.Events",
+            "enum_fields": [
+              {
+                "name": "PEER_SET"
+              },
+              {
+                "name": "PEER_DEL",
+                "integer": 1
+              }
+            ]
+          }
+        ],
+        "messages": [
+          {
+            "name": "WatchBgpPeerParams",
+            "fields": [
+              {
+                "id": 1,
+                "name": "all_peers",
+                "type": "bool"
+              },
+              {
+                "id": 2,
+                "name": "peer_key",
+                "type": "BgpPeerKey"
+              }
+            ]
+          },
+          {
+            "name": "BgpPeerKey",
+            "fields": [
+              {
+                "id": 1,
+                "name": "vrf_name",
+                "type": "string"
+              },
+              {
+                "id": 2,
+                "name": "peer_addr",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "BgpPeerState",
+            "fields": [
+              {
+                "id": 1,
+                "name": "peer_state",
+                "type": "BgpPeerStates"
+              }
+            ]
+          },
+          {
+            "name": "BgpPeerEvent",
+            "fields": [
+              {
+                "id": 1,
+                "name": "peer_key",
+                "type": "BgpPeerKey"
+              },
+              {
+                "id": 2,
+                "name": "event",
+                "type": "Events"
+              },
+              {
+                "id": 3,
+                "name": "peer_state",
+                "type": "BgpPeerStates"
+              }
+            ]
+          }
+        ],
+        "services": [
+          {
+            "name": "BgpMgrService",
+            "rpcs": [
+              {
+                "name": "watch",
+                "in_type": "WatchBgpPeerParams",
+                "out_type": "BgpPeerEvent",
+                "out_streamed": true
+              },
+              {
+                "name": "exists",
+                "in_type": "BgpPeerKey",
+                "out_type": "Bool"
+              },
+              {
+                "name": "peer_state",
+                "in_type": "BgpPeerKey",
+                "out_type": "BgpPeerState"
+              }
+            ]
+          }
+        ],
+        "imports": [
+          {
+            "path": "defs.proto"
+          }
+        ],
+        "package": {
+          "name": "eos.remote"
+        }
+      }
+    },
+    {
+      "protopath": "bgp_path.proto",
+      "def": {
+        "enums": [
+          {
+            "name": "BgpReceiveRouteStages",
+            "enum_fields": [
+              {
+                "name": "BGP_PATH_PRE_POLICY"
+              },
+              {
+                "name": "BGP_PATH_POST_POLICY",
+                "integer": 1
+              }
+            ]
+          }
+        ],
+        "messages": [
+          {
+            "name": "WatchBgpPathParams",
+            "fields": [
+              {
+                "id": 1,
+                "name": "all_paths",
+                "type": "bool"
+              },
+              {
+                "id": 2,
+                "name": "ipv4_unicast_paths",
+                "type": "bool"
+              },
+              {
+                "id": 3,
+                "name": "ipv6_unicast_paths",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "BgpPathKey",
+            "fields": [
+              {
+                "id": 1,
+                "name": "prefix",
+                "type": "Prefix"
+              },
+              {
+                "id": 2,
+                "name": "peer_addr",
+                "type": "bytes"
+              },
+              {
+                "id": 3,
+                "name": "vrf_name",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "BgpUnicastPathEvent",
+            "fields": [
+              {
+                "id": 1,
+                "name": "ip_version",
+                "type": "int32"
+              },
+              {
+                "id": 2,
+                "name": "path_key",
+                "type": "BgpPathKey"
+              }
+            ]
+          },
+          {
+            "name": "ConvergedEvent",
+            "fields": [
+              {
+                "id": 1,
+                "name": "ip_version",
+                "type": "int32"
+              },
+              {
+                "id": 2,
+                "name": "converged",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "BgpPathEvent",
+            "fields": [
+              {
+                "id": 1,
+                "name": "path_event",
+                "type": "BgpUnicastPathEvent"
+              },
+              {
+                "id": 2,
+                "name": "converged_event",
+                "type": "ConvergedEvent"
+              }
+            ]
+          },
+          {
+            "name": "BgpPathAttrFields",
+            "fields": [
+              {
+                "id": 1,
+                "name": "next_hop",
+                "type": "bool"
+              },
+              {
+                "id": 2,
+                "name": "community_list",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "BgpPathOptions",
+            "fields": [
+              {
+                "id": 1,
+                "name": "stage",
+                "type": "BgpReceiveRouteStages"
+              },
+              {
+                "id": 2,
+                "name": "fields",
+                "type": "BgpPathAttrFields"
+              }
+            ]
+          },
+          {
+            "name": "BgpPathParams",
+            "fields": [
+              {
+                "id": 1,
+                "name": "path_key",
+                "type": "BgpPathKey"
+              },
+              {
+                "id": 2,
+                "name": "path_options",
+                "type": "BgpPathOptions"
+              }
+            ]
+          },
+          {
+            "name": "BgpPathAttrs",
+            "fields": [
+              {
+                "id": 1,
+                "name": "next_hop",
+                "type": "bytes"
+              },
+              {
+                "id": 2,
+                "name": "origin",
+                "type": "int32"
+              },
+              {
+                "id": 3,
+                "name": "med",
+                "type": "uint32"
+              },
+              {
+                "id": 4,
+                "name": "local_pref",
+                "type": "uint32"
+              },
+              {
+                "id": 5,
+                "name": "community_list",
+                "type": "uint32",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "BgpPath",
+            "fields": [
+              {
+                "id": 1,
+                "name": "path_key",
+                "type": "BgpPathKey"
+              },
+              {
+                "id": 2,
+                "name": "path_attrs",
+                "type": "BgpPathAttrs"
+              }
+            ]
+          }
+        ],
+        "services": [
+          {
+            "name": "BgpPathMgrService",
+            "rpcs": [
+              {
+                "name": "watch",
+                "in_type": "WatchBgpPathParams",
+                "out_type": "BgpPathEvent",
+                "out_streamed": true
+              },
+              {
+                "name": "ipv4_unicast_paths",
+                "in_type": "BgpPathParams",
+                "out_type": "BgpPath",
+                "out_streamed": true
+              },
+              {
+                "name": "ipv4_unicast_path",
+                "in_type": "BgpPathParams",
+                "out_type": "BgpPath"
+              },
+              {
+                "name": "ipv4_unicast_bgp_convergence",
+                "in_type": "Void",
+                "out_type": "Bool"
+              },
+              {
+                "name": "ipv6_unicast_paths",
+                "in_type": "BgpPathParams",
+                "out_type": "BgpPath",
+                "out_streamed": true
+              },
+              {
+                "name": "ipv6_unicast_path",
+                "in_type": "BgpPathParams",
+                "out_type": "BgpPath"
+              },
+              {
+                "name": "ipv6_unicast_bgp_convergence",
+                "in_type": "Void",
+                "out_type": "Bool"
+              }
+            ]
+          }
+        ],
+        "imports": [
+          {
+            "path": "defs.proto"
+          }
+        ],
+        "package": {
+          "name": "eos.remote"
+        }
+      }
+    },
+    {
+      "protopath": "defs.proto",
+      "def": {
+        "messages": [
+          {
+            "name": "Void"
+          },
+          {
+            "name": "Bool",
+            "fields": [
+              {
+                "id": 1,
+                "name": "value",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "Prefix",
+            "fields": [
+              {
+                "id": 1,
+                "name": "ip_addr",
+                "type": "bytes"
+              },
+              {
+                "id": 2,
+                "name": "length",
+                "type": "int32"
+              }
+            ]
+          }
+        ],
+        "package": {
+          "name": "eos.remote"
+        }
+      }
+    },
+    {
+      "protopath": "eapi.proto",
+      "def": {
+        "messages": [
+          {
+            "name": "EapiCmd",
+            "fields": [
+              {
+                "id": 1,
+                "name": "command",
+                "type": "string",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "EapiResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "success",
+                "type": "bool"
+              },
+              {
+                "id": 2,
+                "name": "error_code",
+                "type": "uint32"
+              },
+              {
+                "id": 3,
+                "name": "error_message",
+                "type": "string"
+              },
+              {
+                "id": 4,
+                "name": "responses",
+                "type": "string",
+                "is_repeated": true
+              },
+              {
+                "id": 5,
+                "name": "raw_response",
+                "type": "string"
+              }
+            ]
+          }
+        ],
+        "services": [
+          {
+            "name": "EapiMgrService",
+            "rpcs": [
+              {
+                "name": "run_show_cmd",
+                "in_type": "EapiCmd",
+                "out_type": "EapiResponse"
+              },
+              {
+                "name": "run_config_cmds",
+                "in_type": "EapiCmd",
+                "out_type": "EapiResponse"
+              }
+            ]
+          }
+        ],
+        "package": {
+          "name": "eos.remote"
+        }
+      }
+    }
+  ]
+}

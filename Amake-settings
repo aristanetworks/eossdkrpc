@@ -1,0 +1,5 @@
+supportedToolchains=[ 'gcc', 'clang', 'ubsan' ]
+pkgQdam=True
+tacLibCheckExcused=[]
+lddUnusedCheck=True
+py3lint=True

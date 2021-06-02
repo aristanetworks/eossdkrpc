@@ -1,0 +1,203 @@
+# Copyright (c) 2021 Arista Networks, Inc.  All rights reserved.
+# Arista Networks, Inc. Confidential and Proprietary.
+
+#-----------------------------------------------------------------------
+# globals
+
+include( 'version.qbi' )
+
+include_dirs = [
+   '-I$target_dir',
+   '-I$src_dir',
+   '-I$INCLUDEDIR/python2.7',
+   '-I$target_dir/src-includes',
+   '-I$target_dir/generated-includes',
+   '-I$INCLUDEDIR',
+]
+
+compiler_based_cflags = []
+define( 'AR_TOOLCHAIN', 'default')
+if defined_value( 'AR_TOOLCHAIN' ) != 'clang':
+      compiler_based_cflags += [
+         '-Wformat-signedness',
+      ]
+
+cfg = config(
+   export_package='EosSdkRpcProtos',
+   cflags=[
+      '-DHAVE_CONFIG_H',
+   ],
+   cflags_cc=[
+      '-Wextra',
+      '-Wall',
+      '-Werror',
+      '-Wconversion',
+      '-Wno-unused-parameter',
+   ] + compiler_based_cflags,
+   ldflags=[
+      '-Wl,--no-undefined',
+      '-Wl,--copy-dt-needed-entries',
+   ],
+   test_env=[
+      'SRCDIR=/src/EosSdkRpcProtos',
+   ],
+   taccflags=[
+      '+d',
+      '--Werror=7',
+   ],
+   tacc_include_dirs=include_dirs,
+)
+
+#-----------------------------------------------------------------------
+# extra dist files
+
+extra_dist(
+   'EosSdkRpcProtos.spec',
+)
+
+#-----------------------------------------------------------------------
+# Protobufs
+
+protoFiles = [
+   'proto/bgp.proto',
+   'proto/bgp_path.proto',
+   'proto/defs.proto',
+   'proto/eapi.proto',
+]
+
+#-----------------------------------------------------------------------
+# data target
+
+data(
+   'EosSdkRpcProtoFiles',
+   sources=protoFiles,
+   inst_dir='$DATADIR/EosSdkRpcProtos/proto',
+)
+
+#-----------------------------------------------------------------------
+# Python protobuf generation
+
+def _protoc_py_output( pkg=None, target_name=None, sources=None ):
+   targets = []
+   for source in sources:
+      assert source.endswith( '.proto' )
+      basename = source.split( '/' )[ -1 ][ :-6 ] # exclude .proto extension
+      targets.append( basename + '_pb2.py' )
+      targets.append( basename + '_pb2_grpc.py' )
+   return targets
+
+template(
+   'protoc_py',
+   description='Generate python protobufs',
+   script='protoc -I ${src_dir}/proto --python_out=${target_dir} '
+      '--grpc_out ${target_dir} --plugin=protoc-gen-grpc=`which grpc_python_plugin` '
+      '${in}',
+   outputs_generator=_protoc_py_output,
+   is_source_generator=True,
+)
+
+protoc_py(
+   'proto',
+   sources=protoFiles,
+)
+
+protocPyGenerated = _protoc_py_output( sources=protoFiles )
+
+#-----------------------------------------------------------------------
+# Python sources
+
+py_library(
+   'PyLib',
+   sources=protocPyGenerated,
+)
+
+#-----------------------------------------------------------------------
+# python breadth tests
+
+py_test( 'StaleProtoLockTest.py' )
+
+#-----------------------------------------------------------------------
+# Cpp protobuf generation
+
+def _protoc_cpp_output( pkg=None, target_name=None, sources=None ):
+   targets = []
+   for source in sources:
+      assert source.endswith( '.proto' )
+      basename = source.split( '/' )[ -1 ][ :-6 ] # exclude .proto extension
+      targets.append( basename + '.pb.h' )
+      targets.append( basename + '.pb.cc' )
+      targets.append( basename + '.grpc.pb.h' )
+      targets.append( basename + '.grpc.pb.cc' )
+   return targets
+
+template(
+   'protoc_cpp',
+   description="PROTOC ${in}",
+   script='protoc -I ${src_dir}/proto --cpp_out=${target_dir} '
+      '--grpc_out ${target_dir} --plugin=protoc-gen-grpc=`which grpc_cpp_plugin` '
+      '${in}',
+   outputs_generator=_protoc_cpp_output,
+   is_source_generator=True,
+)
+
+protoc_cpp(
+   'protoc',
+   sources=protoFiles,
+)
+
+protocCppGenerated = _protoc_cpp_output( sources=protoFiles )
+
+def _protoc_cpp_headers( pkg=None, target_name=None, sources=None ):
+   headers=[]
+   for source in sources:
+      assert source.endswith( '.proto' )
+      basename = source.split( '/' )[ -1 ][ :-6 ] # exclude .proto extension
+      headers.append( basename + '.pb.h' )
+      headers.append( basename + '.grpc.pb.h' )
+   return headers
+
+protocCppGeneratedHeaders = _protoc_cpp_headers( sources=protoFiles )
+
+data(
+   'protoHeaderInstall',
+   sources=protocCppGeneratedHeaders,
+   inst_dir='$INCLUDEDIR/EosSdkRpcProtos',
+)
+
+#-----------------------------------------------------------------------
+# Protobuf Libraries
+
+static_library(
+   'EosSdkRpcProtos',
+   sources=protocCppGenerated,
+   libs=[
+      '-lgrpc++',
+      '-lgrpc',
+      '-lprotobuf',
+   ],
+   cflags=[ '-Wno-unused-parameter' ]
+)
+
+override(
+   pattern="${target_dir}/*.pb.cc",
+   cflags_cc=cfg.cflags_cc + [ '-Wno-conversion' ]
+)
+
+#-----------------------------------------------------------------------
+# Protolock
+# If any proto files are updated, the proto.lock file must be updated
+# protolock commit -lockdir /src/EosSdkRpcProtos/proto -protoroot /src/EosSdkRpcProtos/proto
+# May need to a4 edit /src/EosSdkRpcProtos/proto/proto.lock before running the command.
+
+protolockConflictCheckScript="""
+protolock status -lockdir /src/EosSdkRpcProtos/proto -protoroot /src/EosSdkRpcProtos/proto
+"""
+
+action( 
+   'protolockConflictCheck',
+   description="Protolock backwards compability check",
+   script=protolockConflictCheckScript,
+   outputs=[
+      '{target_dir}/__always_run' # Fake target to ensure this step runs every make
+   ],
+)
