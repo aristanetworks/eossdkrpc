@@ -8,6 +8,8 @@ Group: Arista/Software
 BuildRoot: %{_tmppath}/%{name}-root
 Url: http://www.AristaNetworks.com
 
+Conflicts: EosSdkRpc <= 1.0.3
+
 # NOTE: Please do NOT put the names of macros into any comments in this
 #       file, or you will find yourself wading through very baffling RPM
 #       error messages.
@@ -49,6 +51,7 @@ EosRemoteSdk files used by other packages during development.
 %{_datadir}/EosSdkRpcProtos/proto/bgp_path.proto
 %{_datadir}/EosSdkRpcProtos/proto/defs.proto
 %{_datadir}/EosSdkRpcProtos/proto/eapi.proto
+%{_datadir}/EosSdkRpcProtos/proto/EosSdkRpc.proto
 %{python_sitelib}/bgp_pb2.py*
 %{python_sitelib}/bgp_pb2_grpc.py*
 %{python_sitelib}/bgp_path_pb2.py*
@@ -57,6 +60,8 @@ EosRemoteSdk files used by other packages during development.
 %{python_sitelib}/defs_pb2_grpc.py*
 %{python_sitelib}/eapi_pb2.py*
 %{python_sitelib}/eapi_pb2_grpc.py*
+%{python_sitelib}/EosSdkRpc_pb2.py*
+%{python_sitelib}/EosSdkRpc_pb2_grpc.py*
 
 %files devel
 %defattr(-,root,root)

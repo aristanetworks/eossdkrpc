@@ -1,6 +1,771 @@
 {
   "definitions": [
     {
+      "protopath": "EosSdkRpc.proto",
+      "def": {
+        "enums": [
+          {
+            "name": "rpc_server_resync_msg.state",
+            "enum_fields": [
+              {
+                "name": "START"
+              },
+              {
+                "name": "END",
+                "integer": 1
+              }
+            ]
+          },
+          {
+            "name": "rpc_status_msg.rpc_status_value_enum",
+            "enum_fields": [
+              {
+                "name": "OK"
+              },
+              {
+                "name": "FAIL",
+                "integer": 1
+              },
+              {
+                "name": "NOT_FOUND",
+                "integer": 2
+              },
+              {
+                "name": "IN_USE",
+                "integer": 3
+              },
+              {
+                "name": "NO_INIT",
+                "integer": 4
+              }
+            ]
+          },
+          {
+            "name": "nexthop_group_msg.nexthop_group_type_enum",
+            "enum_fields": [
+              {
+                "name": "NEXTHOP_GROUP_MPLS"
+              }
+            ]
+          },
+          {
+            "name": "forward_nexthop_group_msg.mpls_operation_enum",
+            "enum_fields": [
+              {
+                "name": "MPLS_POP_LABEL"
+              },
+              {
+                "name": "MPLS_FORWARD_LABEL",
+                "integer": 1
+              }
+            ]
+          },
+          {
+            "name": "nexthop_msg.mpls_operation_enum",
+            "enum_fields": [
+              {
+                "name": "MPLS_NO_OPERATION"
+              },
+              {
+                "name": "MPLS_PUSH_LABEL_STACK",
+                "integer": 1
+              },
+              {
+                "name": "MPLS_POP_LABEL",
+                "integer": 2
+              },
+              {
+                "name": "MPLS_POP_PUSH_LABEL_STACK",
+                "integer": 3
+              },
+              {
+                "name": "MPLS_POP_RECIRCULATE",
+                "integer": 4
+              },
+              {
+                "name": "MPLS_SWAP_LABEL",
+                "integer": 5
+              }
+            ]
+          },
+          {
+            "name": "sbfd_echo_session_oper_status_msg.status_enum",
+            "enum_fields": [
+              {
+                "name": "NULL"
+              },
+              {
+                "name": "DOWN",
+                "integer": 1
+              },
+              {
+                "name": "INIT",
+                "integer": 2
+              },
+              {
+                "name": "UP",
+                "integer": 3
+              },
+              {
+                "name": "ADMIN_DOWN",
+                "integer": 4
+              }
+            ]
+          }
+        ],
+        "messages": [
+          {
+            "name": "rpc_server_alive_msg"
+          },
+          {
+            "name": "rpc_server_config_msg",
+            "fields": [
+              {
+                "id": 1,
+                "name": "ip_route_tag",
+                "type": "uint32"
+              },
+              {
+                "id": 2,
+                "name": "cbf_nexthop_group_redirect_policy_map_name",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "rpc_server_init_status_msg",
+            "fields": [
+              {
+                "id": 1,
+                "name": "has_ip_route",
+                "type": "bool"
+              },
+              {
+                "id": 2,
+                "name": "has_mpls_route",
+                "type": "bool"
+              },
+              {
+                "id": 3,
+                "name": "has_nexthop_group",
+                "type": "bool"
+              },
+              {
+                "id": 4,
+                "name": "has_nexthop_group_tunnel",
+                "type": "bool"
+              },
+              {
+                "id": 5,
+                "name": "has_cbf_nexthop_group_redirect",
+                "type": "bool"
+              },
+              {
+                "id": 6,
+                "name": "status",
+                "type": "rpc_status_msg"
+              }
+            ]
+          },
+          {
+            "name": "rpc_server_key_value_pair_msg",
+            "fields": [
+              {
+                "id": 1,
+                "name": "key",
+                "type": "string"
+              },
+              {
+                "id": 2,
+                "name": "value",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "rpc_server_state_config_msg",
+            "fields": [
+              {
+                "id": 1,
+                "name": "set",
+                "type": "rpc_server_key_value_pair_msg",
+                "is_repeated": true
+              },
+              {
+                "id": 2,
+                "name": "delete",
+                "type": "rpc_server_key_value_pair_msg",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "rpc_server_state_status_msg",
+            "fields": [
+              {
+                "id": 1,
+                "name": "value",
+                "type": "rpc_server_key_value_pair_msg",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "rpc_server_resync_msg",
+            "fields": [
+              {
+                "id": 1,
+                "name": "value",
+                "type": "state"
+              }
+            ]
+          },
+          {
+            "name": "rpc_status_msg",
+            "fields": [
+              {
+                "id": 1,
+                "name": "value",
+                "type": "rpc_status_value_enum"
+              },
+              {
+                "id": 2,
+                "name": "debug_string",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "rpc_status_bulk_msg",
+            "fields": [
+              {
+                "id": 1,
+                "name": "statuses",
+                "type": "rpc_status_msg",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "nexthop_group_msg",
+            "fields": [
+              {
+                "id": 1,
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "id": 2,
+                "name": "request_delete",
+                "type": "bool"
+              },
+              {
+                "id": 3,
+                "name": "nexthop",
+                "type": "nexthop_msg",
+                "is_repeated": true
+              },
+              {
+                "id": 4,
+                "name": "nexthop_group_type",
+                "type": "nexthop_group_type_enum"
+              }
+            ]
+          },
+          {
+            "name": "nexthop_group_bulk_msg",
+            "fields": [
+              {
+                "id": 1,
+                "name": "groups",
+                "type": "nexthop_group_msg",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "ip_address_msg",
+            "fields": [
+              {
+                "id": 1,
+                "name": "address",
+                "type": "bytes"
+              }
+            ]
+          },
+          {
+            "name": "ip_prefix_msg",
+            "fields": [
+              {
+                "id": 1,
+                "name": "address",
+                "type": "bytes"
+              },
+              {
+                "id": 2,
+                "name": "len",
+                "type": "uint32"
+              }
+            ]
+          },
+          {
+            "name": "ip_route_msg",
+            "fields": [
+              {
+                "id": 1,
+                "name": "prefix",
+                "type": "ip_prefix_msg"
+              },
+              {
+                "id": 2,
+                "name": "nexthop_group",
+                "type": "string"
+              },
+              {
+                "id": 3,
+                "name": "tag",
+                "type": "uint32"
+              }
+            ]
+          },
+          {
+            "name": "ip_route_bulk_msg",
+            "fields": [
+              {
+                "id": 1,
+                "name": "routes",
+                "type": "ip_route_msg",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "nexthop_group_tunnel_msg",
+            "fields": [
+              {
+                "id": 1,
+                "name": "prefix",
+                "type": "ip_prefix_msg"
+              },
+              {
+                "id": 2,
+                "name": "nexthop_group",
+                "type": "string"
+              },
+              {
+                "id": 3,
+                "name": "igp_metric",
+                "type": "uint32"
+              }
+            ]
+          },
+          {
+            "name": "nexthop_group_tunnel_bulk_msg",
+            "fields": [
+              {
+                "id": 1,
+                "name": "tunnels",
+                "type": "nexthop_group_tunnel_msg",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "mpls_route_msg",
+            "fields": [
+              {
+                "id": 1,
+                "name": "label",
+                "type": "uint32"
+              },
+              {
+                "id": 2,
+                "name": "request_delete",
+                "type": "bool"
+              },
+              {
+                "id": 3,
+                "name": "nexthop",
+                "type": "nexthop_msg"
+              },
+              {
+                "id": 4,
+                "name": "nexthop_group",
+                "type": "forward_nexthop_group_msg"
+              },
+              {
+                "id": 5,
+                "name": "pop_and_forward_vrf_name",
+                "type": "string"
+              }
+            ],
+            "messages": [
+              {
+                "name": "forward_nexthop_group_msg",
+                "fields": [
+                  {
+                    "id": 1,
+                    "name": "nexthop_group",
+                    "type": "string"
+                  },
+                  {
+                    "id": 2,
+                    "name": "mpls_operation",
+                    "type": "mpls_operation_enum"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "mpls_route_bulk_msg",
+            "fields": [
+              {
+                "id": 1,
+                "name": "routes",
+                "type": "mpls_route_msg",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "nexthop_msg",
+            "fields": [
+              {
+                "id": 1,
+                "name": "nexthop_ip_address",
+                "type": "ip_address_msg"
+              },
+              {
+                "id": 2,
+                "name": "nexthop_interface",
+                "type": "string"
+              },
+              {
+                "id": 3,
+                "name": "mpls_operation",
+                "type": "mpls_operation_enum"
+              },
+              {
+                "id": 4,
+                "name": "labels",
+                "type": "uint32",
+                "is_repeated": true
+              },
+              {
+                "id": 5,
+                "name": "replicate_count",
+                "type": "uint32"
+              }
+            ]
+          },
+          {
+            "name": "cbf_nexthop_group_redirect_msg",
+            "fields": [
+              {
+                "id": 1,
+                "name": "match_nexthop_group_name",
+                "type": "string"
+              },
+              {
+                "id": 2,
+                "name": "match_ipv4_dscp",
+                "type": "uint32",
+                "is_repeated": true
+              },
+              {
+                "id": 3,
+                "name": "match_ipv6_dscp",
+                "type": "uint32",
+                "is_repeated": true
+              },
+              {
+                "id": 4,
+                "name": "redirect_nexthop_group_name",
+                "type": "string"
+              },
+              {
+                "id": 5,
+                "name": "request_delete",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "cbf_nexthop_group_redirect_bulk_msg",
+            "fields": [
+              {
+                "id": 1,
+                "name": "redirects",
+                "type": "cbf_nexthop_group_redirect_msg",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "sbfd_echo_session_key_msg",
+            "fields": [
+              {
+                "id": 1,
+                "name": "outgoing_interface",
+                "type": "string"
+              },
+              {
+                "id": 2,
+                "name": "nexthop",
+                "type": "ip_address_msg"
+              },
+              {
+                "id": 3,
+                "name": "labels",
+                "type": "uint32",
+                "is_repeated": true
+              },
+              {
+                "id": 4,
+                "name": "dscp",
+                "type": "uint32"
+              },
+              {
+                "id": 5,
+                "name": "mpls_exp",
+                "type": "uint32"
+              }
+            ]
+          },
+          {
+            "name": "sbfd_echo_session_msg",
+            "fields": [
+              {
+                "id": 1,
+                "name": "session_key",
+                "type": "sbfd_echo_session_key_msg"
+              },
+              {
+                "id": 2,
+                "name": "request_delete",
+                "type": "bool"
+              },
+              {
+                "id": 3,
+                "name": "rtt_enabled",
+                "type": "bool"
+              },
+              {
+                "id": 4,
+                "name": "min_tx",
+                "type": "uint32"
+              },
+              {
+                "id": 5,
+                "name": "detection_multiplier",
+                "type": "uint32"
+              }
+            ]
+          },
+          {
+            "name": "sbfd_echo_session_bulk_msg",
+            "fields": [
+              {
+                "id": 1,
+                "name": "sessions",
+                "type": "sbfd_echo_session_msg",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "watch_sbfd_echo_session_config_msg",
+            "fields": [
+              {
+                "id": 1,
+                "name": "request_rtt_updates",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "sbfd_echo_session_oper_status_msg",
+            "fields": [
+              {
+                "id": 1,
+                "name": "status",
+                "type": "status_enum"
+              }
+            ]
+          },
+          {
+            "name": "sbfd_echo_session_rtt_msg",
+            "fields": [
+              {
+                "id": 1,
+                "name": "last_rtt",
+                "type": "uint32"
+              },
+              {
+                "id": 2,
+                "name": "min_rtt",
+                "type": "uint32"
+              },
+              {
+                "id": 3,
+                "name": "avg_rtt",
+                "type": "uint32"
+              },
+              {
+                "id": 4,
+                "name": "max_rtt",
+                "type": "uint32"
+              },
+              {
+                "id": 5,
+                "name": "snapshot_min_rtt",
+                "type": "uint32"
+              },
+              {
+                "id": 6,
+                "name": "snapshot_avg_rtt",
+                "type": "uint32"
+              },
+              {
+                "id": 7,
+                "name": "snapshot_max_rtt",
+                "type": "uint32"
+              }
+            ]
+          },
+          {
+            "name": "watch_sbfd_echo_session_status_msg",
+            "fields": [
+              {
+                "id": 1,
+                "name": "session_key",
+                "type": "sbfd_echo_session_key_msg"
+              },
+              {
+                "id": 2,
+                "name": "status",
+                "type": "sbfd_echo_session_oper_status_msg"
+              },
+              {
+                "id": 3,
+                "name": "rtt",
+                "type": "sbfd_echo_session_rtt_msg"
+              }
+            ]
+          }
+        ],
+        "services": [
+          {
+            "name": "eossdk_service",
+            "rpcs": [
+              {
+                "name": "rpc_server_init",
+                "in_type": "rpc_server_config_msg",
+                "out_type": "rpc_server_init_status_msg"
+              },
+              {
+                "name": "rpc_server_resync",
+                "in_type": "rpc_server_resync_msg",
+                "out_type": "rpc_status_msg"
+              },
+              {
+                "name": "rpc_server_state",
+                "in_type": "rpc_server_state_config_msg",
+                "out_type": "rpc_status_msg"
+              },
+              {
+                "name": "get_rpc_server_state",
+                "in_type": "rpc_server_state_status_msg",
+                "out_type": "rpc_server_state_status_msg"
+              },
+              {
+                "name": "nexthop_group",
+                "in_type": "nexthop_group_msg",
+                "out_type": "rpc_status_msg"
+              },
+              {
+                "name": "nexthop_group_bulk",
+                "in_type": "nexthop_group_bulk_msg",
+                "out_type": "rpc_status_bulk_msg"
+              },
+              {
+                "name": "ip_route",
+                "in_type": "ip_route_msg",
+                "out_type": "rpc_status_msg"
+              },
+              {
+                "name": "ip_route_bulk",
+                "in_type": "ip_route_bulk_msg",
+                "out_type": "rpc_status_bulk_msg"
+              },
+              {
+                "name": "nexthop_group_tunnel",
+                "in_type": "nexthop_group_tunnel_msg",
+                "out_type": "rpc_status_msg"
+              },
+              {
+                "name": "nexthop_group_tunnel_bulk",
+                "in_type": "nexthop_group_tunnel_bulk_msg",
+                "out_type": "rpc_status_bulk_msg"
+              },
+              {
+                "name": "mpls_route",
+                "in_type": "mpls_route_msg",
+                "out_type": "rpc_status_msg"
+              },
+              {
+                "name": "mpls_route_bulk",
+                "in_type": "mpls_route_bulk_msg",
+                "out_type": "rpc_status_bulk_msg"
+              },
+              {
+                "name": "cbf_nexthop_group_redirect",
+                "in_type": "cbf_nexthop_group_redirect_msg",
+                "out_type": "rpc_status_msg"
+              },
+              {
+                "name": "cbf_nexthop_group_redirect_bulk",
+                "in_type": "cbf_nexthop_group_redirect_bulk_msg",
+                "out_type": "rpc_status_bulk_msg"
+              },
+              {
+                "name": "watch_rpc_server_alive",
+                "in_type": "rpc_server_alive_msg",
+                "out_type": "rpc_server_alive_msg",
+                "out_streamed": true
+              },
+              {
+                "name": "sbfd_echo_session",
+                "in_type": "sbfd_echo_session_msg",
+                "out_type": "rpc_status_msg"
+              },
+              {
+                "name": "sbfd_echo_session_bulk",
+                "in_type": "sbfd_echo_session_bulk_msg",
+                "out_type": "rpc_status_bulk_msg"
+              },
+              {
+                "name": "watch_sbfd_echo_session_status_msgs",
+                "in_type": "watch_sbfd_echo_session_config_msg",
+                "out_type": "watch_sbfd_echo_session_status_msg",
+                "out_streamed": true
+              }
+            ]
+          }
+        ],
+        "package": {
+          "name": "EosSdkRpc.pb"
+        },
+        "options": [
+          {
+            "name": "go_package",
+            "value": "arista/EosSdkRpc"
+          }
+        ]
+      }
+    },
+    {
       "protopath": "bgp.proto",
       "def": {
         "enums": [

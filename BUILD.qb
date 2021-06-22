@@ -63,6 +63,7 @@ protoFiles = [
    'proto/bgp_path.proto',
    'proto/defs.proto',
    'proto/eapi.proto',
+   'proto/EosSdkRpc.proto',
 ]
 
 #-----------------------------------------------------------------------

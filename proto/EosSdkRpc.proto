@@ -1,0 +1,349 @@
+// Copyright (c) 2020 Arista Networks, Inc.  All rights reserved.
+// Arista Networks, Inc. Confidential and Proprietary.
+
+syntax = "proto3";
+
+option go_package = "arista/EosSdkRpc";
+
+package EosSdkRpc.pb;
+
+service eossdk_service {
+   // rpc_server_initialize the server, must be called before any other API is called.
+   rpc rpc_server_init( rpc_server_config_msg ) returns ( rpc_server_init_status_msg ) {}
+
+   // Start or end resync process.
+   //
+   // The client is expected to call rpc_server_resync start after rpc_server_init, then
+   // push the initial state, and call rpc_server_resync end that will trigger
+   // the server to delete any existing state not received between the
+   // rpc_server_resync start and end.
+   rpc rpc_server_resync( rpc_server_resync_msg ) returns ( rpc_status_msg ) {}
+
+   // Set/modify/delete opaque key and values, visible in 'show daemon <name>'
+   rpc rpc_server_state( rpc_server_state_config_msg ) returns ( rpc_status_msg ) {}
+
+   // Get opaque state, will retrieve the values for the keys present
+   // in the argument.
+   rpc get_rpc_server_state( rpc_server_state_status_msg ) returns ( rpc_server_state_status_msg ) {}
+
+   // Create, update or delete a nexthop group.
+   // - The name is the identifier of the nexthop group
+   // - The request_delete member indicated if it is a delete or
+   //   add/update operation,
+   //   - In the case of deletes, the nexthop member is ignored, and
+   //     expected to be empty.
+   //   - If not delete, if an existing nexthop group exists with the
+   //     specified name it will be updated, otherwise a nexthop group
+   //     will be created.
+  rpc nexthop_group( nexthop_group_msg ) returns ( rpc_status_msg ) {}
+  rpc nexthop_group_bulk( nexthop_group_bulk_msg ) returns ( rpc_status_bulk_msg ) {}
+
+  // Create, update or delete a IPv4/IPv6 Route. If nexthop_group name
+  // is empty string, the route is deleted.
+  rpc ip_route( ip_route_msg ) returns ( rpc_status_msg ) {}
+  rpc ip_route_bulk( ip_route_bulk_msg ) returns ( rpc_status_bulk_msg ) {}
+
+  // Create, update or delete a nexthop group tunnel, used to resolve recursive
+  // IP routes.
+  rpc nexthop_group_tunnel( nexthop_group_tunnel_msg ) returns ( rpc_status_msg ) {}
+  rpc nexthop_group_tunnel_bulk( nexthop_group_tunnel_bulk_msg ) returns ( rpc_status_bulk_msg ) {}
+
+  // Create, update or delete an MPLS Route.
+  rpc mpls_route( mpls_route_msg ) returns ( rpc_status_msg ) {}
+  rpc mpls_route_bulk( mpls_route_bulk_msg ) returns ( rpc_status_bulk_msg ) {}
+
+  // Create, update or delete a Class Based Forwarding nexthop group redirect.
+  rpc cbf_nexthop_group_redirect( cbf_nexthop_group_redirect_msg ) returns ( rpc_status_msg ) {}
+  rpc cbf_nexthop_group_redirect_bulk( cbf_nexthop_group_redirect_bulk_msg ) returns ( rpc_status_bulk_msg ) {}
+
+  // Dummy stream RPC that will never actually be used, but if the client registers
+  // for updates, it will be notified if the server terminates.
+  rpc watch_rpc_server_alive( rpc_server_alive_msg ) returns ( stream rpc_server_alive_msg ) {}
+
+  // Create, update or delete a sBFD echo session.
+  rpc sbfd_echo_session( sbfd_echo_session_msg ) returns ( rpc_status_msg ) {}
+  rpc sbfd_echo_session_bulk( sbfd_echo_session_bulk_msg ) returns ( rpc_status_bulk_msg ) {}
+
+  // Stream to be notified of sBFD echo session state changes and RTT notifications.
+  rpc watch_sbfd_echo_session_status_msgs( watch_sbfd_echo_session_config_msg ) returns ( stream watch_sbfd_echo_session_status_msg ) {}
+}
+
+message rpc_server_alive_msg {}
+
+message rpc_server_config_msg {
+   // If set, the server will call eos::ip_route_mgr::tag_is() with
+   // this value, and all ip_route_msgs must use the same tag.
+   uint32 ip_route_tag = 1;
+   // The name of the policy-map that is built by cbf_nexthop_group_redirect.
+   string cbf_nexthop_group_redirect_policy_map_name = 2;
+}
+
+message rpc_server_init_status_msg {
+   // Bools set to true if any objects of the corresponding type has
+   // previously been programmed.
+   bool has_ip_route = 1;
+   bool has_mpls_route = 2;
+   bool has_nexthop_group = 3;
+   bool has_nexthop_group_tunnel = 4;
+   bool has_cbf_nexthop_group_redirect = 5;
+   rpc_status_msg status = 6;
+}
+
+message rpc_server_key_value_pair_msg {
+   string key = 1;
+   string value = 2;
+}
+
+// Set/modify/delete opaque key and values, visible in 'show daemon <name>'
+message rpc_server_state_config_msg {
+   // Set all the key/values preset in the set attribute.
+   repeated rpc_server_key_value_pair_msg set = 1;
+   // Delete all the keys present in the delete attribute.
+   repeated rpc_server_key_value_pair_msg delete = 2;
+}
+
+message rpc_server_state_status_msg {
+   repeated rpc_server_key_value_pair_msg value = 1;
+}
+
+message rpc_server_resync_msg {
+   enum state {
+      START = 0;
+      END = 1;
+   }
+   state value = 1;
+}
+
+message rpc_status_msg {
+  enum rpc_status_value_enum {
+    OK = 0;
+    FAIL = 1;
+    NOT_FOUND = 2;
+    IN_USE = 3;
+    NO_INIT = 4;
+  }
+  rpc_status_value_enum value = 1;
+  // Optional debug string for non-OK values to help debugging on the client.
+  string debug_string = 2;
+}
+
+message rpc_status_bulk_msg {
+   repeated rpc_status_msg statuses = 1;
+}
+
+message nexthop_group_msg {
+  enum nexthop_group_type_enum {
+     NEXTHOP_GROUP_MPLS = 0;
+  }
+  string name = 1;
+  bool request_delete = 2;
+  repeated nexthop_msg nexthop = 3;
+  nexthop_group_type_enum nexthop_group_type = 4;
+}
+
+message nexthop_group_bulk_msg {
+   repeated nexthop_group_msg groups = 1;
+}
+
+message ip_address_msg {
+  // The IPv4 or IPv6 address encoded as a stream of bytes, network
+  // byte order, if length is 4, it is an IPv4 address, if the length
+  // is 16 it is an IPv6 address, a length of zero indicate no address
+  // is specified. Any other length is invalid.
+  bytes address = 1;
+}
+
+message ip_prefix_msg {
+  // The IPv4 or IPv6 prefix encoded as a stream of bytes, network
+  // byte order, if length is 4, it is an IPv4 address, if the length
+  // is 16 it is an IPv6 address, a length of zero indicate no address
+  // is specified. Any other length is invalid.
+  bytes address = 1;
+  // Prefix length.
+  uint32 len = 2;
+}
+
+// Message for add/modify/delete IPv4/IPv6 route
+message ip_route_msg {
+   ip_prefix_msg prefix = 1;
+   // Right now we only support nexthop group as forwarding nexthop.
+   // This can be extended in future
+   oneof forwarding_nexthop {
+      string nexthop_group = 2;
+   }
+   uint32 tag = 3;
+}
+
+message ip_route_bulk_msg {
+   repeated ip_route_msg routes = 1;
+}
+
+// Create, update or delete a nexthop group tunnel. If nexthop_group is an empty
+// string, the tunnel is deleted
+message nexthop_group_tunnel_msg {
+   ip_prefix_msg prefix = 1;
+   string nexthop_group = 2;
+   uint32 igp_metric = 3;
+}
+
+message nexthop_group_tunnel_bulk_msg {
+   repeated nexthop_group_tunnel_msg tunnels = 1;
+}
+
+// Message for add/modify/delete of MPLS routes.
+message mpls_route_msg {
+   // The local label of the route.
+   uint32 label = 1;
+   // True on delete, false on add/modify.
+   bool request_delete = 2;
+
+   message forward_nexthop_group_msg {
+      enum mpls_operation_enum {
+         MPLS_POP_LABEL = 0;
+         MPLS_FORWARD_LABEL = 1;
+      }
+      string nexthop_group = 1;
+      mpls_operation_enum mpls_operation = 2;
+   }
+
+   // Only one of the nexthop, nexthop_group or pop_and_forward_vrf_name
+   // can be specified.
+   oneof forwarding_nexthop {
+      nexthop_msg nexthop = 3;
+      forward_nexthop_group_msg nexthop_group = 4;
+      // Pop labels and forward based on IP lookup in specified VRF.
+      // For the default VRF use "default"
+      string pop_and_forward_vrf_name = 5;
+   }
+}
+
+message mpls_route_bulk_msg {
+   repeated mpls_route_msg routes = 1;
+}
+
+message nexthop_msg {
+   enum mpls_operation_enum {
+     MPLS_NO_OPERATION = 0;
+     MPLS_PUSH_LABEL_STACK = 1;
+     MPLS_POP_LABEL = 2;
+     MPLS_POP_PUSH_LABEL_STACK = 3;
+     MPLS_POP_RECIRCULATE = 4;
+     MPLS_SWAP_LABEL = 5;
+   }
+
+   ip_address_msg nexthop_ip_address = 1;
+   string nexthop_interface = 2;
+   mpls_operation_enum mpls_operation = 3;
+   // Stack of labels to push, first label in the sequence is top of stack label,
+   // or outermost label.
+   repeated uint32 labels = 4;
+   // Repeat the nexthop 'replicate_count' times in the resulting
+   // nexthop group, if not specified, will use value 1.
+   uint32 replicate_count = 5;
+}
+
+// Class based forwarding redirection matching on nexthop group name
+// found in FIB lookup and DSCP values of data packet, redirecting to
+// another nexthop group.
+//
+// If called again with the same match_nexthop_group_name &
+// redirect_nexthop_group_name but different set of DSCP values, it will
+// replace any previously configured DSCP values with the new ones.
+message cbf_nexthop_group_redirect_msg {
+   string match_nexthop_group_name = 1;
+   // IPv4 and IPv6 DSCP values to match on, the DSCP values are 6 bit values.
+   repeated uint32 match_ipv4_dscp = 2;
+   repeated uint32 match_ipv6_dscp = 3;
+   string redirect_nexthop_group_name = 4;
+
+   // On delete specify the match_nexthop_group_name and redirect_nexthop_group_name
+   // names, leaving the match_ipv4_dscp and match_ipv6_dscp empty.
+   bool request_delete = 5;
+}
+
+message cbf_nexthop_group_redirect_bulk_msg {
+   repeated cbf_nexthop_group_redirect_msg redirects = 1;
+}
+
+message sbfd_echo_session_key_msg {
+   // BFD probe packets will be sent out of the outgoing interface
+   // to the directly connected nexthop identified by nexthop, with
+   // a label stack specified by 'labels' and with the specified
+   // IPv4/IPv6 DSCP and MPLS exp COS markings.
+   //
+   // If the nexthop address is an IPv4 address, the probe packets
+   // will be IPv4 packets, if it is an IPv6 address, the BFD
+   // packet will be IPv6 packets.
+   string          outgoing_interface = 1;
+   ip_address_msg       nexthop = 2;
+   // Stack of labels to push, first label in the sequence is top of stack label,
+   // or outermost label.
+   repeated uint32 labels = 3;
+   uint32          dscp = 4;
+   uint32          mpls_exp = 5;
+}
+
+message sbfd_echo_session_msg {
+   sbfd_echo_session_key_msg session_key = 1;
+   // True on delete, false on add/modify.
+   bool request_delete = 2;
+   // If true RTT updates will be pushed to registered clients via
+   // watch_sbfd_echo_session_status_msg, at intervals configured by
+   //
+   // router bfd
+   //  session stats snapshot interval ((dangerous <1-9>)|<10-3600 seconds>)
+   bool rtt_enabled = 3;
+   // Desired minimum tx interval, in milliseconds.
+   // If not specified 300ms will be used.
+   uint32 min_tx = 4;
+   // Detection multiplier. If not specified, 3 will be used.
+   uint32 detection_multiplier = 5;
+}
+
+message sbfd_echo_session_bulk_msg {
+   repeated sbfd_echo_session_msg sessions = 1;
+}
+
+message watch_sbfd_echo_session_config_msg {
+   bool request_rtt_updates = 1;
+}
+
+message sbfd_echo_session_oper_status_msg {
+   enum status_enum {
+      NULL = 0;
+      DOWN = 1;
+      INIT = 2;
+      UP = 3;
+      ADMIN_DOWN=4;
+   }
+   status_enum status = 1;
+}
+
+message sbfd_echo_session_rtt_msg {
+   // RTT of the last received probe, in microseconds.
+   uint32 last_rtt = 1;
+   // Minimum RTT for lifetime of session, in microseconds.
+   uint32 min_rtt = 2;
+   // Average RTT for lifetime of session, in microseconds.
+   uint32 avg_rtt = 3;
+   // Maximum RTT for lifetime of session, in microseconds.
+   uint32 max_rtt = 4;
+   // Minimum RTT since last RTT report, in microseconds.
+   uint32 snapshot_min_rtt = 5;
+   // Average RTT since last RTT report, in microseconds.
+   uint32 snapshot_avg_rtt = 6;
+   // Maximum RTT since last RTT report, in microseconds.
+   uint32 snapshot_max_rtt = 7;
+}
+
+message watch_sbfd_echo_session_status_msg {
+   // The session that the update pertains to.
+   sbfd_echo_session_key_msg session_key = 1;
+
+   oneof update {
+      // status_enum change, notify the current status of the session.
+      sbfd_echo_session_oper_status_msg status = 2;
+      // Round trip time of the session probes.
+      sbfd_echo_session_rtt_msg rtt = 3;
+   }
+}
