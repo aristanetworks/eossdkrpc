@@ -9,7 +9,6 @@ include( 'version.qbi' )
 include_dirs = [
    '-I$target_dir',
    '-I$src_dir',
-   '-I$INCLUDEDIR/python2.7',
    '-I$target_dir/src-includes',
    '-I$target_dir/generated-includes',
    '-I$INCLUDEDIR',
@@ -46,6 +45,7 @@ cfg = config(
       '--Werror=7',
    ],
    tacc_include_dirs=include_dirs,
+   py_versions=[ '2', '3' ],
 )
 
 #-----------------------------------------------------------------------

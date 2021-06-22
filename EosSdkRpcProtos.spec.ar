@@ -8,6 +8,8 @@ Group: Arista/Software
 BuildRoot: %{_tmppath}/%{name}-root
 Url: http://www.AristaNetworks.com
 
+%global debug_package %{nil}
+
 Conflicts: EosSdkRpc <= 1.0.3
 
 # NOTE: Please do NOT put the names of macros into any comments in this
@@ -53,15 +55,35 @@ EosRemoteSdk files used by other packages during development.
 %{_datadir}/EosSdkRpcProtos/proto/eapi.proto
 %{_datadir}/EosSdkRpcProtos/proto/EosSdkRpc.proto
 %{python_sitelib}/bgp_pb2.py*
+%{python3_sitelib}/bgp_pb2.py
+%{python3_sitelib}/__pycache__/bgp_pb2.cpython*
 %{python_sitelib}/bgp_pb2_grpc.py*
+%{python3_sitelib}/bgp_pb2_grpc.py
+%{python3_sitelib}/__pycache__/bgp_pb2_grpc.cpython*
 %{python_sitelib}/bgp_path_pb2.py*
+%{python3_sitelib}/bgp_path_pb2.py
+%{python3_sitelib}/__pycache__/bgp_path_pb2.cpython*
 %{python_sitelib}/bgp_path_pb2_grpc.py*
+%{python3_sitelib}/bgp_path_pb2_grpc.py
+%{python3_sitelib}/__pycache__/bgp_path_pb2_grpc.cpython*
 %{python_sitelib}/defs_pb2.py*
+%{python3_sitelib}/defs_pb2.py
+%{python3_sitelib}/__pycache__/defs_pb2.cpython*
 %{python_sitelib}/defs_pb2_grpc.py*
+%{python3_sitelib}/defs_pb2_grpc.py
+%{python3_sitelib}/__pycache__/defs_pb2_grpc.cpython*
 %{python_sitelib}/eapi_pb2.py*
+%{python3_sitelib}/eapi_pb2.py
+%{python3_sitelib}/__pycache__/eapi_pb2.cpython*
 %{python_sitelib}/eapi_pb2_grpc.py*
+%{python3_sitelib}/eapi_pb2_grpc.py
+%{python3_sitelib}/__pycache__/eapi_pb2_grpc.cpython*
 %{python_sitelib}/EosSdkRpc_pb2.py*
+%{python3_sitelib}/EosSdkRpc_pb2.py
+%{python3_sitelib}/__pycache__/EosSdkRpc_pb2.cpython*
 %{python_sitelib}/EosSdkRpc_pb2_grpc.py*
+%{python3_sitelib}/EosSdkRpc_pb2_grpc.py
+%{python3_sitelib}/__pycache__/EosSdkRpc_pb2_grpc.cpython*
 
 %files devel
 %defattr(-,root,root)
