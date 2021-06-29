@@ -1,0 +1,97 @@
+syntax = "proto3";
+
+import "defs.proto";
+
+package eos.remote;
+
+service IntfMgrService {
+   rpc watch( WatchIntfParams ) returns ( stream InterfaceEvent ) {}
+
+   rpc intfs( Void ) returns ( stream IntfId ) {}
+   
+   rpc exists( IntfId ) returns ( Bool ) {}
+
+   rpc kernel_intf_name( IntfId ) returns ( String ) {}
+
+   rpc eos_intf_name( String ) returns ( IntfId ) {}
+
+   rpc admin_enabled( IntfId ) returns ( Bool ) {}
+
+   rpc admin_enabled_is( AdminEnabledParams ) returns ( RpcResponseStatus ) {}
+
+   rpc bulk_admin_enabled_is( BulkAdminEnabledParams ) returns ( BulkResponse ) {}
+
+   rpc description( IntfId ) returns ( String ) {}
+
+   rpc description_is( DescriptionParams ) returns ( RpcResponseStatus ) {}
+
+   rpc bulk_description_is( BulkDescriptionParams ) returns ( BulkResponse ) {}
+
+   rpc oper_status( IntfId ) returns ( OperStatus ) {}
+}
+
+message WatchIntfParams {
+   oneof overrides {
+      bool all_intfs = 1;
+      IntfId intf_id = 2;
+   }
+}
+
+message InterfaceEvent {
+   enum IntfEvents {
+      INTF_CREATE = 0;
+      INTF_DEL = 1;
+   }
+   IntfId intf_id = 1;
+   oneof intf_event {
+      IntfEvents event = 2;
+      OperStatus status = 3;
+      bool admin_enabled = 4;
+      string description = 5;
+   }
+}
+
+enum InterfaceTypes{
+   INTF_TYPE_NULL = 0;
+   INTF_TYPE_OTHER = 1;
+   INTF_TYPE_ETH = 2;
+   INTF_TYPE_VLAN = 3;
+   INTF_TYPE_MANAGEMENT = 4;
+   INTF_TYPE_LOOPBACK = 5;
+   INTF_TYPE_LAG = 6;
+   INTF_TYPE_NULL0 = 7;
+   INTF_TYPE_CPU = 8;
+   INTF_TYPE_VXLAN = 9;
+}
+
+message IntfId{
+  InterfaceTypes type = 1;
+  uint64 id = 2;
+}
+
+message AdminEnabledParams {
+   IntfId intf_id = 1;
+   bool enabled = 2;
+}
+
+message BulkAdminEnabledParams {
+   repeated AdminEnabledParams admin_intfs = 1;
+}
+
+message DescriptionParams {
+   IntfId intf_id = 1;
+   string description = 2;
+}
+
+message BulkDescriptionParams {
+   repeated DescriptionParams intf_descriptions = 1;
+}
+
+message OperStatus {
+   enum OperStatuses {
+      INTF_OPER_NULL = 0;
+      INTF_OPER_UP = 1;
+      INTF_OPER_DOWN = 2;
+   }
+   OperStatuses status = 1;
+}

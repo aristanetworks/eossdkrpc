@@ -40,3 +40,7 @@ message ResyncMgrParams {
    }
    State value = 1;
 }
+
+message String {
+   string value = 1;
+}

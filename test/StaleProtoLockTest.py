@@ -18,6 +18,7 @@ import os
 excludedFiles = [
    'ip_route.proto',
    'defs.proto',
+   'intf.proto'
    ]
 
 def CheckLockFileIsNotStale():
