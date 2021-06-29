@@ -1,0 +1,99 @@
+syntax = "proto3";
+
+import "defs.proto";
+
+package eos.remote;
+
+service IpRouteMgrService {
+   rpc tag( Void ) returns ( Uint32 ) {}
+
+   rpc tag_is( Uint32 ) returns ( RpcResponseStatus ) {}
+
+   rpc resync( ResyncMgrParams ) returns ( RpcResponseStatus ) {}
+
+   rpc ip_routes( Void ) returns ( stream IpRoute ) {}
+
+   rpc ip_route_vias( IpRouteViaParams ) returns ( stream IpRouteVia ) {}
+
+   rpc ip_route_exists( IpRouteParams ) returns ( Bool ) {}
+
+   rpc ip_route_via_exists( IpRouteViaParams ) returns ( Bool ) {}
+
+   rpc ip_route( IpRouteParams ) returns ( IpRoute ) {}
+
+   rpc ip_route_set( IpRouteSetParams ) returns ( RpcResponseStatus ) {}
+
+   rpc bulk_ip_route_set( BulkIpRouteSetParams ) returns ( BulkResponse ) {}
+
+   rpc ip_route_del( IpRouteParams ) returns ( RpcResponseStatus ) {}
+   
+   rpc bulk_ip_route_del( BulkIpRouteParams ) returns ( BulkResponse ) {}
+
+   rpc ip_route_via_set( IpRouteViaParams ) returns ( RpcResponseStatus ) {}
+   
+   rpc bulk_ip_route_via_set( BulkIpRouteViaParams ) returns ( BulkResponse ) {}
+
+   rpc ip_route_via_del( IpRouteViaParams ) returns ( RpcResponseStatus ) {}
+   
+   rpc bulk_ip_route_via_del( BulkIpRouteViaParams ) returns ( BulkResponse ) {}
+}
+
+message IpRouteKey {
+   Prefix prefix = 1;
+   uint32 preference = 2;
+}
+
+message IpRoute {
+   IpRouteKey key = 1;
+   uint32 tag = 2;
+}
+
+message IpRouteParams {
+   IpRouteKey key = 1;
+   string vrf_name = 2;
+}
+
+message BulkIpRouteParams {
+   repeated IpRouteParams ip_routes = 1;
+}
+
+enum IpRouteActions {
+   IP_ROUTE_ACTION_NULL = 0;
+   IP_ROUTE_ACTION_FORWARD = 1;
+   IP_ROUTE_ACTION_DROP = 2;
+   IP_ROUTE_ACTION_NEXTHOP_GROUP = 3;
+}
+
+message IpRouteSetParams {
+   IpRoute route = 1;
+   oneof additional_arg {
+      IpRouteActions action = 2;
+      string vrf_name = 3;
+   }
+}
+
+message BulkIpRouteSetParams {
+   repeated IpRouteSetParams ip_routes = 1;
+}
+
+message IpRouteViaParams {
+   IpRouteVia via = 1;
+   string vrf_name = 2;
+}
+
+message BulkIpRouteViaParams {
+   repeated IpRouteViaParams ip_route_vias = 1;
+}
+
+message IpRouteVia {
+   IpRouteKey key = 1;
+   bytes hop_addr = 2;
+   uint64 intf_id = 3;
+   string nhg_name = 4;
+   uint32 mpls_label = 5;
+   uint32 vni = 6;
+   bytes vtep_addr = 7;
+   bytes router_mac_eth_addr = 8;
+   string egress_vrf = 9;
+   uint32 metric = 10;
+}

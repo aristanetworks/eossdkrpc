@@ -12,3 +12,31 @@ message Prefix {
    bytes ip_addr = 1;
    int32 length = 2;
 }
+
+message Uint32 {
+   uint32 value = 1;
+}
+
+message RpcResponseStatus {
+   enum RpcStatusValues {
+      OK = 0;
+      FAIL = 1;
+      NOT_FOUND = 2;
+      IN_USE = 3;
+      NO_INIT = 4;
+  }
+  RpcStatusValues value = 1;
+  string debug_string = 2;
+}
+
+message BulkResponse {
+  repeated RpcResponseStatus statuses = 1; 
+}
+
+message ResyncMgrParams {
+   enum State {
+      START = 0;
+      END = 1;
+   }
+   State value = 1;
+}

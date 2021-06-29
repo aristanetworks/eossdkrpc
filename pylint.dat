@@ -16,7 +16,7 @@
    'datVersion':    1,
    'files': {
       'test/StaleProtoLockTest.py': {
-         (10, '1.9.2'): set ( (
+         (10, '1.9.5'): set ( (
          ) ),
       },
    },
