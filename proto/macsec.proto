@@ -1,0 +1,147 @@
+syntax = "proto3";
+
+import "defs.proto";
+import "intf.proto";
+
+package eos.remote;
+
+service MacsecMgrService {
+   rpc watch( WatchMacsecParams ) returns ( stream MacsecEvent ) {}
+   
+   rpc exists( MacsecProfileName ) returns ( Bool ) {}
+
+   rpc macsec_profile( MacsecProfileName ) returns ( MacsecProfile ) {}
+
+   rpc profile_set( MacsecProfile ) returns ( RpcResponseStatus ){}
+
+   rpc bulk_profile_set( BulkMacsecProfileSetParams ) returns ( BulkResponse ) {}
+
+   rpc profile_del( MacsecProfileName ) returns ( RpcResponseStatus ) {}
+
+   rpc bulk_profile_del( BulkMacsecProfileDelParams ) returns ( BulkResponse ) {}
+
+   rpc intf_profile( IntfId ) returns ( MacsecProfileName ) {}
+
+   rpc intf_profile_is( IntfProfileParams ) returns ( RpcResponseStatus ) {}
+
+   rpc bulk_intf_profile_is( BulkIntfProfileParams ) returns ( BulkResponse ) {}
+
+   rpc macsec_capable( IntfId ) returns ( Bool ) {}
+
+   rpc intf_status( IntfId ) returns ( MacsecIntfStatus ) {}
+
+   rpc intf_counters( IntfId ) returns ( MacsecIntfCounters ) {}
+
+   rpc macsec_profiles( Void ) returns ( stream MacsecProfile ) {}
+
+   rpc macsec_intf_statuses( Void ) returns ( stream MacsecIntfStatus ) {}
+}
+
+message WatchMacsecParams {
+   oneof overloads {
+      bool all_intfs = 1;
+      IntfId intf_id = 2;
+   }
+}
+
+message MacsecEvent {
+   IntfId intf_id = 1;
+   MacsecIntfStatus intf_status = 2;
+}
+
+message MacsecProfileName {
+   string value = 1;
+}
+
+message MacsecKey {
+   string cak = 1;
+   string ckn = 2;
+   bool encoded = 3;
+}
+
+enum MacsecCipherSuite {
+   CIPHER_NULL = 0;
+   GCM_AES_128 = 1;
+   GCM_AES_256 = 2;
+   GCM_AES_XPN_128 = 3;
+   GCM_AES_XPN_256 = 4;
+}
+
+enum MacsecBypass {
+   BYPASS_NULL = 0;
+   BYPASS_AUTHORIZED = 1;
+   BYPASS_UNAUTHORIZED = 2;
+}
+
+enum MacsecProfileTrafficPolicy {
+   TRAFFIC_POLICY_NULL = 0;
+   TRAFFIC_POLICY_ACTIVE_SAK = 1;
+   TRAFFIC_POLICY_UNPROTECTED = 2;
+   TRAFFIC_POLICY_BLOCKED = 3;
+}
+
+message MacsecProfile {
+   string profile_name = 1;
+   MacsecKey primary_key = 2;
+   MacsecKey fallback_key = 3;
+   uint32 key_server_priority = 4;
+   uint32 rekey_period = 5;
+   uint32 mka_life_time = 6;
+   MacsecCipherSuite cipher = 7;
+   bool dot1x = 8;
+   bool include_sci = 9;
+   bool bypass_lldp = 10;
+   MacsecBypass lldp_bypass_level = 11;
+   MacsecProfileTrafficPolicy traffic_policy = 12;
+   bool allow_unprotected = 13;
+   bool replay_protection = 14;
+   uint32 replay_protection_window = 15;
+   bool key_retirement_immediate = 16;
+   repeated IntfId intfs = 17;
+}
+
+message BulkMacsecProfileSetParams {
+   repeated MacsecProfile profiles = 1;
+}
+
+message BulkMacsecProfileDelParams {
+   repeated string macsec_profile_names = 1;
+}
+
+message IntfProfileParams {
+   IntfId intf_id = 1;
+   string mac_sec_profile_name = 2;
+}
+
+message BulkIntfProfileParams {
+   repeated IntfProfileParams intf_profiles = 1;
+}
+
+enum MacsecIntfKeyStatus {
+   MACSEC_NO_PROFILE = 0;
+   MACSEC_KEY_NONE = 1;
+   MACSEC_KEY_PRIMARY = 2;
+   MACSEC_KEY_FALLBACK = 3;
+   MACSEC_KEY_PRIMARY_CACHED = 4;
+   MACSEC_KEY_FALLBACK_CACHED = 5;
+}
+
+enum MacsecIntfTrafficStatus {
+   MACSEC_TRAFFIC_PROTECTED = 0;
+   MACSEC_TRAFFIC_UNPROTECTED = 1;
+   MACSEC_TRAFFIC_BLOCKED = 2;
+}
+
+message MacsecIntfStatus { 
+   MacsecIntfKeyStatus status = 1;
+   MacsecIntfKeyStatus key_status = 2;
+   MacsecIntfTrafficStatus traffic_status = 3;
+}
+
+message MacsecIntfCounters {
+   uint64 out_pkts_encrypted = 1;
+   uint64 out_octets_encrypted = 2;
+   uint64 in_pkts_decrypted = 3;
+   uint64 in_octets_decrypted = 4;
+   uint64 in_pkts_not_valid = 5;
+}
