@@ -31,7 +31,7 @@ service IntfMgrService {
 }
 
 message WatchIntfParams {
-   oneof overrides {
+   oneof overloads {
       bool all_intfs = 1;
       IntfId intf_id = 2;
    }

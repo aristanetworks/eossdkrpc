@@ -11,7 +11,7 @@ service BgpMgrService {
 }
 
 message WatchBgpPeerParams {
-   oneof overrides {
+   oneof overloads {
       bool all_peers = 1;
       BgpPeerKey peer_key = 2;
    }

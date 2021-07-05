@@ -21,7 +21,7 @@ service BgpPathMgrService {
 }
 
 message WatchBgpPathParams {
-   oneof overrides {
+   oneof overloads {
       bool all_paths = 1;
       bool ipv4_unicast_paths = 2;
       bool ipv6_unicast_paths = 3;

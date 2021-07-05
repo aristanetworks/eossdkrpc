@@ -20,6 +20,7 @@ excludedFiles = [
    'defs.proto',
    'intf.proto',
    'macsec.proto',
+   'ip_intf.proto',
    ]
 
 def CheckLockFileIsNotStale():

@@ -1,0 +1,83 @@
+syntax = "proto3";
+
+import "defs.proto";
+import "intf.proto";
+
+package eos.remote;
+
+service IpIntfMgrService {
+   rpc watch( WatchIpIntfParams ) returns ( stream IpIntfEvent ) {}
+
+   rpc exists( IntfId ) returns ( Bool ) {}
+
+   rpc ip_addrs( IntfId ) returns ( IpAddrMasks ) {}
+
+   rpc ip_addrs_is( IpAddrsIsParams ) returns ( RpcResponseStatus ) {}
+
+   rpc bulk_ip_addrs_is( BulkIpAddrsIsParams ) returns ( BulkResponse ) {}
+
+   rpc ip_addr_modify( IpAddrModifyParams ) returns ( RpcResponseStatus ) {}
+
+   rpc bulk_ip_addr_modify( BulkIpAddrModifyParams ) returns ( BulkResponse ) {}
+   
+   rpc ip_addr_merge_mode( IntfId ) returns ( Bool ) {}
+
+   rpc ip_addr_merge_mode_is( IpAddrMergeModeParams ) returns ( RpcResponseStatus ) {}
+
+   rpc bulk_ip_addr_merge_mode_is( BulkIpAddrMergeModeParams ) returns ( BulkResponse ) {}
+
+   rpc internal_vlan_id( IntfId ) returns ( VlanId ) {}
+}
+
+message WatchIpIntfParams {
+   oneof overloads {
+      bool all_intfs = 1;
+      IntfId intf_id = 2;
+   }
+}
+
+enum IpAddrOperations {
+   ADD = 0;
+   DELETE = 1;
+}
+
+message IpAddrEvent {
+   IpAddrOperations operation = 1;
+   IpAddrMask ip_addr_mask = 2;
+}
+
+message IpIntfEvent {
+   IntfId intf_id = 1;
+   oneof ip_intf_event {
+      IpAddrEvent event = 2;
+      VlanId vlan_id = 3;
+   }
+} 
+
+message IpAddrsIsParams {
+   IntfId intf_id = 1;
+   repeated IpAddrMask ip_addr_mask = 2;
+}
+
+message BulkIpAddrsIsParams {
+   repeated IpAddrsIsParams ip_addrs = 1;
+}
+
+message IpAddrModifyParams {
+   IpAddrOperations operation = 1;
+   IntfId intf_id = 2;
+   IpAddrMask ip_addr_mask = 3;
+}
+
+message BulkIpAddrModifyParams {
+   repeated IpAddrModifyParams params = 1;
+}
+
+message IpAddrMergeModeParams {
+   IntfId intf_id = 1;
+   bool merge = 2;
+}
+
+message BulkIpAddrMergeModeParams {
+   repeated IpAddrMergeModeParams params = 1;
+}
