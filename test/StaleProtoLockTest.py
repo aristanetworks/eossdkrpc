@@ -16,6 +16,8 @@ import os
 # Used to prevent build failures due to not updating the lock file
 # for template protobufs.
 excludedFiles = [
+   'bgp.proto',
+   'bgp_path.proto',
    'ip_route.proto',
    'defs.proto',
    'intf.proto',
