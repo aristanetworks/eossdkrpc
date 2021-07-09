@@ -30,6 +30,36 @@ service IntfMgrService {
    rpc oper_status( IntfId ) returns ( OperStatus ) {}
 }
 
+service IntfCounterMgrService {
+   rpc intf_counters( IntfId ) returns( IntfCounters ) {}
+
+   rpc intf_traffic_counters( IntfId ) returns( IntfTrafficRates ) {}
+}
+
+message IntfCounters {
+   uint64 out_ucast_pkts = 1;
+   uint64 out_multicast_pkts = 2;
+   uint64 out_broadcast_pkts = 3;
+   uint64 in_ucast_pkts = 4;
+   uint64 in_multicast_pkts = 5;
+   uint64 in_broadcast_pkts = 6;
+   uint64 out_octets = 7;
+   uint64 in_octets = 8;
+   uint64 out_discards = 9;
+   uint64 out_errors = 10;
+   uint64 in_discards = 11;
+   uint64 in_errors = 12;
+   double sample_time = 13; 
+}
+
+message IntfTrafficRates {
+   double out_pkts_rate = 1;
+   double in_pkts_rate = 2;
+   double out_bits_rate = 3;
+   double in_bits_rate = 4;
+   double sample_time = 5;
+}
+
 message WatchIntfParams {
    oneof overloads {
       bool all_intfs = 1;
