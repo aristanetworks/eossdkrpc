@@ -1,14 +1,12 @@
 Summary: Protobufs for communicating with EosSdkRpc and EosSdkRpcClient
 Name: EosSdkRpcProtos
-Version: 1.0.3
+Version: 1.0.4
 Release: %{?release:%{release}}%{!?release:eng}
 Source0: %{name}-%{version}.tar.gz
 License: Arista Networks
 Group: Arista/Software
 BuildRoot: %{_tmppath}/%{name}-root
 Url: http://www.AristaNetworks.com
-
-%global debug_package %{nil}
 
 Conflicts: EosSdkRpc <= 1.0.3
 
@@ -22,6 +20,13 @@ Conflicts: EosSdkRpc <= 1.0.3
 %description
 Protobufs for communicating with the EosSdkRpc and EosSdkRpcClient.
 This package contains the generated python protobufs.
+
+%package lib
+Summary: EosSdkRpcProtos lib package
+Group: Arista/Libraries
+
+%description lib
+EosSdkRpcProtos files that belong in EOS.swi and are shared with other packages.
 
 %package devel
 Summary: EosRemoteSdk devel package
@@ -85,7 +90,10 @@ EosRemoteSdk files used by other packages during development.
 %{python3_sitelib}/EosSdkRpc_pb2_grpc.py
 %{python3_sitelib}/__pycache__/EosSdkRpc_pb2_grpc.cpython*
 
+%files lib
+%defattr(-,root,root)
+%{_libdir}/libEosSdkRpcProtos.so*
+
 %files devel
 %defattr(-,root,root)
 %{_includedir}/EosSdkRpcProtos
-%{_libdir}/libEosSdkRpcProtos.a

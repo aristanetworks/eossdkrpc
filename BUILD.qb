@@ -168,7 +168,7 @@ data(
 #-----------------------------------------------------------------------
 # Protobuf Libraries
 
-static_library(
+shared_library(
    'EosSdkRpcProtos',
    sources=protocCppGenerated,
    libs=[
