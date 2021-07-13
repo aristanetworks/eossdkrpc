@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package eos.remote;
+
+enum MplsActions {
+   MPLS_ACTION_NULL = 0;
+   MPLS_ACTION_PUSH = 1;
+   MPLS_ACTION_POP = 2;
+   MPLS_ACTION_SWAP = 3;
+   MPLS_ACTION_FORWARD = 4;
+}
