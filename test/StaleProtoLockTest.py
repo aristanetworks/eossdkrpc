@@ -25,6 +25,8 @@ excludedFiles = [
    'ip_intf.proto',
    'ip_route.proto',
    'macsec.proto',
+   'mpls.proto',
+   'nexthop_group.proto',
    'EosSdkRpc.proto',
    ]
 
