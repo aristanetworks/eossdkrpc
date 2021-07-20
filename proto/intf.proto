@@ -98,8 +98,7 @@ enum InterfaceTypes{
 }
 
 message IntfId{
-  InterfaceTypes type = 1;
-  uint64 id = 2;
+   string name=1;
 }
 
 message AdminEnabledParams {
