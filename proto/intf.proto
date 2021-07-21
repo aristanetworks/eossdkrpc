@@ -20,13 +20,13 @@ service IntfMgrService {
 
    rpc admin_enabled( IntfId ) returns ( Bool ) {}
 
-   rpc admin_enabled_is( AdminEnabledParams ) returns ( RpcResponseStatus ) {}
+   rpc admin_enabled_is( AdminEnabledParams ) returns ( Void ) {}
 
    rpc bulk_admin_enabled_is( BulkAdminEnabledParams ) returns ( BulkResponse ) {}
 
    rpc description( IntfId ) returns ( String ) {}
 
-   rpc description_is( DescriptionParams ) returns ( RpcResponseStatus ) {}
+   rpc description_is( DescriptionParams ) returns ( Void ) {}
 
    rpc bulk_description_is( BulkDescriptionParams ) returns ( BulkResponse ) {}
 

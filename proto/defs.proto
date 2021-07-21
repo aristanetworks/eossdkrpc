@@ -30,14 +30,7 @@ message Uint32 {
 }
 
 message RpcResponseStatus {
-   enum RpcStatusValues {
-      OK = 0;
-      FAIL = 1;
-      NOT_FOUND = 2;
-      IN_USE = 3;
-      NO_INIT = 4;
-  }
-  RpcStatusValues value = 1;
+  bool success = 1;
   string debug_string = 2;
 }
 
