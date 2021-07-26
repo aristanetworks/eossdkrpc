@@ -10,9 +10,11 @@ import "defs.proto";
 service IpRouteMgrService {
    rpc tag( Void ) returns ( Uint32 ) {}
 
-   rpc tag_is( Uint32 ) returns ( RpcResponseStatus ) {}
+   rpc tag_is( Uint32 ) returns ( Void ) {}
 
-   rpc resync( ResyncMgrParams ) returns ( RpcResponseStatus ) {}
+   rpc resync_init( Void ) returns ( Void ) {}
+
+   rpc resync_complete( Void ) returns ( Void ) {}
 
    rpc ip_routes( Void ) returns ( stream IpRoute ) {}
 
