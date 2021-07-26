@@ -64,6 +64,12 @@ protoFiles = [
    'proto/defs.proto',
    'proto/eapi.proto',
    'proto/EosSdkRpc.proto',
+   'proto/intf.proto',
+   'proto/ip_intf.proto',
+   'proto/ip_route.proto',
+   'proto/macsec.proto',
+   'proto/mpls.proto',
+   'proto/nexthop_group.proto',
 ]
 
 #-----------------------------------------------------------------------
