@@ -3,9 +3,10 @@
 
 syntax = "proto3";
 
-package eos.remote;
-
 import "defs.proto";
+import "intf.proto";
+
+package eos.remote;
 
 service IpRouteMgrService {
    rpc tag( Void ) returns ( Uint32 ) {}
@@ -26,7 +27,7 @@ service IpRouteMgrService {
 
    rpc ip_route( IpRouteParams ) returns ( IpRoute ) {}
 
-   rpc ip_route_set( IpRouteSetParams ) returns ( RpcResponseStatus ) {}
+   rpc ip_route_set( IpRouteSetParams ) returns ( Void ) {}
 
    rpc bulk_ip_route_set( BulkIpRouteSetParams ) returns ( BulkResponse ) {}
 
@@ -93,7 +94,7 @@ message BulkIpRouteViaParams {
 message IpRouteVia {
    IpRouteKey key = 1;
    bytes hop_addr = 2;
-   uint64 intf_id = 3;
+   IntfId intf_id = 3;
    string nhg_name = 4;
    uint32 mpls_label = 5;
    uint32 vni = 6;
