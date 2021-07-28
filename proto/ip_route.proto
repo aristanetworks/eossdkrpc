@@ -31,15 +31,15 @@ service IpRouteMgrService {
 
    rpc bulk_ip_route_set( BulkIpRouteSetParams ) returns ( BulkResponse ) {}
 
-   rpc ip_route_del( IpRouteParams ) returns ( RpcResponseStatus ) {}
+   rpc ip_route_del( IpRouteParams ) returns ( Void ) {}
    
    rpc bulk_ip_route_del( BulkIpRouteParams ) returns ( BulkResponse ) {}
 
-   rpc ip_route_via_set( IpRouteViaParams ) returns ( RpcResponseStatus ) {}
+   rpc ip_route_via_set( IpRouteViaParams ) returns ( Void ) {}
    
    rpc bulk_ip_route_via_set( BulkIpRouteViaParams ) returns ( BulkResponse ) {}
 
-   rpc ip_route_via_del( IpRouteViaParams ) returns ( RpcResponseStatus ) {}
+   rpc ip_route_via_del( IpRouteViaParams ) returns ( Void ) {}
    
    rpc bulk_ip_route_via_del( BulkIpRouteViaParams ) returns ( BulkResponse ) {}
 }
