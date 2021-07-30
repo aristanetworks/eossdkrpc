@@ -71,8 +71,7 @@ service eossdk_service {
 message rpc_server_alive_msg {}
 
 message rpc_server_config_msg {
-   // If set, the server will call eos::ip_route_mgr::tag_is() with
-   // this value, and all ip_route_msgs must use the same tag.
+   // If set, the server will set tag for all ip_route_msgs the same value.
    uint32 ip_route_tag = 1;
    // The name of the policy-map that is built by cbf_nexthop_group_redirect.
    string cbf_nexthop_group_redirect_policy_map_name = 2;
