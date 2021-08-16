@@ -1,9 +1,9 @@
 syntax = "proto3";
 
+package eos.remote;
+
 import "defs.proto";
 import "intf.proto";
-
-package eos.remote;
 
 service MacsecMgrService {
    rpc watch( WatchMacsecParams ) returns ( stream MacsecEvent ) {}

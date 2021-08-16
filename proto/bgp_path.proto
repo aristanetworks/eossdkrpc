@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-import "defs.proto";
-
 package eos.remote;
+
+import "defs.proto";
 
 service BgpPathMgrService {
    rpc watch( WatchBgpPathParams ) returns ( stream BgpPathEvent ) {}

@@ -1,9 +1,9 @@
 syntax = "proto3";
 
+package eos.remote;
+
 import "defs.proto";
 import "intf.proto";
-
-package eos.remote;
 
 service IpIntfMgrService {
    rpc watch( WatchIpIntfParams ) returns ( stream IpIntfEvent ) {}

@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-import "defs.proto";
-
 package eos.remote;
+
+import "defs.proto";
 
 service BgpMgrService {
    rpc watch( WatchBgpPeerParams ) returns ( stream BgpPeerEvent ) {}
@@ -36,14 +36,15 @@ message BgpPeerState {
    BgpPeerStates peer_state = 1;
 }
 
+enum BgpPeerEventStates {
+   PEER_SET = 0;
+   PEER_DEL = 1;
+}
+
 message BgpPeerEvent {
-   enum Events {
-      PEER_SET = 0;
-      PEER_DEL = 1;
-   }
    BgpPeerKey peer_key = 1;
    oneof peer_event {
-      Events event = 2;
+      BgpPeerEventStates event = 2;
       BgpPeerStates peer_state = 3;
    } 
 }

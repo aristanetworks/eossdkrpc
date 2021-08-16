@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-import "defs.proto";
-
 package eos.remote;
+
+import "defs.proto";
 
 service IntfMgrService {
    rpc watch( WatchIntfParams ) returns ( stream InterfaceEvent ) {}

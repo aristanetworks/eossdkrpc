@@ -802,7 +802,7 @@
             ]
           },
           {
-            "name": "BgpPeerEvent.Events",
+            "name": "BgpPeerEventStates",
             "enum_fields": [
               {
                 "name": "PEER_SET"
@@ -866,7 +866,7 @@
               {
                 "id": 2,
                 "name": "event",
-                "type": "Events"
+                "type": "BgpPeerEventStates"
               },
               {
                 "id": 3,
