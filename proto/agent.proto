@@ -1,0 +1,12 @@
+// Copyright (c) 2021 Arista Networks, Inc.  All rights reserved.
+// Arista Networks, Inc. Confidential and Proprietary.
+
+syntax = "proto3";
+
+import "defs.proto";
+
+package eos.remote;
+
+service AgentService {
+
+}
