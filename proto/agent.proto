@@ -9,4 +9,32 @@ package eos.remote;
 
 service AgentService {
 
+   /**
+    * the only supported event is on_agent_option.
+    * the events on_initialized and on_agent_enabled are out of rpc scope since
+    * they imply on creation and destruction of the RPC server itself.
+    **/
+   rpc watch( Void ) returns ( stream AgentEvent );
+   rpc agent_id( Name ) returns ( Value );
+   rpc enabled( Void ) returns ( Bool );
+   rpc agent_option( Name ) returns ( Value );
+   rpc agent_option_exists( Name ) returns ( Bool );
+   rpc agent_options( Void ) returns ( stream NameValue );
+   rpc status( Name ) returns ( Value );
+   rpc statuses( Void ) returns ( stream NameValue );
+   rpc status_set( NameValue ) returns ( Void );
+   rpc bulk_status_set( BulkNameValue ) returns ( BulkResponse );
+   rpc status_del( Name ) returns ( Void );
+   rpc bulk_status_del( BulkName ) returns ( BulkResponse );
+   rpc agent_uptime( Void ) returns ( Seconds );
+}
+
+message AgentEvent {
+   oneof event {
+      NameValue option = 1;
+   }
+}
+
+message Seconds {
+   double seconds = 1;
 }

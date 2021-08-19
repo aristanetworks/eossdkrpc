@@ -59,6 +59,7 @@ extra_dist(
 # Protobufs
 
 protoFiles = [
+   'proto/agent.proto',
    'proto/bgp.proto',
    'proto/bgp_path.proto',
    'proto/defs.proto',
