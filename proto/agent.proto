@@ -21,7 +21,7 @@ service AgentService {
    rpc agent_option_exists( Name ) returns ( Bool );
    rpc agent_options( Void ) returns ( stream Name );
    rpc status( Name ) returns ( Value );
-   rpc statuses( Void ) returns ( stream NameValue );
+   rpc statuses( Void ) returns ( stream Name );
    rpc status_set( NameValue ) returns ( Void );
    rpc bulk_status_set( BulkNameValue ) returns ( BulkResponse );
    rpc status_del( Name ) returns ( Void );
