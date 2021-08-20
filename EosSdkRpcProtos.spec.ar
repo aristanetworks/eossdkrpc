@@ -65,6 +65,12 @@ EosRemoteSdk files used by other packages during development.
 %{_datadir}/EosSdkRpcProtos/proto/macsec.proto
 %{_datadir}/EosSdkRpcProtos/proto/mpls.proto
 %{_datadir}/EosSdkRpcProtos/proto/nexthop_group.proto
+%{python_sitelib}/agent_pb2.py*
+%{python3_sitelib}/agent_pb2.py
+%{python3_sitelib}/__pycache__/agent_pb2.cpython*
+%{python_sitelib}/agent_pb2_grpc.py*
+%{python3_sitelib}/agent_pb2_grpc.py
+%{python3_sitelib}/__pycache__/agent_pb2_grpc.cpython*
 %{python_sitelib}/bgp_pb2.py*
 %{python3_sitelib}/bgp_pb2.py
 %{python3_sitelib}/__pycache__/bgp_pb2.cpython*
