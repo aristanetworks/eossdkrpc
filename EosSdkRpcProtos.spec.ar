@@ -54,6 +54,7 @@ EosRemoteSdk files used by other packages during development.
 
 %files
 %defattr(-,root,root)
+%{_datadir}/EosSdkRpcProtos/proto/agent.proto
 %{_datadir}/EosSdkRpcProtos/proto/bgp.proto
 %{_datadir}/EosSdkRpcProtos/proto/bgp_path.proto
 %{_datadir}/EosSdkRpcProtos/proto/defs.proto
