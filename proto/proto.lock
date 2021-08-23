@@ -766,6 +766,116 @@
       }
     },
     {
+      "protopath": "agent.proto",
+      "def": {
+        "messages": [
+          {
+            "name": "AgentEvent",
+            "fields": [
+              {
+                "id": 1,
+                "name": "option",
+                "type": "NameValue"
+              }
+            ]
+          },
+          {
+            "name": "Seconds",
+            "fields": [
+              {
+                "id": 1,
+                "name": "seconds",
+                "type": "double"
+              }
+            ]
+          }
+        ],
+        "services": [
+          {
+            "name": "AgentService",
+            "rpcs": [
+              {
+                "name": "watch",
+                "in_type": "Void",
+                "out_type": "AgentEvent",
+                "out_streamed": true
+              },
+              {
+                "name": "agent_id",
+                "in_type": "Name",
+                "out_type": "Uint32"
+              },
+              {
+                "name": "enabled",
+                "in_type": "Void",
+                "out_type": "Bool"
+              },
+              {
+                "name": "agent_option",
+                "in_type": "Name",
+                "out_type": "Value"
+              },
+              {
+                "name": "agent_option_exists",
+                "in_type": "Name",
+                "out_type": "Bool"
+              },
+              {
+                "name": "agent_options",
+                "in_type": "Void",
+                "out_type": "Name",
+                "out_streamed": true
+              },
+              {
+                "name": "status",
+                "in_type": "Name",
+                "out_type": "Value"
+              },
+              {
+                "name": "statuses",
+                "in_type": "Void",
+                "out_type": "Name",
+                "out_streamed": true
+              },
+              {
+                "name": "status_set",
+                "in_type": "NameValue",
+                "out_type": "Void"
+              },
+              {
+                "name": "bulk_status_set",
+                "in_type": "BulkNameValue",
+                "out_type": "BulkResponse"
+              },
+              {
+                "name": "status_del",
+                "in_type": "Name",
+                "out_type": "Void"
+              },
+              {
+                "name": "bulk_status_del",
+                "in_type": "BulkName",
+                "out_type": "BulkResponse"
+              },
+              {
+                "name": "agent_uptime",
+                "in_type": "Void",
+                "out_type": "Seconds"
+              }
+            ]
+          }
+        ],
+        "imports": [
+          {
+            "path": "defs.proto"
+          }
+        ],
+        "package": {
+          "name": "eos.remote"
+        }
+      }
+    },
+    {
       "protopath": "bgp.proto",
       "def": {
         "enums": [
@@ -1162,6 +1272,88 @@
     {
       "protopath": "defs.proto",
       "def": {
+        "enums": [
+          {
+            "name": "RpcResponseStatus.StatusCodes",
+            "enum_fields": [
+              {
+                "name": "OK"
+              },
+              {
+                "name": "CANCELLED",
+                "integer": 1
+              },
+              {
+                "name": "UNKNOWN",
+                "integer": 2
+              },
+              {
+                "name": "INVALID_ARGUMENT",
+                "integer": 3
+              },
+              {
+                "name": "DEADLINE_EXCEEDED",
+                "integer": 4
+              },
+              {
+                "name": "NOT_FOUND",
+                "integer": 5
+              },
+              {
+                "name": "ALREDY_EXISTS",
+                "integer": 6
+              },
+              {
+                "name": "PERMISSION_DENIED",
+                "integer": 7
+              },
+              {
+                "name": "RESOURCE_EXHAUSTED",
+                "integer": 8
+              },
+              {
+                "name": "FAILED_PRECONDITION",
+                "integer": 9
+              },
+              {
+                "name": "ABORTED",
+                "integer": 10
+              },
+              {
+                "name": "OUT_OF_RANGE",
+                "integer": 11
+              },
+              {
+                "name": "UNIMPLEMENTED",
+                "integer": 12
+              },
+              {
+                "name": "INTERNAL",
+                "integer": 13
+              },
+              {
+                "name": "UNAVAILABLE",
+                "integer": 14
+              },
+              {
+                "name": "DATA_LOSS",
+                "integer": 15
+              }
+            ]
+          },
+          {
+            "name": "ResyncMgrParams.State",
+            "enum_fields": [
+              {
+                "name": "START"
+              },
+              {
+                "name": "END",
+                "integer": 1
+              }
+            ]
+          }
+        ],
         "messages": [
           {
             "name": "Void"
@@ -1177,6 +1369,63 @@
             ]
           },
           {
+            "name": "Name",
+            "fields": [
+              {
+                "id": 1,
+                "name": "name",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "BulkName",
+            "fields": [
+              {
+                "id": 1,
+                "name": "names",
+                "type": "Name",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "Value",
+            "fields": [
+              {
+                "id": 1,
+                "name": "value",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "NameValue",
+            "fields": [
+              {
+                "id": 1,
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "id": 2,
+                "name": "value",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "BulkNameValue",
+            "fields": [
+              {
+                "id": 1,
+                "name": "namesValues",
+                "type": "NameValue",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
             "name": "Prefix",
             "fields": [
               {
@@ -1188,6 +1437,98 @@
                 "id": 2,
                 "name": "length",
                 "type": "int32"
+              }
+            ]
+          },
+          {
+            "name": "IpAddrMask",
+            "fields": [
+              {
+                "id": 1,
+                "name": "addr",
+                "type": "bytes"
+              },
+              {
+                "id": 2,
+                "name": "mask_length",
+                "type": "uint32"
+              }
+            ]
+          },
+          {
+            "name": "IpAddrMasks",
+            "fields": [
+              {
+                "id": 1,
+                "name": "ip_addrs",
+                "type": "IpAddrMask",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "Uint32",
+            "fields": [
+              {
+                "id": 1,
+                "name": "value",
+                "type": "uint32"
+              }
+            ]
+          },
+          {
+            "name": "RpcResponseStatus",
+            "fields": [
+              {
+                "id": 1,
+                "name": "status",
+                "type": "StatusCodes"
+              },
+              {
+                "id": 2,
+                "name": "error_string",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "BulkResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "statuses",
+                "type": "RpcResponseStatus",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "ResyncMgrParams",
+            "fields": [
+              {
+                "id": 1,
+                "name": "value",
+                "type": "State"
+              }
+            ]
+          },
+          {
+            "name": "String",
+            "fields": [
+              {
+                "id": 1,
+                "name": "value",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "VlanId",
+            "fields": [
+              {
+                "id": 1,
+                "name": "id",
+                "type": "uint32"
               }
             ]
           }
@@ -1259,6 +1600,1763 @@
                 "out_type": "EapiResponse"
               }
             ]
+          }
+        ],
+        "package": {
+          "name": "eos.remote"
+        }
+      }
+    },
+    {
+      "protopath": "intf.proto",
+      "def": {
+        "enums": [
+          {
+            "name": "InterfaceEvent.IntfEvents",
+            "enum_fields": [
+              {
+                "name": "INTF_CREATE"
+              },
+              {
+                "name": "INTF_DEL",
+                "integer": 1
+              }
+            ]
+          },
+          {
+            "name": "InterfaceTypes",
+            "enum_fields": [
+              {
+                "name": "INTF_TYPE_NULL"
+              },
+              {
+                "name": "INTF_TYPE_OTHER",
+                "integer": 1
+              },
+              {
+                "name": "INTF_TYPE_ETH",
+                "integer": 2
+              },
+              {
+                "name": "INTF_TYPE_VLAN",
+                "integer": 3
+              },
+              {
+                "name": "INTF_TYPE_MANAGEMENT",
+                "integer": 4
+              },
+              {
+                "name": "INTF_TYPE_LOOPBACK",
+                "integer": 5
+              },
+              {
+                "name": "INTF_TYPE_LAG",
+                "integer": 6
+              },
+              {
+                "name": "INTF_TYPE_NULL0",
+                "integer": 7
+              },
+              {
+                "name": "INTF_TYPE_CPU",
+                "integer": 8
+              },
+              {
+                "name": "INTF_TYPE_VXLAN",
+                "integer": 9
+              }
+            ]
+          },
+          {
+            "name": "OperStatus.OperStatuses",
+            "enum_fields": [
+              {
+                "name": "INTF_OPER_NULL"
+              },
+              {
+                "name": "INTF_OPER_UP",
+                "integer": 1
+              },
+              {
+                "name": "INTF_OPER_DOWN",
+                "integer": 2
+              }
+            ]
+          }
+        ],
+        "messages": [
+          {
+            "name": "IntfCounters",
+            "fields": [
+              {
+                "id": 1,
+                "name": "out_ucast_pkts",
+                "type": "uint64"
+              },
+              {
+                "id": 2,
+                "name": "out_multicast_pkts",
+                "type": "uint64"
+              },
+              {
+                "id": 3,
+                "name": "out_broadcast_pkts",
+                "type": "uint64"
+              },
+              {
+                "id": 4,
+                "name": "in_ucast_pkts",
+                "type": "uint64"
+              },
+              {
+                "id": 5,
+                "name": "in_multicast_pkts",
+                "type": "uint64"
+              },
+              {
+                "id": 6,
+                "name": "in_broadcast_pkts",
+                "type": "uint64"
+              },
+              {
+                "id": 7,
+                "name": "out_octets",
+                "type": "uint64"
+              },
+              {
+                "id": 8,
+                "name": "in_octets",
+                "type": "uint64"
+              },
+              {
+                "id": 9,
+                "name": "out_discards",
+                "type": "uint64"
+              },
+              {
+                "id": 10,
+                "name": "out_errors",
+                "type": "uint64"
+              },
+              {
+                "id": 11,
+                "name": "in_discards",
+                "type": "uint64"
+              },
+              {
+                "id": 12,
+                "name": "in_errors",
+                "type": "uint64"
+              },
+              {
+                "id": 13,
+                "name": "sample_time",
+                "type": "double"
+              }
+            ]
+          },
+          {
+            "name": "IntfTrafficRates",
+            "fields": [
+              {
+                "id": 1,
+                "name": "out_pkts_rate",
+                "type": "double"
+              },
+              {
+                "id": 2,
+                "name": "in_pkts_rate",
+                "type": "double"
+              },
+              {
+                "id": 3,
+                "name": "out_bits_rate",
+                "type": "double"
+              },
+              {
+                "id": 4,
+                "name": "in_bits_rate",
+                "type": "double"
+              },
+              {
+                "id": 5,
+                "name": "sample_time",
+                "type": "double"
+              }
+            ]
+          },
+          {
+            "name": "WatchIntfParams",
+            "fields": [
+              {
+                "id": 1,
+                "name": "all_intfs",
+                "type": "bool"
+              },
+              {
+                "id": 2,
+                "name": "intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "InterfaceEvent",
+            "fields": [
+              {
+                "id": 1,
+                "name": "intf_id",
+                "type": "IntfId"
+              },
+              {
+                "id": 2,
+                "name": "event",
+                "type": "IntfEvents"
+              },
+              {
+                "id": 3,
+                "name": "status",
+                "type": "OperStatus"
+              },
+              {
+                "id": 4,
+                "name": "admin_enabled",
+                "type": "bool"
+              },
+              {
+                "id": 5,
+                "name": "description",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "IntfId",
+            "fields": [
+              {
+                "id": 1,
+                "name": "name",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "AdminEnabledParams",
+            "fields": [
+              {
+                "id": 1,
+                "name": "intf_id",
+                "type": "IntfId"
+              },
+              {
+                "id": 2,
+                "name": "enabled",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "BulkAdminEnabledParams",
+            "fields": [
+              {
+                "id": 1,
+                "name": "admin_intfs",
+                "type": "AdminEnabledParams",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "DescriptionParams",
+            "fields": [
+              {
+                "id": 1,
+                "name": "intf_id",
+                "type": "IntfId"
+              },
+              {
+                "id": 2,
+                "name": "description",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "BulkDescriptionParams",
+            "fields": [
+              {
+                "id": 1,
+                "name": "intf_descriptions",
+                "type": "DescriptionParams",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "OperStatus",
+            "fields": [
+              {
+                "id": 1,
+                "name": "status",
+                "type": "OperStatuses"
+              }
+            ]
+          }
+        ],
+        "services": [
+          {
+            "name": "IntfMgrService",
+            "rpcs": [
+              {
+                "name": "watch",
+                "in_type": "WatchIntfParams",
+                "out_type": "InterfaceEvent",
+                "out_streamed": true
+              },
+              {
+                "name": "intfs",
+                "in_type": "Void",
+                "out_type": "IntfId",
+                "out_streamed": true
+              },
+              {
+                "name": "exists",
+                "in_type": "IntfId",
+                "out_type": "Bool"
+              },
+              {
+                "name": "kernel_intf_name",
+                "in_type": "IntfId",
+                "out_type": "String"
+              },
+              {
+                "name": "eos_intf_name",
+                "in_type": "String",
+                "out_type": "IntfId"
+              },
+              {
+                "name": "admin_enabled",
+                "in_type": "IntfId",
+                "out_type": "Bool"
+              },
+              {
+                "name": "admin_enabled_is",
+                "in_type": "AdminEnabledParams",
+                "out_type": "Void"
+              },
+              {
+                "name": "bulk_admin_enabled_is",
+                "in_type": "BulkAdminEnabledParams",
+                "out_type": "BulkResponse"
+              },
+              {
+                "name": "description",
+                "in_type": "IntfId",
+                "out_type": "String"
+              },
+              {
+                "name": "description_is",
+                "in_type": "DescriptionParams",
+                "out_type": "Void"
+              },
+              {
+                "name": "bulk_description_is",
+                "in_type": "BulkDescriptionParams",
+                "out_type": "BulkResponse"
+              },
+              {
+                "name": "oper_status",
+                "in_type": "IntfId",
+                "out_type": "OperStatus"
+              }
+            ]
+          },
+          {
+            "name": "IntfCounterMgrService",
+            "rpcs": [
+              {
+                "name": "intf_counters",
+                "in_type": "IntfId",
+                "out_type": "IntfCounters"
+              },
+              {
+                "name": "intf_traffic_counters",
+                "in_type": "IntfId",
+                "out_type": "IntfTrafficRates"
+              }
+            ]
+          }
+        ],
+        "imports": [
+          {
+            "path": "defs.proto"
+          }
+        ],
+        "package": {
+          "name": "eos.remote"
+        }
+      }
+    },
+    {
+      "protopath": "ip_intf.proto",
+      "def": {
+        "enums": [
+          {
+            "name": "IpAddrOperations",
+            "enum_fields": [
+              {
+                "name": "ADD"
+              },
+              {
+                "name": "DELETE",
+                "integer": 1
+              }
+            ]
+          }
+        ],
+        "messages": [
+          {
+            "name": "WatchIpIntfParams",
+            "fields": [
+              {
+                "id": 1,
+                "name": "all_intfs",
+                "type": "bool"
+              },
+              {
+                "id": 2,
+                "name": "intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "IpAddrEvent",
+            "fields": [
+              {
+                "id": 1,
+                "name": "operation",
+                "type": "IpAddrOperations"
+              },
+              {
+                "id": 2,
+                "name": "ip_addr_mask",
+                "type": "IpAddrMask"
+              }
+            ]
+          },
+          {
+            "name": "IpIntfEvent",
+            "fields": [
+              {
+                "id": 1,
+                "name": "intf_id",
+                "type": "IntfId"
+              },
+              {
+                "id": 2,
+                "name": "event",
+                "type": "IpAddrEvent"
+              },
+              {
+                "id": 3,
+                "name": "vlan_id",
+                "type": "VlanId"
+              }
+            ]
+          },
+          {
+            "name": "IpAddrsIsParams",
+            "fields": [
+              {
+                "id": 1,
+                "name": "intf_id",
+                "type": "IntfId"
+              },
+              {
+                "id": 2,
+                "name": "ip_addr_mask",
+                "type": "IpAddrMask",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "BulkIpAddrsIsParams",
+            "fields": [
+              {
+                "id": 1,
+                "name": "ip_addrs",
+                "type": "IpAddrsIsParams",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "IpAddrModifyParams",
+            "fields": [
+              {
+                "id": 1,
+                "name": "operation",
+                "type": "IpAddrOperations"
+              },
+              {
+                "id": 2,
+                "name": "intf_id",
+                "type": "IntfId"
+              },
+              {
+                "id": 3,
+                "name": "ip_addr_mask",
+                "type": "IpAddrMask"
+              }
+            ]
+          },
+          {
+            "name": "BulkIpAddrModifyParams",
+            "fields": [
+              {
+                "id": 1,
+                "name": "params",
+                "type": "IpAddrModifyParams",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "IpAddrMergeModeParams",
+            "fields": [
+              {
+                "id": 1,
+                "name": "intf_id",
+                "type": "IntfId"
+              },
+              {
+                "id": 2,
+                "name": "merge",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "BulkIpAddrMergeModeParams",
+            "fields": [
+              {
+                "id": 1,
+                "name": "params",
+                "type": "IpAddrMergeModeParams",
+                "is_repeated": true
+              }
+            ]
+          }
+        ],
+        "services": [
+          {
+            "name": "IpIntfMgrService",
+            "rpcs": [
+              {
+                "name": "watch",
+                "in_type": "WatchIpIntfParams",
+                "out_type": "IpIntfEvent",
+                "out_streamed": true
+              },
+              {
+                "name": "exists",
+                "in_type": "IntfId",
+                "out_type": "Bool"
+              },
+              {
+                "name": "ip_addrs",
+                "in_type": "IntfId",
+                "out_type": "IpAddrMasks"
+              },
+              {
+                "name": "ip_addrs_is",
+                "in_type": "IpAddrsIsParams",
+                "out_type": "RpcResponseStatus"
+              },
+              {
+                "name": "bulk_ip_addrs_is",
+                "in_type": "BulkIpAddrsIsParams",
+                "out_type": "BulkResponse"
+              },
+              {
+                "name": "ip_addr_modify",
+                "in_type": "IpAddrModifyParams",
+                "out_type": "RpcResponseStatus"
+              },
+              {
+                "name": "bulk_ip_addr_modify",
+                "in_type": "BulkIpAddrModifyParams",
+                "out_type": "BulkResponse"
+              },
+              {
+                "name": "ip_addr_merge_mode",
+                "in_type": "IntfId",
+                "out_type": "Bool"
+              },
+              {
+                "name": "ip_addr_merge_mode_is",
+                "in_type": "IpAddrMergeModeParams",
+                "out_type": "RpcResponseStatus"
+              },
+              {
+                "name": "bulk_ip_addr_merge_mode_is",
+                "in_type": "BulkIpAddrMergeModeParams",
+                "out_type": "BulkResponse"
+              },
+              {
+                "name": "internal_vlan_id",
+                "in_type": "IntfId",
+                "out_type": "VlanId"
+              }
+            ]
+          }
+        ],
+        "imports": [
+          {
+            "path": "defs.proto"
+          },
+          {
+            "path": "intf.proto"
+          }
+        ],
+        "package": {
+          "name": "eos.remote"
+        }
+      }
+    },
+    {
+      "protopath": "ip_route.proto",
+      "def": {
+        "enums": [
+          {
+            "name": "IpRouteActions",
+            "enum_fields": [
+              {
+                "name": "IP_ROUTE_ACTION_NULL"
+              },
+              {
+                "name": "IP_ROUTE_ACTION_FORWARD",
+                "integer": 1
+              },
+              {
+                "name": "IP_ROUTE_ACTION_DROP",
+                "integer": 2
+              },
+              {
+                "name": "IP_ROUTE_ACTION_NEXTHOP_GROUP",
+                "integer": 3
+              }
+            ]
+          }
+        ],
+        "messages": [
+          {
+            "name": "IpRouteKey",
+            "fields": [
+              {
+                "id": 1,
+                "name": "prefix",
+                "type": "Prefix"
+              },
+              {
+                "id": 2,
+                "name": "preference",
+                "type": "uint32"
+              }
+            ]
+          },
+          {
+            "name": "IpRoute",
+            "fields": [
+              {
+                "id": 1,
+                "name": "key",
+                "type": "IpRouteKey"
+              },
+              {
+                "id": 2,
+                "name": "tag",
+                "type": "uint32"
+              }
+            ]
+          },
+          {
+            "name": "IpRouteParams",
+            "fields": [
+              {
+                "id": 1,
+                "name": "key",
+                "type": "IpRouteKey"
+              },
+              {
+                "id": 2,
+                "name": "vrf_name",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "BulkIpRouteParams",
+            "fields": [
+              {
+                "id": 1,
+                "name": "ip_routes",
+                "type": "IpRouteParams",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "IpRouteSetParams",
+            "fields": [
+              {
+                "id": 1,
+                "name": "route",
+                "type": "IpRoute"
+              },
+              {
+                "id": 2,
+                "name": "action",
+                "type": "IpRouteActions"
+              },
+              {
+                "id": 3,
+                "name": "vrf_name",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "BulkIpRouteSetParams",
+            "fields": [
+              {
+                "id": 1,
+                "name": "ip_routes",
+                "type": "IpRouteSetParams",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "IpRouteViaParams",
+            "fields": [
+              {
+                "id": 1,
+                "name": "via",
+                "type": "IpRouteVia"
+              },
+              {
+                "id": 2,
+                "name": "vrf_name",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "BulkIpRouteViaParams",
+            "fields": [
+              {
+                "id": 1,
+                "name": "ip_route_vias",
+                "type": "IpRouteViaParams",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "IpRouteVia",
+            "fields": [
+              {
+                "id": 1,
+                "name": "key",
+                "type": "IpRouteKey"
+              },
+              {
+                "id": 2,
+                "name": "hop_addr",
+                "type": "bytes"
+              },
+              {
+                "id": 3,
+                "name": "intf_id",
+                "type": "IntfId"
+              },
+              {
+                "id": 4,
+                "name": "nhg_name",
+                "type": "string"
+              },
+              {
+                "id": 5,
+                "name": "mpls_label",
+                "type": "uint32"
+              },
+              {
+                "id": 6,
+                "name": "vni",
+                "type": "uint32"
+              },
+              {
+                "id": 7,
+                "name": "vtep_addr",
+                "type": "bytes"
+              },
+              {
+                "id": 8,
+                "name": "router_mac_eth_addr",
+                "type": "bytes"
+              },
+              {
+                "id": 9,
+                "name": "egress_vrf",
+                "type": "string"
+              },
+              {
+                "id": 10,
+                "name": "metric",
+                "type": "uint32"
+              }
+            ]
+          }
+        ],
+        "services": [
+          {
+            "name": "IpRouteMgrService",
+            "rpcs": [
+              {
+                "name": "tag",
+                "in_type": "Void",
+                "out_type": "Uint32"
+              },
+              {
+                "name": "tag_is",
+                "in_type": "Uint32",
+                "out_type": "Void"
+              },
+              {
+                "name": "resync_init",
+                "in_type": "Void",
+                "out_type": "Void"
+              },
+              {
+                "name": "resync_complete",
+                "in_type": "Void",
+                "out_type": "Void"
+              },
+              {
+                "name": "ip_routes",
+                "in_type": "Void",
+                "out_type": "IpRoute",
+                "out_streamed": true
+              },
+              {
+                "name": "ip_route_vias",
+                "in_type": "IpRouteViaParams",
+                "out_type": "IpRouteVia",
+                "out_streamed": true
+              },
+              {
+                "name": "ip_route_exists",
+                "in_type": "IpRouteParams",
+                "out_type": "Bool"
+              },
+              {
+                "name": "ip_route_via_exists",
+                "in_type": "IpRouteViaParams",
+                "out_type": "Bool"
+              },
+              {
+                "name": "ip_route",
+                "in_type": "IpRouteParams",
+                "out_type": "IpRoute"
+              },
+              {
+                "name": "ip_route_set",
+                "in_type": "IpRouteSetParams",
+                "out_type": "Void"
+              },
+              {
+                "name": "bulk_ip_route_set",
+                "in_type": "BulkIpRouteSetParams",
+                "out_type": "BulkResponse"
+              },
+              {
+                "name": "ip_route_del",
+                "in_type": "IpRouteParams",
+                "out_type": "Void"
+              },
+              {
+                "name": "bulk_ip_route_del",
+                "in_type": "BulkIpRouteParams",
+                "out_type": "BulkResponse"
+              },
+              {
+                "name": "ip_route_via_set",
+                "in_type": "IpRouteViaParams",
+                "out_type": "Void"
+              },
+              {
+                "name": "bulk_ip_route_via_set",
+                "in_type": "BulkIpRouteViaParams",
+                "out_type": "BulkResponse"
+              },
+              {
+                "name": "ip_route_via_del",
+                "in_type": "IpRouteViaParams",
+                "out_type": "Void"
+              },
+              {
+                "name": "bulk_ip_route_via_del",
+                "in_type": "BulkIpRouteViaParams",
+                "out_type": "BulkResponse"
+              }
+            ]
+          }
+        ],
+        "imports": [
+          {
+            "path": "defs.proto"
+          },
+          {
+            "path": "intf.proto"
+          }
+        ],
+        "package": {
+          "name": "eos.remote"
+        }
+      }
+    },
+    {
+      "protopath": "macsec.proto",
+      "def": {
+        "enums": [
+          {
+            "name": "MacsecCipherSuite",
+            "enum_fields": [
+              {
+                "name": "CIPHER_NULL"
+              },
+              {
+                "name": "GCM_AES_128",
+                "integer": 1
+              },
+              {
+                "name": "GCM_AES_256",
+                "integer": 2
+              },
+              {
+                "name": "GCM_AES_XPN_128",
+                "integer": 3
+              },
+              {
+                "name": "GCM_AES_XPN_256",
+                "integer": 4
+              }
+            ]
+          },
+          {
+            "name": "MacsecBypass",
+            "enum_fields": [
+              {
+                "name": "BYPASS_NULL"
+              },
+              {
+                "name": "BYPASS_AUTHORIZED",
+                "integer": 1
+              },
+              {
+                "name": "BYPASS_UNAUTHORIZED",
+                "integer": 2
+              }
+            ]
+          },
+          {
+            "name": "MacsecProfileTrafficPolicy",
+            "enum_fields": [
+              {
+                "name": "TRAFFIC_POLICY_NULL"
+              },
+              {
+                "name": "TRAFFIC_POLICY_ACTIVE_SAK",
+                "integer": 1
+              },
+              {
+                "name": "TRAFFIC_POLICY_UNPROTECTED",
+                "integer": 2
+              },
+              {
+                "name": "TRAFFIC_POLICY_BLOCKED",
+                "integer": 3
+              }
+            ]
+          },
+          {
+            "name": "MacsecIntfKeyStatus",
+            "enum_fields": [
+              {
+                "name": "MACSEC_NO_PROFILE"
+              },
+              {
+                "name": "MACSEC_KEY_NONE",
+                "integer": 1
+              },
+              {
+                "name": "MACSEC_KEY_PRIMARY",
+                "integer": 2
+              },
+              {
+                "name": "MACSEC_KEY_FALLBACK",
+                "integer": 3
+              },
+              {
+                "name": "MACSEC_KEY_PRIMARY_CACHED",
+                "integer": 4
+              },
+              {
+                "name": "MACSEC_KEY_FALLBACK_CACHED",
+                "integer": 5
+              }
+            ]
+          },
+          {
+            "name": "MacsecIntfTrafficStatus",
+            "enum_fields": [
+              {
+                "name": "MACSEC_TRAFFIC_PROTECTED"
+              },
+              {
+                "name": "MACSEC_TRAFFIC_UNPROTECTED",
+                "integer": 1
+              },
+              {
+                "name": "MACSEC_TRAFFIC_BLOCKED",
+                "integer": 2
+              }
+            ]
+          }
+        ],
+        "messages": [
+          {
+            "name": "WatchMacsecParams",
+            "fields": [
+              {
+                "id": 1,
+                "name": "all_intfs",
+                "type": "bool"
+              },
+              {
+                "id": 2,
+                "name": "intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "MacsecEvent",
+            "fields": [
+              {
+                "id": 1,
+                "name": "intf_id",
+                "type": "IntfId"
+              },
+              {
+                "id": 2,
+                "name": "intf_status",
+                "type": "MacsecIntfStatus"
+              }
+            ]
+          },
+          {
+            "name": "MacsecProfileName",
+            "fields": [
+              {
+                "id": 1,
+                "name": "value",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "MacsecKey",
+            "fields": [
+              {
+                "id": 1,
+                "name": "cak",
+                "type": "string"
+              },
+              {
+                "id": 2,
+                "name": "ckn",
+                "type": "string"
+              },
+              {
+                "id": 3,
+                "name": "encoded",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "MacsecProfile",
+            "fields": [
+              {
+                "id": 1,
+                "name": "profile_name",
+                "type": "string"
+              },
+              {
+                "id": 2,
+                "name": "primary_key",
+                "type": "MacsecKey"
+              },
+              {
+                "id": 3,
+                "name": "fallback_key",
+                "type": "MacsecKey"
+              },
+              {
+                "id": 4,
+                "name": "key_server_priority",
+                "type": "uint32"
+              },
+              {
+                "id": 5,
+                "name": "rekey_period",
+                "type": "uint32"
+              },
+              {
+                "id": 6,
+                "name": "mka_life_time",
+                "type": "uint32"
+              },
+              {
+                "id": 7,
+                "name": "cipher",
+                "type": "MacsecCipherSuite"
+              },
+              {
+                "id": 8,
+                "name": "dot1x",
+                "type": "bool"
+              },
+              {
+                "id": 9,
+                "name": "include_sci",
+                "type": "bool"
+              },
+              {
+                "id": 10,
+                "name": "bypass_lldp",
+                "type": "bool"
+              },
+              {
+                "id": 11,
+                "name": "lldp_bypass_level",
+                "type": "MacsecBypass"
+              },
+              {
+                "id": 12,
+                "name": "traffic_policy",
+                "type": "MacsecProfileTrafficPolicy"
+              },
+              {
+                "id": 13,
+                "name": "allow_unprotected",
+                "type": "bool"
+              },
+              {
+                "id": 14,
+                "name": "replay_protection",
+                "type": "bool"
+              },
+              {
+                "id": 15,
+                "name": "replay_protection_window",
+                "type": "uint32"
+              },
+              {
+                "id": 16,
+                "name": "key_retirement_immediate",
+                "type": "bool"
+              },
+              {
+                "id": 17,
+                "name": "intfs",
+                "type": "IntfId",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "BulkMacsecProfileSetParams",
+            "fields": [
+              {
+                "id": 1,
+                "name": "profiles",
+                "type": "MacsecProfile",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "BulkMacsecProfileDelParams",
+            "fields": [
+              {
+                "id": 1,
+                "name": "macsec_profile_names",
+                "type": "string",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "IntfProfileParams",
+            "fields": [
+              {
+                "id": 1,
+                "name": "intf_id",
+                "type": "IntfId"
+              },
+              {
+                "id": 2,
+                "name": "mac_sec_profile_name",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "BulkIntfProfileParams",
+            "fields": [
+              {
+                "id": 1,
+                "name": "intf_profiles",
+                "type": "IntfProfileParams",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "MacsecIntfStatus",
+            "fields": [
+              {
+                "id": 1,
+                "name": "status",
+                "type": "MacsecIntfKeyStatus"
+              },
+              {
+                "id": 2,
+                "name": "key_status",
+                "type": "MacsecIntfKeyStatus"
+              },
+              {
+                "id": 3,
+                "name": "traffic_status",
+                "type": "MacsecIntfTrafficStatus"
+              }
+            ]
+          },
+          {
+            "name": "MacsecIntfCounters",
+            "fields": [
+              {
+                "id": 1,
+                "name": "out_pkts_encrypted",
+                "type": "uint64"
+              },
+              {
+                "id": 2,
+                "name": "out_octets_encrypted",
+                "type": "uint64"
+              },
+              {
+                "id": 3,
+                "name": "in_pkts_decrypted",
+                "type": "uint64"
+              },
+              {
+                "id": 4,
+                "name": "in_octets_decrypted",
+                "type": "uint64"
+              },
+              {
+                "id": 5,
+                "name": "in_pkts_not_valid",
+                "type": "uint64"
+              }
+            ]
+          }
+        ],
+        "services": [
+          {
+            "name": "MacsecMgrService",
+            "rpcs": [
+              {
+                "name": "watch",
+                "in_type": "WatchMacsecParams",
+                "out_type": "MacsecEvent",
+                "out_streamed": true
+              },
+              {
+                "name": "exists",
+                "in_type": "MacsecProfileName",
+                "out_type": "Bool"
+              },
+              {
+                "name": "macsec_profile",
+                "in_type": "MacsecProfileName",
+                "out_type": "MacsecProfile"
+              },
+              {
+                "name": "profile_set",
+                "in_type": "MacsecProfile",
+                "out_type": "RpcResponseStatus"
+              },
+              {
+                "name": "bulk_profile_set",
+                "in_type": "BulkMacsecProfileSetParams",
+                "out_type": "BulkResponse"
+              },
+              {
+                "name": "profile_del",
+                "in_type": "MacsecProfileName",
+                "out_type": "RpcResponseStatus"
+              },
+              {
+                "name": "bulk_profile_del",
+                "in_type": "BulkMacsecProfileDelParams",
+                "out_type": "BulkResponse"
+              },
+              {
+                "name": "intf_profile",
+                "in_type": "IntfId",
+                "out_type": "MacsecProfileName"
+              },
+              {
+                "name": "intf_profile_is",
+                "in_type": "IntfProfileParams",
+                "out_type": "RpcResponseStatus"
+              },
+              {
+                "name": "bulk_intf_profile_is",
+                "in_type": "BulkIntfProfileParams",
+                "out_type": "BulkResponse"
+              },
+              {
+                "name": "macsec_capable",
+                "in_type": "IntfId",
+                "out_type": "Bool"
+              },
+              {
+                "name": "intf_status",
+                "in_type": "IntfId",
+                "out_type": "MacsecIntfStatus"
+              },
+              {
+                "name": "intf_counters",
+                "in_type": "IntfId",
+                "out_type": "MacsecIntfCounters"
+              },
+              {
+                "name": "macsec_profiles",
+                "in_type": "Void",
+                "out_type": "MacsecProfile",
+                "out_streamed": true
+              },
+              {
+                "name": "macsec_intf_statuses",
+                "in_type": "Void",
+                "out_type": "MacsecIntfStatus",
+                "out_streamed": true
+              }
+            ]
+          }
+        ],
+        "imports": [
+          {
+            "path": "defs.proto"
+          },
+          {
+            "path": "intf.proto"
+          }
+        ],
+        "package": {
+          "name": "eos.remote"
+        }
+      }
+    },
+    {
+      "protopath": "mpls.proto",
+      "def": {
+        "enums": [
+          {
+            "name": "MplsActions",
+            "enum_fields": [
+              {
+                "name": "MPLS_ACTION_NULL"
+              },
+              {
+                "name": "MPLS_ACTION_PUSH",
+                "integer": 1
+              },
+              {
+                "name": "MPLS_ACTION_POP",
+                "integer": 2
+              },
+              {
+                "name": "MPLS_ACTION_SWAP",
+                "integer": 3
+              },
+              {
+                "name": "MPLS_ACTION_FORWARD",
+                "integer": 4
+              }
+            ]
+          }
+        ],
+        "package": {
+          "name": "eos.remote"
+        }
+      }
+    },
+    {
+      "protopath": "nexthop_group.proto",
+      "def": {
+        "enums": [
+          {
+            "name": "NexthopGroupEncapTypes",
+            "enum_fields": [
+              {
+                "name": "NEXTHOP_GROUP_TYPE_NULL"
+              },
+              {
+                "name": "NEXTHOP_GROUP_IP_IN_IP",
+                "integer": 1
+              },
+              {
+                "name": "NEXTHOP_GROUP_GRE",
+                "integer": 2
+              },
+              {
+                "name": "NEXTHOP_GROUP_MPLS",
+                "integer": 3
+              },
+              {
+                "name": "NEXTHOP_GROUP_MPLS_OVER_GRE",
+                "integer": 4
+              },
+              {
+                "name": "NEXTHOP_GROUP_IP",
+                "integer": 5
+              }
+            ]
+          },
+          {
+            "name": "NexthopGroupGreKeyTypes",
+            "enum_fields": [
+              {
+                "name": "NEXTHOP_GROUP_GRE_KEY_NULL"
+              },
+              {
+                "name": "NEXTHOP_GROUP_GRE_KEY_INGRESS_INTF",
+                "integer": 1
+              }
+            ]
+          }
+        ],
+        "messages": [
+          {
+            "name": "WatchNhgParams",
+            "fields": [
+              {
+                "id": 1,
+                "name": "all_intfs",
+                "type": "bool"
+              },
+              {
+                "id": 2,
+                "name": "nhg_name",
+                "type": "string"
+              },
+              {
+                "id": 3,
+                "name": "recv_notifications",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "NhgEvent",
+            "fields": [
+              {
+                "id": 1,
+                "name": "nhgName",
+                "type": "string"
+              },
+              {
+                "id": 2,
+                "name": "active_status",
+                "type": "bool"
+              },
+              {
+                "id": 3,
+                "name": "nhg_programmed",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "NexthopGroupEntry",
+            "fields": [
+              {
+                "id": 1,
+                "name": "mpls_action",
+                "type": "NexthopGroupMplsAction"
+              },
+              {
+                "id": 2,
+                "name": "nexthop_ip",
+                "type": "bytes"
+              },
+              {
+                "id": 3,
+                "name": "intf_id",
+                "type": "IntfId"
+              },
+              {
+                "id": 4,
+                "name": "child_nexthop_group",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "NexthopGroupMplsAction",
+            "fields": [
+              {
+                "id": 1,
+                "name": "action",
+                "type": "MplsActions"
+              },
+              {
+                "id": 2,
+                "name": "mpls_labels",
+                "type": "uint32",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "NexthopGroup",
+            "fields": [
+              {
+                "id": 1,
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "id": 2,
+                "name": "type",
+                "type": "NexthopGroupEncapTypes"
+              },
+              {
+                "id": 3,
+                "name": "gre_key_type",
+                "type": "NexthopGroupGreKeyTypes"
+              },
+              {
+                "id": 4,
+                "name": "ttl",
+                "type": "uint32"
+              },
+              {
+                "id": 5,
+                "name": "source_ip_addr",
+                "type": "bytes"
+              },
+              {
+                "id": 6,
+                "name": "source_intf",
+                "type": "IntfId"
+              },
+              {
+                "id": 7,
+                "name": "autosize",
+                "type": "bool"
+              },
+              {
+                "id": 10,
+                "name": "counters_unshared",
+                "type": "bool"
+              },
+              {
+                "id": 11,
+                "name": "hierarchical_fecs_enabled",
+                "type": "bool"
+              }
+            ],
+            "maps": [
+              {
+                "key_type": "uint32",
+                "field": {
+                  "id": 8,
+                  "name": "nexthops",
+                  "type": "NexthopGroupEntry"
+                }
+              },
+              {
+                "key_type": "uint32",
+                "field": {
+                  "id": 9,
+                  "name": "destination_ips",
+                  "type": "bytes"
+                }
+              }
+            ]
+          },
+          {
+            "name": "BulkNexthopGroupSet",
+            "fields": [
+              {
+                "id": 1,
+                "name": "groups",
+                "type": "NexthopGroup",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "BulkNexthopGroupDel",
+            "fields": [
+              {
+                "id": 1,
+                "name": "names",
+                "type": "string",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "NexthopGroupCounter",
+            "fields": [
+              {
+                "id": 1,
+                "name": "packets",
+                "type": "uint64"
+              },
+              {
+                "id": 2,
+                "name": "bytes",
+                "type": "uint64"
+              },
+              {
+                "id": 3,
+                "name": "valid",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "NexthopGroupCounterParams",
+            "fields": [
+              {
+                "id": 1,
+                "name": "nhg_name",
+                "type": "string"
+              },
+              {
+                "id": 2,
+                "name": "entry",
+                "type": "uint32"
+              }
+            ]
+          }
+        ],
+        "services": [
+          {
+            "name": "NexthopGroupMgrService",
+            "rpcs": [
+              {
+                "name": "watch",
+                "in_type": "WatchNhgParams",
+                "out_type": "NhgEvent",
+                "out_streamed": true
+              },
+              {
+                "name": "resync",
+                "in_type": "ResyncMgrParams",
+                "out_type": "RpcResponseStatus"
+              },
+              {
+                "name": "nexthop_groups",
+                "in_type": "Void",
+                "out_type": "NexthopGroup",
+                "out_streamed": true
+              },
+              {
+                "name": "programmed_nexthop_groups",
+                "in_type": "Void",
+                "out_type": "NexthopGroup",
+                "out_streamed": true
+              },
+              {
+                "name": "nexthop_group",
+                "in_type": "String",
+                "out_type": "NexthopGroup"
+              },
+              {
+                "name": "counter",
+                "in_type": "NexthopGroupCounterParams",
+                "out_type": "NexthopGroupCounter"
+              },
+              {
+                "name": "exists",
+                "in_type": "String",
+                "out_type": "Bool"
+              },
+              {
+                "name": "active",
+                "in_type": "String",
+                "out_type": "Bool"
+              },
+              {
+                "name": "nexthop_group_set",
+                "in_type": "NexthopGroup",
+                "out_type": "RpcResponseStatus"
+              },
+              {
+                "name": "bulk_nexthop_group_set",
+                "in_type": "BulkNexthopGroupSet",
+                "out_type": "BulkResponse"
+              },
+              {
+                "name": "nexthop_group_del",
+                "in_type": "String",
+                "out_type": "RpcResponseStatus"
+              },
+              {
+                "name": "bulk_nexthop_group_del",
+                "in_type": "BulkNexthopGroupDel",
+                "out_type": "BulkResponse"
+              },
+              {
+                "name": "programmed_nexthop_group",
+                "in_type": "String",
+                "out_type": "NexthopGroup"
+              }
+            ]
+          }
+        ],
+        "imports": [
+          {
+            "path": "defs.proto"
+          },
+          {
+            "path": "intf.proto"
+          },
+          {
+            "path": "mpls.proto"
           }
         ],
         "package": {
