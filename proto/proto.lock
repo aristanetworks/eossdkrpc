@@ -2272,7 +2272,7 @@
               },
               {
                 "id": 2,
-                "name": "event",
+                "name": "addr",
                 "type": "IpAddrEvent"
               },
               {
@@ -2390,7 +2390,7 @@
               {
                 "name": "ip_addrs_is",
                 "in_type": "IpAddrsIsParams",
-                "out_type": "RpcResponseStatus"
+                "out_type": "Void"
               },
               {
                 "name": "bulk_ip_addrs_is",
@@ -2400,7 +2400,7 @@
               {
                 "name": "ip_addr_modify",
                 "in_type": "IpAddrModifyParams",
-                "out_type": "RpcResponseStatus"
+                "out_type": "Void"
               },
               {
                 "name": "bulk_ip_addr_modify",
@@ -2415,7 +2415,7 @@
               {
                 "name": "ip_addr_merge_mode_is",
                 "in_type": "IpAddrMergeModeParams",
-                "out_type": "RpcResponseStatus"
+                "out_type": "Void"
               },
               {
                 "name": "bulk_ip_addr_merge_mode_is",

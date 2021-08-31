@@ -15,17 +15,17 @@ service IpIntfMgrService {
 
    rpc ip_addrs( IntfId ) returns ( IpAddrMasks ) {}
 
-   rpc ip_addrs_is( IpAddrsIsParams ) returns ( RpcResponseStatus ) {}
+   rpc ip_addrs_is( IpAddrsIsParams ) returns ( Void ) {}
 
    rpc bulk_ip_addrs_is( BulkIpAddrsIsParams ) returns ( BulkResponse ) {}
 
-   rpc ip_addr_modify( IpAddrModifyParams ) returns ( RpcResponseStatus ) {}
+   rpc ip_addr_modify( IpAddrModifyParams ) returns ( Void ) {}
 
    rpc bulk_ip_addr_modify( BulkIpAddrModifyParams ) returns ( BulkResponse ) {}
    
    rpc ip_addr_merge_mode( IntfId ) returns ( Bool ) {}
 
-   rpc ip_addr_merge_mode_is( IpAddrMergeModeParams ) returns ( RpcResponseStatus ) {}
+   rpc ip_addr_merge_mode_is( IpAddrMergeModeParams ) returns ( Void ) {}
 
    rpc bulk_ip_addr_merge_mode_is( BulkIpAddrMergeModeParams ) returns ( BulkResponse ) {}
 
@@ -52,7 +52,7 @@ message IpAddrEvent {
 message IpIntfEvent {
    IntfId intf_id = 1;
    oneof ip_intf_event {
-      IpAddrEvent event = 2;
+      IpAddrEvent addr = 2;
       VlanId vlan_id = 3;
    }
 } 
