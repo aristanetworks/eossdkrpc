@@ -8,75 +8,94 @@ option go_package = "arista/EosSdkRpc";
 package EosSdkRpc.pb;
 
 service eossdk_service {
-   // rpc_server_initialize the server, must be called before any other API is called.
+   // RpcServerInit initialize the server, must be called before any
+   // other API is called. If returns object of RpcServerInitStatusMsg
+   // describing the current state of FIB programming.
    rpc rpc_server_init( rpc_server_config_msg ) returns ( rpc_server_init_status_msg ) {}
 
-   // Start or end resync process.
-   //
-   // The client is expected to call rpc_server_resync start after rpc_server_init, then
-   // push the initial state, and call rpc_server_resync end that will trigger
-   // the server to delete any existing state not received between the
-   // rpc_server_resync start and end.
+   // RpcServerInit starts or ends the resync process. The client is
+   // expected to call this API to start the resync process after
+   // initialization. It then programs the routes and nexthop groups,
+   // and calls RpcServerInit to end it, which will trigger the server
+   // to delete any existing FIB state not refreshed between the
+   // RpcServerInit start and end.
    rpc rpc_server_resync( rpc_server_resync_msg ) returns ( rpc_status_msg ) {}
 
-   // Set/modify/delete opaque key and values, visible in 'show daemon <name>'
+   // RpcServerState sets/modifies/deletes opaque key and values. EOS
+   // command 'show daemon <name>' can be used to display these values
    rpc rpc_server_state( rpc_server_state_config_msg ) returns ( rpc_status_msg ) {}
 
-   // Get opaque state, will retrieve the values for the keys present
-   // in the argument.
+   // GetRpcServerState returns opaque state associated with the
+   // specified keys.
    rpc get_rpc_server_state( rpc_server_state_status_msg ) returns ( rpc_server_state_status_msg ) {}
 
-   // Create, update or delete a nexthop group.
-   // - The name is the identifier of the nexthop group
-   // - The request_delete member indicated if it is a delete or
-   //   add/update operation,
-   //   - In the case of deletes, the nexthop member is ignored, and
-   //     expected to be empty.
-   //   - If not delete, if an existing nexthop group exists with the
-   //     specified name it will be updated, otherwise a nexthop group
-   //     will be created.
-  rpc nexthop_group( nexthop_group_msg ) returns ( rpc_status_msg ) {}
-  rpc nexthop_group_bulk( nexthop_group_bulk_msg ) returns ( rpc_status_bulk_msg ) {}
+   // NexthopGroup creates, updates or deletes a nexthop group.
+   rpc nexthop_group( nexthop_group_msg ) returns ( rpc_status_msg ) {}
+   // NexthopBulk creates, updates or deletes multiple nexthop groups
+   // and returns the status for each nexthop group operation.
+   rpc nexthop_group_bulk( nexthop_group_bulk_msg ) returns ( rpc_status_bulk_msg ) {}
 
-  // Create, update or delete a IPv4/IPv6 Route. If nexthop_group name
-  // is empty string, the route is deleted.
+  // IpRoute creates, updates or deletes a IPv4/IPv6 route.
   rpc ip_route( ip_route_msg ) returns ( rpc_status_msg ) {}
+  // IpRouteBulk creates, updates or deletes multiple IPv4/IPv6 routes
+  // and returns the status for each route programming operation.
   rpc ip_route_bulk( ip_route_bulk_msg ) returns ( rpc_status_bulk_msg ) {}
 
-  // Create, update or delete a nexthop group tunnel, used to resolve recursive
-  // IP routes.
+  // NexthopGroupTunnel creates, updates or deletes a nexthop group
+  // tunnel (which are used to resolve recursive IP routes).
   rpc nexthop_group_tunnel( nexthop_group_tunnel_msg ) returns ( rpc_status_msg ) {}
+  // NexthopGroupTunnelBulk creates, updates or deletes multiple
+  // nexthop group tunnels and returns the status for each nexthop
+  // group tunnel operation.
   rpc nexthop_group_tunnel_bulk( nexthop_group_tunnel_bulk_msg ) returns ( rpc_status_bulk_msg ) {}
 
-  // Create, update or delete an MPLS Route.
+  // MplsRoute creates, updates or deletes an MPLS route.
   rpc mpls_route( mpls_route_msg ) returns ( rpc_status_msg ) {}
+  // MplsRouteBulk creates, updates or deletes multiple MPLS routes
+  // and returns the status for each MPLS route operation.
   rpc mpls_route_bulk( mpls_route_bulk_msg ) returns ( rpc_status_bulk_msg ) {}
 
-  // Create, update or delete a Class Based Forwarding nexthop group redirect.
+  // CbfNexthopGroupRedirect creates, updates or deletes Class Based
+  // Forwarding rules for nexthop group redirection.
   rpc cbf_nexthop_group_redirect( cbf_nexthop_group_redirect_msg ) returns ( rpc_status_msg ) {}
+  // CbfNexthopGroupRedirect creates, updates or deletes Class Based
+  // Forwarding rules for multiple nexthop group redirection and
+  // returns the status for each redirect operation.
   rpc cbf_nexthop_group_redirect_bulk( cbf_nexthop_group_redirect_bulk_msg ) returns ( rpc_status_bulk_msg ) {}
 
-  // Dummy stream RPC that will never actually be used, but if the client registers
-  // for updates, it will be notified if the server terminates.
+  // WatchRpcServerAlive is a dummy stream API that will doesn't
+  // return any data, but if the client registers for updates, it will
+  // be notified if the server terminates.
   rpc watch_rpc_server_alive( rpc_server_alive_msg ) returns ( stream rpc_server_alive_msg ) {}
 
-  // Create, update or delete a sBFD echo session.
+  // SbfdEchoSession creates, updates or deletes a sBFD echo session.
   rpc sbfd_echo_session( sbfd_echo_session_msg ) returns ( rpc_status_msg ) {}
+  // SbfdEchoSessionBulk creates, updates or deletes multiple sBFD
+  // echo sessions and returns the status of each sBFD echo session
+  // operation.
   rpc sbfd_echo_session_bulk( sbfd_echo_session_bulk_msg ) returns ( rpc_status_bulk_msg ) {}
 
-  // Stream to be notified of sBFD echo session state changes and RTT notifications.
+  // WatchSbfdEchoSessionStatusMsgs produces a stream that is notified
+  // of sBFD echo session state changes and RTT updates.
   rpc watch_sbfd_echo_session_status_msgs( watch_sbfd_echo_session_config_msg ) returns ( stream watch_sbfd_echo_session_status_msg ) {}
 }
 
+// RpcServerAliveMsg is a placeholder type. It doesn't contain any fields
 message rpc_server_alive_msg {}
 
+// RpcServerConfigMsg can be used to configure FIB programming for a
+// particular client.
 message rpc_server_config_msg {
-   // If set, the server will set tag for all ip_route_msgs the same value.
+   // when set, the server will set this tag for all IP routes
+   // programmed by this client.
    uint32 ip_route_tag = 1;
-   // The name of the policy-map that is built by cbf_nexthop_group_redirect.
+   // The name of the policy-map that is built by CbfNexthopGroupRedirect API
    string cbf_nexthop_group_redirect_policy_map_name = 2;
 }
 
+// RpcServerInitStatusMsg is returned by RpcServerInit. It contains
+// various fields describing the current state of FIB programming on
+// the server.
 message rpc_server_init_status_msg {
    // Bools set to true if any objects of the corresponding type has
    // previously been programmed.
@@ -88,12 +107,14 @@ message rpc_server_init_status_msg {
    rpc_status_msg status = 6;
 }
 
+// RpcServerKeyValuePairMsg represents key - value pairs stored by the
+// RPC server in its opaque store.
 message rpc_server_key_value_pair_msg {
    string key = 1;
    string value = 2;
 }
 
-// Set/modify/delete opaque key and values, visible in 'show daemon <name>'
+// RpcServerStateConfigMsg set/modifies/deletes opaque key and values.
 message rpc_server_state_config_msg {
    // Set all the key/values preset in the set attribute.
    repeated rpc_server_key_value_pair_msg set = 1;
@@ -101,10 +122,12 @@ message rpc_server_state_config_msg {
    repeated rpc_server_key_value_pair_msg delete = 2;
 }
 
+// RpcServerStateStatusMsg contains an array of RpcServerKeyValuePairMsg objects
 message rpc_server_state_status_msg {
    repeated rpc_server_key_value_pair_msg value = 1;
 }
 
+// RpcServerResyncMsg is an argument to RpcServerResync API.
 message rpc_server_resync_msg {
    enum state {
       START = 0;
@@ -113,6 +136,8 @@ message rpc_server_resync_msg {
    state value = 1;
 }
 
+// RpcStatusMsg object is returned by various APIs as the status of an
+// FIB programming operation.
 message rpc_status_msg {
   enum rpc_status_value_enum {
     OK = 0;
@@ -126,43 +151,60 @@ message rpc_status_msg {
   string debug_string = 2;
 }
 
+// RpcStatusBulkMsg object is returned by bulk FIB programming
+// APIs. It contains an array of RpcStatusMsg objects that describe
+// the status of individual operations within a bulk call.
 message rpc_status_bulk_msg {
    repeated rpc_status_msg statuses = 1;
 }
 
+// NexthopGroupMsg is passed as argument to NexthopGroup API
 message nexthop_group_msg {
   enum nexthop_group_type_enum {
      NEXTHOP_GROUP_MPLS = 0;
   }
+   // Name identifies for the nexthop group
   string name = 1;
+   // RequestDelete member indicates if it is a delete or add/update
+   // operation. In the case of delete, Nexthop field is ignored, and
+   // is expected to be empty.
+   //
+   // For update, an existing nexthop group with the specified name
+   // will be updated. For add, a new nexthop group will be created.
   bool request_delete = 2;
+  // Set of nexthops associated with the nexthop group. This field is
+  // Ignored when RequestDelete is true.
   repeated nexthop_msg nexthop = 3;
+  // type of the nexthop group.
   nexthop_group_type_enum nexthop_group_type = 4;
 }
 
+// NexthopGroupBulkMsg is passed as argument to NexthopGroupBulk
+// API. It contains an array of NexthopGroupMsg objects.
 message nexthop_group_bulk_msg {
    repeated nexthop_group_msg groups = 1;
 }
 
+// IpAddressMsg encodes IPv4 or IPv6 addresses as a stream of bytes in
+// network byte order. If the byte array length is 4, it is an IPv4
+// address. If the length is 16 it is an IPv6 address. Length of zero
+// indicates no address is specified. Any other length is considered
+// invalid.
 message ip_address_msg {
-  // The IPv4 or IPv6 address encoded as a stream of bytes, network
-  // byte order, if length is 4, it is an IPv4 address, if the length
-  // is 16 it is an IPv6 address, a length of zero indicate no address
-  // is specified. Any other length is invalid.
   bytes address = 1;
 }
 
+// IpPrefixMsg encodes IPv4 or IPv6 prefix as a stream of bytes in
+// network byte order and prefix length field. If the byte array
+// length is 4, it is an IPv4 prefix. If byte array length is 16, it
+// is an IPv6 prefix
 message ip_prefix_msg {
-  // The IPv4 or IPv6 prefix encoded as a stream of bytes, network
-  // byte order, if length is 4, it is an IPv4 address, if the length
-  // is 16 it is an IPv6 address, a length of zero indicate no address
-  // is specified. Any other length is invalid.
   bytes address = 1;
-  // Prefix length.
+  // Prefix length
   uint32 len = 2;
 }
 
-// Message for add/modify/delete IPv4/IPv6 route
+// IpRouteMsg is passed to IpRoute and IpRouteBulk APIs.
 message ip_route_msg {
    ip_prefix_msg prefix = 1;
    // Right now we only support nexthop group as forwarding nexthop.
@@ -173,27 +215,33 @@ message ip_route_msg {
    uint32 tag = 3;
 }
 
+// IpRouteBulkMsg is passed to IpRouteBulk API and contains an array
+// of IpRouteMsg objects.
 message ip_route_bulk_msg {
    repeated ip_route_msg routes = 1;
 }
 
-// Create, update or delete a nexthop group tunnel. If nexthop_group is an empty
-// string, the tunnel is deleted
+// NexthoupGroupTunnelMsg is passed as argument to NexthopGroupTunnel
+// API to create, update or delete a nexthop group tunnel. If the
+// NexthopGroup field is an empty string, the tunnel is deleted.
 message nexthop_group_tunnel_msg {
    ip_prefix_msg prefix = 1;
    string nexthop_group = 2;
    uint32 igp_metric = 3;
 }
 
+// NexthoupGroupTunnelBulkMsg is an argument to NexthopGroupBulk API
+// and contains an array of NexthoupGroupTunnelMsg objects.
 message nexthop_group_tunnel_bulk_msg {
    repeated nexthop_group_tunnel_msg tunnels = 1;
 }
 
-// Message for add/modify/delete of MPLS routes.
+// MplsRouteMsg is an argument to MplsRoute API and for
+// for adding/modifying/deleting a MPLS route.
 message mpls_route_msg {
    // The local label of the route.
    uint32 label = 1;
-   // True on delete, false on add/modify.
+   // is set to true for a delete operation and false for add/modify.
    bool request_delete = 2;
 
    message forward_nexthop_group_msg {
@@ -216,10 +264,14 @@ message mpls_route_msg {
    }
 }
 
+// MplsRouteBulkMsg is passed to MplsRouteBulk API and contains an
+// array of MplsRouteMsg objects.
 message mpls_route_bulk_msg {
    repeated mpls_route_msg routes = 1;
 }
 
+// NexthopMsg objects are present in ForwardingNexthop field of
+// MplsRouteMsg and as an array in NexthopGroup object
 message nexthop_msg {
    enum mpls_operation_enum {
      MPLS_NO_OPERATION = 0;
@@ -241,12 +293,12 @@ message nexthop_msg {
    uint32 replicate_count = 5;
 }
 
-// Class based forwarding redirection matching on nexthop group name
-// found in FIB lookup and DSCP values of data packet, redirecting to
-// another nexthop group.
+// CbfNexthopRedirectMsg is an argument for Class Based Forwarding
+// redirection matching on nexthop group name found in FIB lookup and
+// DSCP values of data packet, redirecting to another nexthop group.
 //
-// If called again with the same match_nexthop_group_name &
-// redirect_nexthop_group_name but different set of DSCP values, it will
+// When called again with the same MatchNexthopGroupName &
+// RedirectNexthopGroupName, but different set of DSCP values, it will
 // replace any previously configured DSCP values with the new ones.
 message cbf_nexthop_group_redirect_msg {
    string match_nexthop_group_name = 1;
@@ -260,19 +312,23 @@ message cbf_nexthop_group_redirect_msg {
    bool request_delete = 5;
 }
 
+// CbfNexthopRedirectBulkMsg is an argument to
+// CbfNexthopGroupRedirectBulk API and contains an array of
+// CbfNexthopGroupRedirectMsg objects.
 message cbf_nexthop_group_redirect_bulk_msg {
    repeated cbf_nexthop_group_redirect_msg redirects = 1;
 }
 
+// SbfdEchoSessionKeyMsg is used in SbfdEchoSessionMsg and represents
+// a unique tunnel.
 message sbfd_echo_session_key_msg {
-   // BFD probe packets will be sent out of the outgoing interface
-   // to the directly connected nexthop identified by nexthop, with
-   // a label stack specified by 'labels' and with the specified
-   // IPv4/IPv6 DSCP and MPLS exp COS markings.
+   // BFD probe packets will be sent out of the outgoing interface to
+   // the directly connected nexthop identified by nexthop, with a
+   // label stack specified by 'labels' and the specified IPv4/IPv6
+   // DSCP and MPLS exp COS markings.
    //
-   // If the nexthop address is an IPv4 address, the probe packets
-   // will be IPv4 packets, if it is an IPv6 address, the BFD
-   // packet will be IPv6 packets.
+   // If the nexthop is an IPv4 address, probe packets will be IPv4
+   // packets. If it is an IPv6 address, the BFD packet will be IPv6.
    string          outgoing_interface = 1;
    ip_address_msg       nexthop = 2;
    // Stack of labels to push, first label in the sequence is top of stack label,
@@ -282,6 +338,7 @@ message sbfd_echo_session_key_msg {
    uint32          mpls_exp = 5;
 }
 
+// SbfdEchoSessionMsg is used as an argument to SbfdEchoSession API
 message sbfd_echo_session_msg {
    sbfd_echo_session_key_msg session_key = 1;
    // True on delete, false on add/modify.
@@ -299,14 +356,19 @@ message sbfd_echo_session_msg {
    uint32 detection_multiplier = 5;
 }
 
+// SbfdEchoSessionBulkMsg is used as an argument to
+// SbfdEchoSessionBulk API and contains an array of SbfdEchoSessionMsg
+// objects.
 message sbfd_echo_session_bulk_msg {
    repeated sbfd_echo_session_msg sessions = 1;
 }
 
+// WatchSbfdEchoSessionConfigMsg is an argument to WatchSbfdEchoSessionStatusMsgs API
 message watch_sbfd_echo_session_config_msg {
    bool request_rtt_updates = 1;
 }
 
+// SbfdEchoSessionOperStatusMsg is embedded within WatchSbfdEchoSessionStatusMsg.
 message sbfd_echo_session_oper_status_msg {
    enum status_enum {
       NULL = 0;
@@ -318,6 +380,7 @@ message sbfd_echo_session_oper_status_msg {
    status_enum status = 1;
 }
 
+// SbfdEchoSessionRttMsg object is embedded within WatchSbfdEchoSessionStatusMsg.
 message sbfd_echo_session_rtt_msg {
    // RTT of the last received probe, in microseconds.
    uint32 last_rtt = 1;
@@ -335,6 +398,8 @@ message sbfd_echo_session_rtt_msg {
    uint32 snapshot_max_rtt = 7;
 }
 
+// stream of WatchSbfdEchoSessionStatusMsg objects is returned by
+// WatchSbfdEchoSessionStatusMsgs API.
 message watch_sbfd_echo_session_status_msg {
    // The session that the update pertains to.
    sbfd_echo_session_key_msg session_key = 1;
