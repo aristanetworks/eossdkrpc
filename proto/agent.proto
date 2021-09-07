@@ -14,20 +14,22 @@ service AgentService {
     * the events on_initialized and on_agent_enabled are out of rpc scope since
     * they imply on creation and destruction of the RPC server itself.
     **/
-   rpc watch( Void ) returns ( stream AgentEvent );
-   rpc agent_id( Name ) returns ( Uint32 );
-   rpc enabled( Void ) returns ( Bool );
-   rpc agent_option( Name ) returns ( Value );
-   rpc agent_option_exists( Name ) returns ( Bool );
-   rpc agent_options( Void ) returns ( stream Name );
-   rpc status( Name ) returns ( Value );
-   rpc statuses( Void ) returns ( stream Name );
-   rpc status_set( NameValue ) returns ( Void );
-   rpc bulk_status_set( BulkNameValue ) returns ( BulkResponse );
-   rpc status_del( Name ) returns ( Void );
-   rpc bulk_status_del( BulkName ) returns ( BulkResponse );
-   rpc agent_uptime( Void ) returns ( Seconds );
+   rpc watch( AgentWatchRequest ) returns ( stream AgentEvent );
+   rpc agent_id( AgentIdRequest ) returns ( AgentIdResponse );
+   rpc enabled( AgentEnabledRequest ) returns ( AgentEnabledResponse );
+   rpc agent_option( AgentOptionRequest ) returns ( AgentOptionResponse );
+   rpc agent_option_exists( AgentOptionExistsRequest ) returns ( AgentOptionExistsResponse );
+   rpc agent_options( AgentOptionsRequest ) returns ( stream AgentOptionsResponse );
+   rpc status( AgentStatusRequest ) returns ( AgentStatusResponse );
+   rpc statuses( AgentStatusesRequest ) returns ( stream AgentStatusesResponse );
+   rpc status_set( AgentStatusSetRequest ) returns ( AgentStatusSetResponse );
+   rpc bulk_status_set( AgentBulkStatusSetRequest ) returns ( AgentBulkStatusSetResponse );
+   rpc status_del( AgentStatusDelRequest ) returns ( AgentStatusDelResponse );
+   rpc bulk_status_del( AgentBulkStatusDelRequest ) returns ( AgentBulkStatusDelResponse );
+   rpc agent_uptime( AgentUptimeRequest ) returns ( AgentUptimeResponse );
 }
+
+message AgentWatchRequest {}
 
 message AgentEvent {
    oneof event {
@@ -35,6 +37,87 @@ message AgentEvent {
    }
 }
 
-message Seconds {
+message AgentIdRequest {
+   string name = 1;
+}
+
+message AgentIdResponse {
+   uint32 id = 1;
+}
+
+message AgentEnabledRequest {}
+
+message AgentEnabledResponse {
+   bool enabled = 1;
+}
+
+message AgentOptionRequest {
+   string name = 1;
+}
+
+message AgentOptionResponse {
+   string value = 1;
+}
+
+message AgentOptionExistsRequest {
+   string name = 1;
+}
+
+message AgentOptionExistsResponse {
+   bool exists = 1;
+}
+
+message AgentOptionsRequest {}
+
+message AgentOptionsResponse {
+   string name = 1;
+}
+
+message AgentStatusRequest {
+   string name = 1;
+}
+
+message AgentStatusResponse {
+   string value = 1;
+}
+
+message AgentStatusesRequest {}
+
+message AgentStatusesResponse {
+   string name = 1;
+}
+
+message AgentStatusSetRequest {
+   string name = 1;
+   string value = 2;
+}
+
+message AgentStatusSetResponse {}
+
+message AgentBulkStatusSetRequest {
+   repeated AgentStatusSetRequest requests = 1;
+}
+
+message AgentBulkStatusSetResponse {
+   repeated RpcResponseStatus responses = 1;
+}
+
+message AgentStatusDelRequest {
+   string name = 1;
+}
+
+message AgentStatusDelResponse {}
+
+message AgentBulkStatusDelRequest {
+   repeated AgentStatusDelRequest requests = 1;
+}
+
+message AgentBulkStatusDelResponse {
+   repeated RpcResponseStatus responses = 1;
+}
+
+message AgentUptimeRequest {}
+
+message AgentUptimeResponse {
    double seconds = 1;
 }

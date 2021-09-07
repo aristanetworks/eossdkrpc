@@ -770,6 +770,9 @@
       "def": {
         "messages": [
           {
+            "name": "AgentWatchRequest"
+          },
+          {
             "name": "AgentEvent",
             "fields": [
               {
@@ -780,7 +783,204 @@
             ]
           },
           {
-            "name": "Seconds",
+            "name": "AgentIdRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "name",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "AgentIdResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "id",
+                "type": "uint32"
+              }
+            ]
+          },
+          {
+            "name": "AgentEnabledRequest"
+          },
+          {
+            "name": "AgentEnabledResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "enabled",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "AgentOptionRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "name",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "AgentOptionResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "value",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "AgentOptionExistsRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "name",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "AgentOptionExistsResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "exists",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "AgentOptionsRequest"
+          },
+          {
+            "name": "AgentOptionsResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "name",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "AgentStatusRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "name",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "AgentStatusResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "value",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "AgentStatusesRequest"
+          },
+          {
+            "name": "AgentStatusesResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "name",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "AgentStatusSetRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "id": 2,
+                "name": "value",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "AgentStatusSetResponse"
+          },
+          {
+            "name": "AgentBulkStatusSetRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "requests",
+                "type": "AgentStatusSetRequest",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "AgentBulkStatusSetResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "responses",
+                "type": "RpcResponseStatus",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "AgentStatusDelRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "name",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "AgentStatusDelResponse"
+          },
+          {
+            "name": "AgentBulkStatusDelRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "requests",
+                "type": "AgentStatusDelRequest",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "AgentBulkStatusDelResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "responses",
+                "type": "RpcResponseStatus",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "AgentUptimeRequest"
+          },
+          {
+            "name": "AgentUptimeResponse",
             "fields": [
               {
                 "id": 1,
@@ -796,71 +996,71 @@
             "rpcs": [
               {
                 "name": "watch",
-                "in_type": "Void",
+                "in_type": "AgentWatchRequest",
                 "out_type": "AgentEvent",
                 "out_streamed": true
               },
               {
                 "name": "agent_id",
-                "in_type": "Name",
-                "out_type": "Uint32"
+                "in_type": "AgentIdRequest",
+                "out_type": "AgentIdResponse"
               },
               {
                 "name": "enabled",
-                "in_type": "Void",
-                "out_type": "Bool"
+                "in_type": "AgentEnabledRequest",
+                "out_type": "AgentEnabledResponse"
               },
               {
                 "name": "agent_option",
-                "in_type": "Name",
-                "out_type": "Value"
+                "in_type": "AgentOptionRequest",
+                "out_type": "AgentOptionResponse"
               },
               {
                 "name": "agent_option_exists",
-                "in_type": "Name",
-                "out_type": "Bool"
+                "in_type": "AgentOptionExistsRequest",
+                "out_type": "AgentOptionExistsResponse"
               },
               {
                 "name": "agent_options",
-                "in_type": "Void",
-                "out_type": "Name",
+                "in_type": "AgentOptionsRequest",
+                "out_type": "AgentOptionsResponse",
                 "out_streamed": true
               },
               {
                 "name": "status",
-                "in_type": "Name",
-                "out_type": "Value"
+                "in_type": "AgentStatusRequest",
+                "out_type": "AgentStatusResponse"
               },
               {
                 "name": "statuses",
-                "in_type": "Void",
-                "out_type": "Name",
+                "in_type": "AgentStatusesRequest",
+                "out_type": "AgentStatusesResponse",
                 "out_streamed": true
               },
               {
                 "name": "status_set",
-                "in_type": "NameValue",
-                "out_type": "Void"
+                "in_type": "AgentStatusSetRequest",
+                "out_type": "AgentStatusSetResponse"
               },
               {
                 "name": "bulk_status_set",
-                "in_type": "BulkNameValue",
-                "out_type": "BulkResponse"
+                "in_type": "AgentBulkStatusSetRequest",
+                "out_type": "AgentBulkStatusSetResponse"
               },
               {
                 "name": "status_del",
-                "in_type": "Name",
-                "out_type": "Void"
+                "in_type": "AgentStatusDelRequest",
+                "out_type": "AgentStatusDelResponse"
               },
               {
                 "name": "bulk_status_del",
-                "in_type": "BulkName",
-                "out_type": "BulkResponse"
+                "in_type": "AgentBulkStatusDelRequest",
+                "out_type": "AgentBulkStatusDelResponse"
               },
               {
                 "name": "agent_uptime",
-                "in_type": "Void",
-                "out_type": "Seconds"
+                "in_type": "AgentUptimeRequest",
+                "out_type": "AgentUptimeResponse"
               }
             ]
           }
