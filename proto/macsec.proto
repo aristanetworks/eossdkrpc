@@ -7,40 +7,41 @@ package eos.remote;
 
 import "defs.proto";
 import "intf.proto";
+import "macsec_types.proto";
 
 service MacsecMgrService {
-   rpc watch( WatchMacsecParams ) returns ( stream MacsecEvent ) {}
+   rpc watch( WatchMacsecRequest ) returns ( stream MacsecEvent ) {}
    
-   rpc exists( MacsecProfileName ) returns ( Bool ) {}
+   rpc exists( MacsecProfileExistsRequest ) returns ( MacsecProfileExistsResponse ) {}
 
-   rpc macsec_profile( MacsecProfileName ) returns ( MacsecProfile ) {}
+   rpc macsec_profile( MacsecProfileRequest ) returns ( MacsecProfileResponse ) {}
 
-   rpc profile_set( MacsecProfile ) returns ( RpcResponseStatus ){}
+   rpc profile_set( MacsecProfileSetRequest ) returns ( MacsecProfileSetResponse ){}
 
-   rpc bulk_profile_set( BulkMacsecProfileSetParams ) returns ( BulkResponse ) {}
+   rpc bulk_profile_set( BulkMacsecProfileSetRequest ) returns ( BulkMacsecProfileSetResponse ) {}
 
-   rpc profile_del( MacsecProfileName ) returns ( RpcResponseStatus ) {}
+   rpc profile_del( MacsecProfileDelRequest ) returns ( MacsecProfileDelResponse ) {}
 
-   rpc bulk_profile_del( BulkMacsecProfileDelParams ) returns ( BulkResponse ) {}
+   rpc bulk_profile_del( BulkMacsecProfileDelRequest ) returns ( BulkMacsecProfileDelResponse ) {}
 
-   rpc intf_profile( IntfId ) returns ( MacsecProfileName ) {}
+   rpc intf_profile( MacsecIntfProfileRequest ) returns ( MacsecIntfProfileResponse ) {}
 
-   rpc intf_profile_is( IntfProfileParams ) returns ( RpcResponseStatus ) {}
+   rpc intf_profile_is( MacsecIntfProfileIsRequest ) returns ( MacsecIntfProfileIsResponse ) {}
 
-   rpc bulk_intf_profile_is( BulkIntfProfileParams ) returns ( BulkResponse ) {}
+   rpc bulk_intf_profile_is( BulkMacsecIntfProfileIsRequest ) returns ( BulkMacsecIntfProfileIsResponse ) {}
 
-   rpc macsec_capable( IntfId ) returns ( Bool ) {}
+   rpc macsec_capable( MacsecCapableRequest ) returns ( MacsecCapableResponse ) {}
 
-   rpc intf_status( IntfId ) returns ( MacsecIntfStatus ) {}
+   rpc intf_status( MacsecIntfStatusRequest ) returns ( MacsecIntfStatusResponse ) {}
 
-   rpc intf_counters( IntfId ) returns ( MacsecIntfCounters ) {}
+   rpc intf_counters( MacsecIntfCountersRequest ) returns ( MacsecIntfCountersResponse ) {}
 
-   rpc macsec_profiles( Void ) returns ( stream MacsecProfile ) {}
+   rpc macsec_profiles( MacsecProfilesRequest ) returns ( stream MacsecProfilesResponse ) {}
 
-   rpc macsec_intf_statuses( Void ) returns ( stream MacsecIntfStatus ) {}
+   rpc macsec_intf_statuses( MacsecIntfStatusesRequest ) returns ( stream MacsecIntfStatusesResponse ) {}
 }
 
-message WatchMacsecParams {
+message WatchMacsecRequest {
    oneof overloads {
       bool all_intfs = 1;
       IntfId intf_id = 2;
@@ -49,7 +50,58 @@ message WatchMacsecParams {
 
 message MacsecEvent {
    IntfId intf_id = 1;
-   MacsecIntfStatus intf_status = 2;
+   MacsecIntfKeyStatus status = 2;
+   MacsecIntfKeyStatus key_status = 3;
+   MacsecIntfTrafficStatus traffic_status = 4;
+
+}
+
+message MacsecProfileExistsRequest {
+   string profile_name = 1;
+}
+
+message MacsecProfileExistsResponse {
+   bool exists = 1;
+}
+
+message MacsecProfileRequest {
+   string profile_name = 1;
+}
+
+message MacsecProfileResponse {
+   MacsecProfile profile = 1;
+}
+
+message MacsecProfileSetRequest {
+   MacsecProfile profile = 1;
+}
+
+message MacsecProfileSetResponse {
+   RpcResponseStatus response_status = 1;
+}
+
+message BulkMacsecProfileSetRequest {
+   repeated MacsecProfile profile = 1;
+}
+
+message BulkMacsecProfileSetResponse {
+   repeated RpcResponseStatus response_status = 1;
+}
+
+message MacsecProfileDelRequest {
+   MacsecProfile profile = 1;
+}
+
+message MacsecProfileDelResponse {
+   RpcResponseStatus response_status = 1;
+}
+
+message BulkMacsecProfileDelRequest {
+   MacsecProfile profile = 1;
+}
+
+message BulkMacsecProfileDelResponse {
+   repeated RpcResponseStatus response_status = 1;
 }
 
 message MacsecProfileName {
@@ -60,27 +112,6 @@ message MacsecKey {
    string cak = 1;
    string ckn = 2;
    bool encoded = 3;
-}
-
-enum MacsecCipherSuite {
-   CIPHER_NULL = 0;
-   GCM_AES_128 = 1;
-   GCM_AES_256 = 2;
-   GCM_AES_XPN_128 = 3;
-   GCM_AES_XPN_256 = 4;
-}
-
-enum MacsecBypass {
-   BYPASS_NULL = 0;
-   BYPASS_AUTHORIZED = 1;
-   BYPASS_UNAUTHORIZED = 2;
-}
-
-enum MacsecProfileTrafficPolicy {
-   TRAFFIC_POLICY_NULL = 0;
-   TRAFFIC_POLICY_ACTIVE_SAK = 1;
-   TRAFFIC_POLICY_UNPROTECTED = 2;
-   TRAFFIC_POLICY_BLOCKED = 3;
 }
 
 message MacsecProfile {
@@ -102,49 +133,71 @@ message MacsecProfile {
    bool key_retirement_immediate = 16;
    repeated IntfId intfs = 17;
 }
-
-message BulkMacsecProfileSetParams {
-   repeated MacsecProfile profiles = 1;
+message MacsecIntfProfileRequest {
+   string intf_id = 1;
 }
 
-message BulkMacsecProfileDelParams {
-   repeated string macsec_profile_names = 1;
+message MacsecIntfProfileResponse {
+   string macsec_profile_name = 1;
 }
 
-message IntfProfileParams {
+message MacsecIntfProfileIsRequest {
    IntfId intf_id = 1;
    string mac_sec_profile_name = 2;
 }
 
-message BulkIntfProfileParams {
-   repeated IntfProfileParams intf_profiles = 1;
+message MacsecIntfProfileIsResponse {
+   RpcResponseStatus response_status = 1;
 }
 
-enum MacsecIntfKeyStatus {
-   MACSEC_NO_PROFILE = 0;
-   MACSEC_KEY_NONE = 1;
-   MACSEC_KEY_PRIMARY = 2;
-   MACSEC_KEY_FALLBACK = 3;
-   MACSEC_KEY_PRIMARY_CACHED = 4;
-   MACSEC_KEY_FALLBACK_CACHED = 5;
+message BulkMacsecIntfProfileIsRequest {
+   repeated MacsecIntfProfileIsRequest intf_profiles = 1;
 }
 
-enum MacsecIntfTrafficStatus {
-   MACSEC_TRAFFIC_PROTECTED = 0;
-   MACSEC_TRAFFIC_UNPROTECTED = 1;
-   MACSEC_TRAFFIC_BLOCKED = 2;
+message BulkMacsecIntfProfileIsResponse {
+   repeated RpcResponseStatus response_status = 1;
 }
 
-message MacsecIntfStatus { 
+message MacsecCapableRequest {
+   string intf_id = 1;
+}
+
+message MacsecCapableResponse {
+   bool macsec_capable = 1;
+}
+
+message MacsecIntfStatusRequest {
+   string intf_id = 1;
+}
+
+message MacsecIntfStatusResponse {
    MacsecIntfKeyStatus status = 1;
    MacsecIntfKeyStatus key_status = 2;
    MacsecIntfTrafficStatus traffic_status = 3;
 }
 
-message MacsecIntfCounters {
+message MacsecIntfCountersRequest {
+   string intf_id = 1;
+}
+
+message MacsecIntfCountersResponse {
    uint64 out_pkts_encrypted = 1;
    uint64 out_octets_encrypted = 2;
    uint64 in_pkts_decrypted = 3;
    uint64 in_octets_decrypted = 4;
    uint64 in_pkts_not_valid = 5;
+}
+
+message MacsecProfilesRequest {}
+
+message MacsecProfilesResponse {
+   MacsecProfile profile = 1;
+}
+
+message MacsecIntfStatusesRequest {}
+
+message MacsecIntfStatusesResponse {
+   MacsecIntfKeyStatus status = 1;
+   MacsecIntfKeyStatus key_status = 2;
+   MacsecIntfTrafficStatus traffic_status = 3;
 }

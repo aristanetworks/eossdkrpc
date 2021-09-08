@@ -69,6 +69,7 @@ protoFiles = [
    'proto/ip_intf.proto',
    'proto/ip_route.proto',
    'proto/macsec.proto',
+   'proto/macsec_types.proto',
    'proto/mpls.proto',
    'proto/nexthop_group.proto',
 ]
