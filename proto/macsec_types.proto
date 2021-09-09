@@ -5,6 +5,32 @@ syntax = "proto3";
 
 package eos.remote;
 
+message MacsecProfile {
+   string profile_name = 1;
+   MacsecKey primary_key = 2;
+   MacsecKey fallback_key = 3;
+   uint32 key_server_priority = 4;
+   uint32 rekey_period = 5;
+   uint32 mka_life_time = 6;
+   MacsecCipherSuite cipher = 7;
+   bool dot1x = 8;
+   bool include_sci = 9;
+   bool bypass_lldp = 10;
+   MacsecBypass lldp_bypass_level = 11;
+   MacsecProfileTrafficPolicy traffic_policy = 12;
+   bool allow_unprotected = 13;
+   bool replay_protection = 14;
+   uint32 replay_protection_window = 15;
+   bool key_retirement_immediate = 16;
+   repeated string intf_ids = 17;
+}
+
+message MacsecKey {
+   string cak = 1;
+   string ckn = 2;
+   bool encoded = 3;
+}
+
 enum MacsecCipherSuite {
    MACSEC_CIPHER_SUITE_INVALID = 0;
    MACSEC_CIPHER_SUITE_CIPHER_NULL = 1;

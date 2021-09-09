@@ -53,7 +53,6 @@ message MacsecEvent {
    MacsecIntfKeyStatus status = 2;
    MacsecIntfKeyStatus key_status = 3;
    MacsecIntfTrafficStatus traffic_status = 4;
-
 }
 
 message MacsecProfileExistsRequest {
@@ -81,7 +80,7 @@ message MacsecProfileSetResponse {
 }
 
 message BulkMacsecProfileSetRequest {
-   repeated MacsecProfile profile = 1;
+   repeated MacsecProfileSetRequest profiles = 1;
 }
 
 message BulkMacsecProfileSetResponse {
@@ -97,7 +96,7 @@ message MacsecProfileDelResponse {
 }
 
 message BulkMacsecProfileDelRequest {
-   MacsecProfile profile = 1;
+   repeated MacsecProfileDelRequest profiles = 1;
 }
 
 message BulkMacsecProfileDelResponse {
@@ -108,31 +107,6 @@ message MacsecProfileName {
    string value = 1;
 }
 
-message MacsecKey {
-   string cak = 1;
-   string ckn = 2;
-   bool encoded = 3;
-}
-
-message MacsecProfile {
-   string profile_name = 1;
-   MacsecKey primary_key = 2;
-   MacsecKey fallback_key = 3;
-   uint32 key_server_priority = 4;
-   uint32 rekey_period = 5;
-   uint32 mka_life_time = 6;
-   MacsecCipherSuite cipher = 7;
-   bool dot1x = 8;
-   bool include_sci = 9;
-   bool bypass_lldp = 10;
-   MacsecBypass lldp_bypass_level = 11;
-   MacsecProfileTrafficPolicy traffic_policy = 12;
-   bool allow_unprotected = 13;
-   bool replay_protection = 14;
-   uint32 replay_protection_window = 15;
-   bool key_retirement_immediate = 16;
-   repeated IntfId intfs = 17;
-}
 message MacsecIntfProfileRequest {
    string intf_id = 1;
 }
@@ -197,6 +171,7 @@ message MacsecProfilesResponse {
 message MacsecIntfStatusesRequest {}
 
 message MacsecIntfStatusesResponse {
+   string intf_id = 1;
    MacsecIntfKeyStatus status = 1;
    MacsecIntfKeyStatus key_status = 2;
    MacsecIntfTrafficStatus traffic_status = 3;
