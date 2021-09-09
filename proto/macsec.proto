@@ -172,7 +172,7 @@ message MacsecIntfStatusesRequest {}
 
 message MacsecIntfStatusesResponse {
    string intf_id = 1;
-   MacsecIntfKeyStatus status = 1;
-   MacsecIntfKeyStatus key_status = 2;
-   MacsecIntfTrafficStatus traffic_status = 3;
+   MacsecIntfKeyStatus status = 2;
+   MacsecIntfKeyStatus key_status = 3;
+   MacsecIntfTrafficStatus traffic_status = 4;
 }
