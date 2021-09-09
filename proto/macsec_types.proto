@@ -31,6 +31,7 @@ message MacsecKey {
    bool encoded = 3;
 }
 
+// Cipher suites used for MACsec.
 enum MacsecCipherSuite {
    MACSEC_CIPHER_SUITE_INVALID = 0;
    MACSEC_CIPHER_SUITE_CIPHER_NULL = 1;
@@ -40,6 +41,7 @@ enum MacsecCipherSuite {
    MACSEC_CIPHER_SUITE_GCM_AES_XPN_256 = 6;
 }
 
+// Bypass level for a protocol.
 enum MacsecBypass {
    MACSEC_BYPASS_INVALID = 0;
    MACSEC_BYPASS_NULL = 1;
@@ -47,6 +49,7 @@ enum MacsecBypass {
    MACSEC_BYPASS_UNAUTHORIZED = 3;
 }
 
+// Traffic policy on a profile.
 enum MacsecProfileTrafficPolicy {
    MACSEC_PROFILE_TRAFFIC_POLICY_INVALID = 0;
    MACSEC_PROFILE_TRAFFIC_POLICY_NULL = 1;
@@ -55,6 +58,7 @@ enum MacsecProfileTrafficPolicy {
    MACSEC_PROFILE_TRAFFIC_POLICY_BLOCKED = 4;
 }  
 
+// Which key an interface is using if a profile is configured. 
 enum MacsecIntfKeyStatus {
    MACSEC_INTF_KEY_INVALID = 0;
    MACSEC_INTF_KEY_NO_PROFILE = 1;
@@ -65,6 +69,7 @@ enum MacsecIntfKeyStatus {
    MACSEC_INTF_KEY_FALLBACK_CACHED = 6;
 }
 
+// Traffic status on an interface.
 enum MacsecIntfTrafficStatus {
    MACSEC_INTF_TRAFFIC_INVALID = 0;
    MACSEC_INTF_TRAFFIC_PROTECTED = 1;
