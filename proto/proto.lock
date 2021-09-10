@@ -2196,7 +2196,7 @@
       "def": {
         "messages": [
           {
-            "name": "WatchIpIntfRequest",
+            "name": "IpIntfWatchRequest",
             "fields": [
               {
                 "id": 1,
@@ -2444,7 +2444,7 @@
             "rpcs": [
               {
                 "name": "watch",
-                "in_type": "WatchIpIntfRequest",
+                "in_type": "IpIntfWatchRequest",
                 "out_type": "IpIntfEvent",
                 "out_streamed": true
               },

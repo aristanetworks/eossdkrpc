@@ -10,7 +10,7 @@ import "intf_types.proto";
 import "ip_intf_types.proto";
 
 service IpIntfMgrService {
-   rpc watch( WatchIpIntfRequest ) returns ( stream IpIntfEvent ) {}
+   rpc watch( IpIntfWatchRequest ) returns ( stream IpIntfEvent ) {}
 
    rpc exists( IpIntfExistsRequest ) returns ( IpIntfExistsResponse ) {}
 
@@ -33,7 +33,7 @@ service IpIntfMgrService {
    rpc internal_vlan_id( IpIntfInternalVlanIdRequest ) returns ( IpIntfInternalVlanIdResponse ) {}
 }
 
-message WatchIpIntfRequest {
+message IpIntfWatchRequest {
    oneof overloads {
       bool all_intfs = 1;
       IntfId intf_id = 2;
