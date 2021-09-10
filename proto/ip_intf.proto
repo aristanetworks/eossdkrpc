@@ -78,6 +78,7 @@ message IpIntfBulkAddrsIsRequest {
 message IpIntfBulkAddrsIsResponse {
    repeated RpcResponseStatus responses = 1;
 }
+
 message IpIntfAddrModifyRequest {
    IpAddrOperations operation = 1;
    IntfId intf_id = 2;
