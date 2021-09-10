@@ -37,15 +37,6 @@ message Prefix {
    int32 length = 2;
 }
 
-message IpAddrMask {
-   bytes addr = 1;
-   uint32 mask_length = 2;
-}
-
-message IpAddrMasks {
-   repeated IpAddrMask ip_addrs = 1;
-}
-
 message Uint32 {
    uint32 value = 1;
 }
@@ -90,8 +81,4 @@ message ResyncMgrParams {
 
 message String {
    string value = 1;
-}
-
-message VlanId {
-   uint32 id = 1;
 }

@@ -6,47 +6,38 @@ syntax = "proto3";
 package eos.remote;
 
 import "defs.proto";
-import "intf.proto";
+import "intf_types.proto";
+import "ip_intf_types.proto";
 
 service IpIntfMgrService {
-   rpc watch( WatchIpIntfParams ) returns ( stream IpIntfEvent ) {}
+   rpc watch( WatchIpIntfRequest ) returns ( stream IpIntfEvent ) {}
 
-   rpc exists( IntfId ) returns ( Bool ) {}
+   rpc exists( IpIntfExistsRequest ) returns ( IpIntfExistsResponse ) {}
 
-   rpc ip_addrs( IntfId ) returns ( IpAddrMasks ) {}
+   rpc ip_addrs( IpIntfAddrsRequest ) returns ( IpIntfAddrsResponse ) {}
 
-   rpc ip_addrs_is( IpAddrsIsParams ) returns ( Void ) {}
+   rpc ip_addrs_is( IpIntfAddrsIsRequest ) returns ( IpIntfAddrsIsResponse ) {}
 
-   rpc bulk_ip_addrs_is( BulkIpAddrsIsParams ) returns ( BulkResponse ) {}
+   rpc bulk_ip_addrs_is( IpIntfBulkAddrsIsRequest ) returns ( IpIntfBulkAddrsIsResponse ) {}
 
-   rpc ip_addr_modify( IpAddrModifyParams ) returns ( Void ) {}
+   rpc ip_addr_modify( IpIntfAddrModifyRequest ) returns ( IpIntfAddrModifyResponse ) {}
 
-   rpc bulk_ip_addr_modify( BulkIpAddrModifyParams ) returns ( BulkResponse ) {}
+   rpc bulk_ip_addr_modify( IpIntfBulkAddrModifyRequest ) returns ( IpIntfBulkAddrModifyResponse ) {}
    
-   rpc ip_addr_merge_mode( IntfId ) returns ( Bool ) {}
+   rpc ip_addr_merge_mode( IpIntfAddrMergeModeRequest ) returns ( IpIntfAddrMergeModeResponse ) {}
 
-   rpc ip_addr_merge_mode_is( IpAddrMergeModeParams ) returns ( Void ) {}
+   rpc ip_addr_merge_mode_is( IpIntfAddrMergeModeIsRequest ) returns ( IpIntfAddrMergeModeIsResponse ) {}
 
-   rpc bulk_ip_addr_merge_mode_is( BulkIpAddrMergeModeParams ) returns ( BulkResponse ) {}
+   rpc bulk_ip_addr_merge_mode_is( IpIntfBulkAddrMergeModeIsRequest ) returns ( IpIntfBulkAddrMergeModeIsResponse ) {}
 
-   rpc internal_vlan_id( IntfId ) returns ( VlanId ) {}
+   rpc internal_vlan_id( IpIntfInternalVlanIdRequest ) returns ( IpIntfInternalVlanIdResponse ) {}
 }
 
-message WatchIpIntfParams {
+message WatchIpIntfRequest {
    oneof overloads {
       bool all_intfs = 1;
       IntfId intf_id = 2;
    }
-}
-
-enum IpAddrOperations {
-   ADD = 0;
-   DELETE = 1;
-}
-
-message IpAddrEvent {
-   IpAddrOperations operation = 1;
-   IpAddrMask ip_addr_mask = 2;
 }
 
 message IpIntfEvent {
@@ -57,30 +48,79 @@ message IpIntfEvent {
    }
 } 
 
-message IpAddrsIsParams {
+message IpIntfExistsRequest {
+   IntfId intf_id = 1;
+}
+
+message IpIntfExistsResponse {
+   bool exists = 1;
+}
+
+message IpIntfAddrsRequest {
+   IntfId intf_id = 1;
+}
+
+message IpIntfAddrsResponse {
+   repeated IpAddrMask addrs = 1;
+}
+
+message IpIntfAddrsIsRequest {
    IntfId intf_id = 1;
    repeated IpAddrMask ip_addr_mask = 2;
 }
 
-message BulkIpAddrsIsParams {
-   repeated IpAddrsIsParams ip_addrs = 1;
+message IpIntfAddrsIsResponse {}
+
+message IpIntfBulkAddrsIsRequest {
+   repeated IpIntfAddrsIsRequest requests = 1;
 }
 
-message IpAddrModifyParams {
+message IpIntfBulkAddrsIsResponse {
+   repeated RpcResponseStatus responses = 1;
+}
+message IpIntfAddrModifyRequest {
    IpAddrOperations operation = 1;
    IntfId intf_id = 2;
    IpAddrMask ip_addr_mask = 3;
 }
 
-message BulkIpAddrModifyParams {
-   repeated IpAddrModifyParams params = 1;
+message IpIntfAddrModifyResponse {}
+
+message IpIntfBulkAddrModifyRequest {
+   repeated IpIntfAddrModifyRequest requests = 1;
 }
 
-message IpAddrMergeModeParams {
+message IpIntfBulkAddrModifyResponse {
+   repeated RpcResponseStatus responses = 1;
+}
+
+message IpIntfAddrMergeModeRequest {
+   IntfId intf_id = 1;
+}
+
+message IpIntfAddrMergeModeResponse {
+   bool merge_mode = 1;
+}
+
+message IpIntfAddrMergeModeIsRequest {
    IntfId intf_id = 1;
    bool merge = 2;
 }
 
-message BulkIpAddrMergeModeParams {
-   repeated IpAddrMergeModeParams params = 1;
+message IpIntfAddrMergeModeIsResponse {}
+
+message IpIntfBulkAddrMergeModeIsRequest {
+   repeated IpIntfAddrMergeModeIsRequest requests = 1;
+}
+
+message IpIntfBulkAddrMergeModeIsResponse {
+   repeated RpcResponseStatus responses = 1;
+}
+
+message IpIntfInternalVlanIdRequest {
+   IntfId intf_id = 1;
+}
+
+message IpIntfInternalVlanIdResponse {
+   VlanId vlan_id = 1;
 }

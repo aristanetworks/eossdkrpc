@@ -1654,32 +1654,6 @@
             ]
           },
           {
-            "name": "IpAddrMask",
-            "fields": [
-              {
-                "id": 1,
-                "name": "addr",
-                "type": "bytes"
-              },
-              {
-                "id": 2,
-                "name": "mask_length",
-                "type": "uint32"
-              }
-            ]
-          },
-          {
-            "name": "IpAddrMasks",
-            "fields": [
-              {
-                "id": 1,
-                "name": "ip_addrs",
-                "type": "IpAddrMask",
-                "is_repeated": true
-              }
-            ]
-          },
-          {
             "name": "Uint32",
             "fields": [
               {
@@ -1736,16 +1710,6 @@
                 "id": 1,
                 "name": "value",
                 "type": "string"
-              }
-            ]
-          },
-          {
-            "name": "VlanId",
-            "fields": [
-              {
-                "id": 1,
-                "name": "id",
-                "type": "uint32"
               }
             ]
           }
@@ -2048,16 +2012,6 @@
             ]
           },
           {
-            "name": "IntfId",
-            "fields": [
-              {
-                "id": 1,
-                "name": "name",
-                "type": "string"
-              }
-            ]
-          },
-          {
             "name": "AdminEnabledParams",
             "fields": [
               {
@@ -2207,6 +2161,29 @@
         "imports": [
           {
             "path": "defs.proto"
+          },
+          {
+            "path": "intf_types.proto"
+          }
+        ],
+        "package": {
+          "name": "eos.remote"
+        }
+      }
+    },
+    {
+      "protopath": "intf_types.proto",
+      "def": {
+        "messages": [
+          {
+            "name": "IntfId",
+            "fields": [
+              {
+                "id": 1,
+                "name": "name",
+                "type": "string"
+              }
+            ]
           }
         ],
         "package": {
@@ -2217,23 +2194,9 @@
     {
       "protopath": "ip_intf.proto",
       "def": {
-        "enums": [
-          {
-            "name": "IpAddrOperations",
-            "enum_fields": [
-              {
-                "name": "ADD"
-              },
-              {
-                "name": "DELETE",
-                "integer": 1
-              }
-            ]
-          }
-        ],
         "messages": [
           {
-            "name": "WatchIpIntfParams",
+            "name": "WatchIpIntfRequest",
             "fields": [
               {
                 "id": 1,
@@ -2244,21 +2207,6 @@
                 "id": 2,
                 "name": "intf_id",
                 "type": "IntfId"
-              }
-            ]
-          },
-          {
-            "name": "IpAddrEvent",
-            "fields": [
-              {
-                "id": 1,
-                "name": "operation",
-                "type": "IpAddrOperations"
-              },
-              {
-                "id": 2,
-                "name": "ip_addr_mask",
-                "type": "IpAddrMask"
               }
             ]
           },
@@ -2283,7 +2231,48 @@
             ]
           },
           {
-            "name": "IpAddrsIsParams",
+            "name": "IpIntfExistsRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "IpIntfExistsResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "exists",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "IpIntfAddrsRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "IpIntfAddrsResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "addrs",
+                "type": "IpAddrMask",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "IpIntfAddrsIsRequest",
             "fields": [
               {
                 "id": 1,
@@ -2299,18 +2288,32 @@
             ]
           },
           {
-            "name": "BulkIpAddrsIsParams",
+            "name": "IpIntfAddrsIsResponse"
+          },
+          {
+            "name": "IpIntfBulkAddrsIsRequest",
             "fields": [
               {
                 "id": 1,
-                "name": "ip_addrs",
-                "type": "IpAddrsIsParams",
+                "name": "requests",
+                "type": "IpIntfAddrsIsRequest",
                 "is_repeated": true
               }
             ]
           },
           {
-            "name": "IpAddrModifyParams",
+            "name": "IpIntfBulkAddrsIsResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "responses",
+                "type": "RpcResponseStatus",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "IpIntfAddrModifyRequest",
             "fields": [
               {
                 "id": 1,
@@ -2330,18 +2333,52 @@
             ]
           },
           {
-            "name": "BulkIpAddrModifyParams",
+            "name": "IpIntfAddrModifyResponse"
+          },
+          {
+            "name": "IpIntfBulkAddrModifyRequest",
             "fields": [
               {
                 "id": 1,
-                "name": "params",
-                "type": "IpAddrModifyParams",
+                "name": "requests",
+                "type": "IpIntfAddrModifyRequest",
                 "is_repeated": true
               }
             ]
           },
           {
-            "name": "IpAddrMergeModeParams",
+            "name": "IpIntfBulkAddrModifyResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "responses",
+                "type": "RpcResponseStatus",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "IpIntfAddrMergeModeRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "IpIntfAddrMergeModeResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "merge_mode",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "IpIntfAddrMergeModeIsRequest",
             "fields": [
               {
                 "id": 1,
@@ -2356,13 +2393,47 @@
             ]
           },
           {
-            "name": "BulkIpAddrMergeModeParams",
+            "name": "IpIntfAddrMergeModeIsResponse"
+          },
+          {
+            "name": "IpIntfBulkAddrMergeModeIsRequest",
             "fields": [
               {
                 "id": 1,
-                "name": "params",
-                "type": "IpAddrMergeModeParams",
+                "name": "requests",
+                "type": "IpIntfAddrMergeModeIsRequest",
                 "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "IpIntfBulkAddrMergeModeIsResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "responses",
+                "type": "RpcResponseStatus",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "IpIntfInternalVlanIdRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "IpIntfInternalVlanIdResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "vlan_id",
+                "type": "VlanId"
               }
             ]
           }
@@ -2373,59 +2444,59 @@
             "rpcs": [
               {
                 "name": "watch",
-                "in_type": "WatchIpIntfParams",
+                "in_type": "WatchIpIntfRequest",
                 "out_type": "IpIntfEvent",
                 "out_streamed": true
               },
               {
                 "name": "exists",
-                "in_type": "IntfId",
-                "out_type": "Bool"
+                "in_type": "IpIntfExistsRequest",
+                "out_type": "IpIntfExistsResponse"
               },
               {
                 "name": "ip_addrs",
-                "in_type": "IntfId",
-                "out_type": "IpAddrMasks"
+                "in_type": "IpIntfAddrsRequest",
+                "out_type": "IpIntfAddrsResponse"
               },
               {
                 "name": "ip_addrs_is",
-                "in_type": "IpAddrsIsParams",
-                "out_type": "Void"
+                "in_type": "IpIntfAddrsIsRequest",
+                "out_type": "IpIntfAddrsIsResponse"
               },
               {
                 "name": "bulk_ip_addrs_is",
-                "in_type": "BulkIpAddrsIsParams",
-                "out_type": "BulkResponse"
+                "in_type": "IpIntfBulkAddrsIsRequest",
+                "out_type": "IpIntfBulkAddrsIsResponse"
               },
               {
                 "name": "ip_addr_modify",
-                "in_type": "IpAddrModifyParams",
-                "out_type": "Void"
+                "in_type": "IpIntfAddrModifyRequest",
+                "out_type": "IpIntfAddrModifyResponse"
               },
               {
                 "name": "bulk_ip_addr_modify",
-                "in_type": "BulkIpAddrModifyParams",
-                "out_type": "BulkResponse"
+                "in_type": "IpIntfBulkAddrModifyRequest",
+                "out_type": "IpIntfBulkAddrModifyResponse"
               },
               {
                 "name": "ip_addr_merge_mode",
-                "in_type": "IntfId",
-                "out_type": "Bool"
+                "in_type": "IpIntfAddrMergeModeRequest",
+                "out_type": "IpIntfAddrMergeModeResponse"
               },
               {
                 "name": "ip_addr_merge_mode_is",
-                "in_type": "IpAddrMergeModeParams",
-                "out_type": "Void"
+                "in_type": "IpIntfAddrMergeModeIsRequest",
+                "out_type": "IpIntfAddrMergeModeIsResponse"
               },
               {
                 "name": "bulk_ip_addr_merge_mode_is",
-                "in_type": "BulkIpAddrMergeModeParams",
-                "out_type": "BulkResponse"
+                "in_type": "IpIntfBulkAddrMergeModeIsRequest",
+                "out_type": "IpIntfBulkAddrMergeModeIsResponse"
               },
               {
                 "name": "internal_vlan_id",
-                "in_type": "IntfId",
-                "out_type": "VlanId"
+                "in_type": "IpIntfInternalVlanIdRequest",
+                "out_type": "IpIntfInternalVlanIdResponse"
               }
             ]
           }
@@ -2435,7 +2506,74 @@
             "path": "defs.proto"
           },
           {
-            "path": "intf.proto"
+            "path": "intf_types.proto"
+          },
+          {
+            "path": "ip_intf_types.proto"
+          }
+        ],
+        "package": {
+          "name": "eos.remote"
+        }
+      }
+    },
+    {
+      "protopath": "ip_intf_types.proto",
+      "def": {
+        "enums": [
+          {
+            "name": "IpAddrOperations",
+            "enum_fields": [
+              {
+                "name": "ADD"
+              },
+              {
+                "name": "DELETE",
+                "integer": 1
+              }
+            ]
+          }
+        ],
+        "messages": [
+          {
+            "name": "IpAddrEvent",
+            "fields": [
+              {
+                "id": 1,
+                "name": "operation",
+                "type": "IpAddrOperations"
+              },
+              {
+                "id": 2,
+                "name": "ip_addr_mask",
+                "type": "IpAddrMask"
+              }
+            ]
+          },
+          {
+            "name": "IpAddrMask",
+            "fields": [
+              {
+                "id": 1,
+                "name": "addr",
+                "type": "bytes"
+              },
+              {
+                "id": 2,
+                "name": "mask_length",
+                "type": "uint32"
+              }
+            ]
+          },
+          {
+            "name": "VlanId",
+            "fields": [
+              {
+                "id": 1,
+                "name": "id",
+                "type": "uint32"
+              }
+            ]
           }
         ],
         "package": {
@@ -2737,7 +2875,7 @@
             "path": "defs.proto"
           },
           {
-            "path": "intf.proto"
+            "path": "intf_types.proto"
           }
         ],
         "package": {
@@ -3212,7 +3350,7 @@
             "path": "defs.proto"
           },
           {
-            "path": "intf.proto"
+            "path": "intf_types.proto"
           },
           {
             "path": "macsec_types.proto"
@@ -3842,7 +3980,7 @@
             "path": "defs.proto"
           },
           {
-            "path": "intf.proto"
+            "path": "intf_types.proto"
           },
           {
             "path": "mpls.proto"

@@ -6,7 +6,7 @@ syntax = "proto3";
 package eos.remote;
 
 import "defs.proto";
-import "intf.proto";
+import "intf_types.proto";
 import "mpls.proto";
 
 service NexthopGroupMgrService {

@@ -6,6 +6,7 @@ syntax = "proto3";
 package eos.remote;
 
 import "defs.proto";
+import "intf_types.proto";
 
 service IntfMgrService {
    rpc watch( WatchIntfParams ) returns ( stream InterfaceEvent ) {}
@@ -97,9 +98,6 @@ enum InterfaceTypes{
    INTF_TYPE_VXLAN = 9;
 }
 
-message IntfId{
-   string name=1;
-}
 
 message AdminEnabledParams {
    IntfId intf_id = 1;
