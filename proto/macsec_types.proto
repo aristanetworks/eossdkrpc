@@ -22,7 +22,7 @@ message MacsecProfile {
    bool replay_protection = 14;
    uint32 replay_protection_window = 15;
    bool key_retirement_immediate = 16;
-   repeated string intf_ids = 17;
+   repeated IntfId intf_ids = 17;
 }
 
 message MacsecKey {

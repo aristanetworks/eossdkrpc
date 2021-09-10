@@ -62,12 +62,12 @@ service MacsecMgrService {
 message WatchMacsecRequest {
    oneof overloads {
       bool all_intfs = 1;
-      string intf_id = 2;
+      IntfId intf_id = 2;
    }
 }
 
 message MacsecEvent {
-   string intf_id = 1;
+   IntfId intf_id = 1;
    MacsecIntfKeyStatus status = 2;
    MacsecIntfKeyStatus key_status = 3;
    MacsecIntfTrafficStatus traffic_status = 4;
@@ -126,7 +126,7 @@ message MacsecProfileName {
 }
 
 message MacsecIntfProfileRequest {
-   string intf_id = 1;
+   IntfId intf_id = 1;
 }
 
 message MacsecIntfProfileResponse {
@@ -134,7 +134,7 @@ message MacsecIntfProfileResponse {
 }
 
 message MacsecIntfProfileIsRequest {
-   string intf_id = 1;
+   IntfId intf_id = 1;
    string mac_sec_profile_name = 2;
 }
 
@@ -151,7 +151,7 @@ message BulkMacsecIntfProfileIsResponse {
 }
 
 message MacsecCapableRequest {
-   string intf_id = 1;
+   IntfId intf_id = 1;
 }
 
 message MacsecCapableResponse {
@@ -159,7 +159,7 @@ message MacsecCapableResponse {
 }
 
 message MacsecIntfStatusRequest {
-   string intf_id = 1;
+   IntfId intf_id = 1;
 }
 
 message MacsecIntfStatusResponse {
@@ -169,7 +169,7 @@ message MacsecIntfStatusResponse {
 }
 
 message MacsecIntfCountersRequest {
-   string intf_id = 1;
+   IntfId intf_id = 1;
 }
 
 message MacsecIntfCountersResponse {
@@ -189,7 +189,7 @@ message MacsecProfilesResponse {
 message MacsecIntfStatusesRequest {}
 
 message MacsecIntfStatusesResponse {
-   string intf_id = 1;
+   IntfId intf_id = 1;
    MacsecIntfKeyStatus status = 2;
    MacsecIntfKeyStatus key_status = 3;
    MacsecIntfTrafficStatus traffic_status = 4;
