@@ -409,5 +409,8 @@ message watch_sbfd_echo_session_status_msg {
       sbfd_echo_session_oper_status_msg status = 2;
       // Round trip time of the session probes.
       sbfd_echo_session_rtt_msg rtt = 3;
+      // Generated each time a group of sessions for which updates
+      // have been generated is completed
+      bool sbfd_echo_session_oper_status_end_of_batch = 4;
    }
 }
