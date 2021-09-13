@@ -106,6 +106,9 @@ EosRemoteSdk files used by other packages during development.
 %{python_sitelib}/intf_pb2.py*
 %{python3_sitelib}/intf_pb2.py
 %{python3_sitelib}/__pycache__/intf_pb2.cpython*
+%{python_sitelib}/intf_types_pb2.py*
+%{python3_sitelib}/intf_types_pb2.py
+%{python3_sitelib}/__pycache__/intf_types_pb2.cpython*
 %{python_sitelib}/intf_pb2_grpc.py*
 %{python3_sitelib}/intf_pb2_grpc.py
 %{python3_sitelib}/__pycache__/intf_pb2_grpc.cpython*

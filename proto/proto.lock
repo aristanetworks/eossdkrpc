@@ -2387,7 +2387,7 @@
               },
               {
                 "id": 2,
-                "name": "merge",
+                "name": "merge_mode",
                 "type": "bool"
               }
             ]
