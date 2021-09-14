@@ -67,9 +67,7 @@ protoFiles = [
    'proto/eapi.proto',
    'proto/EosSdkRpc.proto',
    'proto/intf.proto',
-   'proto/intf_types.proto',
    'proto/ip_intf.proto',
-   'proto/ip_intf_types.proto',
    'proto/ip_route.proto',
    'proto/macsec.proto',
    'proto/mpls.proto',
@@ -79,6 +77,8 @@ protoFiles = [
 # files listed under protobufFiles shall generate only protobuf files.
 protobufFiles= [
    'proto/macsec_types.proto',
+   'proto/intf_types.proto',
+   'proto/ip_intf_types.proto',
 ]
 
 #-----------------------------------------------------------------------
@@ -103,6 +103,14 @@ def _protoc_py_output( pkg=None, target_name=None, sources=None, generateGrpc=Tr
          targets.append( basename + '_pb2_grpc.py' )
    return targets
 
+def _protobuf_py_output( pkg=None, target_name=None, sources=None ):
+   targets = []
+   for source in sources:
+      assert source.endswith( '.proto' )
+      basename = source.split( '/' )[ -1 ][ :-6 ] # exclude .proto extension
+      targets.append( basename + '_pb2.py' )
+   return targets
+
 template(
    'protoc_py',
    description='Generate python gRPC and protobuf files',
@@ -113,6 +121,7 @@ template(
    is_source_generator=True,
 )
 
+
 protoc_py(
    'protoc_py',
    sources=protoFiles,
@@ -120,9 +129,9 @@ protoc_py(
 
 template(
    'protobuf_py',
-   description='Generate only python protobufs',
+   description='Generate python protobufs',
    script='protoc -I ${src_dir}/proto --python_out=${target_dir} ${in}',
-   outputs_generator=_protoc_py_output,
+   outputs_generator=_protobuf_py_output,
    is_source_generator=True,
 )
 
@@ -164,6 +173,15 @@ def _protoc_cpp_output( pkg=None, target_name=None, sources=None,
          targets.append( basename + '.grpc.pb.cc' )
    return targets
 
+def _protobuf_cpp_output( pkg=None, target_name=None, sources=None ):
+   targets = []
+   for source in sources:
+      assert source.endswith( '.proto' )
+      basename = source.split( '/' )[ -1 ][ :-6 ] # exclude .proto extension
+      targets.append( basename + '.pb.h' )
+      targets.append( basename + '.pb.cc' )
+   return targets
+
 template(
    'protoc_cpp',
    description="PROTOC ${in}",
@@ -183,18 +201,17 @@ template(
    'protobuf_cpp',
    description="PROTOC ${in}",
    script='protoc -I ${src_dir}/proto --cpp_out=${target_dir} ${in}',
-   outputs_generator=_protoc_cpp_output,
+   outputs_generator=_protobuf_cpp_output,
    is_source_generator=True,
 )
 
 protobuf_cpp(
-   'protobuf_cpp',
+   'protobufc',
    sources=protobufFiles,
 )
 
-protocCppGenerated = _protoc_cpp_output( sources=protoFiles )
-protocCppGenerated.extend(
-      _protoc_cpp_output( sources=protobufFiles, generateGrpc=False ) )
+protocCppGenerated = _protoc_cpp_output( sources=protoFiles ) + \
+   _protobuf_cpp_output( sources=protobufFiles )
 
 def _protoc_cpp_headers( pkg=None, target_name=None, sources=None,
                          generateGrpc=True ):
@@ -207,9 +224,8 @@ def _protoc_cpp_headers( pkg=None, target_name=None, sources=None,
          headers.append( basename + '.grpc.pb.h' )
    return headers
 
-protocCppGeneratedHeaders = _protoc_cpp_headers( sources=protoFiles )
-protocCppGeneratedHeaders.extend(
-      _protoc_cpp_headers( sources=protobufFiles, generateGrpc=False ) )
+protocCppGeneratedHeaders = _protoc_cpp_headers( sources=protoFiles ) + \
+   _protobuf_cpp_output( sources=protobufFiles )
 
 data(
    'protoHeaderInstall',
