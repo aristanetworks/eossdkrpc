@@ -99,7 +99,8 @@ message AgentBulkStatusSetRequest {
 }
 
 message AgentBulkStatusSetResponse {
-   repeated RpcResponseStatus responses = 1;
+   uint64 good = 1;
+   RpcResponseStatus status = 2;
 }
 
 message AgentStatusDelRequest {
@@ -109,11 +110,12 @@ message AgentStatusDelRequest {
 message AgentStatusDelResponse {}
 
 message AgentBulkStatusDelRequest {
-   repeated AgentStatusDelRequest requests = 1;
+   repeated AgentStatusDelRequest requests = 1;   
 }
 
 message AgentBulkStatusDelResponse {
-   repeated RpcResponseStatus responses = 1;
+   uint64 good = 1;
+   RpcResponseStatus status = 2;
 }
 
 message AgentUptimeRequest {}

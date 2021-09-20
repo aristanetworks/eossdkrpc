@@ -651,6 +651,11 @@
                 "id": 3,
                 "name": "rtt",
                 "type": "sbfd_echo_session_rtt_msg"
+              },
+              {
+                "id": 4,
+                "name": "sbfd_echo_session_oper_status_end_of_batch",
+                "type": "bool"
               }
             ]
           }
@@ -935,9 +940,13 @@
             "fields": [
               {
                 "id": 1,
-                "name": "responses",
-                "type": "RpcResponseStatus",
-                "is_repeated": true
+                "name": "good",
+                "type": "uint64"
+              },
+              {
+                "id": 2,
+                "name": "status",
+                "type": "RpcResponseStatus"
               }
             ]
           },
@@ -970,9 +979,13 @@
             "fields": [
               {
                 "id": 1,
-                "name": "responses",
-                "type": "RpcResponseStatus",
-                "is_repeated": true
+                "name": "good",
+                "type": "uint64"
+              },
+              {
+                "id": 2,
+                "name": "status",
+                "type": "RpcResponseStatus"
               }
             ]
           },
@@ -1696,9 +1709,13 @@
             "fields": [
               {
                 "id": 1,
-                "name": "statuses",
-                "type": "RpcResponseStatus",
-                "is_repeated": true
+                "name": "good",
+                "type": "uint64"
+              },
+              {
+                "id": 2,
+                "name": "status",
+                "type": "RpcResponseStatus"
               }
             ]
           },

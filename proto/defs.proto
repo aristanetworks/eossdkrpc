@@ -76,7 +76,8 @@ message RpcResponseStatus {
 }
 
 message BulkResponse {
-  repeated RpcResponseStatus statuses = 1; 
+   uint64 good = 1;
+   RpcResponseStatus status = 2;
 }
 
 message ResyncMgrParams {
