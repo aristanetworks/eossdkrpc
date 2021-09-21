@@ -2748,115 +2748,9 @@
     {
       "protopath": "macsec.proto",
       "def": {
-        "enums": [
-          {
-            "name": "MacsecCipherSuite",
-            "enum_fields": [
-              {
-                "name": "CIPHER_NULL"
-              },
-              {
-                "name": "GCM_AES_128",
-                "integer": 1
-              },
-              {
-                "name": "GCM_AES_256",
-                "integer": 2
-              },
-              {
-                "name": "GCM_AES_XPN_128",
-                "integer": 3
-              },
-              {
-                "name": "GCM_AES_XPN_256",
-                "integer": 4
-              }
-            ]
-          },
-          {
-            "name": "MacsecBypass",
-            "enum_fields": [
-              {
-                "name": "BYPASS_NULL"
-              },
-              {
-                "name": "BYPASS_AUTHORIZED",
-                "integer": 1
-              },
-              {
-                "name": "BYPASS_UNAUTHORIZED",
-                "integer": 2
-              }
-            ]
-          },
-          {
-            "name": "MacsecProfileTrafficPolicy",
-            "enum_fields": [
-              {
-                "name": "TRAFFIC_POLICY_NULL"
-              },
-              {
-                "name": "TRAFFIC_POLICY_ACTIVE_SAK",
-                "integer": 1
-              },
-              {
-                "name": "TRAFFIC_POLICY_UNPROTECTED",
-                "integer": 2
-              },
-              {
-                "name": "TRAFFIC_POLICY_BLOCKED",
-                "integer": 3
-              }
-            ]
-          },
-          {
-            "name": "MacsecIntfKeyStatus",
-            "enum_fields": [
-              {
-                "name": "MACSEC_NO_PROFILE"
-              },
-              {
-                "name": "MACSEC_KEY_NONE",
-                "integer": 1
-              },
-              {
-                "name": "MACSEC_KEY_PRIMARY",
-                "integer": 2
-              },
-              {
-                "name": "MACSEC_KEY_FALLBACK",
-                "integer": 3
-              },
-              {
-                "name": "MACSEC_KEY_PRIMARY_CACHED",
-                "integer": 4
-              },
-              {
-                "name": "MACSEC_KEY_FALLBACK_CACHED",
-                "integer": 5
-              }
-            ]
-          },
-          {
-            "name": "MacsecIntfTrafficStatus",
-            "enum_fields": [
-              {
-                "name": "MACSEC_TRAFFIC_PROTECTED"
-              },
-              {
-                "name": "MACSEC_TRAFFIC_UNPROTECTED",
-                "integer": 1
-              },
-              {
-                "name": "MACSEC_TRAFFIC_BLOCKED",
-                "integer": 2
-              }
-            ]
-          }
-        ],
         "messages": [
           {
-            "name": "WatchMacsecParams",
+            "name": "MacsecWatchRequest",
             "fields": [
               {
                 "id": 1,
@@ -2880,8 +2774,142 @@
               },
               {
                 "id": 2,
-                "name": "intf_status",
-                "type": "MacsecIntfStatus"
+                "name": "status",
+                "type": "MacsecIntfKeyStatus"
+              },
+              {
+                "id": 3,
+                "name": "key_status",
+                "type": "MacsecIntfKeyStatus"
+              },
+              {
+                "id": 4,
+                "name": "traffic_status",
+                "type": "MacsecIntfTrafficStatus"
+              }
+            ]
+          },
+          {
+            "name": "MacsecProfileExistsRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "profile_name",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "MacsecProfileExistsResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "exists",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "MacsecProfileRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "profile_name",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "MacsecProfileResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "profile",
+                "type": "MacsecProfile"
+              }
+            ]
+          },
+          {
+            "name": "MacsecProfileSetRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "profile",
+                "type": "MacsecProfile"
+              }
+            ]
+          },
+          {
+            "name": "MacsecProfileSetResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "response_status",
+                "type": "RpcResponseStatus"
+              }
+            ]
+          },
+          {
+            "name": "MacsecBulkProfileSetRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "requests",
+                "type": "MacsecProfileSetRequest",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "MacsecBulkProfileSetResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "responses",
+                "type": "RpcResponseStatus",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "MacsecProfileDelRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "profile",
+                "type": "MacsecProfile"
+              }
+            ]
+          },
+          {
+            "name": "MacsecProfileDelResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "response_status",
+                "type": "RpcResponseStatus"
+              }
+            ]
+          },
+          {
+            "name": "MacsecBulkProfileDelRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "requests",
+                "type": "MacsecProfileDelRequest",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "MacsecBulkProfileDelResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "responses",
+                "type": "RpcResponseStatus",
+                "is_repeated": true
               }
             ]
           },
@@ -2896,25 +2924,435 @@
             ]
           },
           {
-            "name": "MacsecKey",
+            "name": "MacsecIntfProfileRequest",
             "fields": [
               {
                 "id": 1,
-                "name": "cak",
+                "name": "intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "MacsecIntfProfileResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "macsec_profile_name",
                 "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "MacsecIntfProfileSetRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "intf_id",
+                "type": "IntfId"
               },
               {
                 "id": 2,
-                "name": "ckn",
+                "name": "mac_sec_profile_name",
                 "type": "string"
-              },
+              }
+            ]
+          },
+          {
+            "name": "MacsecIntfProfileSetResponse",
+            "fields": [
               {
-                "id": 3,
-                "name": "encoded",
+                "id": 1,
+                "name": "response_status",
+                "type": "RpcResponseStatus"
+              }
+            ]
+          },
+          {
+            "name": "MacsecBulkIntfProfileSetRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "requests",
+                "type": "MacsecIntfProfileSetRequest",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "MacsecBulkIntfProfileSetResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "responses",
+                "type": "RpcResponseStatus",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "MacsecCapableRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "MacsecCapableResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "macsec_capable",
                 "type": "bool"
               }
             ]
           },
+          {
+            "name": "MacsecIntfStatusRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "MacsecIntfStatusResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "status",
+                "type": "MacsecIntfKeyStatus"
+              },
+              {
+                "id": 2,
+                "name": "key_status",
+                "type": "MacsecIntfKeyStatus"
+              },
+              {
+                "id": 3,
+                "name": "traffic_status",
+                "type": "MacsecIntfTrafficStatus"
+              }
+            ]
+          },
+          {
+            "name": "MacsecIntfCountersRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "MacsecIntfCountersResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "out_pkts_encrypted",
+                "type": "uint64"
+              },
+              {
+                "id": 2,
+                "name": "out_octets_encrypted",
+                "type": "uint64"
+              },
+              {
+                "id": 3,
+                "name": "in_pkts_decrypted",
+                "type": "uint64"
+              },
+              {
+                "id": 4,
+                "name": "in_octets_decrypted",
+                "type": "uint64"
+              },
+              {
+                "id": 5,
+                "name": "in_pkts_not_valid",
+                "type": "uint64"
+              }
+            ]
+          },
+          {
+            "name": "MacsecProfileIterRequest"
+          },
+          {
+            "name": "MacsecProfileIterResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "profile",
+                "type": "MacsecProfile"
+              }
+            ]
+          },
+          {
+            "name": "MacsecIntfStatusIterRequest"
+          },
+          {
+            "name": "MacsecIntfStatusIterResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "intf_id",
+                "type": "IntfId"
+              },
+              {
+                "id": 2,
+                "name": "status",
+                "type": "MacsecIntfKeyStatus"
+              },
+              {
+                "id": 3,
+                "name": "key_status",
+                "type": "MacsecIntfKeyStatus"
+              },
+              {
+                "id": 4,
+                "name": "traffic_status",
+                "type": "MacsecIntfTrafficStatus"
+              }
+            ]
+          }
+        ],
+        "services": [
+          {
+            "name": "MacsecMgrService",
+            "rpcs": [
+              {
+                "name": "watch",
+                "in_type": "MacsecWatchRequest",
+                "out_type": "MacsecEvent",
+                "out_streamed": true
+              },
+              {
+                "name": "exists",
+                "in_type": "MacsecProfileExistsRequest",
+                "out_type": "MacsecProfileExistsResponse"
+              },
+              {
+                "name": "macsec_profile",
+                "in_type": "MacsecProfileRequest",
+                "out_type": "MacsecProfileResponse"
+              },
+              {
+                "name": "profile_set",
+                "in_type": "MacsecProfileSetRequest",
+                "out_type": "MacsecProfileSetResponse"
+              },
+              {
+                "name": "bulk_profile_set",
+                "in_type": "MacsecBulkProfileSetRequest",
+                "out_type": "MacsecBulkProfileSetResponse"
+              },
+              {
+                "name": "profile_del",
+                "in_type": "MacsecProfileDelRequest",
+                "out_type": "MacsecProfileDelResponse"
+              },
+              {
+                "name": "bulk_profile_del",
+                "in_type": "MacsecBulkProfileDelRequest",
+                "out_type": "MacsecBulkProfileDelResponse"
+              },
+              {
+                "name": "intf_profile",
+                "in_type": "MacsecIntfProfileRequest",
+                "out_type": "MacsecIntfProfileResponse"
+              },
+              {
+                "name": "intf_profile_set",
+                "in_type": "MacsecIntfProfileSetRequest",
+                "out_type": "MacsecIntfProfileSetResponse"
+              },
+              {
+                "name": "bulk_intf_profile_set",
+                "in_type": "MacsecBulkIntfProfileSetRequest",
+                "out_type": "MacsecBulkIntfProfileSetResponse"
+              },
+              {
+                "name": "macsec_capable",
+                "in_type": "MacsecCapableRequest",
+                "out_type": "MacsecCapableResponse"
+              },
+              {
+                "name": "intf_status",
+                "in_type": "MacsecIntfStatusRequest",
+                "out_type": "MacsecIntfStatusResponse"
+              },
+              {
+                "name": "intf_counters",
+                "in_type": "MacsecIntfCountersRequest",
+                "out_type": "MacsecIntfCountersResponse"
+              },
+              {
+                "name": "macsec_profiles",
+                "in_type": "MacsecProfileIterRequest",
+                "out_type": "MacsecProfileIterResponse",
+                "out_streamed": true
+              },
+              {
+                "name": "macsec_intf_statuses",
+                "in_type": "MacsecIntfStatusIterRequest",
+                "out_type": "MacsecIntfStatusIterResponse",
+                "out_streamed": true
+              }
+            ]
+          }
+        ],
+        "imports": [
+          {
+            "path": "defs.proto"
+          },
+          {
+            "path": "intf.proto"
+          },
+          {
+            "path": "macsec_types.proto"
+          }
+        ],
+        "package": {
+          "name": "eos.remote"
+        }
+      }
+    },
+    {
+      "protopath": "macsec_types.proto",
+      "def": {
+        "enums": [
+          {
+            "name": "MacsecCipherSuite",
+            "enum_fields": [
+              {
+                "name": "MACSEC_CIPHER_SUITE_INVALID"
+              },
+              {
+                "name": "MACSEC_CIPHER_SUITE_CIPHER_NULL",
+                "integer": 1
+              },
+              {
+                "name": "MACSEC_CIPHER_SUITE_GCM_AES_128",
+                "integer": 2
+              },
+              {
+                "name": "MACSEC_CIPHER_SUITE_GCM_AES_256",
+                "integer": 4
+              },
+              {
+                "name": "MACSEC_CIPHER_SUITE_GCM_AES_XPN_128",
+                "integer": 5
+              },
+              {
+                "name": "MACSEC_CIPHER_SUITE_GCM_AES_XPN_256",
+                "integer": 6
+              }
+            ]
+          },
+          {
+            "name": "MacsecBypass",
+            "enum_fields": [
+              {
+                "name": "MACSEC_BYPASS_INVALID"
+              },
+              {
+                "name": "MACSEC_BYPASS_NULL",
+                "integer": 1
+              },
+              {
+                "name": "MACSEC_BYPASS_AUTHORIZED",
+                "integer": 2
+              },
+              {
+                "name": "MACSEC_BYPASS_UNAUTHORIZED",
+                "integer": 3
+              }
+            ]
+          },
+          {
+            "name": "MacsecProfileTrafficPolicy",
+            "enum_fields": [
+              {
+                "name": "MACSEC_PROFILE_TRAFFIC_POLICY_INVALID"
+              },
+              {
+                "name": "MACSEC_PROFILE_TRAFFIC_POLICY_NULL",
+                "integer": 1
+              },
+              {
+                "name": "MACSEC_PROFILE_TRAFFIC_POLICY_ACTIVE_SAK",
+                "integer": 2
+              },
+              {
+                "name": "MACSEC_PROFILE_TRAFFIC_POLICY_UNPROTECTED",
+                "integer": 3
+              },
+              {
+                "name": "MACSEC_PROFILE_TRAFFIC_POLICY_BLOCKED",
+                "integer": 4
+              }
+            ]
+          },
+          {
+            "name": "MacsecIntfKeyStatus",
+            "enum_fields": [
+              {
+                "name": "MACSEC_INTF_KEY_INVALID"
+              },
+              {
+                "name": "MACSEC_INTF_KEY_NO_PROFILE",
+                "integer": 1
+              },
+              {
+                "name": "MACSEC_INTF_KEY_NONE",
+                "integer": 2
+              },
+              {
+                "name": "MACSEC_INTF_KEY_PRIMARY",
+                "integer": 3
+              },
+              {
+                "name": "MACSEC_INTF_KEY_FALLBACK",
+                "integer": 4
+              },
+              {
+                "name": "MACSEC_INTF_KEY_PRIMARY_CACHED",
+                "integer": 5
+              },
+              {
+                "name": "MACSEC_INTF_KEY_FALLBACK_CACHED",
+                "integer": 6
+              }
+            ]
+          },
+          {
+            "name": "MacsecIntfTrafficStatus",
+            "enum_fields": [
+              {
+                "name": "MACSEC_INTF_TRAFFIC_INVALID"
+              },
+              {
+                "name": "MACSEC_INTF_TRAFFIC_PROTECTED",
+                "integer": 1
+              },
+              {
+                "name": "MACSEC_INTF_TRAFFIC_UNPROTECTED",
+                "integer": 2
+              },
+              {
+                "name": "MACSEC_INTF_TRAFFIC_BLOCKED",
+                "integer": 3
+              }
+            ]
+          }
+        ],
+        "messages": [
           {
             "name": "MacsecProfile",
             "fields": [
@@ -3000,202 +3438,37 @@
               },
               {
                 "id": 17,
-                "name": "intfs",
+                "name": "intf_ids",
                 "type": "IntfId",
                 "is_repeated": true
               }
             ]
           },
           {
-            "name": "BulkMacsecProfileSetParams",
+            "name": "MacsecKey",
             "fields": [
               {
                 "id": 1,
-                "name": "profiles",
-                "type": "MacsecProfile",
-                "is_repeated": true
-              }
-            ]
-          },
-          {
-            "name": "BulkMacsecProfileDelParams",
-            "fields": [
-              {
-                "id": 1,
-                "name": "macsec_profile_names",
-                "type": "string",
-                "is_repeated": true
-              }
-            ]
-          },
-          {
-            "name": "IntfProfileParams",
-            "fields": [
-              {
-                "id": 1,
-                "name": "intf_id",
-                "type": "IntfId"
-              },
-              {
-                "id": 2,
-                "name": "mac_sec_profile_name",
+                "name": "cak",
                 "type": "string"
-              }
-            ]
-          },
-          {
-            "name": "BulkIntfProfileParams",
-            "fields": [
-              {
-                "id": 1,
-                "name": "intf_profiles",
-                "type": "IntfProfileParams",
-                "is_repeated": true
-              }
-            ]
-          },
-          {
-            "name": "MacsecIntfStatus",
-            "fields": [
-              {
-                "id": 1,
-                "name": "status",
-                "type": "MacsecIntfKeyStatus"
               },
               {
                 "id": 2,
-                "name": "key_status",
-                "type": "MacsecIntfKeyStatus"
+                "name": "ckn",
+                "type": "string"
               },
               {
                 "id": 3,
-                "name": "traffic_status",
-                "type": "MacsecIntfTrafficStatus"
-              }
-            ]
-          },
-          {
-            "name": "MacsecIntfCounters",
-            "fields": [
-              {
-                "id": 1,
-                "name": "out_pkts_encrypted",
-                "type": "uint64"
-              },
-              {
-                "id": 2,
-                "name": "out_octets_encrypted",
-                "type": "uint64"
-              },
-              {
-                "id": 3,
-                "name": "in_pkts_decrypted",
-                "type": "uint64"
-              },
-              {
-                "id": 4,
-                "name": "in_octets_decrypted",
-                "type": "uint64"
-              },
-              {
-                "id": 5,
-                "name": "in_pkts_not_valid",
-                "type": "uint64"
-              }
-            ]
-          }
-        ],
-        "services": [
-          {
-            "name": "MacsecMgrService",
-            "rpcs": [
-              {
-                "name": "watch",
-                "in_type": "WatchMacsecParams",
-                "out_type": "MacsecEvent",
-                "out_streamed": true
-              },
-              {
-                "name": "exists",
-                "in_type": "MacsecProfileName",
-                "out_type": "Bool"
-              },
-              {
-                "name": "macsec_profile",
-                "in_type": "MacsecProfileName",
-                "out_type": "MacsecProfile"
-              },
-              {
-                "name": "profile_set",
-                "in_type": "MacsecProfile",
-                "out_type": "RpcResponseStatus"
-              },
-              {
-                "name": "bulk_profile_set",
-                "in_type": "BulkMacsecProfileSetParams",
-                "out_type": "BulkResponse"
-              },
-              {
-                "name": "profile_del",
-                "in_type": "MacsecProfileName",
-                "out_type": "RpcResponseStatus"
-              },
-              {
-                "name": "bulk_profile_del",
-                "in_type": "BulkMacsecProfileDelParams",
-                "out_type": "BulkResponse"
-              },
-              {
-                "name": "intf_profile",
-                "in_type": "IntfId",
-                "out_type": "MacsecProfileName"
-              },
-              {
-                "name": "intf_profile_is",
-                "in_type": "IntfProfileParams",
-                "out_type": "RpcResponseStatus"
-              },
-              {
-                "name": "bulk_intf_profile_is",
-                "in_type": "BulkIntfProfileParams",
-                "out_type": "BulkResponse"
-              },
-              {
-                "name": "macsec_capable",
-                "in_type": "IntfId",
-                "out_type": "Bool"
-              },
-              {
-                "name": "intf_status",
-                "in_type": "IntfId",
-                "out_type": "MacsecIntfStatus"
-              },
-              {
-                "name": "intf_counters",
-                "in_type": "IntfId",
-                "out_type": "MacsecIntfCounters"
-              },
-              {
-                "name": "macsec_profiles",
-                "in_type": "Void",
-                "out_type": "MacsecProfile",
-                "out_streamed": true
-              },
-              {
-                "name": "macsec_intf_statuses",
-                "in_type": "Void",
-                "out_type": "MacsecIntfStatus",
-                "out_streamed": true
+                "name": "encoded",
+                "type": "bool"
               }
             ]
           }
         ],
         "imports": [
           {
-            "path": "defs.proto"
-          },
-          {
             "path": "intf.proto"
+>>>>>>> 873da8e (update protolock)
           }
         ],
         "package": {
