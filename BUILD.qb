@@ -202,7 +202,7 @@ protolockConflictCheckScript="""
 protolock status -lockdir /src/EosSdkRpcProtos/proto -protoroot /src/EosSdkRpcProtos/proto
 """
 
-action( 
+action(
    'protolockConflictCheck',
    description="Protolock backwards compability check",
    script=protolockConflictCheckScript,
