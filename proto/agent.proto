@@ -99,7 +99,7 @@ message AgentBulkStatusSetRequest {
 }
 
 message AgentBulkStatusSetResponse {
-   uint64 good = 1;
+   uint64 processed = 1;
    RpcResponseStatus status = 2;
 }
 
@@ -114,7 +114,7 @@ message AgentBulkStatusDelRequest {
 }
 
 message AgentBulkStatusDelResponse {
-   uint64 good = 1;
+   uint64 processed = 1;
    RpcResponseStatus status = 2;
 }
 

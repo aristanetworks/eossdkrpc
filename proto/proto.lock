@@ -940,7 +940,7 @@
             "fields": [
               {
                 "id": 1,
-                "name": "good",
+                "name": "processed",
                 "type": "uint64"
               },
               {
@@ -979,7 +979,7 @@
             "fields": [
               {
                 "id": 1,
-                "name": "good",
+                "name": "processed",
                 "type": "uint64"
               },
               {
@@ -1709,7 +1709,7 @@
             "fields": [
               {
                 "id": 1,
-                "name": "good",
+                "name": "processed",
                 "type": "uint64"
               },
               {

@@ -76,7 +76,7 @@ message RpcResponseStatus {
 }
 
 message BulkResponse {
-   uint64 good = 1;
+   uint64 processed = 1;
    RpcResponseStatus status = 2;
 }
 
