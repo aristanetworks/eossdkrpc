@@ -130,7 +130,7 @@ protobuf_py(
 )
 
 protocPyGenerated = _protoc_py_output( sources=protoFiles )
-protocPyGenerated.extend( 
+protocPyGenerated.extend(
       _protoc_py_output( sources=protobufFiles, generateGrpc=False ) )
 
 #-----------------------------------------------------------------------
@@ -149,7 +149,7 @@ py_test( 'StaleProtoLockTest.py' )
 #-----------------------------------------------------------------------
 # Cpp protobuf generation
 
-def _protoc_cpp_output( pkg=None, target_name=None, sources=None, 
+def _protoc_cpp_output( pkg=None, target_name=None, sources=None,
                         generateGrpc=True ):
    targets = []
    for source in sources:
@@ -191,10 +191,10 @@ protobuf_cpp(
 )
 
 protocCppGenerated = _protoc_cpp_output( sources=protoFiles )
-protocCppGenerated.extend( 
+protocCppGenerated.extend(
       _protoc_cpp_output( sources=protobufFiles, generateGrpc=False ) )
 
-def _protoc_cpp_headers( pkg=None, target_name=None, sources=None, 
+def _protoc_cpp_headers( pkg=None, target_name=None, sources=None,
                          generateGrpc=True ):
    headers=[]
    for source in sources:
@@ -206,7 +206,7 @@ def _protoc_cpp_headers( pkg=None, target_name=None, sources=None,
    return headers
 
 protocCppGeneratedHeaders = _protoc_cpp_headers( sources=protoFiles )
-protocCppGeneratedHeaders.extend( 
+protocCppGeneratedHeaders.extend(
       _protoc_cpp_headers( sources=protobufFiles, generateGrpc=False ) )
 
 data(
