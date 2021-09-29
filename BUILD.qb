@@ -84,7 +84,7 @@ protobufFiles= [
 
 data(
    'EosSdkRpcProtoFiles',
-   sources=protoFiles,
+   sources= protoFiles + protobufFiles,
    inst_dir='$DATADIR/EosSdkRpcProtos/proto',
 )
 
