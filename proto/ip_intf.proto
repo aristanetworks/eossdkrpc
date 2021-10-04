@@ -76,7 +76,8 @@ message IpIntfBulkAddrsIsRequest {
 }
 
 message IpIntfBulkAddrsIsResponse {
-   repeated RpcResponseStatus responses = 1;
+   uint64 processed = 1;
+   RpcResponseStatus status = 2;
 }
 
 message IpIntfAddrModifyRequest {
@@ -92,7 +93,8 @@ message IpIntfBulkAddrModifyRequest {
 }
 
 message IpIntfBulkAddrModifyResponse {
-   repeated RpcResponseStatus responses = 1;
+   uint64 processed = 1;
+   RpcResponseStatus status = 2;
 }
 
 message IpIntfAddrMergeModeRequest {
@@ -115,7 +117,8 @@ message IpIntfBulkAddrMergeModeIsRequest {
 }
 
 message IpIntfBulkAddrMergeModeIsResponse {
-   repeated RpcResponseStatus responses = 1;
+   uint64 processed = 1;
+   RpcResponseStatus status = 2;
 }
 
 message IpIntfInternalVlanIdRequest {

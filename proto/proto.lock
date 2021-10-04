@@ -2306,9 +2306,13 @@
             "fields": [
               {
                 "id": 1,
-                "name": "responses",
-                "type": "RpcResponseStatus",
-                "is_repeated": true
+                "name": "processed",
+                "type": "uint64"
+              },
+              {
+                "id": 2,
+                "name": "status",
+                "type": "RpcResponseStatus"
               }
             ]
           },
@@ -2351,9 +2355,13 @@
             "fields": [
               {
                 "id": 1,
-                "name": "responses",
-                "type": "RpcResponseStatus",
-                "is_repeated": true
+                "name": "processed",
+                "type": "uint64"
+              },
+              {
+                "id": 2,
+                "name": "status",
+                "type": "RpcResponseStatus"
               }
             ]
           },
@@ -2411,9 +2419,13 @@
             "fields": [
               {
                 "id": 1,
-                "name": "responses",
-                "type": "RpcResponseStatus",
-                "is_repeated": true
+                "name": "processed",
+                "type": "uint64"
+              },
+              {
+                "id": 2,
+                "name": "status",
+                "type": "RpcResponseStatus"
               }
             ]
           },
