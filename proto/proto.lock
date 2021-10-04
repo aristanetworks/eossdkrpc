@@ -3468,7 +3468,6 @@
         "imports": [
           {
             "path": "intf.proto"
->>>>>>> 873da8e (update protolock)
           }
         ],
         "package": {
