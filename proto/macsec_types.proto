@@ -5,7 +5,7 @@ syntax = "proto3";
 
 package eos.remote;
 
-import "intf.proto";
+import "intf_types.proto";
 
 message MacsecProfile {
    string profile_name = 1;
