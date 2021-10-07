@@ -1,0 +1,39 @@
+// Copyright (c) 2021 Arista Networks, Inc.  All rights reserved.
+// Arista Networks, Inc. Confidential and Proprietary.
+
+syntax = "proto3";
+
+import "defs.proto";
+import "intf_types.proto";
+
+package eos.remote;
+
+message IpRouteKey {
+   Prefix prefix = 1;
+   uint32 preference = 2;
+}
+
+message IpRoute {
+   IpRouteKey key = 1;
+   uint32 tag = 2;
+}
+
+enum IpRouteActions {
+   IP_ROUTE_ACTION_NULL = 0;
+   IP_ROUTE_ACTION_FORWARD = 1;
+   IP_ROUTE_ACTION_DROP = 2;
+   IP_ROUTE_ACTION_NEXTHOP_GROUP = 3;
+}
+
+message IpRouteVia {
+   IpRouteKey key = 1;
+   bytes hop_addr = 2;
+   IntfId intf_id = 3;
+   string nhg_name = 4;
+   uint32 mpls_label = 5;
+   uint32 vni = 6;
+   bytes vtep_addr = 7;
+   bytes router_mac_eth_addr = 8;
+   string egress_vrf = 9;
+   uint32 metric = 10;
+}

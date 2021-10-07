@@ -63,7 +63,6 @@ grpcFiles = [
    'proto/agent.proto',
    'proto/bgp.proto',
    'proto/bgp_path.proto',
-   'proto/defs.proto',
    'proto/eapi.proto',
    'proto/EosSdkRpc.proto',
    'proto/intf.proto',
@@ -80,6 +79,7 @@ protobufFiles= [
    'proto/eapi_types.proto',
    'proto/intf_types.proto',
    'proto/ip_intf_types.proto',
+   'proto/rpc_types.proto',
 ]
 
 #-----------------------------------------------------------------------

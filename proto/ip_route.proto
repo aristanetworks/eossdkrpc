@@ -9,65 +9,24 @@ import "intf_types.proto";
 package eos.remote;
 
 service IpRouteMgrService {
-   rpc tag( Void ) returns ( Uint32 ) {}
+   rpc tag( TagRequest ) returns ( TagResponse ) {}
+   rpc tag_is( TagIsRequest ) returns ( TagIsResponse ) {}
+   rpc resync_init( ResyncInitRequest ) returns ( ResyncInitResponse ) {}
+   rpc resync_complete( ResyncCompleteRequest ) returns ( ResyncCompleteResponse ) {}
+   rpc ip_routes( IpRoutesRequest ) returns ( stream IpRoutesResponse ) {}
+   rpc ip_route_vias( IpRouteViasRequest ) returns ( stream IpRouteViasResponse ) {}
+   rpc ip_route_exists( IpRouteExistsRequest ) returns ( IpRouteExistsResponse ) {}
+   rpc ip_route_via_exists( IpRouteViaExistsRequest ) returns ( IpRouteViaExistsResponse ) {}
+   rpc ip_route( IpRouteRequest ) returns ( IpRouteResponse ) {}
+   rpc ip_route_set( IpRouteSetRequest ) returns ( IpRouteSetResponse ) {}
+   rpc bulk_ip_route_set( BulkIpRouteSetRequest ) returns ( BulkIpRouteSetResponse ) {}
+   rpc ip_route_del( IpRouteDelRequest ) returns ( IpRouteDelResponse ) {}
+   rpc bulk_ip_route_del( BulkIpRouteDelRequest ) returns ( BulkIpRouteDelResponse ) {}
+   rpc ip_route_via_set( IpRouteViaSetRequest ) returns ( IpRouteViaSetResponse ) {}
+   rpc bulk_ip_route_via_set( BulkIpRouteViaSetRequest ) returns ( BulkIpRouteViaSetResponse ) {}
+   rpc ip_route_via_del( IpRouteViaDelRequest ) returns ( IpRouteViaDelResponse ) {}
+   rpc bulk_ip_route_via_del( BulkIpRouteViaDelRequest ) returns ( BulkIpRouteViaDelResponse ) {}
 
-   rpc tag_is( Uint32 ) returns ( Void ) {}
-
-   rpc resync_init( Void ) returns ( Void ) {}
-
-   rpc resync_complete( Void ) returns ( Void ) {}
-
-   rpc ip_routes( Void ) returns ( stream IpRoute ) {}
-
-   rpc ip_route_vias( IpRouteViaParams ) returns ( stream IpRouteVia ) {}
-
-   rpc ip_route_exists( IpRouteParams ) returns ( Bool ) {}
-
-   rpc ip_route_via_exists( IpRouteViaParams ) returns ( Bool ) {}
-
-   rpc ip_route( IpRouteParams ) returns ( IpRoute ) {}
-
-   rpc ip_route_set( IpRouteSetParams ) returns ( Void ) {}
-
-   rpc bulk_ip_route_set( BulkIpRouteSetParams ) returns ( BulkResponse ) {}
-
-   rpc ip_route_del( IpRouteParams ) returns ( Void ) {}
-   
-   rpc bulk_ip_route_del( BulkIpRouteParams ) returns ( BulkResponse ) {}
-
-   rpc ip_route_via_set( IpRouteViaParams ) returns ( Void ) {}
-   
-   rpc bulk_ip_route_via_set( BulkIpRouteViaParams ) returns ( BulkResponse ) {}
-
-   rpc ip_route_via_del( IpRouteViaParams ) returns ( Void ) {}
-   
-   rpc bulk_ip_route_via_del( BulkIpRouteViaParams ) returns ( BulkResponse ) {}
-}
-
-message IpRouteKey {
-   Prefix prefix = 1;
-   uint32 preference = 2;
-}
-
-message IpRoute {
-   IpRouteKey key = 1;
-   uint32 tag = 2;
-}
-
-message IpRouteParams {
-   IpRouteKey key = 1;
-   string vrf_name = 2;
-}
-
-message BulkIpRouteParams {
-   repeated IpRouteParams ip_routes = 1;
-}
-
-enum IpRouteActions {
-   IP_ROUTE_ACTION_NULL = 0;
-   IP_ROUTE_ACTION_FORWARD = 1;
-   IP_ROUTE_ACTION_DROP = 2;
-   IP_ROUTE_ACTION_NEXTHOP_GROUP = 3;
 }
 
 message IpRouteSetParams {
@@ -91,15 +50,149 @@ message BulkIpRouteViaParams {
    repeated IpRouteViaParams ip_route_vias = 1;
 }
 
-message IpRouteVia {
+message IpRouteParams {
    IpRouteKey key = 1;
-   bytes hop_addr = 2;
-   IntfId intf_id = 3;
-   string nhg_name = 4;
-   uint32 mpls_label = 5;
-   uint32 vni = 6;
-   bytes vtep_addr = 7;
-   bytes router_mac_eth_addr = 8;
-   string egress_vrf = 9;
-   uint32 metric = 10;
+   string vrf_name = 2;
+}
+
+message BulkIpRouteParams {
+   repeated IpRouteParams ip_routes = 1;
+}
+
+message TagRequest {}
+
+message TagResponse {
+   Uint32 response = 1; 
+}
+
+message TagIsRequest {
+   Uint32 request = 1; 
+}
+
+message TagIsResponse {
+   Void response = 1; 
+}
+
+message ResyncInitRequest {
+   Void request = 1; 
+}
+
+message ResyncInitResponse {
+   Void response = 1; 
+}
+
+message ResyncCompleteRequest {
+   Void request = 1; 
+}
+
+message ResyncCompleteResponse {
+   Void response = 1; 
+}
+
+message IpRoutesRequest {
+   Void request = 1; 
+}
+
+message IpRoutesResponse {
+   IpRoute response = 1; 
+}
+
+message IpRouteViasRequest {
+   IpRouteViaParams request = 1; 
+}
+
+message IpRouteViasResponse {
+   IpRouteVia response = 1; 
+}
+
+message IpRouteExistsRequest {
+   IpRouteParams request = 1; 
+}
+
+message IpRouteExistsResponse {
+   Bool response = 1; 
+}
+
+message IpRouteViaExistsRequest {
+   IpRouteViaParams request = 1; 
+}
+
+message IpRouteViaExistsResponse {
+   Bool response = 1; 
+}
+
+message IpRouteRequest {
+   IpRouteParams request = 1; 
+}
+
+message IpRouteResponse {
+   IpRoute response = 1; 
+}
+
+message IpRouteSetRequest {
+   IpRouteSetParams request = 1; 
+}
+
+message IpRouteSetResponse {
+   Void response = 1; 
+}
+
+message BulkIpRouteSetRequest {
+   BulkIpRouteSetParams request = 1; 
+}
+
+message BulkIpRouteSetResponse {
+   uint64 processed = 1;
+   RpcResponseStatus status = 2;
+}
+
+message IpRouteDelRequest {
+   IpRouteParams request = 1; 
+}
+
+message IpRouteDelResponse {
+   Void response = 1; 
+}
+
+message BulkIpRouteDelRequest {
+   repeated IpRouteDelRequest request = 1; 
+}
+
+message BulkIpRouteDelResponse {
+   uint64 processed = 1;
+   RpcResponseStatus status = 2;
+}
+
+message IpRouteViaSetRequest {
+   IpRouteViaParams request = 1; 
+}
+
+message IpRouteViaSetResponse {
+   Void response = 1; 
+}
+
+message BulkIpRouteViaSetRequest {
+   BulkIpRouteViaParams request = 1; 
+}
+
+message BulkIpRouteViaSetResponse {
+   uint64 processed = 1;
+   RpcResponseStatus status = 2;
+}
+
+message IpRouteViaDelRequest {
+   IpRouteViaParams request = 1; 
+}
+
+message IpRouteViaDelResponse {
+   Void response = 1; 
+}
+
+message BulkIpRouteViaDelRequest {
+   BulkIpRouteViaParams request = 1; 
+}
+
+message BulkIpRouteViaDelResponse {
+   uint64 processed = 1;
+   RpcResponseStatus status = 2;
 }
