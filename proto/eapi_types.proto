@@ -5,10 +5,6 @@ syntax = "proto3";
 
 package eos.remote;
 
-message EapiCmd {
-   string command = 1;
-}
-
 message EapiResponse {
    bool success = 1;
    uint32 error_code = 2;

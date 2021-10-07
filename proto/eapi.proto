@@ -14,7 +14,7 @@ service EapiMgrService {
 }
 
 message RunShowCmdRequest {
-   EapiCmd command = 1;
+   string command = 1;
 }
 
 message RunShowCmdResponse {
@@ -22,7 +22,7 @@ message RunShowCmdResponse {
 }
 
 message RunConfigCmdsRequest {
-   repeated EapiCmd commands = 1;
+   repeated string commands = 1;
 }
 
 message RunConfigCmdsResponse {

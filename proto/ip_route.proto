@@ -27,7 +27,6 @@ service IpRouteMgrService {
    rpc bulk_ip_route_via_set( BulkIpRouteViaSetRequest ) returns ( BulkIpRouteViaSetResponse ) {}
    rpc ip_route_via_del( IpRouteViaDelRequest ) returns ( IpRouteViaDelResponse ) {}
    rpc bulk_ip_route_via_del( BulkIpRouteViaDelRequest ) returns ( BulkIpRouteViaDelResponse ) {}
-
 }
 
 message TagRequest {}

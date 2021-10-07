@@ -775,10 +775,10 @@
       "def": {
         "messages": [
           {
-            "name": "AgentWatchRequest"
+            "name": "WatchAgentRequest"
           },
           {
-            "name": "AgentWatchResponse",
+            "name": "WatchAgentResponse",
             "fields": [
               {
                 "id": 1,
@@ -1014,8 +1014,8 @@
             "rpcs": [
               {
                 "name": "watch",
-                "in_type": "AgentWatchRequest",
-                "out_type": "AgentWatchResponse",
+                "in_type": "WatchAgentRequest",
+                "out_type": "WatchAgentResponse",
                 "out_streamed": true
               },
               {
@@ -1670,7 +1670,7 @@
               {
                 "id": 1,
                 "name": "command",
-                "type": "EapiCmd"
+                "type": "string"
               }
             ]
           },
@@ -1690,7 +1690,7 @@
               {
                 "id": 1,
                 "name": "commands",
-                "type": "EapiCmd",
+                "type": "string",
                 "is_repeated": true
               }
             ]
@@ -1737,16 +1737,6 @@
       "protopath": "eapi_types.proto",
       "def": {
         "messages": [
-          {
-            "name": "EapiCmd",
-            "fields": [
-              {
-                "id": 1,
-                "name": "command",
-                "type": "string"
-              }
-            ]
-          },
           {
             "name": "EapiResponse",
             "fields": [
@@ -1833,7 +1823,7 @@
               {
                 "id": 3,
                 "name": "status",
-                "type": "OperStatus"
+                "type": "OperStatuses"
               },
               {
                 "id": 4,
@@ -1861,7 +1851,7 @@
             ]
           },
           {
-            "name": "ExistsRequest",
+            "name": "IntfExistsRequest",
             "fields": [
               {
                 "id": 1,
@@ -1871,7 +1861,7 @@
             ]
           },
           {
-            "name": "ExistsResponse",
+            "name": "IntfExistsResponse",
             "fields": [
               {
                 "id": 1,
@@ -1925,7 +1915,7 @@
             "fields": [
               {
                 "id": 1,
-                "name": "request",
+                "name": "intf_id",
                 "type": "IntfId"
               }
             ]
@@ -2063,8 +2053,8 @@
             "fields": [
               {
                 "id": 1,
-                "name": "response",
-                "type": "OperStatus"
+                "name": "status",
+                "type": "OperStatuses"
               }
             ]
           },
@@ -2127,8 +2117,8 @@
               },
               {
                 "name": "exists",
-                "in_type": "ExistsRequest",
-                "out_type": "ExistsResponse"
+                "in_type": "IntfExistsRequest",
+                "out_type": "IntfExistsResponse"
               },
               {
                 "name": "kernel_intf_name",
@@ -2255,7 +2245,7 @@
             ]
           },
           {
-            "name": "OperStatus.OperStatuses",
+            "name": "OperStatuses",
             "enum_fields": [
               {
                 "name": "INTF_OPER_NULL"
@@ -2379,16 +2369,6 @@
                 "id": 5,
                 "name": "sample_time",
                 "type": "double"
-              }
-            ]
-          },
-          {
-            "name": "OperStatus",
-            "fields": [
-              {
-                "id": 1,
-                "name": "status",
-                "type": "OperStatuses"
               }
             ]
           }
