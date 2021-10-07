@@ -81,6 +81,7 @@ protobufFiles= [
    'proto/ip_intf_types.proto',
    'proto/ip_route_types.proto',
    'proto/macsec_types.proto',
+   'proto/nexthop_group_types.proto',
    'proto/mpls_types.proto',
    'proto/rpc_types.proto',
 ]

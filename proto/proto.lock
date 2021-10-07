@@ -778,12 +778,17 @@
             "name": "AgentWatchRequest"
           },
           {
-            "name": "AgentEvent",
+            "name": "AgentWatchResponse",
             "fields": [
               {
                 "id": 1,
-                "name": "option",
-                "type": "NameValue"
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "id": 2,
+                "name": "value",
+                "type": "string"
               }
             ]
           },
@@ -1010,7 +1015,7 @@
               {
                 "name": "watch",
                 "in_type": "AgentWatchRequest",
-                "out_type": "AgentEvent",
+                "out_type": "AgentWatchResponse",
                 "out_streamed": true
               },
               {
@@ -1459,9 +1464,6 @@
         "imports": [
           {
             "path": "bgp_path_types.proto"
-          },
-          {
-            "path": "rpc_types.proto"
           }
         ],
         "package": {
@@ -2803,89 +2805,6 @@
       "def": {
         "messages": [
           {
-            "name": "IpRouteSetParams",
-            "fields": [
-              {
-                "id": 1,
-                "name": "route",
-                "type": "IpRoute"
-              },
-              {
-                "id": 2,
-                "name": "action",
-                "type": "IpRouteActions"
-              },
-              {
-                "id": 3,
-                "name": "vrf_name",
-                "type": "string"
-              }
-            ]
-          },
-          {
-            "name": "BulkIpRouteSetParams",
-            "fields": [
-              {
-                "id": 1,
-                "name": "ip_routes",
-                "type": "IpRouteSetParams",
-                "is_repeated": true
-              }
-            ]
-          },
-          {
-            "name": "IpRouteViaParams",
-            "fields": [
-              {
-                "id": 1,
-                "name": "via",
-                "type": "IpRouteVia"
-              },
-              {
-                "id": 2,
-                "name": "vrf_name",
-                "type": "string"
-              }
-            ]
-          },
-          {
-            "name": "BulkIpRouteViaParams",
-            "fields": [
-              {
-                "id": 1,
-                "name": "ip_route_vias",
-                "type": "IpRouteViaParams",
-                "is_repeated": true
-              }
-            ]
-          },
-          {
-            "name": "IpRouteParams",
-            "fields": [
-              {
-                "id": 1,
-                "name": "key",
-                "type": "IpRouteKey"
-              },
-              {
-                "id": 2,
-                "name": "vrf_name",
-                "type": "string"
-              }
-            ]
-          },
-          {
-            "name": "BulkIpRouteParams",
-            "fields": [
-              {
-                "id": 1,
-                "name": "ip_routes",
-                "type": "IpRouteParams",
-                "is_repeated": true
-              }
-            ]
-          },
-          {
             "name": "TagRequest"
           },
           {
@@ -2893,8 +2812,8 @@
             "fields": [
               {
                 "id": 1,
-                "name": "response",
-                "type": "Uint32"
+                "name": "tag",
+                "type": "uint32"
               }
             ]
           },
@@ -2903,8 +2822,8 @@
             "fields": [
               {
                 "id": 1,
-                "name": "request",
-                "type": "Uint32"
+                "name": "tag",
+                "type": "uint32"
               }
             ]
           },
@@ -2912,16 +2831,16 @@
             "name": "TagIsResponse"
           },
           {
-            "name": "ResyncInitRequest"
+            "name": "IpRouteResyncInitRequest"
           },
           {
-            "name": "ResyncInitResponse"
+            "name": "IpRouteResyncInitResponse"
           },
           {
-            "name": "ResyncCompleteRequest"
+            "name": "IpRouteResyncCompleteRequest"
           },
           {
-            "name": "ResyncCompleteResponse"
+            "name": "IpRouteResyncCompleteResponse"
           },
           {
             "name": "IpRoutesRequest"
@@ -2982,7 +2901,7 @@
               {
                 "id": 1,
                 "name": "response",
-                "type": "Bool"
+                "type": "bool"
               }
             ]
           },
@@ -3007,7 +2926,7 @@
               {
                 "id": 1,
                 "name": "response",
-                "type": "Bool"
+                "type": "bool"
               }
             ]
           },
@@ -3041,28 +2960,31 @@
             "fields": [
               {
                 "id": 1,
-                "name": "request",
-                "type": "IpRouteSetParams"
+                "name": "route",
+                "type": "IpRoute"
+              },
+              {
+                "id": 2,
+                "name": "action",
+                "type": "IpRouteActions"
+              },
+              {
+                "id": 3,
+                "name": "vrf_name",
+                "type": "string"
               }
             ]
           },
           {
-            "name": "IpRouteSetResponse",
-            "fields": [
-              {
-                "id": 1,
-                "name": "response",
-                "type": "Void"
-              }
-            ]
+            "name": "IpRouteSetResponse"
           },
           {
             "name": "BulkIpRouteSetRequest",
             "fields": [
               {
                 "id": 1,
-                "name": "request",
-                "type": "BulkIpRouteSetParams"
+                "name": "requests",
+                "type": "BulkIpRouteSetRequest"
               }
             ]
           },
@@ -3097,14 +3019,7 @@
             ]
           },
           {
-            "name": "IpRouteDelResponse",
-            "fields": [
-              {
-                "id": 1,
-                "name": "response",
-                "type": "Void"
-              }
-            ]
+            "name": "IpRouteDelResponse"
           },
           {
             "name": "BulkIpRouteDelRequest",
@@ -3148,14 +3063,7 @@
             ]
           },
           {
-            "name": "IpRouteViaSetResponse",
-            "fields": [
-              {
-                "id": 1,
-                "name": "response",
-                "type": "Void"
-              }
-            ]
+            "name": "IpRouteViaSetResponse"
           },
           {
             "name": "BulkIpRouteViaSetRequest",
@@ -3198,14 +3106,7 @@
             ]
           },
           {
-            "name": "IpRouteViaDelResponse",
-            "fields": [
-              {
-                "id": 1,
-                "name": "response",
-                "type": "Void"
-              }
-            ]
+            "name": "IpRouteViaDelResponse"
           },
           {
             "name": "BulkIpRouteViaDelRequest",
@@ -3249,13 +3150,13 @@
               },
               {
                 "name": "resync_init",
-                "in_type": "ResyncInitRequest",
-                "out_type": "ResyncInitResponse"
+                "in_type": "IpRouteResyncInitRequest",
+                "out_type": "IpRouteResyncInitResponse"
               },
               {
                 "name": "resync_complete",
-                "in_type": "ResyncCompleteRequest",
-                "out_type": "ResyncCompleteResponse"
+                "in_type": "IpRouteResyncCompleteRequest",
+                "out_type": "IpRouteResyncCompleteResponse"
               },
               {
                 "name": "ip_routes",
@@ -4235,6 +4136,365 @@
     {
       "protopath": "nexthop_group.proto",
       "def": {
+        "messages": [
+          {
+            "name": "WatchNhgRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "all_intfs",
+                "type": "bool"
+              },
+              {
+                "id": 2,
+                "name": "nhg_name",
+                "type": "string"
+              },
+              {
+                "id": 3,
+                "name": "recv_notifications",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "WatchNhgResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "nhgName",
+                "type": "string"
+              },
+              {
+                "id": 2,
+                "name": "active_status",
+                "type": "bool"
+              },
+              {
+                "id": 3,
+                "name": "nhg_programmed",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "ResyncNhgInitRequest"
+          },
+          {
+            "name": "ResyncNhgInitResponse"
+          },
+          {
+            "name": "ResyncNhgCompleteRequest"
+          },
+          {
+            "name": "ResyncNhgCompleteResponse"
+          },
+          {
+            "name": "NexthopGroupsRequest"
+          },
+          {
+            "name": "NexthopGroupsResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "nhg",
+                "type": "NexthopGroup"
+              }
+            ]
+          },
+          {
+            "name": "ProgrammedNexthopGroupsRequest"
+          },
+          {
+            "name": "ProgrammedNexthopGroupsResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "nhg",
+                "type": "NexthopGroup"
+              }
+            ]
+          },
+          {
+            "name": "NexthopGroupRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "name",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "NexthopGroupResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "nhg",
+                "type": "NexthopGroup"
+              }
+            ]
+          },
+          {
+            "name": "CounterRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "nhg_name",
+                "type": "string"
+              },
+              {
+                "id": 2,
+                "name": "entry",
+                "type": "uint32"
+              }
+            ]
+          },
+          {
+            "name": "CounterResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "counter",
+                "type": "NexthopGroupCounter"
+              }
+            ]
+          },
+          {
+            "name": "NhgExistsRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "name",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "NhgExistsResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "exists",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "NhgActiveRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "name",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "NhgActiveResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "active",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "NexthopGroupSetRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "nhg",
+                "type": "NexthopGroup"
+              }
+            ]
+          },
+          {
+            "name": "NexthopGroupSetResponse"
+          },
+          {
+            "name": "BulkNexthopGroupSetRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "requests",
+                "type": "NexthopGroupSetRequest",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "BulkNexthopGroupSetResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "processed",
+                "type": "uint64"
+              },
+              {
+                "id": 2,
+                "name": "status",
+                "type": "RpcResponseStatus"
+              }
+            ]
+          },
+          {
+            "name": "NexthopGroupDelRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "name",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "NexthopGroupDelResponse"
+          },
+          {
+            "name": "BulkNexthopGroupDelRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "requests",
+                "type": "NexthopGroupDelRequest",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "BulkNexthopGroupDelResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "processed",
+                "type": "uint64"
+              },
+              {
+                "id": 2,
+                "name": "status",
+                "type": "RpcResponseStatus"
+              }
+            ]
+          },
+          {
+            "name": "ProgrammedNexthopGroupRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "name",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "ProgrammedNexthopGroupResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "nhg",
+                "type": "NexthopGroup"
+              }
+            ]
+          }
+        ],
+        "services": [
+          {
+            "name": "NexthopGroupMgrService",
+            "rpcs": [
+              {
+                "name": "watch",
+                "in_type": "WatchNhgRequest",
+                "out_type": "WatchNhgResponse",
+                "out_streamed": true
+              },
+              {
+                "name": "resync_init",
+                "in_type": "ResyncNhgInitRequest",
+                "out_type": "ResyncNhgInitResponse"
+              },
+              {
+                "name": "resync_complete",
+                "in_type": "ResyncNhgCompleteRequest",
+                "out_type": "ResyncNhgCompleteResponse"
+              },
+              {
+                "name": "nexthop_groups",
+                "in_type": "NexthopGroupsRequest",
+                "out_type": "NexthopGroupsResponse",
+                "out_streamed": true
+              },
+              {
+                "name": "programmed_nexthop_groups",
+                "in_type": "ProgrammedNexthopGroupsRequest",
+                "out_type": "ProgrammedNexthopGroupsResponse",
+                "out_streamed": true
+              },
+              {
+                "name": "nexthop_group",
+                "in_type": "NexthopGroupRequest",
+                "out_type": "NexthopGroupResponse"
+              },
+              {
+                "name": "counter",
+                "in_type": "CounterRequest",
+                "out_type": "CounterResponse"
+              },
+              {
+                "name": "exists",
+                "in_type": "NhgExistsRequest",
+                "out_type": "NhgExistsResponse"
+              },
+              {
+                "name": "active",
+                "in_type": "NhgActiveRequest",
+                "out_type": "NhgActiveResponse"
+              },
+              {
+                "name": "nexthop_group_set",
+                "in_type": "NexthopGroupSetRequest",
+                "out_type": "NexthopGroupSetResponse"
+              },
+              {
+                "name": "bulk_nexthop_group_set",
+                "in_type": "BulkNexthopGroupSetRequest",
+                "out_type": "BulkNexthopGroupSetResponse"
+              },
+              {
+                "name": "nexthop_group_del",
+                "in_type": "NexthopGroupDelRequest",
+                "out_type": "NexthopGroupDelResponse"
+              },
+              {
+                "name": "bulk_nexthop_group_del",
+                "in_type": "BulkNexthopGroupDelRequest",
+                "out_type": "BulkNexthopGroupDelResponse"
+              },
+              {
+                "name": "programmed_nexthop_group",
+                "in_type": "ProgrammedNexthopGroupRequest",
+                "out_type": "ProgrammedNexthopGroupResponse"
+              }
+            ]
+          }
+        ],
+        "imports": [
+          {
+            "path": "rpc_types.proto"
+          },
+          {
+            "path": "nexthop_group_types.proto"
+          }
+        ],
+        "package": {
+          "name": "eos.remote"
+        }
+      }
+    },
+    {
+      "protopath": "nexthop_group_types.proto",
+      "def": {
         "enums": [
           {
             "name": "NexthopGroupEncapTypes",
@@ -4278,46 +4538,6 @@
           }
         ],
         "messages": [
-          {
-            "name": "WatchNhgParams",
-            "fields": [
-              {
-                "id": 1,
-                "name": "all_intfs",
-                "type": "bool"
-              },
-              {
-                "id": 2,
-                "name": "nhg_name",
-                "type": "string"
-              },
-              {
-                "id": 3,
-                "name": "recv_notifications",
-                "type": "bool"
-              }
-            ]
-          },
-          {
-            "name": "NhgEvent",
-            "fields": [
-              {
-                "id": 1,
-                "name": "nhgName",
-                "type": "string"
-              },
-              {
-                "id": 2,
-                "name": "active_status",
-                "type": "bool"
-              },
-              {
-                "id": 3,
-                "name": "nhg_programmed",
-                "type": "bool"
-              }
-            ]
-          },
           {
             "name": "NexthopGroupEntry",
             "fields": [
@@ -4428,28 +4648,6 @@
             ]
           },
           {
-            "name": "BulkNexthopGroupSet",
-            "fields": [
-              {
-                "id": 1,
-                "name": "groups",
-                "type": "NexthopGroup",
-                "is_repeated": true
-              }
-            ]
-          },
-          {
-            "name": "BulkNexthopGroupDel",
-            "fields": [
-              {
-                "id": 1,
-                "name": "names",
-                "type": "string",
-                "is_repeated": true
-              }
-            ]
-          },
-          {
             "name": "NexthopGroupCounter",
             "fields": [
               {
@@ -4468,102 +4666,9 @@
                 "type": "bool"
               }
             ]
-          },
-          {
-            "name": "NexthopGroupCounterParams",
-            "fields": [
-              {
-                "id": 1,
-                "name": "nhg_name",
-                "type": "string"
-              },
-              {
-                "id": 2,
-                "name": "entry",
-                "type": "uint32"
-              }
-            ]
-          }
-        ],
-        "services": [
-          {
-            "name": "NexthopGroupMgrService",
-            "rpcs": [
-              {
-                "name": "watch",
-                "in_type": "WatchNhgParams",
-                "out_type": "NhgEvent",
-                "out_streamed": true
-              },
-              {
-                "name": "resync",
-                "in_type": "ResyncMgrParams",
-                "out_type": "RpcResponseStatus"
-              },
-              {
-                "name": "nexthop_groups",
-                "in_type": "Void",
-                "out_type": "NexthopGroup",
-                "out_streamed": true
-              },
-              {
-                "name": "programmed_nexthop_groups",
-                "in_type": "Void",
-                "out_type": "NexthopGroup",
-                "out_streamed": true
-              },
-              {
-                "name": "nexthop_group",
-                "in_type": "String",
-                "out_type": "NexthopGroup"
-              },
-              {
-                "name": "counter",
-                "in_type": "NexthopGroupCounterParams",
-                "out_type": "NexthopGroupCounter"
-              },
-              {
-                "name": "exists",
-                "in_type": "String",
-                "out_type": "Bool"
-              },
-              {
-                "name": "active",
-                "in_type": "String",
-                "out_type": "Bool"
-              },
-              {
-                "name": "nexthop_group_set",
-                "in_type": "NexthopGroup",
-                "out_type": "RpcResponseStatus"
-              },
-              {
-                "name": "bulk_nexthop_group_set",
-                "in_type": "BulkNexthopGroupSet",
-                "out_type": "BulkResponse"
-              },
-              {
-                "name": "nexthop_group_del",
-                "in_type": "String",
-                "out_type": "RpcResponseStatus"
-              },
-              {
-                "name": "bulk_nexthop_group_del",
-                "in_type": "BulkNexthopGroupDel",
-                "out_type": "BulkResponse"
-              },
-              {
-                "name": "programmed_nexthop_group",
-                "in_type": "String",
-                "out_type": "NexthopGroup"
-              }
-            ]
           }
         ],
         "imports": [
-          {
-            "path": "rpc_types.proto"
-          },
           {
             "path": "intf_types.proto"
           },
@@ -4647,91 +4752,9 @@
                 "integer": 15
               }
             ]
-          },
-          {
-            "name": "ResyncMgrParams.State",
-            "enum_fields": [
-              {
-                "name": "START"
-              },
-              {
-                "name": "END",
-                "integer": 1
-              }
-            ]
           }
         ],
         "messages": [
-          {
-            "name": "Void"
-          },
-          {
-            "name": "Bool",
-            "fields": [
-              {
-                "id": 1,
-                "name": "value",
-                "type": "bool"
-              }
-            ]
-          },
-          {
-            "name": "Name",
-            "fields": [
-              {
-                "id": 1,
-                "name": "name",
-                "type": "string"
-              }
-            ]
-          },
-          {
-            "name": "BulkName",
-            "fields": [
-              {
-                "id": 1,
-                "name": "names",
-                "type": "Name",
-                "is_repeated": true
-              }
-            ]
-          },
-          {
-            "name": "Value",
-            "fields": [
-              {
-                "id": 1,
-                "name": "value",
-                "type": "string"
-              }
-            ]
-          },
-          {
-            "name": "NameValue",
-            "fields": [
-              {
-                "id": 1,
-                "name": "name",
-                "type": "string"
-              },
-              {
-                "id": 2,
-                "name": "value",
-                "type": "string"
-              }
-            ]
-          },
-          {
-            "name": "BulkNameValue",
-            "fields": [
-              {
-                "id": 1,
-                "name": "namesValues",
-                "type": "NameValue",
-                "is_repeated": true
-              }
-            ]
-          },
           {
             "name": "Prefix",
             "fields": [
@@ -4744,16 +4767,6 @@
                 "id": 2,
                 "name": "length",
                 "type": "int32"
-              }
-            ]
-          },
-          {
-            "name": "Uint32",
-            "fields": [
-              {
-                "id": 1,
-                "name": "value",
-                "type": "uint32"
               }
             ]
           },
@@ -4784,26 +4797,6 @@
                 "id": 2,
                 "name": "status",
                 "type": "RpcResponseStatus"
-              }
-            ]
-          },
-          {
-            "name": "ResyncMgrParams",
-            "fields": [
-              {
-                "id": 1,
-                "name": "value",
-                "type": "State"
-              }
-            ]
-          },
-          {
-            "name": "String",
-            "fields": [
-              {
-                "id": 1,
-                "name": "value",
-                "type": "string"
               }
             ]
           }

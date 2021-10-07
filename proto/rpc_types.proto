@@ -5,40 +5,9 @@ syntax = "proto3";
 
 package eos.remote;
 
-message Void {}
-
-message Bool {
-   bool value = 1;
-}
-
-message Name {
-   string name = 1;
-}
-
-message BulkName {
-   repeated Name names = 1;
-}
-
-message Value {
-   string value = 1;
-}
-
-message NameValue {
-   string name = 1;
-   string value = 2;
-}
-
-message BulkNameValue {
-   repeated NameValue namesValues = 1;
-}
-
 message Prefix {
    bytes ip_addr = 1;
    int32 length = 2;
-}
-
-message Uint32 {
-   uint32 value = 1;
 }
 
 message RpcResponseStatus {
@@ -69,16 +38,4 @@ message RpcResponseStatus {
 message BulkResponse {
    uint64 processed = 1;
    RpcResponseStatus status = 2;
-}
-
-message ResyncMgrParams {
-   enum State {
-      START = 0;
-      END = 1;
-   }
-   State value = 1;
-}
-
-message String {
-   string value = 1;
 }

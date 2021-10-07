@@ -6,7 +6,6 @@ syntax = "proto3";
 package eos.remote;
 
 import "bgp_path_types.proto";
-import "rpc_types.proto";
 
 service BgpPathMgrService {
    rpc watch( WatchBgpPathRequest ) returns ( stream WatchBgpPathResponse ) {}

@@ -12,8 +12,8 @@ package eos.remote;
 service IpRouteMgrService {
    rpc tag( TagRequest ) returns ( TagResponse ) {}
    rpc tag_is( TagIsRequest ) returns ( TagIsResponse ) {}
-   rpc resync_init( ResyncInitRequest ) returns ( ResyncInitResponse ) {}
-   rpc resync_complete( ResyncCompleteRequest ) returns ( ResyncCompleteResponse ) {}
+   rpc resync_init( IpRouteResyncInitRequest ) returns ( IpRouteResyncInitResponse ) {}
+   rpc resync_complete( IpRouteResyncCompleteRequest ) returns ( IpRouteResyncCompleteResponse ) {}
    rpc ip_routes( IpRoutesRequest ) returns ( stream IpRoutesResponse ) {}
    rpc ip_route_vias( IpRouteViasRequest ) returns ( stream IpRouteViasResponse ) {}
    rpc ip_route_exists( IpRouteExistsRequest ) returns ( IpRouteExistsResponse ) {}
@@ -30,55 +30,25 @@ service IpRouteMgrService {
 
 }
 
-message IpRouteSetParams {
-   IpRoute route = 1;
-   oneof additional_arg {
-      IpRouteActions action = 2;
-      string vrf_name = 3;
-   }
-}
-
-message BulkIpRouteSetParams {
-   repeated IpRouteSetParams ip_routes = 1;
-}
-
-message IpRouteViaParams {
-   IpRouteVia via = 1;
-   string vrf_name = 2;
-}
-
-message BulkIpRouteViaParams {
-   repeated IpRouteViaParams ip_route_vias = 1;
-}
-
-message IpRouteParams {
-   IpRouteKey key = 1;
-   string vrf_name = 2;
-}
-
-message BulkIpRouteParams {
-   repeated IpRouteParams ip_routes = 1;
-}
-
 message TagRequest {}
 
 message TagResponse {
-   Uint32 response = 1; 
+   uint32 tag = 1; 
 }
 
 message TagIsRequest {
-   Uint32 request = 1; 
+   uint32 tag = 1; 
 }
 
 message TagIsResponse {}
 
-message ResyncInitRequest {}
+message IpRouteResyncInitRequest {}
 
-message ResyncInitResponse {}
+message IpRouteResyncInitResponse {}
 
-message ResyncCompleteRequest {}
+message IpRouteResyncCompleteRequest {}
 
-message ResyncCompleteResponse {}
+message IpRouteResyncCompleteResponse {}
 
 message IpRoutesRequest {}
 
@@ -101,7 +71,7 @@ message IpRouteExistsRequest {
 }
 
 message IpRouteExistsResponse {
-   Bool response = 1; 
+   bool response = 1; 
 }
 
 message IpRouteViaExistsRequest {
@@ -110,7 +80,7 @@ message IpRouteViaExistsRequest {
 }
 
 message IpRouteViaExistsResponse {
-   Bool response = 1; 
+   bool response = 1; 
 }
 
 message IpRouteRequest {
@@ -123,15 +93,17 @@ message IpRouteResponse {
 }
 
 message IpRouteSetRequest {
-   IpRouteSetParams request = 1; 
+   IpRoute route = 1;
+   oneof additional_arg {
+      IpRouteActions action = 2;
+      string vrf_name = 3;
+   }
 }
 
-message IpRouteSetResponse {
-   Void response = 1; 
-}
+message IpRouteSetResponse {}
 
 message BulkIpRouteSetRequest {
-   BulkIpRouteSetParams request = 1; 
+   BulkIpRouteSetRequest requests = 1; 
 }
 
 message BulkIpRouteSetResponse {
@@ -144,9 +116,7 @@ message IpRouteDelRequest {
    string vrf_name = 2;
 }
 
-message IpRouteDelResponse {
-   Void response = 1; 
-}
+message IpRouteDelResponse {}
 
 message BulkIpRouteDelRequest {
    repeated IpRouteDelRequest request = 1; 
@@ -162,9 +132,7 @@ message IpRouteViaSetRequest {
    string vrf_name = 2;
 }
 
-message IpRouteViaSetResponse {
-   Void response = 1; 
-}
+message IpRouteViaSetResponse {}
 
 message BulkIpRouteViaSetRequest {
    BulkIpRouteViaSetRequest requests = 1; 
@@ -180,9 +148,7 @@ message IpRouteViaDelRequest {
    string vrf_name = 2;
 }
 
-message IpRouteViaDelResponse {
-   Void response = 1; 
-}
+message IpRouteViaDelResponse {}
 
 message BulkIpRouteViaDelRequest {
    BulkIpRouteViaDelRequest requests = 1; 

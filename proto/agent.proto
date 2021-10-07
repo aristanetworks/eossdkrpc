@@ -14,7 +14,7 @@ service AgentService {
     * the events on_initialized and on_agent_enabled are out of rpc scope since
     * they imply on creation and destruction of the RPC server itself.
     **/
-   rpc watch( AgentWatchRequest ) returns ( stream AgentEvent );
+   rpc watch( AgentWatchRequest ) returns ( stream AgentWatchResponse );
    rpc agent_id( AgentIdRequest ) returns ( AgentIdResponse );
    rpc enabled( AgentEnabledRequest ) returns ( AgentEnabledResponse );
    rpc agent_option( AgentOptionRequest ) returns ( AgentOptionResponse );
@@ -31,10 +31,9 @@ service AgentService {
 
 message AgentWatchRequest {}
 
-message AgentEvent {
-   oneof event {
-      NameValue option = 1;
-   }
+message AgentWatchResponse {
+   string name = 1;
+   string value = 2;
 }
 
 message AgentIdRequest {
