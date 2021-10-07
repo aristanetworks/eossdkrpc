@@ -3,7 +3,7 @@
 
 syntax = "proto3";
 
-import "defs.proto";
+import "rpc_types.proto";
 
 package eos.remote;
 

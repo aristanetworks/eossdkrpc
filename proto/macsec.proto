@@ -5,7 +5,7 @@ syntax = "proto3";
 
 package eos.remote;
 
-import "defs.proto";
+import "rpc_types.proto";
 import "intf_types.proto";
 import "macsec_types.proto";
 

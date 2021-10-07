@@ -3,8 +3,9 @@
 
 syntax = "proto3";
 
-import "defs.proto";
+import "rpc_types.proto";
 import "intf_types.proto";
+import "ip_route_types.proto";
 
 package eos.remote;
 
@@ -69,36 +70,25 @@ message TagIsRequest {
    Uint32 request = 1; 
 }
 
-message TagIsResponse {
-   Void response = 1; 
-}
+message TagIsResponse {}
 
-message ResyncInitRequest {
-   Void request = 1; 
-}
+message ResyncInitRequest {}
 
-message ResyncInitResponse {
-   Void response = 1; 
-}
+message ResyncInitResponse {}
 
-message ResyncCompleteRequest {
-   Void request = 1; 
-}
+message ResyncCompleteRequest {}
 
-message ResyncCompleteResponse {
-   Void response = 1; 
-}
+message ResyncCompleteResponse {}
 
-message IpRoutesRequest {
-   Void request = 1; 
-}
+message IpRoutesRequest {}
 
 message IpRoutesResponse {
    IpRoute response = 1; 
 }
 
 message IpRouteViasRequest {
-   IpRouteViaParams request = 1; 
+   IpRouteVia via = 1;
+   string vrf_name = 2;
 }
 
 message IpRouteViasResponse {
@@ -106,7 +96,8 @@ message IpRouteViasResponse {
 }
 
 message IpRouteExistsRequest {
-   IpRouteParams request = 1; 
+   IpRouteKey key = 1;
+   string vrf_name = 2;
 }
 
 message IpRouteExistsResponse {
@@ -114,7 +105,8 @@ message IpRouteExistsResponse {
 }
 
 message IpRouteViaExistsRequest {
-   IpRouteViaParams request = 1; 
+   IpRouteVia via = 1;
+   string vrf_name = 2;
 }
 
 message IpRouteViaExistsResponse {
@@ -122,7 +114,8 @@ message IpRouteViaExistsResponse {
 }
 
 message IpRouteRequest {
-   IpRouteParams request = 1; 
+   IpRouteKey key = 1;
+   string vrf_name = 2;
 }
 
 message IpRouteResponse {
@@ -147,7 +140,8 @@ message BulkIpRouteSetResponse {
 }
 
 message IpRouteDelRequest {
-   IpRouteParams request = 1; 
+   IpRouteKey key = 1;
+   string vrf_name = 2;
 }
 
 message IpRouteDelResponse {
@@ -164,7 +158,8 @@ message BulkIpRouteDelResponse {
 }
 
 message IpRouteViaSetRequest {
-   IpRouteViaParams request = 1; 
+   IpRouteVia via = 1;
+   string vrf_name = 2;
 }
 
 message IpRouteViaSetResponse {
@@ -172,7 +167,7 @@ message IpRouteViaSetResponse {
 }
 
 message BulkIpRouteViaSetRequest {
-   BulkIpRouteViaParams request = 1; 
+   BulkIpRouteViaSetRequest requests = 1; 
 }
 
 message BulkIpRouteViaSetResponse {
@@ -181,7 +176,8 @@ message BulkIpRouteViaSetResponse {
 }
 
 message IpRouteViaDelRequest {
-   IpRouteViaParams request = 1; 
+   IpRouteVia via = 1;
+   string vrf_name = 2;
 }
 
 message IpRouteViaDelResponse {
@@ -189,7 +185,7 @@ message IpRouteViaDelResponse {
 }
 
 message BulkIpRouteViaDelRequest {
-   BulkIpRouteViaParams request = 1; 
+   BulkIpRouteViaDelRequest requests = 1; 
 }
 
 message BulkIpRouteViaDelResponse {

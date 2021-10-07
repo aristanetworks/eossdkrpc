@@ -5,36 +5,25 @@ syntax = "proto3";
 
 package eos.remote;
 
-import "defs.proto";
+import "bgp_path_types.proto";
+import "rpc_types.proto";
 
 service BgpPathMgrService {
-   rpc watch( WatchBgpPathParams ) returns ( stream BgpPathEvent ) {}
-
-   rpc ipv4_unicast_paths( BgpPathParams ) returns ( stream BgpPath ) {}
-
-   rpc ipv4_unicast_path( BgpPathParams ) returns ( BgpPath ) {}
-
-   rpc ipv4_unicast_bgp_convergence( Void ) returns ( Bool ) {}
-
-   rpc ipv6_unicast_paths( BgpPathParams ) returns ( stream BgpPath ) {}
-
-   rpc ipv6_unicast_path( BgpPathParams ) returns ( BgpPath ) {}
-
-   rpc ipv6_unicast_bgp_convergence( Void ) returns ( Bool ) {}
+   rpc watch( WatchBgpPathRequest ) returns ( stream WatchBgpPathResponse ) {}
+   rpc ipv4_unicast_paths( Ipv4UnicastPathsRequest ) returns ( stream Ipv4UnicastPathsResponse ) {}
+   rpc ipv4_unicast_path( Ipv4UnicastPathRequest ) returns ( Ipv4UnicastPathResponse ) {}
+   rpc ipv4_unicast_bgp_convergence( Ipv4UnicastBgpConvergenceRequest ) returns ( Ipv4UnicastBgpConvergenceResponse ) {}
+   rpc ipv6_unicast_paths( Ipv6UnicastPathsRequest ) returns ( stream Ipv6UnicastPathsResponse ) {}
+   rpc ipv6_unicast_path( Ipv6UnicastPathRequest ) returns ( Ipv6UnicastPathResponse ) {}
+   rpc ipv6_unicast_bgp_convergence( Ipv6UnicastBgpConvergenceRequest ) returns ( Ipv6UnicastBgpConvergenceResponse ) {}
 }
 
-message WatchBgpPathParams {
+message WatchBgpPathRequest {
    oneof overloads {
       bool all_paths = 1;
       bool ipv4_unicast_paths = 2;
       bool ipv6_unicast_paths = 3;
    }
-}
-
-message BgpPathKey {
-   Prefix prefix = 1;
-   bytes peer_addr = 2;
-   string vrf_name = 3;
 }
 
 message BgpUnicastPathEvent {
@@ -47,43 +36,57 @@ message ConvergedEvent {
    bool converged = 2;
 }
 
-message BgpPathEvent {
+message WatchBgpPathResponse {
    oneof events {
       BgpUnicastPathEvent path_event = 1;
       ConvergedEvent converged_event = 2;
    }
 }
 
-enum BgpReceiveRouteStages {
-   BGP_PATH_PRE_POLICY = 0;
-   BGP_PATH_POST_POLICY = 1;
-};
-
-message BgpPathAttrFields {
-   bool next_hop = 1;
-   bool community_list = 2;
-}
-
-message BgpPathOptions {
-   BgpReceiveRouteStages stage = 1;
-   BgpPathAttrFields fields = 2;
-
-}
-
-message BgpPathParams {
+message Ipv4UnicastPathsRequest {
    BgpPathKey path_key = 1;
    BgpPathOptions path_options = 2;
 }
 
-message BgpPathAttrs {
-   bytes next_hop = 1;
-   int32 origin = 2;
-   uint32 med = 3;
-   uint32 local_pref = 4;
-   repeated uint32 community_list = 5;
+message Ipv4UnicastPathsResponse {
+   BgpPath response = 1; 
 }
 
-message BgpPath {
+message Ipv4UnicastPathRequest {
    BgpPathKey path_key = 1;
-   BgpPathAttrs path_attrs = 2;
+   BgpPathOptions path_options = 2;
+}
+
+message Ipv4UnicastPathResponse {
+   BgpPath response = 1; 
+}
+
+message Ipv4UnicastBgpConvergenceRequest {}
+
+message Ipv4UnicastBgpConvergenceResponse {
+   bool response = 1; 
+}
+
+message Ipv6UnicastPathsRequest {
+   BgpPathKey path_key = 1;
+   BgpPathOptions path_options = 2;
+}
+
+message Ipv6UnicastPathsResponse {
+   BgpPath response = 1; 
+}
+
+message Ipv6UnicastPathRequest {
+   BgpPathKey path_key = 1;
+   BgpPathOptions path_options = 2;
+}
+
+message Ipv6UnicastPathResponse {
+   BgpPath response = 1; 
+}
+
+message Ipv6UnicastBgpConvergenceRequest {}
+
+message Ipv6UnicastBgpConvergenceResponse {
+   bool response = 1; 
 }

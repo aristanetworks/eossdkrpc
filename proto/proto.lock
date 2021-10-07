@@ -1080,7 +1080,7 @@
         ],
         "imports": [
           {
-            "path": "defs.proto"
+            "path": "rpc_types.proto"
           }
         ],
         "package": {
@@ -1092,38 +1092,6 @@
       "protopath": "bgp.proto",
       "def": {
         "enums": [
-          {
-            "name": "BgpPeerStates",
-            "enum_fields": [
-              {
-                "name": "PEER_UNKNOWN"
-              },
-              {
-                "name": "PEER_IDLE",
-                "integer": 1
-              },
-              {
-                "name": "PEER_CONNECT",
-                "integer": 2
-              },
-              {
-                "name": "PEER_ACTIVE",
-                "integer": 3
-              },
-              {
-                "name": "PEER_OPENSENT",
-                "integer": 4
-              },
-              {
-                "name": "PEER_OPENCONFIRM",
-                "integer": 5
-              },
-              {
-                "name": "PEER_ESTABLISHED",
-                "integer": 6
-              }
-            ]
-          },
           {
             "name": "BgpPeerEventStates",
             "enum_fields": [
@@ -1139,7 +1107,7 @@
         ],
         "messages": [
           {
-            "name": "WatchBgpPeerParams",
+            "name": "WatchBgpPeerRequest",
             "fields": [
               {
                 "id": 1,
@@ -1154,32 +1122,7 @@
             ]
           },
           {
-            "name": "BgpPeerKey",
-            "fields": [
-              {
-                "id": 1,
-                "name": "vrf_name",
-                "type": "string"
-              },
-              {
-                "id": 2,
-                "name": "peer_addr",
-                "type": "string"
-              }
-            ]
-          },
-          {
-            "name": "BgpPeerState",
-            "fields": [
-              {
-                "id": 1,
-                "name": "peer_state",
-                "type": "BgpPeerStates"
-              }
-            ]
-          },
-          {
-            "name": "BgpPeerEvent",
+            "name": "WatchBgpPeerResponse",
             "fields": [
               {
                 "id": 1,
@@ -1197,6 +1140,46 @@
                 "type": "BgpPeerStates"
               }
             ]
+          },
+          {
+            "name": "PeerExistsRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "peer_key",
+                "type": "BgpPeerKey"
+              }
+            ]
+          },
+          {
+            "name": "PeerExistsResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "exists",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "PeerStateRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "peer_key",
+                "type": "BgpPeerKey"
+              }
+            ]
+          },
+          {
+            "name": "PeerStateResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "peer_state",
+                "type": "BgpPeerStates"
+              }
+            ]
           }
         ],
         "services": [
@@ -1205,26 +1188,26 @@
             "rpcs": [
               {
                 "name": "watch",
-                "in_type": "WatchBgpPeerParams",
-                "out_type": "BgpPeerEvent",
+                "in_type": "WatchBgpPeerRequest",
+                "out_type": "WatchBgpPeerResponse",
                 "out_streamed": true
               },
               {
                 "name": "exists",
-                "in_type": "BgpPeerKey",
-                "out_type": "Bool"
+                "in_type": "PeerExistsRequest",
+                "out_type": "PeerExistsResponse"
               },
               {
                 "name": "peer_state",
-                "in_type": "BgpPeerKey",
-                "out_type": "BgpPeerState"
+                "in_type": "PeerStateRequest",
+                "out_type": "PeerStateResponse"
               }
             ]
           }
         ],
         "imports": [
           {
-            "path": "defs.proto"
+            "path": "bgp_types.proto"
           }
         ],
         "package": {
@@ -1235,23 +1218,9 @@
     {
       "protopath": "bgp_path.proto",
       "def": {
-        "enums": [
-          {
-            "name": "BgpReceiveRouteStages",
-            "enum_fields": [
-              {
-                "name": "BGP_PATH_PRE_POLICY"
-              },
-              {
-                "name": "BGP_PATH_POST_POLICY",
-                "integer": 1
-              }
-            ]
-          }
-        ],
         "messages": [
           {
-            "name": "WatchBgpPathParams",
+            "name": "WatchBgpPathRequest",
             "fields": [
               {
                 "id": 1,
@@ -1267,26 +1236,6 @@
                 "id": 3,
                 "name": "ipv6_unicast_paths",
                 "type": "bool"
-              }
-            ]
-          },
-          {
-            "name": "BgpPathKey",
-            "fields": [
-              {
-                "id": 1,
-                "name": "prefix",
-                "type": "Prefix"
-              },
-              {
-                "id": 2,
-                "name": "peer_addr",
-                "type": "bytes"
-              },
-              {
-                "id": 3,
-                "name": "vrf_name",
-                "type": "string"
               }
             ]
           },
@@ -1321,7 +1270,7 @@
             ]
           },
           {
-            "name": "BgpPathEvent",
+            "name": "WatchBgpPathResponse",
             "fields": [
               {
                 "id": 1,
@@ -1332,6 +1281,229 @@
                 "id": 2,
                 "name": "converged_event",
                 "type": "ConvergedEvent"
+              }
+            ]
+          },
+          {
+            "name": "Ipv4UnicastPathsRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "path_key",
+                "type": "BgpPathKey"
+              },
+              {
+                "id": 2,
+                "name": "path_options",
+                "type": "BgpPathOptions"
+              }
+            ]
+          },
+          {
+            "name": "Ipv4UnicastPathsResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "response",
+                "type": "BgpPath"
+              }
+            ]
+          },
+          {
+            "name": "Ipv4UnicastPathRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "path_key",
+                "type": "BgpPathKey"
+              },
+              {
+                "id": 2,
+                "name": "path_options",
+                "type": "BgpPathOptions"
+              }
+            ]
+          },
+          {
+            "name": "Ipv4UnicastPathResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "response",
+                "type": "BgpPath"
+              }
+            ]
+          },
+          {
+            "name": "Ipv4UnicastBgpConvergenceRequest"
+          },
+          {
+            "name": "Ipv4UnicastBgpConvergenceResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "response",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "Ipv6UnicastPathsRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "path_key",
+                "type": "BgpPathKey"
+              },
+              {
+                "id": 2,
+                "name": "path_options",
+                "type": "BgpPathOptions"
+              }
+            ]
+          },
+          {
+            "name": "Ipv6UnicastPathsResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "response",
+                "type": "BgpPath"
+              }
+            ]
+          },
+          {
+            "name": "Ipv6UnicastPathRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "path_key",
+                "type": "BgpPathKey"
+              },
+              {
+                "id": 2,
+                "name": "path_options",
+                "type": "BgpPathOptions"
+              }
+            ]
+          },
+          {
+            "name": "Ipv6UnicastPathResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "response",
+                "type": "BgpPath"
+              }
+            ]
+          },
+          {
+            "name": "Ipv6UnicastBgpConvergenceRequest"
+          },
+          {
+            "name": "Ipv6UnicastBgpConvergenceResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "response",
+                "type": "bool"
+              }
+            ]
+          }
+        ],
+        "services": [
+          {
+            "name": "BgpPathMgrService",
+            "rpcs": [
+              {
+                "name": "watch",
+                "in_type": "WatchBgpPathRequest",
+                "out_type": "WatchBgpPathResponse",
+                "out_streamed": true
+              },
+              {
+                "name": "ipv4_unicast_paths",
+                "in_type": "Ipv4UnicastPathsRequest",
+                "out_type": "Ipv4UnicastPathsResponse",
+                "out_streamed": true
+              },
+              {
+                "name": "ipv4_unicast_path",
+                "in_type": "Ipv4UnicastPathRequest",
+                "out_type": "Ipv4UnicastPathResponse"
+              },
+              {
+                "name": "ipv4_unicast_bgp_convergence",
+                "in_type": "Ipv4UnicastBgpConvergenceRequest",
+                "out_type": "Ipv4UnicastBgpConvergenceResponse"
+              },
+              {
+                "name": "ipv6_unicast_paths",
+                "in_type": "Ipv6UnicastPathsRequest",
+                "out_type": "Ipv6UnicastPathsResponse",
+                "out_streamed": true
+              },
+              {
+                "name": "ipv6_unicast_path",
+                "in_type": "Ipv6UnicastPathRequest",
+                "out_type": "Ipv6UnicastPathResponse"
+              },
+              {
+                "name": "ipv6_unicast_bgp_convergence",
+                "in_type": "Ipv6UnicastBgpConvergenceRequest",
+                "out_type": "Ipv6UnicastBgpConvergenceResponse"
+              }
+            ]
+          }
+        ],
+        "imports": [
+          {
+            "path": "bgp_path_types.proto"
+          },
+          {
+            "path": "rpc_types.proto"
+          }
+        ],
+        "package": {
+          "name": "eos.remote"
+        }
+      }
+    },
+    {
+      "protopath": "bgp_path_types.proto",
+      "def": {
+        "enums": [
+          {
+            "name": "BgpReceiveRouteStages",
+            "enum_fields": [
+              {
+                "name": "BGP_PATH_PRE_POLICY"
+              },
+              {
+                "name": "BGP_PATH_POST_POLICY",
+                "integer": 1
+              }
+            ]
+          }
+        ],
+        "messages": [
+          {
+            "name": "BgpPathKey",
+            "fields": [
+              {
+                "id": 1,
+                "name": "prefix",
+                "type": "Prefix"
+              },
+              {
+                "id": 2,
+                "name": "peer_addr",
+                "type": "bytes"
+              },
+              {
+                "id": 3,
+                "name": "vrf_name",
+                "type": "string"
               }
             ]
           },
@@ -1362,21 +1534,6 @@
                 "id": 2,
                 "name": "fields",
                 "type": "BgpPathAttrFields"
-              }
-            ]
-          },
-          {
-            "name": "BgpPathParams",
-            "fields": [
-              {
-                "id": 1,
-                "name": "path_key",
-                "type": "BgpPathKey"
-              },
-              {
-                "id": 2,
-                "name": "path_options",
-                "type": "BgpPathOptions"
               }
             ]
           },
@@ -1427,54 +1584,9 @@
             ]
           }
         ],
-        "services": [
-          {
-            "name": "BgpPathMgrService",
-            "rpcs": [
-              {
-                "name": "watch",
-                "in_type": "WatchBgpPathParams",
-                "out_type": "BgpPathEvent",
-                "out_streamed": true
-              },
-              {
-                "name": "ipv4_unicast_paths",
-                "in_type": "BgpPathParams",
-                "out_type": "BgpPath",
-                "out_streamed": true
-              },
-              {
-                "name": "ipv4_unicast_path",
-                "in_type": "BgpPathParams",
-                "out_type": "BgpPath"
-              },
-              {
-                "name": "ipv4_unicast_bgp_convergence",
-                "in_type": "Void",
-                "out_type": "Bool"
-              },
-              {
-                "name": "ipv6_unicast_paths",
-                "in_type": "BgpPathParams",
-                "out_type": "BgpPath",
-                "out_streamed": true
-              },
-              {
-                "name": "ipv6_unicast_path",
-                "in_type": "BgpPathParams",
-                "out_type": "BgpPath"
-              },
-              {
-                "name": "ipv6_unicast_bgp_convergence",
-                "in_type": "Void",
-                "out_type": "Bool"
-              }
-            ]
-          }
-        ],
         "imports": [
           {
-            "path": "defs.proto"
+            "path": "rpc_types.proto"
           }
         ],
         "package": {
@@ -1483,235 +1595,62 @@
       }
     },
     {
-      "protopath": "defs.proto",
+      "protopath": "bgp_types.proto",
       "def": {
         "enums": [
           {
-            "name": "RpcResponseStatus.StatusCodes",
+            "name": "BgpPeerStates",
             "enum_fields": [
               {
-                "name": "OK"
+                "name": "PEER_UNKNOWN"
               },
               {
-                "name": "CANCELLED",
+                "name": "PEER_IDLE",
                 "integer": 1
               },
               {
-                "name": "UNKNOWN",
+                "name": "PEER_CONNECT",
                 "integer": 2
               },
               {
-                "name": "INVALID_ARGUMENT",
+                "name": "PEER_ACTIVE",
                 "integer": 3
               },
               {
-                "name": "DEADLINE_EXCEEDED",
+                "name": "PEER_OPENSENT",
                 "integer": 4
               },
               {
-                "name": "NOT_FOUND",
+                "name": "PEER_OPENCONFIRM",
                 "integer": 5
               },
               {
-                "name": "ALREDY_EXISTS",
+                "name": "PEER_ESTABLISHED",
                 "integer": 6
-              },
-              {
-                "name": "PERMISSION_DENIED",
-                "integer": 7
-              },
-              {
-                "name": "RESOURCE_EXHAUSTED",
-                "integer": 8
-              },
-              {
-                "name": "FAILED_PRECONDITION",
-                "integer": 9
-              },
-              {
-                "name": "ABORTED",
-                "integer": 10
-              },
-              {
-                "name": "OUT_OF_RANGE",
-                "integer": 11
-              },
-              {
-                "name": "UNIMPLEMENTED",
-                "integer": 12
-              },
-              {
-                "name": "INTERNAL",
-                "integer": 13
-              },
-              {
-                "name": "UNAVAILABLE",
-                "integer": 14
-              },
-              {
-                "name": "DATA_LOSS",
-                "integer": 15
-              }
-            ]
-          },
-          {
-            "name": "ResyncMgrParams.State",
-            "enum_fields": [
-              {
-                "name": "START"
-              },
-              {
-                "name": "END",
-                "integer": 1
               }
             ]
           }
         ],
         "messages": [
           {
-            "name": "Void"
-          },
-          {
-            "name": "Bool",
+            "name": "BgpPeerKey",
             "fields": [
               {
                 "id": 1,
-                "name": "value",
-                "type": "bool"
-              }
-            ]
-          },
-          {
-            "name": "Name",
-            "fields": [
-              {
-                "id": 1,
-                "name": "name",
-                "type": "string"
-              }
-            ]
-          },
-          {
-            "name": "BulkName",
-            "fields": [
-              {
-                "id": 1,
-                "name": "names",
-                "type": "Name",
-                "is_repeated": true
-              }
-            ]
-          },
-          {
-            "name": "Value",
-            "fields": [
-              {
-                "id": 1,
-                "name": "value",
-                "type": "string"
-              }
-            ]
-          },
-          {
-            "name": "NameValue",
-            "fields": [
-              {
-                "id": 1,
-                "name": "name",
+                "name": "vrf_name",
                 "type": "string"
               },
               {
                 "id": 2,
-                "name": "value",
+                "name": "peer_addr",
                 "type": "string"
               }
             ]
-          },
+          }
+        ],
+        "imports": [
           {
-            "name": "BulkNameValue",
-            "fields": [
-              {
-                "id": 1,
-                "name": "namesValues",
-                "type": "NameValue",
-                "is_repeated": true
-              }
-            ]
-          },
-          {
-            "name": "Prefix",
-            "fields": [
-              {
-                "id": 1,
-                "name": "ip_addr",
-                "type": "bytes"
-              },
-              {
-                "id": 2,
-                "name": "length",
-                "type": "int32"
-              }
-            ]
-          },
-          {
-            "name": "Uint32",
-            "fields": [
-              {
-                "id": 1,
-                "name": "value",
-                "type": "uint32"
-              }
-            ]
-          },
-          {
-            "name": "RpcResponseStatus",
-            "fields": [
-              {
-                "id": 1,
-                "name": "status",
-                "type": "StatusCodes"
-              },
-              {
-                "id": 2,
-                "name": "error_string",
-                "type": "string"
-              }
-            ]
-          },
-          {
-            "name": "BulkResponse",
-            "fields": [
-              {
-                "id": 1,
-                "name": "processed",
-                "type": "uint64"
-              },
-              {
-                "id": 2,
-                "name": "status",
-                "type": "RpcResponseStatus"
-              }
-            ]
-          },
-          {
-            "name": "ResyncMgrParams",
-            "fields": [
-              {
-                "id": 1,
-                "name": "value",
-                "type": "State"
-              }
-            ]
-          },
-          {
-            "name": "String",
-            "fields": [
-              {
-                "id": 1,
-                "name": "value",
-                "type": "string"
-              }
-            ]
+            "path": "rpc_types.proto"
           }
         ],
         "package": {
@@ -2254,7 +2193,7 @@
         ],
         "imports": [
           {
-            "path": "defs.proto"
+            "path": "rpc_types.proto"
           },
           {
             "path": "intf_types.proto"
@@ -2781,7 +2720,7 @@
         ],
         "imports": [
           {
-            "path": "defs.proto"
+            "path": "rpc_types.proto"
           },
           {
             "path": "intf_types.proto"
@@ -2862,85 +2801,7 @@
     {
       "protopath": "ip_route.proto",
       "def": {
-        "enums": [
-          {
-            "name": "IpRouteActions",
-            "enum_fields": [
-              {
-                "name": "IP_ROUTE_ACTION_NULL"
-              },
-              {
-                "name": "IP_ROUTE_ACTION_FORWARD",
-                "integer": 1
-              },
-              {
-                "name": "IP_ROUTE_ACTION_DROP",
-                "integer": 2
-              },
-              {
-                "name": "IP_ROUTE_ACTION_NEXTHOP_GROUP",
-                "integer": 3
-              }
-            ]
-          }
-        ],
         "messages": [
-          {
-            "name": "IpRouteKey",
-            "fields": [
-              {
-                "id": 1,
-                "name": "prefix",
-                "type": "Prefix"
-              },
-              {
-                "id": 2,
-                "name": "preference",
-                "type": "uint32"
-              }
-            ]
-          },
-          {
-            "name": "IpRoute",
-            "fields": [
-              {
-                "id": 1,
-                "name": "key",
-                "type": "IpRouteKey"
-              },
-              {
-                "id": 2,
-                "name": "tag",
-                "type": "uint32"
-              }
-            ]
-          },
-          {
-            "name": "IpRouteParams",
-            "fields": [
-              {
-                "id": 1,
-                "name": "key",
-                "type": "IpRouteKey"
-              },
-              {
-                "id": 2,
-                "name": "vrf_name",
-                "type": "string"
-              }
-            ]
-          },
-          {
-            "name": "BulkIpRouteParams",
-            "fields": [
-              {
-                "id": 1,
-                "name": "ip_routes",
-                "type": "IpRouteParams",
-                "is_repeated": true
-              }
-            ]
-          },
           {
             "name": "IpRouteSetParams",
             "fields": [
@@ -2995,6 +2856,546 @@
                 "name": "ip_route_vias",
                 "type": "IpRouteViaParams",
                 "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "IpRouteParams",
+            "fields": [
+              {
+                "id": 1,
+                "name": "key",
+                "type": "IpRouteKey"
+              },
+              {
+                "id": 2,
+                "name": "vrf_name",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "BulkIpRouteParams",
+            "fields": [
+              {
+                "id": 1,
+                "name": "ip_routes",
+                "type": "IpRouteParams",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "TagRequest"
+          },
+          {
+            "name": "TagResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "response",
+                "type": "Uint32"
+              }
+            ]
+          },
+          {
+            "name": "TagIsRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "request",
+                "type": "Uint32"
+              }
+            ]
+          },
+          {
+            "name": "TagIsResponse"
+          },
+          {
+            "name": "ResyncInitRequest"
+          },
+          {
+            "name": "ResyncInitResponse"
+          },
+          {
+            "name": "ResyncCompleteRequest"
+          },
+          {
+            "name": "ResyncCompleteResponse"
+          },
+          {
+            "name": "IpRoutesRequest"
+          },
+          {
+            "name": "IpRoutesResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "response",
+                "type": "IpRoute"
+              }
+            ]
+          },
+          {
+            "name": "IpRouteViasRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "via",
+                "type": "IpRouteVia"
+              },
+              {
+                "id": 2,
+                "name": "vrf_name",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "IpRouteViasResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "response",
+                "type": "IpRouteVia"
+              }
+            ]
+          },
+          {
+            "name": "IpRouteExistsRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "key",
+                "type": "IpRouteKey"
+              },
+              {
+                "id": 2,
+                "name": "vrf_name",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "IpRouteExistsResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "response",
+                "type": "Bool"
+              }
+            ]
+          },
+          {
+            "name": "IpRouteViaExistsRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "via",
+                "type": "IpRouteVia"
+              },
+              {
+                "id": 2,
+                "name": "vrf_name",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "IpRouteViaExistsResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "response",
+                "type": "Bool"
+              }
+            ]
+          },
+          {
+            "name": "IpRouteRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "key",
+                "type": "IpRouteKey"
+              },
+              {
+                "id": 2,
+                "name": "vrf_name",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "IpRouteResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "response",
+                "type": "IpRoute"
+              }
+            ]
+          },
+          {
+            "name": "IpRouteSetRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "request",
+                "type": "IpRouteSetParams"
+              }
+            ]
+          },
+          {
+            "name": "IpRouteSetResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "response",
+                "type": "Void"
+              }
+            ]
+          },
+          {
+            "name": "BulkIpRouteSetRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "request",
+                "type": "BulkIpRouteSetParams"
+              }
+            ]
+          },
+          {
+            "name": "BulkIpRouteSetResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "processed",
+                "type": "uint64"
+              },
+              {
+                "id": 2,
+                "name": "status",
+                "type": "RpcResponseStatus"
+              }
+            ]
+          },
+          {
+            "name": "IpRouteDelRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "key",
+                "type": "IpRouteKey"
+              },
+              {
+                "id": 2,
+                "name": "vrf_name",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "IpRouteDelResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "response",
+                "type": "Void"
+              }
+            ]
+          },
+          {
+            "name": "BulkIpRouteDelRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "request",
+                "type": "IpRouteDelRequest",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "BulkIpRouteDelResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "processed",
+                "type": "uint64"
+              },
+              {
+                "id": 2,
+                "name": "status",
+                "type": "RpcResponseStatus"
+              }
+            ]
+          },
+          {
+            "name": "IpRouteViaSetRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "via",
+                "type": "IpRouteVia"
+              },
+              {
+                "id": 2,
+                "name": "vrf_name",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "IpRouteViaSetResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "response",
+                "type": "Void"
+              }
+            ]
+          },
+          {
+            "name": "BulkIpRouteViaSetRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "requests",
+                "type": "BulkIpRouteViaSetRequest"
+              }
+            ]
+          },
+          {
+            "name": "BulkIpRouteViaSetResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "processed",
+                "type": "uint64"
+              },
+              {
+                "id": 2,
+                "name": "status",
+                "type": "RpcResponseStatus"
+              }
+            ]
+          },
+          {
+            "name": "IpRouteViaDelRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "via",
+                "type": "IpRouteVia"
+              },
+              {
+                "id": 2,
+                "name": "vrf_name",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "IpRouteViaDelResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "response",
+                "type": "Void"
+              }
+            ]
+          },
+          {
+            "name": "BulkIpRouteViaDelRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "requests",
+                "type": "BulkIpRouteViaDelRequest"
+              }
+            ]
+          },
+          {
+            "name": "BulkIpRouteViaDelResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "processed",
+                "type": "uint64"
+              },
+              {
+                "id": 2,
+                "name": "status",
+                "type": "RpcResponseStatus"
+              }
+            ]
+          }
+        ],
+        "services": [
+          {
+            "name": "IpRouteMgrService",
+            "rpcs": [
+              {
+                "name": "tag",
+                "in_type": "TagRequest",
+                "out_type": "TagResponse"
+              },
+              {
+                "name": "tag_is",
+                "in_type": "TagIsRequest",
+                "out_type": "TagIsResponse"
+              },
+              {
+                "name": "resync_init",
+                "in_type": "ResyncInitRequest",
+                "out_type": "ResyncInitResponse"
+              },
+              {
+                "name": "resync_complete",
+                "in_type": "ResyncCompleteRequest",
+                "out_type": "ResyncCompleteResponse"
+              },
+              {
+                "name": "ip_routes",
+                "in_type": "IpRoutesRequest",
+                "out_type": "IpRoutesResponse",
+                "out_streamed": true
+              },
+              {
+                "name": "ip_route_vias",
+                "in_type": "IpRouteViasRequest",
+                "out_type": "IpRouteViasResponse",
+                "out_streamed": true
+              },
+              {
+                "name": "ip_route_exists",
+                "in_type": "IpRouteExistsRequest",
+                "out_type": "IpRouteExistsResponse"
+              },
+              {
+                "name": "ip_route_via_exists",
+                "in_type": "IpRouteViaExistsRequest",
+                "out_type": "IpRouteViaExistsResponse"
+              },
+              {
+                "name": "ip_route",
+                "in_type": "IpRouteRequest",
+                "out_type": "IpRouteResponse"
+              },
+              {
+                "name": "ip_route_set",
+                "in_type": "IpRouteSetRequest",
+                "out_type": "IpRouteSetResponse"
+              },
+              {
+                "name": "bulk_ip_route_set",
+                "in_type": "BulkIpRouteSetRequest",
+                "out_type": "BulkIpRouteSetResponse"
+              },
+              {
+                "name": "ip_route_del",
+                "in_type": "IpRouteDelRequest",
+                "out_type": "IpRouteDelResponse"
+              },
+              {
+                "name": "bulk_ip_route_del",
+                "in_type": "BulkIpRouteDelRequest",
+                "out_type": "BulkIpRouteDelResponse"
+              },
+              {
+                "name": "ip_route_via_set",
+                "in_type": "IpRouteViaSetRequest",
+                "out_type": "IpRouteViaSetResponse"
+              },
+              {
+                "name": "bulk_ip_route_via_set",
+                "in_type": "BulkIpRouteViaSetRequest",
+                "out_type": "BulkIpRouteViaSetResponse"
+              },
+              {
+                "name": "ip_route_via_del",
+                "in_type": "IpRouteViaDelRequest",
+                "out_type": "IpRouteViaDelResponse"
+              },
+              {
+                "name": "bulk_ip_route_via_del",
+                "in_type": "BulkIpRouteViaDelRequest",
+                "out_type": "BulkIpRouteViaDelResponse"
+              }
+            ]
+          }
+        ],
+        "imports": [
+          {
+            "path": "rpc_types.proto"
+          },
+          {
+            "path": "intf_types.proto"
+          },
+          {
+            "path": "ip_route_types.proto"
+          }
+        ],
+        "package": {
+          "name": "eos.remote"
+        }
+      }
+    },
+    {
+      "protopath": "ip_route_types.proto",
+      "def": {
+        "enums": [
+          {
+            "name": "IpRouteActions",
+            "enum_fields": [
+              {
+                "name": "IP_ROUTE_ACTION_NULL"
+              },
+              {
+                "name": "IP_ROUTE_ACTION_FORWARD",
+                "integer": 1
+              },
+              {
+                "name": "IP_ROUTE_ACTION_DROP",
+                "integer": 2
+              },
+              {
+                "name": "IP_ROUTE_ACTION_NEXTHOP_GROUP",
+                "integer": 3
+              }
+            ]
+          }
+        ],
+        "messages": [
+          {
+            "name": "IpRouteKey",
+            "fields": [
+              {
+                "id": 1,
+                "name": "prefix",
+                "type": "Prefix"
+              },
+              {
+                "id": 2,
+                "name": "preference",
+                "type": "uint32"
+              }
+            ]
+          },
+          {
+            "name": "IpRoute",
+            "fields": [
+              {
+                "id": 1,
+                "name": "key",
+                "type": "IpRouteKey"
+              },
+              {
+                "id": 2,
+                "name": "tag",
+                "type": "uint32"
               }
             ]
           },
@@ -3054,103 +3455,9 @@
             ]
           }
         ],
-        "services": [
-          {
-            "name": "IpRouteMgrService",
-            "rpcs": [
-              {
-                "name": "tag",
-                "in_type": "Void",
-                "out_type": "Uint32"
-              },
-              {
-                "name": "tag_is",
-                "in_type": "Uint32",
-                "out_type": "Void"
-              },
-              {
-                "name": "resync_init",
-                "in_type": "Void",
-                "out_type": "Void"
-              },
-              {
-                "name": "resync_complete",
-                "in_type": "Void",
-                "out_type": "Void"
-              },
-              {
-                "name": "ip_routes",
-                "in_type": "Void",
-                "out_type": "IpRoute",
-                "out_streamed": true
-              },
-              {
-                "name": "ip_route_vias",
-                "in_type": "IpRouteViaParams",
-                "out_type": "IpRouteVia",
-                "out_streamed": true
-              },
-              {
-                "name": "ip_route_exists",
-                "in_type": "IpRouteParams",
-                "out_type": "Bool"
-              },
-              {
-                "name": "ip_route_via_exists",
-                "in_type": "IpRouteViaParams",
-                "out_type": "Bool"
-              },
-              {
-                "name": "ip_route",
-                "in_type": "IpRouteParams",
-                "out_type": "IpRoute"
-              },
-              {
-                "name": "ip_route_set",
-                "in_type": "IpRouteSetParams",
-                "out_type": "Void"
-              },
-              {
-                "name": "bulk_ip_route_set",
-                "in_type": "BulkIpRouteSetParams",
-                "out_type": "BulkResponse"
-              },
-              {
-                "name": "ip_route_del",
-                "in_type": "IpRouteParams",
-                "out_type": "Void"
-              },
-              {
-                "name": "bulk_ip_route_del",
-                "in_type": "BulkIpRouteParams",
-                "out_type": "BulkResponse"
-              },
-              {
-                "name": "ip_route_via_set",
-                "in_type": "IpRouteViaParams",
-                "out_type": "Void"
-              },
-              {
-                "name": "bulk_ip_route_via_set",
-                "in_type": "BulkIpRouteViaParams",
-                "out_type": "BulkResponse"
-              },
-              {
-                "name": "ip_route_via_del",
-                "in_type": "IpRouteViaParams",
-                "out_type": "Void"
-              },
-              {
-                "name": "bulk_ip_route_via_del",
-                "in_type": "BulkIpRouteViaParams",
-                "out_type": "BulkResponse"
-              }
-            ]
-          }
-        ],
         "imports": [
           {
-            "path": "defs.proto"
+            "path": "rpc_types.proto"
           },
           {
             "path": "intf_types.proto"
@@ -3625,7 +3932,7 @@
         ],
         "imports": [
           {
-            "path": "defs.proto"
+            "path": "rpc_types.proto"
           },
           {
             "path": "intf_types.proto"
@@ -3883,7 +4190,7 @@
         ],
         "imports": [
           {
-            "path": "intf.proto"
+            "path": "intf_types.proto"
           }
         ],
         "package": {
@@ -3892,7 +4199,7 @@
       }
     },
     {
-      "protopath": "mpls.proto",
+      "protopath": "mpls_types.proto",
       "def": {
         "enums": [
           {
@@ -4255,13 +4562,250 @@
         ],
         "imports": [
           {
-            "path": "defs.proto"
+            "path": "rpc_types.proto"
           },
           {
             "path": "intf_types.proto"
           },
           {
-            "path": "mpls.proto"
+            "path": "mpls_types.proto"
+          }
+        ],
+        "package": {
+          "name": "eos.remote"
+        }
+      }
+    },
+    {
+      "protopath": "rpc_types.proto",
+      "def": {
+        "enums": [
+          {
+            "name": "RpcResponseStatus.StatusCodes",
+            "enum_fields": [
+              {
+                "name": "OK"
+              },
+              {
+                "name": "CANCELLED",
+                "integer": 1
+              },
+              {
+                "name": "UNKNOWN",
+                "integer": 2
+              },
+              {
+                "name": "INVALID_ARGUMENT",
+                "integer": 3
+              },
+              {
+                "name": "DEADLINE_EXCEEDED",
+                "integer": 4
+              },
+              {
+                "name": "NOT_FOUND",
+                "integer": 5
+              },
+              {
+                "name": "ALREDY_EXISTS",
+                "integer": 6
+              },
+              {
+                "name": "PERMISSION_DENIED",
+                "integer": 7
+              },
+              {
+                "name": "RESOURCE_EXHAUSTED",
+                "integer": 8
+              },
+              {
+                "name": "FAILED_PRECONDITION",
+                "integer": 9
+              },
+              {
+                "name": "ABORTED",
+                "integer": 10
+              },
+              {
+                "name": "OUT_OF_RANGE",
+                "integer": 11
+              },
+              {
+                "name": "UNIMPLEMENTED",
+                "integer": 12
+              },
+              {
+                "name": "INTERNAL",
+                "integer": 13
+              },
+              {
+                "name": "UNAVAILABLE",
+                "integer": 14
+              },
+              {
+                "name": "DATA_LOSS",
+                "integer": 15
+              }
+            ]
+          },
+          {
+            "name": "ResyncMgrParams.State",
+            "enum_fields": [
+              {
+                "name": "START"
+              },
+              {
+                "name": "END",
+                "integer": 1
+              }
+            ]
+          }
+        ],
+        "messages": [
+          {
+            "name": "Void"
+          },
+          {
+            "name": "Bool",
+            "fields": [
+              {
+                "id": 1,
+                "name": "value",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "Name",
+            "fields": [
+              {
+                "id": 1,
+                "name": "name",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "BulkName",
+            "fields": [
+              {
+                "id": 1,
+                "name": "names",
+                "type": "Name",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "Value",
+            "fields": [
+              {
+                "id": 1,
+                "name": "value",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "NameValue",
+            "fields": [
+              {
+                "id": 1,
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "id": 2,
+                "name": "value",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "BulkNameValue",
+            "fields": [
+              {
+                "id": 1,
+                "name": "namesValues",
+                "type": "NameValue",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "Prefix",
+            "fields": [
+              {
+                "id": 1,
+                "name": "ip_addr",
+                "type": "bytes"
+              },
+              {
+                "id": 2,
+                "name": "length",
+                "type": "int32"
+              }
+            ]
+          },
+          {
+            "name": "Uint32",
+            "fields": [
+              {
+                "id": 1,
+                "name": "value",
+                "type": "uint32"
+              }
+            ]
+          },
+          {
+            "name": "RpcResponseStatus",
+            "fields": [
+              {
+                "id": 1,
+                "name": "status",
+                "type": "StatusCodes"
+              },
+              {
+                "id": 2,
+                "name": "error_string",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "BulkResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "processed",
+                "type": "uint64"
+              },
+              {
+                "id": 2,
+                "name": "status",
+                "type": "RpcResponseStatus"
+              }
+            ]
+          },
+          {
+            "name": "ResyncMgrParams",
+            "fields": [
+              {
+                "id": 1,
+                "name": "value",
+                "type": "State"
+              }
+            ]
+          },
+          {
+            "name": "String",
+            "fields": [
+              {
+                "id": 1,
+                "name": "value",
+                "type": "string"
+              }
+            ]
           }
         ],
         "package": {

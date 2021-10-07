@@ -1,0 +1,23 @@
+// Copyright (c) 2021 Arista Networks, Inc.  All rights reserved.
+// Arista Networks, Inc. Confidential and Proprietary.
+
+syntax = "proto3";
+
+package eos.remote;
+
+import "rpc_types.proto";
+
+message BgpPeerKey {
+   string vrf_name = 1;
+   string peer_addr = 2;
+}
+
+enum BgpPeerStates {
+   PEER_UNKNOWN = 0;
+   PEER_IDLE = 1;
+   PEER_CONNECT = 2; 
+   PEER_ACTIVE = 3;
+   PEER_OPENSENT = 4;
+   PEER_OPENCONFIRM = 5;
+   PEER_ESTABLISHED = 6;
+}

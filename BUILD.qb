@@ -69,16 +69,19 @@ grpcFiles = [
    'proto/ip_intf.proto',
    'proto/ip_route.proto',
    'proto/macsec.proto',
-   'proto/mpls.proto',
    'proto/nexthop_group.proto',
 ]
 
 # files listed under protobufFiles shall generate only protobuf files.
 protobufFiles= [
-   'proto/macsec_types.proto',
+   'proto/bgp_types.proto',
+   'proto/bgp_path_types.proto',
    'proto/eapi_types.proto',
    'proto/intf_types.proto',
    'proto/ip_intf_types.proto',
+   'proto/ip_route_types.proto',
+   'proto/macsec_types.proto',
+   'proto/mpls_types.proto',
    'proto/rpc_types.proto',
 ]
 
@@ -94,14 +97,13 @@ data(
 #-----------------------------------------------------------------------
 # Python protobuf generation
 
-def _protoc_py_output( pkg=None, target_name=None, sources=None, generateGrpc=True ):
+def _protoc_py_output( pkg=None, target_name=None, sources=None ):
    targets = []
    for source in sources:
       assert source.endswith( '.proto' )
       basename = source.split( '/' )[ -1 ][ :-6 ] # exclude .proto extension
       targets.append( basename + '_pb2.py' )
-      if generateGrpc:
-         targets.append( basename + '_pb2_grpc.py' )
+      targets.append( basename + '_pb2_grpc.py' )
    return targets
 
 def _protobuf_py_output( pkg=None, target_name=None, sources=None ):
@@ -160,17 +162,15 @@ py_test( 'StaleProtoLockTest.py' )
 #-----------------------------------------------------------------------
 # Cpp protobuf generation
 
-def _protoc_cpp_output( pkg=None, target_name=None, sources=None,
-                        generateGrpc=True ):
+def _protoc_cpp_output( pkg=None, target_name=None, sources=None ):
    targets = []
    for source in sources:
       assert source.endswith( '.proto' )
       basename = source.split( '/' )[ -1 ][ :-6 ] # exclude .proto extension
       targets.append( basename + '.pb.h' )
       targets.append( basename + '.pb.cc' )
-      if generateGrpc:
-         targets.append( basename + '.grpc.pb.h' )
-         targets.append( basename + '.grpc.pb.cc' )
+      targets.append( basename + '.grpc.pb.h' )
+      targets.append( basename + '.grpc.pb.cc' )
    return targets
 
 def _protobuf_cpp_output( pkg=None, target_name=None, sources=None ):

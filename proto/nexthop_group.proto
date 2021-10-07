@@ -5,9 +5,9 @@ syntax = "proto3";
 
 package eos.remote;
 
-import "defs.proto";
+import "rpc_types.proto";
 import "intf_types.proto";
-import "mpls.proto";
+import "mpls_types.proto";
 
 service NexthopGroupMgrService {
    rpc watch( WatchNhgParams ) returns ( stream NhgEvent ) {}
