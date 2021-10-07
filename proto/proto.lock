@@ -1724,13 +1724,85 @@
       "def": {
         "messages": [
           {
+            "name": "RunShowCmdRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "command",
+                "type": "EapiCmd"
+              }
+            ]
+          },
+          {
+            "name": "RunShowCmdResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "response",
+                "type": "EapiResponse"
+              }
+            ]
+          },
+          {
+            "name": "RunConfigCmdsRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "commands",
+                "type": "EapiCmd",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "RunConfigCmdsResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "response",
+                "type": "EapiResponse"
+              }
+            ]
+          }
+        ],
+        "services": [
+          {
+            "name": "EapiMgrService",
+            "rpcs": [
+              {
+                "name": "run_show_cmd",
+                "in_type": "RunShowCmdRequest",
+                "out_type": "RunShowCmdResponse"
+              },
+              {
+                "name": "run_config_cmds",
+                "in_type": "RunConfigCmdsRequest",
+                "out_type": "RunConfigCmdsResponse"
+              }
+            ]
+          }
+        ],
+        "imports": [
+          {
+            "path": "eapi_types.proto"
+          }
+        ],
+        "package": {
+          "name": "eos.remote"
+        }
+      }
+    },
+    {
+      "protopath": "eapi_types.proto",
+      "def": {
+        "messages": [
+          {
             "name": "EapiCmd",
             "fields": [
               {
                 "id": 1,
                 "name": "command",
-                "type": "string",
-                "is_repeated": true
+                "type": "string"
               }
             ]
           },
@@ -1766,23 +1838,6 @@
             ]
           }
         ],
-        "services": [
-          {
-            "name": "EapiMgrService",
-            "rpcs": [
-              {
-                "name": "run_show_cmd",
-                "in_type": "EapiCmd",
-                "out_type": "EapiResponse"
-              },
-              {
-                "name": "run_config_cmds",
-                "in_type": "EapiCmd",
-                "out_type": "EapiResponse"
-              }
-            ]
-          }
-        ],
         "package": {
           "name": "eos.remote"
         }
@@ -1793,7 +1848,7 @@
       "def": {
         "enums": [
           {
-            "name": "InterfaceEvent.IntfEvents",
+            "name": "WatchIntfResponse.IntfEvents",
             "enum_fields": [
               {
                 "name": "INTF_CREATE"
@@ -1803,7 +1858,417 @@
                 "integer": 1
               }
             ]
+          }
+        ],
+        "messages": [
+          {
+            "name": "WatchIntfRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "all_intfs",
+                "type": "bool"
+              },
+              {
+                "id": 2,
+                "name": "intf_id",
+                "type": "IntfId"
+              }
+            ]
           },
+          {
+            "name": "WatchIntfResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "intf_id",
+                "type": "IntfId"
+              },
+              {
+                "id": 2,
+                "name": "event",
+                "type": "IntfEvents"
+              },
+              {
+                "id": 3,
+                "name": "status",
+                "type": "OperStatus"
+              },
+              {
+                "id": 4,
+                "name": "admin_enabled",
+                "type": "bool"
+              },
+              {
+                "id": 5,
+                "name": "description",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "IntfsRequest"
+          },
+          {
+            "name": "IntfsResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "ExistsRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "ExistsResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "exists",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "KernelIntfNameRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "KernelIntfNameResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "name",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "EosIntfNameRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "name",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "EosIntfNameResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "AdminEnabledRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "request",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "AdminEnabledResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "enabled",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "AdminEnabledIsRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "intf_id",
+                "type": "IntfId"
+              },
+              {
+                "id": 2,
+                "name": "enabled",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "AdminEnabledIsResponse"
+          },
+          {
+            "name": "BulkAdminEnabledIsRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "requests",
+                "type": "AdminEnabledIsRequest",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "BulkAdminEnabledIsResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "processed",
+                "type": "uint64"
+              },
+              {
+                "id": 2,
+                "name": "status",
+                "type": "RpcResponseStatus"
+              }
+            ]
+          },
+          {
+            "name": "DescriptionRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "DescriptionResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "description",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "DescriptionIsRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "intf_id",
+                "type": "IntfId"
+              },
+              {
+                "id": 2,
+                "name": "description",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "DescriptionIsResponse"
+          },
+          {
+            "name": "BulkDescriptionIsRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "requests",
+                "type": "DescriptionIsRequest",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "BulkDescriptionIsResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "processed",
+                "type": "uint64"
+              },
+              {
+                "id": 2,
+                "name": "status",
+                "type": "RpcResponseStatus"
+              }
+            ]
+          },
+          {
+            "name": "OperStatusRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "OperStatusResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "response",
+                "type": "OperStatus"
+              }
+            ]
+          },
+          {
+            "name": "IntfCountersRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "IntfCountersResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "counters",
+                "type": "IntfCounters"
+              }
+            ]
+          },
+          {
+            "name": "IntfTrafficCountersRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "IntfTrafficCountersResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "rates",
+                "type": "IntfTrafficRates"
+              }
+            ]
+          }
+        ],
+        "services": [
+          {
+            "name": "IntfMgrService",
+            "rpcs": [
+              {
+                "name": "watch",
+                "in_type": "WatchIntfRequest",
+                "out_type": "WatchIntfResponse",
+                "out_streamed": true
+              },
+              {
+                "name": "intfs",
+                "in_type": "IntfsRequest",
+                "out_type": "IntfsResponse",
+                "out_streamed": true
+              },
+              {
+                "name": "exists",
+                "in_type": "ExistsRequest",
+                "out_type": "ExistsResponse"
+              },
+              {
+                "name": "kernel_intf_name",
+                "in_type": "KernelIntfNameRequest",
+                "out_type": "KernelIntfNameResponse"
+              },
+              {
+                "name": "eos_intf_name",
+                "in_type": "EosIntfNameRequest",
+                "out_type": "EosIntfNameResponse"
+              },
+              {
+                "name": "admin_enabled",
+                "in_type": "AdminEnabledRequest",
+                "out_type": "AdminEnabledResponse"
+              },
+              {
+                "name": "admin_enabled_is",
+                "in_type": "AdminEnabledIsRequest",
+                "out_type": "AdminEnabledIsResponse"
+              },
+              {
+                "name": "bulk_admin_enabled_is",
+                "in_type": "BulkAdminEnabledIsRequest",
+                "out_type": "BulkAdminEnabledIsResponse"
+              },
+              {
+                "name": "description",
+                "in_type": "DescriptionRequest",
+                "out_type": "DescriptionResponse"
+              },
+              {
+                "name": "description_is",
+                "in_type": "DescriptionIsRequest",
+                "out_type": "DescriptionIsResponse"
+              },
+              {
+                "name": "bulk_description_is",
+                "in_type": "BulkDescriptionIsRequest",
+                "out_type": "BulkDescriptionIsResponse"
+              },
+              {
+                "name": "oper_status",
+                "in_type": "OperStatusRequest",
+                "out_type": "OperStatusResponse"
+              }
+            ]
+          },
+          {
+            "name": "IntfCounterMgrService",
+            "rpcs": [
+              {
+                "name": "intf_counters",
+                "in_type": "IntfCountersRequest",
+                "out_type": "IntfCountersResponse"
+              },
+              {
+                "name": "intf_traffic_counters",
+                "in_type": "IntfTrafficCountersRequest",
+                "out_type": "IntfTrafficCountersResponse"
+              }
+            ]
+          }
+        ],
+        "imports": [
+          {
+            "path": "defs.proto"
+          },
+          {
+            "path": "intf_types.proto"
+          }
+        ],
+        "package": {
+          "name": "eos.remote"
+        }
+      }
+    },
+    {
+      "protopath": "intf_types.proto",
+      "def": {
+        "enums": [
           {
             "name": "InterfaceTypes",
             "enum_fields": [
@@ -1866,6 +2331,16 @@
           }
         ],
         "messages": [
+          {
+            "name": "IntfId",
+            "fields": [
+              {
+                "id": 1,
+                "name": "name",
+                "type": "string"
+              }
+            ]
+          },
           {
             "name": "IntfCounters",
             "fields": [
@@ -1967,221 +2442,12 @@
             ]
           },
           {
-            "name": "WatchIntfParams",
-            "fields": [
-              {
-                "id": 1,
-                "name": "all_intfs",
-                "type": "bool"
-              },
-              {
-                "id": 2,
-                "name": "intf_id",
-                "type": "IntfId"
-              }
-            ]
-          },
-          {
-            "name": "InterfaceEvent",
-            "fields": [
-              {
-                "id": 1,
-                "name": "intf_id",
-                "type": "IntfId"
-              },
-              {
-                "id": 2,
-                "name": "event",
-                "type": "IntfEvents"
-              },
-              {
-                "id": 3,
-                "name": "status",
-                "type": "OperStatus"
-              },
-              {
-                "id": 4,
-                "name": "admin_enabled",
-                "type": "bool"
-              },
-              {
-                "id": 5,
-                "name": "description",
-                "type": "string"
-              }
-            ]
-          },
-          {
-            "name": "AdminEnabledParams",
-            "fields": [
-              {
-                "id": 1,
-                "name": "intf_id",
-                "type": "IntfId"
-              },
-              {
-                "id": 2,
-                "name": "enabled",
-                "type": "bool"
-              }
-            ]
-          },
-          {
-            "name": "BulkAdminEnabledParams",
-            "fields": [
-              {
-                "id": 1,
-                "name": "admin_intfs",
-                "type": "AdminEnabledParams",
-                "is_repeated": true
-              }
-            ]
-          },
-          {
-            "name": "DescriptionParams",
-            "fields": [
-              {
-                "id": 1,
-                "name": "intf_id",
-                "type": "IntfId"
-              },
-              {
-                "id": 2,
-                "name": "description",
-                "type": "string"
-              }
-            ]
-          },
-          {
-            "name": "BulkDescriptionParams",
-            "fields": [
-              {
-                "id": 1,
-                "name": "intf_descriptions",
-                "type": "DescriptionParams",
-                "is_repeated": true
-              }
-            ]
-          },
-          {
             "name": "OperStatus",
             "fields": [
               {
                 "id": 1,
                 "name": "status",
                 "type": "OperStatuses"
-              }
-            ]
-          }
-        ],
-        "services": [
-          {
-            "name": "IntfMgrService",
-            "rpcs": [
-              {
-                "name": "watch",
-                "in_type": "WatchIntfParams",
-                "out_type": "InterfaceEvent",
-                "out_streamed": true
-              },
-              {
-                "name": "intfs",
-                "in_type": "Void",
-                "out_type": "IntfId",
-                "out_streamed": true
-              },
-              {
-                "name": "exists",
-                "in_type": "IntfId",
-                "out_type": "Bool"
-              },
-              {
-                "name": "kernel_intf_name",
-                "in_type": "IntfId",
-                "out_type": "String"
-              },
-              {
-                "name": "eos_intf_name",
-                "in_type": "String",
-                "out_type": "IntfId"
-              },
-              {
-                "name": "admin_enabled",
-                "in_type": "IntfId",
-                "out_type": "Bool"
-              },
-              {
-                "name": "admin_enabled_is",
-                "in_type": "AdminEnabledParams",
-                "out_type": "Void"
-              },
-              {
-                "name": "bulk_admin_enabled_is",
-                "in_type": "BulkAdminEnabledParams",
-                "out_type": "BulkResponse"
-              },
-              {
-                "name": "description",
-                "in_type": "IntfId",
-                "out_type": "String"
-              },
-              {
-                "name": "description_is",
-                "in_type": "DescriptionParams",
-                "out_type": "Void"
-              },
-              {
-                "name": "bulk_description_is",
-                "in_type": "BulkDescriptionParams",
-                "out_type": "BulkResponse"
-              },
-              {
-                "name": "oper_status",
-                "in_type": "IntfId",
-                "out_type": "OperStatus"
-              }
-            ]
-          },
-          {
-            "name": "IntfCounterMgrService",
-            "rpcs": [
-              {
-                "name": "intf_counters",
-                "in_type": "IntfId",
-                "out_type": "IntfCounters"
-              },
-              {
-                "name": "intf_traffic_counters",
-                "in_type": "IntfId",
-                "out_type": "IntfTrafficRates"
-              }
-            ]
-          }
-        ],
-        "imports": [
-          {
-            "path": "defs.proto"
-          },
-          {
-            "path": "intf_types.proto"
-          }
-        ],
-        "package": {
-          "name": "eos.remote"
-        }
-      }
-    },
-    {
-      "protopath": "intf_types.proto",
-      "def": {
-        "messages": [
-          {
-            "name": "IntfId",
-            "fields": [
-              {
-                "id": 1,
-                "name": "name",
-                "type": "string"
               }
             ]
           }

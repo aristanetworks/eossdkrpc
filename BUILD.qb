@@ -58,8 +58,8 @@ extra_dist(
 #-----------------------------------------------------------------------
 # Protobufs
 
-# files listed under protoFiles shall generate both gRPC and protobuf files
-protoFiles = [
+# files listed under grpcFiles shall generate both gRPC and protobuf files
+grpcFiles = [
    'proto/agent.proto',
    'proto/bgp.proto',
    'proto/bgp_path.proto',
@@ -77,6 +77,7 @@ protoFiles = [
 # files listed under protobufFiles shall generate only protobuf files.
 protobufFiles= [
    'proto/macsec_types.proto',
+   'proto/eapi_types.proto',
    'proto/intf_types.proto',
    'proto/ip_intf_types.proto',
 ]
@@ -86,7 +87,7 @@ protobufFiles= [
 
 data(
    'EosSdkRpcProtoFiles',
-   sources= protoFiles + protobufFiles,
+   sources=grpcFiles + protobufFiles,
    inst_dir='$DATADIR/EosSdkRpcProtos/proto',
 )
 
@@ -123,8 +124,8 @@ template(
 
 
 protoc_py(
-   'protoc_py',
-   sources=protoFiles,
+   'proto',
+   sources=grpcFiles,
 )
 
 template(
@@ -140,9 +141,8 @@ protobuf_py(
    sources=protobufFiles,
 )
 
-protocPyGenerated = _protoc_py_output( sources=protoFiles )
-protocPyGenerated.extend(
-      _protoc_py_output( sources=protobufFiles, generateGrpc=False ) )
+protocPyGenerated = _protoc_py_output( sources=grpcFiles ) + \
+   _protobuf_py_output( sources=protobufFiles )
 
 #-----------------------------------------------------------------------
 # Python sources
@@ -193,8 +193,8 @@ template(
 )
 
 protoc_cpp(
-   'protoc_cpp',
-   sources=protoFiles,
+   'protoc',
+   sources=grpcFiles,
 )
 
 template(
@@ -210,7 +210,7 @@ protobuf_cpp(
    sources=protobufFiles,
 )
 
-protocCppGenerated = _protoc_cpp_output( sources=protoFiles ) + \
+protocCppGenerated = _protoc_cpp_output( sources=grpcFiles ) + \
    _protobuf_cpp_output( sources=protobufFiles )
 
 def _protoc_cpp_headers( pkg=None, target_name=None, sources=None,
@@ -224,7 +224,7 @@ def _protoc_cpp_headers( pkg=None, target_name=None, sources=None,
          headers.append( basename + '.grpc.pb.h' )
    return headers
 
-protocCppGeneratedHeaders = _protoc_cpp_headers( sources=protoFiles ) + \
+protocCppGeneratedHeaders = _protoc_cpp_headers( sources=grpcFiles ) + \
    _protobuf_cpp_output( sources=protobufFiles )
 
 data(

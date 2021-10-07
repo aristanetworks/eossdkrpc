@@ -9,69 +9,28 @@ import "defs.proto";
 import "intf_types.proto";
 
 service IntfMgrService {
-   rpc watch( WatchIntfParams ) returns ( stream InterfaceEvent ) {}
+   rpc watch( WatchIntfRequest ) returns ( stream WatchIntfResponse ) {}
+   rpc intfs( IntfsRequest ) returns ( stream IntfsResponse ) {}
+   rpc exists( ExistsRequest ) returns ( ExistsResponse ) {}
+   rpc kernel_intf_name( KernelIntfNameRequest ) returns ( KernelIntfNameResponse ) {}
+   rpc eos_intf_name( EosIntfNameRequest ) returns ( EosIntfNameResponse ) {}
+   rpc admin_enabled( AdminEnabledRequest ) returns ( AdminEnabledResponse ) {}
+   rpc admin_enabled_is( AdminEnabledIsRequest ) returns ( AdminEnabledIsResponse ) {}
+   rpc bulk_admin_enabled_is( BulkAdminEnabledIsRequest ) returns ( BulkAdminEnabledIsResponse ) {}
+   rpc description( DescriptionRequest ) returns ( DescriptionResponse ) {}
+   rpc description_is( DescriptionIsRequest ) returns ( DescriptionIsResponse ) {}
+   rpc bulk_description_is( BulkDescriptionIsRequest ) returns ( BulkDescriptionIsResponse ) {}
+   rpc oper_status( OperStatusRequest ) returns ( OperStatusResponse ) {}
+} 
 
-   rpc intfs( Void ) returns ( stream IntfId ) {}
-   
-   rpc exists( IntfId ) returns ( Bool ) {}
-
-   rpc kernel_intf_name( IntfId ) returns ( String ) {}
-
-   rpc eos_intf_name( String ) returns ( IntfId ) {}
-
-   rpc admin_enabled( IntfId ) returns ( Bool ) {}
-
-   rpc admin_enabled_is( AdminEnabledParams ) returns ( Void ) {}
-
-   rpc bulk_admin_enabled_is( BulkAdminEnabledParams ) returns ( BulkResponse ) {}
-
-   rpc description( IntfId ) returns ( String ) {}
-
-   rpc description_is( DescriptionParams ) returns ( Void ) {}
-
-   rpc bulk_description_is( BulkDescriptionParams ) returns ( BulkResponse ) {}
-
-   rpc oper_status( IntfId ) returns ( OperStatus ) {}
-}
-
-service IntfCounterMgrService {
-   rpc intf_counters( IntfId ) returns( IntfCounters ) {}
-
-   rpc intf_traffic_counters( IntfId ) returns( IntfTrafficRates ) {}
-}
-
-message IntfCounters {
-   uint64 out_ucast_pkts = 1;
-   uint64 out_multicast_pkts = 2;
-   uint64 out_broadcast_pkts = 3;
-   uint64 in_ucast_pkts = 4;
-   uint64 in_multicast_pkts = 5;
-   uint64 in_broadcast_pkts = 6;
-   uint64 out_octets = 7;
-   uint64 in_octets = 8;
-   uint64 out_discards = 9;
-   uint64 out_errors = 10;
-   uint64 in_discards = 11;
-   uint64 in_errors = 12;
-   double sample_time = 13; 
-}
-
-message IntfTrafficRates {
-   double out_pkts_rate = 1;
-   double in_pkts_rate = 2;
-   double out_bits_rate = 3;
-   double in_bits_rate = 4;
-   double sample_time = 5;
-}
-
-message WatchIntfParams {
+message WatchIntfRequest {
    oneof overloads {
       bool all_intfs = 1;
       IntfId intf_id = 2;
    }
 }
 
-message InterfaceEvent {
+message WatchIntfResponse {
    enum IntfEvents {
       INTF_CREATE = 0;
       INTF_DEL = 1;
@@ -85,43 +44,109 @@ message InterfaceEvent {
    }
 }
 
-enum InterfaceTypes{
-   INTF_TYPE_NULL = 0;
-   INTF_TYPE_OTHER = 1;
-   INTF_TYPE_ETH = 2;
-   INTF_TYPE_VLAN = 3;
-   INTF_TYPE_MANAGEMENT = 4;
-   INTF_TYPE_LOOPBACK = 5;
-   INTF_TYPE_LAG = 6;
-   INTF_TYPE_NULL0 = 7;
-   INTF_TYPE_CPU = 8;
-   INTF_TYPE_VXLAN = 9;
+message IntfsRequest {}
+
+message IntfsResponse {
+   IntfId intf_id = 1; 
 }
 
+message ExistsRequest {
+   IntfId intf_id = 1; 
+}
 
-message AdminEnabledParams {
+message ExistsResponse {
+   bool exists = 1; 
+}
+
+message KernelIntfNameRequest {
+   IntfId intf_id = 1; 
+}
+
+message KernelIntfNameResponse {
+   string name = 1; 
+}
+
+message EosIntfNameRequest {
+   string name = 1; 
+}
+
+message EosIntfNameResponse {
+   IntfId intf_id = 1; 
+}
+
+message AdminEnabledRequest {
+   IntfId request = 1; 
+}
+
+message AdminEnabledResponse {
+   bool enabled = 1; 
+}
+
+message AdminEnabledIsRequest {
    IntfId intf_id = 1;
    bool enabled = 2;
 }
 
-message BulkAdminEnabledParams {
-   repeated AdminEnabledParams admin_intfs = 1;
+message AdminEnabledIsResponse {}
+
+message BulkAdminEnabledIsRequest {
+   repeated AdminEnabledIsRequest requests = 1; 
 }
 
-message DescriptionParams {
+message BulkAdminEnabledIsResponse {
+   uint64 processed = 1;
+   RpcResponseStatus status = 2;
+}
+
+message DescriptionRequest {
+   IntfId intf_id = 1; 
+}
+
+message DescriptionResponse {
+   string description = 1; 
+}
+
+message DescriptionIsRequest {
    IntfId intf_id = 1;
    string description = 2;
 }
 
-message BulkDescriptionParams {
-   repeated DescriptionParams intf_descriptions = 1;
+message DescriptionIsResponse {}
+
+message BulkDescriptionIsRequest {
+   repeated DescriptionIsRequest requests = 1; 
 }
 
-message OperStatus {
-   enum OperStatuses {
-      INTF_OPER_NULL = 0;
-      INTF_OPER_UP = 1;
-      INTF_OPER_DOWN = 2;
-   }
-   OperStatuses status = 1;
+message BulkDescriptionIsResponse {
+   uint64 processed = 1;
+   RpcResponseStatus status = 2;
+}
+
+message OperStatusRequest {
+   IntfId intf_id = 1; 
+}
+
+message OperStatusResponse {
+   OperStatus response = 1; 
+}
+
+service IntfCounterMgrService {
+   rpc intf_counters( IntfCountersRequest ) returns ( IntfCountersResponse ) {}
+   rpc intf_traffic_counters( IntfTrafficCountersRequest ) returns ( IntfTrafficCountersResponse ) {}
+}
+
+message IntfCountersRequest {
+   IntfId intf_id = 1; 
+}
+
+message IntfCountersResponse {
+   IntfCounters counters = 1; 
+}
+
+message IntfTrafficCountersRequest {
+   IntfId intf_id = 1; 
+}
+
+message IntfTrafficCountersResponse {
+   IntfTrafficRates rates = 1; 
 }
