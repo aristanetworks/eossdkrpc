@@ -1592,6 +1592,9 @@
         ],
         "imports": [
           {
+            "path": "ip_types.proto"
+          },
+          {
             "path": "rpc_types.proto"
           }
         ],
@@ -3353,10 +3356,38 @@
         ],
         "imports": [
           {
-            "path": "rpc_types.proto"
+            "path": "intf_types.proto"
           },
           {
-            "path": "intf_types.proto"
+            "path": "ip_types.proto"
+          },
+          {
+            "path": "rpc_types.proto"
+          }
+        ],
+        "package": {
+          "name": "eos.remote"
+        }
+      }
+    },
+    {
+      "protopath": "ip_types.proto",
+      "def": {
+        "messages": [
+          {
+            "name": "Prefix",
+            "fields": [
+              {
+                "id": 1,
+                "name": "ip_addr",
+                "type": "bytes"
+              },
+              {
+                "id": 2,
+                "name": "length",
+                "type": "int32"
+              }
+            ]
           }
         ],
         "package": {
@@ -4750,21 +4781,6 @@
           }
         ],
         "messages": [
-          {
-            "name": "Prefix",
-            "fields": [
-              {
-                "id": 1,
-                "name": "ip_addr",
-                "type": "bytes"
-              },
-              {
-                "id": 2,
-                "name": "length",
-                "type": "int32"
-              }
-            ]
-          },
           {
             "name": "RpcResponseStatus",
             "fields": [

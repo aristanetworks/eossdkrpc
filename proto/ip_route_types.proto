@@ -3,8 +3,9 @@
 
 syntax = "proto3";
 
-import "rpc_types.proto";
 import "intf_types.proto";
+import "ip_types.proto";
+import "rpc_types.proto";
 
 package eos.remote;
 

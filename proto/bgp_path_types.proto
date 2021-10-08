@@ -5,6 +5,7 @@ syntax = "proto3";
 
 package eos.remote;
 
+import "ip_types.proto";
 import "rpc_types.proto";
 
 message BgpPathKey {

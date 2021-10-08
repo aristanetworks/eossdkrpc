@@ -5,11 +5,6 @@ syntax = "proto3";
 
 package eos.remote;
 
-message Prefix {
-   bytes ip_addr = 1;
-   int32 length = 2;
-}
-
 // The status codes below match gRPC StatusCodes
 // in both naming and numeric values.
 enum RpcStatusCodes {

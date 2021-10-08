@@ -78,6 +78,7 @@ protobufFiles= [
    'proto/bgp_path_types.proto',
    'proto/eapi_types.proto',
    'proto/intf_types.proto',
+   'proto/ip_types.proto',
    'proto/ip_intf_types.proto',
    'proto/ip_route_types.proto',
    'proto/macsec_types.proto',
