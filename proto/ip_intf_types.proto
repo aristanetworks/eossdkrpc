@@ -6,8 +6,9 @@ syntax = "proto3";
 package eos.remote;
 
 enum IpAddrOperations {
-   ADD = 0;
-   DELETE = 1;
+   IP_ADDR_OP_NONE = 0;
+   IP_ADDR_OP_ADD = 1;
+   IP_ADDR_OP_DELETE = 2;
 }
 
 message IpAddrEvent {

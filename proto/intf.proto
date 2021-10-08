@@ -30,11 +30,13 @@ message WatchIntfRequest {
    }
 }
 
+enum IntfEvents {
+   EVENT_INTF_NO_CHANGES = 0;
+   EVENT_INTF_CREATED = 1;
+   EVENT_INTF_DELETED = 2;
+}
+
 message WatchIntfResponse {
-   enum IntfEvents {
-      INTF_CREATE = 0;
-      INTF_DEL = 1;
-   }
    IntfId intf_id = 1;
    oneof intf_event {
       IntfEvents event = 2;

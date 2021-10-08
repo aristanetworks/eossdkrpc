@@ -10,28 +10,29 @@ message Prefix {
    int32 length = 2;
 }
 
+// The status codes below match gRPC StatusCodes
+// in both naming and numeric values.
+enum RpcStatusCodes {
+   RPC_STATUS_OK = 0;
+   RPC_STATUS_CANCELLED = 1;
+   RPC_STATUS_UNKNOWN = 2;
+   RPC_STATUS_INVALID_ARGUMENT = 3;
+   RPC_STATUS_DEADLINE_EXCEEDED = 4;
+   RPC_STATUS_NOT_FOUND = 5;
+   RPC_STATUS_ALREDY_EXISTS = 6;
+   RPC_STATUS_PERMISSION_DENIED = 7;
+   RPC_STATUS_RESOURCE_EXHAUSTED = 8;
+   RPC_STATUS_FAILED_PRECONDITION = 9;
+   RPC_STATUS_ABORTED = 10;
+   RPC_STATUS_OUT_OF_RANGE = 11;
+   RPC_STATUS_UNIMPLEMENTED = 12;
+   RPC_STATUS_INTERNAL = 13;
+   RPC_STATUS_UNAVAILABLE = 14;
+   RPC_STATUS_DATA_LOSS = 15;
+}
+
 message RpcResponseStatus {
-   // The status codes below match gRPC StatusCodes
-   // in both naming and numeric values.
-   enum StatusCodes {
-      OK = 0;
-      CANCELLED = 1;
-      UNKNOWN = 2;
-      INVALID_ARGUMENT = 3;
-      DEADLINE_EXCEEDED = 4;
-      NOT_FOUND = 5;
-      ALREDY_EXISTS = 6;
-      PERMISSION_DENIED = 7;
-      RESOURCE_EXHAUSTED = 8;
-      FAILED_PRECONDITION = 9;
-      ABORTED = 10;
-      OUT_OF_RANGE = 11;
-      UNIMPLEMENTED = 12;
-      INTERNAL = 13;
-      UNAVAILABLE = 14;
-      DATA_LOSS = 15;
-   }
-   StatusCodes status = 1;
+   RpcStatusCodes status = 1;
    string error_string = 2;
 }
 

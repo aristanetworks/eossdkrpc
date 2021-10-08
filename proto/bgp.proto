@@ -13,9 +13,10 @@ service BgpMgrService {
    rpc peer_state( PeerStateRequest ) returns ( PeerStateResponse ) {}
 }
 
-enum BgpPeerEventStates {
-   PEER_SET = 0;
-   PEER_DEL = 1;
+enum BgpPeerEvents {
+   EVENT_BGP_PEER_NO_CHANGES = 0;
+   EVENT_BGP_PEER_CREATED = 1;
+   EVENT_BGP_PEER_DELETED = 2;
 }
 
 message WatchBgpPeerRequest {
@@ -28,7 +29,7 @@ message WatchBgpPeerRequest {
 message WatchBgpPeerResponse {
    BgpPeerKey peer_key = 1;
    oneof peer_event {
-      BgpPeerEventStates event = 2;
+      BgpPeerEvents event = 2;
       BgpPeerStates peer_state = 3;
    } 
 }

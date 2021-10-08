@@ -47,7 +47,7 @@ enum InterfaceTypes{
 }
 
 enum OperStatuses {
-   INTF_OPER_NULL = 0;
-   INTF_OPER_UP = 1;
-   INTF_OPER_DOWN = 2;
+   INTF_OPER_STATUS_NULL = 0;
+   INTF_OPER_STATUS_UP = 1;
+   INTF_OPER_STATUS_DOWN = 2;
 }

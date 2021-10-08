@@ -1098,14 +1098,18 @@
       "def": {
         "enums": [
           {
-            "name": "BgpPeerEventStates",
+            "name": "BgpPeerEvents",
             "enum_fields": [
               {
-                "name": "PEER_SET"
+                "name": "EVENT_BGP_PEER_NO_CHANGES"
               },
               {
-                "name": "PEER_DEL",
+                "name": "EVENT_BGP_PEER_CREATED",
                 "integer": 1
+              },
+              {
+                "name": "EVENT_BGP_PEER_DELETED",
+                "integer": 2
               }
             ]
           }
@@ -1137,7 +1141,7 @@
               {
                 "id": 2,
                 "name": "event",
-                "type": "BgpPeerEventStates"
+                "type": "BgpPeerEvents"
               },
               {
                 "id": 3,
@@ -1604,30 +1608,30 @@
             "name": "BgpPeerStates",
             "enum_fields": [
               {
-                "name": "PEER_UNKNOWN"
+                "name": "BGP_PEER_STATE_UNKNOWN"
               },
               {
-                "name": "PEER_IDLE",
+                "name": "BGP_PEER_STATE_IDLE",
                 "integer": 1
               },
               {
-                "name": "PEER_CONNECT",
+                "name": "BGP_PEER_STATE_CONNECT",
                 "integer": 2
               },
               {
-                "name": "PEER_ACTIVE",
+                "name": "BGP_PEER_STATE_ACTIVE",
                 "integer": 3
               },
               {
-                "name": "PEER_OPENSENT",
+                "name": "BGP_PEER_STATE_OPENSENT",
                 "integer": 4
               },
               {
-                "name": "PEER_OPENCONFIRM",
+                "name": "BGP_PEER_STATE_OPENCONFIRM",
                 "integer": 5
               },
               {
-                "name": "PEER_ESTABLISHED",
+                "name": "BGP_PEER_STATE_ESTABLISHED",
                 "integer": 6
               }
             ]
@@ -1779,14 +1783,18 @@
       "def": {
         "enums": [
           {
-            "name": "WatchIntfResponse.IntfEvents",
+            "name": "IntfEvents",
             "enum_fields": [
               {
-                "name": "INTF_CREATE"
+                "name": "EVENT_INTF_NO_CHANGES"
               },
               {
-                "name": "INTF_DEL",
+                "name": "EVENT_INTF_CREATED",
                 "integer": 1
+              },
+              {
+                "name": "EVENT_INTF_DELETED",
+                "integer": 2
               }
             ]
           }
@@ -2248,14 +2256,14 @@
             "name": "OperStatuses",
             "enum_fields": [
               {
-                "name": "INTF_OPER_NULL"
+                "name": "INTF_OPER_STATUS_NULL"
               },
               {
-                "name": "INTF_OPER_UP",
+                "name": "INTF_OPER_STATUS_UP",
                 "integer": 1
               },
               {
-                "name": "INTF_OPER_DOWN",
+                "name": "INTF_OPER_STATUS_DOWN",
                 "integer": 2
               }
             ]
@@ -2724,11 +2732,15 @@
             "name": "IpAddrOperations",
             "enum_fields": [
               {
-                "name": "ADD"
+                "name": "IP_ADDR_OP_NONE"
               },
               {
-                "name": "DELETE",
+                "name": "IP_ADDR_OP_ADD",
                 "integer": 1
+              },
+              {
+                "name": "IP_ADDR_OP_DELETE",
+                "integer": 2
               }
             ]
           }
@@ -2840,8 +2852,8 @@
             "fields": [
               {
                 "id": 1,
-                "name": "via",
-                "type": "IpRouteVia"
+                "name": "key",
+                "type": "IpRouteKey"
               },
               {
                 "id": 2,
@@ -2880,7 +2892,7 @@
             "fields": [
               {
                 "id": 1,
-                "name": "response",
+                "name": "exists",
                 "type": "bool"
               }
             ]
@@ -2905,7 +2917,7 @@
             "fields": [
               {
                 "id": 1,
-                "name": "response",
+                "name": "exists",
                 "type": "bool"
               }
             ]
@@ -2964,7 +2976,8 @@
               {
                 "id": 1,
                 "name": "requests",
-                "type": "BulkIpRouteSetRequest"
+                "type": "IpRouteSetRequest",
+                "is_repeated": true
               }
             ]
           },
@@ -3006,7 +3019,7 @@
             "fields": [
               {
                 "id": 1,
-                "name": "request",
+                "name": "requests",
                 "type": "IpRouteDelRequest",
                 "is_repeated": true
               }
@@ -3051,7 +3064,8 @@
               {
                 "id": 1,
                 "name": "requests",
-                "type": "BulkIpRouteViaSetRequest"
+                "type": "IpRouteViaSetRequest",
+                "is_repeated": true
               }
             ]
           },
@@ -3094,7 +3108,8 @@
               {
                 "id": 1,
                 "name": "requests",
-                "type": "BulkIpRouteViaDelRequest"
+                "type": "IpRouteViaDelRequest",
+                "is_repeated": true
               }
             ]
           },
@@ -4480,26 +4495,26 @@
             "name": "NexthopGroupEncapTypes",
             "enum_fields": [
               {
-                "name": "NEXTHOP_GROUP_TYPE_NULL"
+                "name": "NEXTHOP_GROUP_ENCAP_TYPE_NULL"
               },
               {
-                "name": "NEXTHOP_GROUP_IP_IN_IP",
+                "name": "NEXTHOP_GROUP_ENCAP_IP_IN_IP",
                 "integer": 1
               },
               {
-                "name": "NEXTHOP_GROUP_GRE",
+                "name": "NEXTHOP_GROUP_ENCAP_GRE",
                 "integer": 2
               },
               {
-                "name": "NEXTHOP_GROUP_MPLS",
+                "name": "NEXTHOP_GROUP_ENCAP_MPLS",
                 "integer": 3
               },
               {
-                "name": "NEXTHOP_GROUP_MPLS_OVER_GRE",
+                "name": "NEXTHOP_GROUP_ENCAP_MPLS_OVER_GRE",
                 "integer": 4
               },
               {
-                "name": "NEXTHOP_GROUP_IP",
+                "name": "NEXTHOP_GROUP_ENCAP_IP",
                 "integer": 5
               }
             ]
@@ -4666,69 +4681,69 @@
       "def": {
         "enums": [
           {
-            "name": "RpcResponseStatus.StatusCodes",
+            "name": "RpcStatusCodes",
             "enum_fields": [
               {
-                "name": "OK"
+                "name": "RPC_STATUS_OK"
               },
               {
-                "name": "CANCELLED",
+                "name": "RPC_STATUS_CANCELLED",
                 "integer": 1
               },
               {
-                "name": "UNKNOWN",
+                "name": "RPC_STATUS_UNKNOWN",
                 "integer": 2
               },
               {
-                "name": "INVALID_ARGUMENT",
+                "name": "RPC_STATUS_INVALID_ARGUMENT",
                 "integer": 3
               },
               {
-                "name": "DEADLINE_EXCEEDED",
+                "name": "RPC_STATUS_DEADLINE_EXCEEDED",
                 "integer": 4
               },
               {
-                "name": "NOT_FOUND",
+                "name": "RPC_STATUS_NOT_FOUND",
                 "integer": 5
               },
               {
-                "name": "ALREDY_EXISTS",
+                "name": "RPC_STATUS_ALREDY_EXISTS",
                 "integer": 6
               },
               {
-                "name": "PERMISSION_DENIED",
+                "name": "RPC_STATUS_PERMISSION_DENIED",
                 "integer": 7
               },
               {
-                "name": "RESOURCE_EXHAUSTED",
+                "name": "RPC_STATUS_RESOURCE_EXHAUSTED",
                 "integer": 8
               },
               {
-                "name": "FAILED_PRECONDITION",
+                "name": "RPC_STATUS_FAILED_PRECONDITION",
                 "integer": 9
               },
               {
-                "name": "ABORTED",
+                "name": "RPC_STATUS_ABORTED",
                 "integer": 10
               },
               {
-                "name": "OUT_OF_RANGE",
+                "name": "RPC_STATUS_OUT_OF_RANGE",
                 "integer": 11
               },
               {
-                "name": "UNIMPLEMENTED",
+                "name": "RPC_STATUS_UNIMPLEMENTED",
                 "integer": 12
               },
               {
-                "name": "INTERNAL",
+                "name": "RPC_STATUS_INTERNAL",
                 "integer": 13
               },
               {
-                "name": "UNAVAILABLE",
+                "name": "RPC_STATUS_UNAVAILABLE",
                 "integer": 14
               },
               {
-                "name": "DATA_LOSS",
+                "name": "RPC_STATUS_DATA_LOSS",
                 "integer": 15
               }
             ]
@@ -4756,7 +4771,7 @@
               {
                 "id": 1,
                 "name": "status",
-                "type": "StatusCodes"
+                "type": "RpcStatusCodes"
               },
               {
                 "id": 2,

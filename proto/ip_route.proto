@@ -56,7 +56,7 @@ message IpRoutesResponse {
 }
 
 message IpRouteViasRequest {
-   IpRouteVia via = 1;
+   IpRouteKey key = 1;
    string vrf_name = 2;
 }
 
@@ -70,7 +70,7 @@ message IpRouteExistsRequest {
 }
 
 message IpRouteExistsResponse {
-   bool response = 1; 
+   bool exists = 1; 
 }
 
 message IpRouteViaExistsRequest {
@@ -79,7 +79,7 @@ message IpRouteViaExistsRequest {
 }
 
 message IpRouteViaExistsResponse {
-   bool response = 1; 
+   bool exists = 1; 
 }
 
 message IpRouteRequest {
@@ -102,7 +102,7 @@ message IpRouteSetRequest {
 message IpRouteSetResponse {}
 
 message BulkIpRouteSetRequest {
-   BulkIpRouteSetRequest requests = 1; 
+   repeated IpRouteSetRequest requests = 1; 
 }
 
 message BulkIpRouteSetResponse {
@@ -118,7 +118,7 @@ message IpRouteDelRequest {
 message IpRouteDelResponse {}
 
 message BulkIpRouteDelRequest {
-   repeated IpRouteDelRequest request = 1; 
+   repeated IpRouteDelRequest requests = 1; 
 }
 
 message BulkIpRouteDelResponse {
@@ -134,7 +134,7 @@ message IpRouteViaSetRequest {
 message IpRouteViaSetResponse {}
 
 message BulkIpRouteViaSetRequest {
-   BulkIpRouteViaSetRequest requests = 1; 
+   repeated IpRouteViaSetRequest requests = 1; 
 }
 
 message BulkIpRouteViaSetResponse {
@@ -150,7 +150,7 @@ message IpRouteViaDelRequest {
 message IpRouteViaDelResponse {}
 
 message BulkIpRouteViaDelRequest {
-   BulkIpRouteViaDelRequest requests = 1; 
+   repeated IpRouteViaDelRequest requests = 1; 
 }
 
 message BulkIpRouteViaDelResponse {
