@@ -61,7 +61,9 @@ EosRemoteSdk files used by other packages during development.
 %{_datadir}/EosSdkRpcProtos/proto/eapi.proto
 %{_datadir}/EosSdkRpcProtos/proto/EosSdkRpc.proto
 %{_datadir}/EosSdkRpcProtos/proto/intf.proto
+%{_datadir}/EosSdkRpcProtos/proto/intf_types.proto
 %{_datadir}/EosSdkRpcProtos/proto/ip_intf.proto
+%{_datadir}/EosSdkRpcProtos/proto/ip_intf_types.proto
 %{_datadir}/EosSdkRpcProtos/proto/ip_route.proto
 %{_datadir}/EosSdkRpcProtos/proto/macsec.proto
 %{_datadir}/EosSdkRpcProtos/proto/macsec_types.proto
