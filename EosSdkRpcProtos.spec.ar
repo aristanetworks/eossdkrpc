@@ -1,6 +1,6 @@
 Summary: Protobufs for communicating with EosSdkRpc and EosSdkRpcClient
 Name: EosSdkRpcProtos
-Version: 1.0.4
+Version: 1.0.5
 Release: %{?release:%{release}}%{!?release:eng}
 Source0: %{name}-%{version}.tar.gz
 License: Arista Networks
@@ -8,7 +8,7 @@ Group: Arista/Software
 BuildRoot: %{_tmppath}/%{name}-root
 Url: http://www.AristaNetworks.com
 
-Conflicts: EosSdkRpc <= 1.0.3
+Conflicts: EosSdkRpc <= 1.0.4
 
 # NOTE: Please do NOT put the names of macros into any comments in this
 #       file, or you will find yourself wading through very baffling RPM
