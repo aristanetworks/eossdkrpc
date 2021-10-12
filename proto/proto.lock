@@ -782,7 +782,7 @@
             "fields": [
               {
                 "id": 1,
-                "name": "name",
+                "name": "option",
                 "type": "string"
               },
               {

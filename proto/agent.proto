@@ -32,7 +32,7 @@ service AgentService {
 message WatchAgentRequest {}
 
 message WatchAgentResponse {
-   string name = 1;
+   string option = 1;
    string value = 2;
 }
 
