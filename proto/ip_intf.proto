@@ -18,17 +18,17 @@ service IpIntfMgrService {
 
    rpc ip_addrs_is( IpIntfAddrsIsRequest ) returns ( IpIntfAddrsIsResponse ) {}
 
-   rpc bulk_ip_addrs_is( IpIntfBulkAddrsIsRequest ) returns ( IpIntfBulkAddrsIsResponse ) {}
+   rpc bulk_ip_addrs_is( BulkIpIntfAddrsIsRequest ) returns ( BulkIpIntfAddrsIsResponse ) {}
 
    rpc ip_addr_modify( IpIntfAddrModifyRequest ) returns ( IpIntfAddrModifyResponse ) {}
 
-   rpc bulk_ip_addr_modify( IpIntfBulkAddrModifyRequest ) returns ( IpIntfBulkAddrModifyResponse ) {}
+   rpc bulk_ip_addr_modify( BulkIpIntfAddrModifyRequest ) returns ( BulkIpIntfAddrModifyResponse ) {}
    
    rpc ip_addr_merge_mode( IpIntfAddrMergeModeRequest ) returns ( IpIntfAddrMergeModeResponse ) {}
 
    rpc ip_addr_merge_mode_is( IpIntfAddrMergeModeIsRequest ) returns ( IpIntfAddrMergeModeIsResponse ) {}
 
-   rpc bulk_ip_addr_merge_mode_is( IpIntfBulkAddrMergeModeIsRequest ) returns ( IpIntfBulkAddrMergeModeIsResponse ) {}
+   rpc bulk_ip_addr_merge_mode_is( BulkIpIntfAddrMergeModeIsRequest ) returns ( BulkIpIntfAddrMergeModeIsResponse ) {}
 
    rpc internal_vlan_id( IpIntfInternalVlanIdRequest ) returns ( IpIntfInternalVlanIdResponse ) {}
 }
@@ -71,11 +71,11 @@ message IpIntfAddrsIsRequest {
 
 message IpIntfAddrsIsResponse {}
 
-message IpIntfBulkAddrsIsRequest {
+message BulkIpIntfAddrsIsRequest {
    repeated IpIntfAddrsIsRequest requests = 1;
 }
 
-message IpIntfBulkAddrsIsResponse {
+message BulkIpIntfAddrsIsResponse {
    uint64 processed = 1;
    RpcResponseStatus status = 2;
 }
@@ -88,11 +88,11 @@ message IpIntfAddrModifyRequest {
 
 message IpIntfAddrModifyResponse {}
 
-message IpIntfBulkAddrModifyRequest {
+message BulkIpIntfAddrModifyRequest {
    repeated IpIntfAddrModifyRequest requests = 1;
 }
 
-message IpIntfBulkAddrModifyResponse {
+message BulkIpIntfAddrModifyResponse {
    uint64 processed = 1;
    RpcResponseStatus status = 2;
 }
@@ -112,11 +112,11 @@ message IpIntfAddrMergeModeIsRequest {
 
 message IpIntfAddrMergeModeIsResponse {}
 
-message IpIntfBulkAddrMergeModeIsRequest {
+message BulkIpIntfAddrMergeModeIsRequest {
    repeated IpIntfAddrMergeModeIsRequest requests = 1;
 }
 
-message IpIntfBulkAddrMergeModeIsResponse {
+message BulkIpIntfAddrMergeModeIsResponse {
    uint64 processed = 1;
    RpcResponseStatus status = 2;
 }

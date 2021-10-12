@@ -2489,7 +2489,7 @@
             "name": "IpIntfAddrsIsResponse"
           },
           {
-            "name": "IpIntfBulkAddrsIsRequest",
+            "name": "BulkIpIntfAddrsIsRequest",
             "fields": [
               {
                 "id": 1,
@@ -2500,7 +2500,7 @@
             ]
           },
           {
-            "name": "IpIntfBulkAddrsIsResponse",
+            "name": "BulkIpIntfAddrsIsResponse",
             "fields": [
               {
                 "id": 1,
@@ -2538,7 +2538,7 @@
             "name": "IpIntfAddrModifyResponse"
           },
           {
-            "name": "IpIntfBulkAddrModifyRequest",
+            "name": "BulkIpIntfAddrModifyRequest",
             "fields": [
               {
                 "id": 1,
@@ -2549,7 +2549,7 @@
             ]
           },
           {
-            "name": "IpIntfBulkAddrModifyResponse",
+            "name": "BulkIpIntfAddrModifyResponse",
             "fields": [
               {
                 "id": 1,
@@ -2602,7 +2602,7 @@
             "name": "IpIntfAddrMergeModeIsResponse"
           },
           {
-            "name": "IpIntfBulkAddrMergeModeIsRequest",
+            "name": "BulkIpIntfAddrMergeModeIsRequest",
             "fields": [
               {
                 "id": 1,
@@ -2613,7 +2613,7 @@
             ]
           },
           {
-            "name": "IpIntfBulkAddrMergeModeIsResponse",
+            "name": "BulkIpIntfAddrMergeModeIsResponse",
             "fields": [
               {
                 "id": 1,
@@ -2675,8 +2675,8 @@
               },
               {
                 "name": "bulk_ip_addrs_is",
-                "in_type": "IpIntfBulkAddrsIsRequest",
-                "out_type": "IpIntfBulkAddrsIsResponse"
+                "in_type": "BulkIpIntfAddrsIsRequest",
+                "out_type": "BulkIpIntfAddrsIsResponse"
               },
               {
                 "name": "ip_addr_modify",
@@ -2685,8 +2685,8 @@
               },
               {
                 "name": "bulk_ip_addr_modify",
-                "in_type": "IpIntfBulkAddrModifyRequest",
-                "out_type": "IpIntfBulkAddrModifyResponse"
+                "in_type": "BulkIpIntfAddrModifyRequest",
+                "out_type": "BulkIpIntfAddrModifyResponse"
               },
               {
                 "name": "ip_addr_merge_mode",
@@ -2700,8 +2700,8 @@
               },
               {
                 "name": "bulk_ip_addr_merge_mode_is",
-                "in_type": "IpIntfBulkAddrMergeModeIsRequest",
-                "out_type": "IpIntfBulkAddrMergeModeIsResponse"
+                "in_type": "BulkIpIntfAddrMergeModeIsRequest",
+                "out_type": "BulkIpIntfAddrMergeModeIsResponse"
               },
               {
                 "name": "internal_vlan_id",
