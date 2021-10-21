@@ -9,17 +9,161 @@ import "rpc_types.proto";
 import "intf_types.proto";
 
 service IntfMgrService {
+
+   /**
+    * Subscription to monitor changes on interface properties or status. This request
+    * stays active until it is cancelled from client side or the server is shut down.
+    * Making this request with all = false and no intf_id will have no effect.
+    * 
+    * Request:
+    *    One of these options:
+    *       all = true
+    *       intf_id = name of a particular interface to watch.
+    * Response: Events are streamed as changes happen:
+    *    intf_id = interface whose status changed
+    *    One of the following changes:
+    *       event = Interface has been added or removed
+    *       admin_enabled = enabled status has been changed
+    *       description = interface's description has changed
+    *    
+    * EosSdk reference: eos::intf_handler (class)
+    */
    rpc watch( WatchIntfRequest ) returns ( stream WatchIntfResponse ) {}
+
+   /**
+    * Enumerates the interfaces.
+    *
+    * Request:
+    *    No arguments
+    * Response: list of the following:
+    *    intf_id = name of the interface.
+    *    
+    * EosSdk reference: eos::intf_mgr::intf_iter
+    */
    rpc intfs( IntfsRequest ) returns ( stream IntfsResponse ) {}
+
+   /**
+    * Queries whether an interface exists or not.
+    *
+    * Request:
+    *    intf_id = name of the interface.
+    * Response:
+    *    exists = true if the interface is present, false otherwise
+    *    
+    * EosSdk reference: eos::intf_mgr::exists
+    */
    rpc exists( IntfExistsRequest ) returns ( IntfExistsResponse ) {}
+
+   /**
+    * Queries the kernel device for a particular interface.
+    *
+    * Request:
+    *    intf_id = name of the interface.
+    * Response:
+    *    name = linux kernel device name for the interface.
+    *    
+    * EosSdk reference: eos::intf_mgr::kernel_intf_name
+    */
    rpc kernel_intf_name( KernelIntfNameRequest ) returns ( KernelIntfNameResponse ) {}
+
+   /**
+    * Query EOS interface name for a particular kernel device.
+    *
+    * Request:
+    *    name = linux kernel device name for the interface.
+    * Response:
+    *    intf_id = name of the interface.
+    *    
+    * EosSdk reference: eos::intf_mgr::eos_intf_name
+    */
    rpc eos_intf_name( EosIntfNameRequest ) returns ( EosIntfNameResponse ) {}
+
+   /**
+    * Queries if an interface is configured to be enabled.
+    *
+    * Request:
+    *    name = linux kernel device name for the interface.
+    * Response:
+    *    enabled = true if interface is enabled, false otherwise.
+    *    
+    * EosSdk reference: eos::intf_mgr::admin_enabled
+    */
    rpc admin_enabled( AdminEnabledRequest ) returns ( AdminEnabledResponse ) {}
+
+   /**
+    * Changes the enabled status of an interface.
+    *
+    * Request:
+    *    intf_id = name of the interface.
+    *    enabled = new enabled status for the interface.
+    * Response:
+    *    none
+    *    
+    * EosSdk reference: eos::intf_mgr::admin_enabled_is
+    */
    rpc admin_enabled_is( AdminEnabledIsRequest ) returns ( AdminEnabledIsResponse ) {}
+
+   /**
+    * Change the enabled status of multiple interfaces.
+    *
+    * Request:
+    *    requests = Array of AdminEnabledIsRequest (see above)
+    * Response:
+    *    processed = number of successful requests.
+    *    status = error details in case of failure.
+    *    
+    * EosSdk reference: eos::intf_mgr::admin_enabled_is
+    */
    rpc bulk_admin_enabled_is( BulkAdminEnabledIsRequest ) returns ( BulkAdminEnabledIsResponse ) {}
+
+   /**
+    * Queries the description of an interface
+    *
+    * Request:
+    *    intf_id = name of the interface.
+    * Response:
+    *    description = description currently set for the interface.
+    *    
+    * EosSdk reference: eos::intf_mgr::description
+    */
    rpc description( DescriptionRequest ) returns ( DescriptionResponse ) {}
+
+   /**
+    * Changes the description of an interface
+    *
+    * Request:
+    *    intf_id = name of the interface.
+    *    description = new description for the interface.
+    * Response:
+    *    none
+    *    
+    * EosSdk reference: eos::intf_mgr::description_is
+    */
    rpc description_is( DescriptionIsRequest ) returns ( DescriptionIsResponse ) {}
+   /**
+    * Changes descriptions of multiple interfaces
+    *
+    * Request:
+    *    requests = Array of DescriptionIsRequest (see above)
+    * Response:
+    *    processed = number of successful requests.
+    *    status = error details in case of failure.
+    *    
+    * EosSdk reference: eos::intf_mgr::oper_description_is
+    */
    rpc bulk_description_is( BulkDescriptionIsRequest ) returns ( BulkDescriptionIsResponse ) {}
+   /**
+    * Queries the current operational status of the given interface.
+    *
+    * Request:
+    *    intf_id = name of the interface.
+    * Response:
+    *    status = operational status of the interface. One of these values:
+    *       INTF_OPER_STATUS_NULL = 0;
+    *       INTF_OPER_STATUS_UP = 1;
+    *       INTF_OPER_STATUS_DOWN = 2;
+    * EosSdk reference: eos::intf_mgr::oper_status
+    */
    rpc oper_status( OperStatusRequest ) returns ( OperStatusResponse ) {}
 } 
 

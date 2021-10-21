@@ -10,26 +10,156 @@ import "intf_types.proto";
 import "ip_intf_types.proto";
 
 service IpIntfMgrService {
+
+   /**
+    * Subscription to monitor changes on the IP addresses of interfaces. This request
+    * stays active until it is cancelled from client side or the server is shut down.
+    * Making this request with all = false and no intf_id will have no effect.
+    *
+    * Request:
+    *    One of these options:
+    *       all = true.
+    *       intf_id = name of a particular interface to watch.
+    * Response: Stream of events:
+    *    intf_id = name of the interface.
+    *    one of the possible changes:
+    *       addr = notifies a change in the interface's addresses.
+    *       vlan_id = change in the interface's VLAN ID has changed.
+    *
+    * EosSdk reference: eos::ip_intf_handler (class)
+    */
    rpc watch( IpIntfWatchRequest ) returns ( stream IpIntfEvent ) {}
 
+   /**
+    * Queries whether the given interface exists and is able to have IP addresses.
+    *
+    * Request:
+    *    intf_id = name of the interface.
+    * Response:
+    *    exists = true if the interface exists, false otherwise.
+    *
+    * EosSdk reference: eos::ip_intf_mgr::exists
+    */
    rpc exists( IpIntfExistsRequest ) returns ( IpIntfExistsResponse ) {}
 
+   /**
+    * Queries all IP addresses associated with an interface.
+    *
+    * Request:
+    *    intf_id = name of the interface.
+    * Response:
+    *    addrs = list of IP addresses wtih masks.
+    *
+    * EosSdk reference: eos::ip_intf_mgr::ip_addrs
+    */
    rpc ip_addrs( IpIntfAddrsRequest ) returns ( IpIntfAddrsResponse ) {}
 
+   /**
+    * Sets IP addresses for an interface.
+    *
+    * Request:
+    *    intf_id = name of the interface.
+    *    ip_addr_mask = list of IP address with their masks.
+    * Response:
+    *    none
+    *
+    * EosSdk reference: eos::ip_intf_mgr::ip_addrs_is
+    */
    rpc ip_addrs_is( IpIntfAddrsIsRequest ) returns ( IpIntfAddrsIsResponse ) {}
 
+   /**
+    * Sets IP addresses for multiple interfaces.
+    *
+    * Request:
+    *    requests = list of IpIntfAddrsRequest (see above)
+    * Response:
+    *    processed = number of requests processed
+    *    status = success or error details in case of failure.
+    *
+    * EosSdk reference: eos::ip_intf_mgr::ip_addrs_is
+    */
    rpc bulk_ip_addrs_is( BulkIpIntfAddrsIsRequest ) returns ( BulkIpIntfAddrsIsResponse ) {}
 
+   /**
+    * Adds or deletes one address to an interface.
+    *
+    * Request:
+    *    operation = IP_ADDR_OP_ADD or IP_ADDR_OP_DELETE
+    *    intf_id = name of the interface.
+    *    ip_addr_mask = IP address with mask.
+    * Response:
+    *    none
+    *
+    * EosSdk reference: eos::ip_intf_mgr::ip_addr_add
+    * EosSdk reference: eos::ip_intf_mgr::ip_addr_del
+    */
    rpc ip_addr_modify( IpIntfAddrModifyRequest ) returns ( IpIntfAddrModifyResponse ) {}
 
+   /**
+    * Applies multiple IP address changes in a single call.
+    *
+    * Request:
+    *    requests = list of IpIntfAddrModifyRequest (see above)
+    * Response:
+    *    processed = number of requests processed
+    *    status = success or error details in case of failure.
+    *
+    * EosSdk reference: eos::ip_intf_mgr::ip_addr_add
+    * EosSdk reference: eos::ip_intf_mgr::ip_addr_del
+    */
    rpc bulk_ip_addr_modify( BulkIpIntfAddrModifyRequest ) returns ( BulkIpIntfAddrModifyResponse ) {}
    
+   /**
+    * Queries the IP address merge mode for an interface.
+    *
+    * Request:
+    *    intf_id = name of the interface.
+    * Response:
+    *    merge_mode = True if configuration should be merged with configuration from
+    *       other agents or false if it should be replaced by those
+    *
+    * EosSdk reference: eos::ip_intf_mgr::ip_addr_merge_mode
+    * EosSdk reference: eos::ip_intf_mgr::ip_addr_merge_mode_is
+    */
    rpc ip_addr_merge_mode( IpIntfAddrMergeModeRequest ) returns ( IpIntfAddrMergeModeResponse ) {}
 
+   /**
+    * Updates the IP address merge mode for an interface.
+    *
+    * Request:
+    *    intf_id = name of the interface.
+    *    merge_mode = new IP address merge mode for the interface
+    * Response:
+    *    none
+    *
+    * EosSdk reference: eos::ip_intf_mgr::ip_addr_merge_mode_is
+    */
    rpc ip_addr_merge_mode_is( IpIntfAddrMergeModeIsRequest ) returns ( IpIntfAddrMergeModeIsResponse ) {}
 
+   /**
+    * Updates the IP address merge mode for multiple interfaces.
+    *
+    * Request:
+    *    requests = list of IpIntfAddrMergeModeRequest (see above)
+    * Response:
+    *    processed = number of requests processed
+    *    status = success or error details in case of failure.
+    *
+    * EosSdk reference: eos::ip_intf_mgr::ip_addr_merge_mode_is
+    */
    rpc bulk_ip_addr_merge_mode_is( BulkIpIntfAddrMergeModeIsRequest ) returns ( BulkIpIntfAddrMergeModeIsResponse ) {}
 
+   /**
+    * Queries the internal VLAN ID associated with an interface
+    *
+    * Request:
+    *    intf_id = name of the interface.
+    * Response:
+    *    vlan_id = internal VLAN ID associated with the interface.
+    *       Please check the EosSdk reference for further details.
+    *
+    * EosSdk reference: eos::ip_intf_mgr::internal_vlan_id
+    */
    rpc internal_vlan_id( IpIntfInternalVlanIdRequest ) returns ( IpIntfInternalVlanIdResponse ) {}
 }
 
