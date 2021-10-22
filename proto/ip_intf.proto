@@ -14,7 +14,7 @@ service IpIntfMgrService {
    /**
     * Subscription to monitor changes on the IP addresses of interfaces. This request
     * stays active until it is cancelled from client side or the server is shut down.
-    * Making this request with all = false and no intf_id will have no effect.
+    * Making this request with all = false and no intf_id has no effect.
     *
     * Request:
     *    One of these options:
