@@ -20,11 +20,11 @@ service IntfMgrService {
     *       all = true
     *       intf_id = name of a particular interface to watch.
     * Response: Events are streamed as changes happen:
-    *    intf_id = interface whose status changed
+    *    intf_id = interface whose status changed.
     *    One of the following changes:
-    *       event = Interface has been added or removed
-    *       admin_enabled = enabled status has been changed
-    *       description = interface's description has changed
+    *       event = Interface has been added or removed.
+    *       admin_enabled = enabled status has been changed.
+    *       description = interface's description has changed.
     *    
     * EosSdk reference: eos::intf_handler (class)
     */
@@ -34,7 +34,7 @@ service IntfMgrService {
     * Enumerates the interfaces.
     *
     * Request:
-    *    No arguments
+    *    No arguments.
     * Response: list of the following:
     *    intf_id = name of the interface.
     *    
@@ -48,7 +48,7 @@ service IntfMgrService {
     * Request:
     *    intf_id = name of the interface.
     * Response:
-    *    exists = true if the interface is present, false otherwise
+    *    exists = true if the interface is present, false otherwise.
     *    
     * EosSdk reference: eos::intf_mgr::exists
     */
@@ -107,7 +107,7 @@ service IntfMgrService {
     * Change the enabled status of multiple interfaces.
     *
     * Request:
-    *    requests = Array of AdminEnabledIsRequest (see above)
+    *    requests = Array of AdminEnabledIsRequest (see above).
     * Response:
     *    processed = number of successful requests.
     *    status = error details in case of failure.
@@ -144,7 +144,7 @@ service IntfMgrService {
     * Changes descriptions of multiple interfaces
     *
     * Request:
-    *    requests = Array of DescriptionIsRequest (see above)
+    *    requests = Array of DescriptionIsRequest (see above).
     * Response:
     *    processed = number of successful requests.
     *    status = error details in case of failure.
@@ -162,6 +162,7 @@ service IntfMgrService {
     *       INTF_OPER_STATUS_NULL = 0;
     *       INTF_OPER_STATUS_UP = 1;
     *       INTF_OPER_STATUS_DOWN = 2;
+    *
     * EosSdk reference: eos::intf_mgr::oper_status
     */
    rpc oper_status( OperStatusRequest ) returns ( OperStatusResponse ) {}

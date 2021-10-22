@@ -71,9 +71,9 @@ service IpIntfMgrService {
     * Sets IP addresses for multiple interfaces.
     *
     * Request:
-    *    requests = list of IpIntfAddrsRequest (see above)
+    *    requests = list of IpIntfAddrsRequest (see above).
     * Response:
-    *    processed = number of requests processed
+    *    processed = number of requests processed.
     *    status = success or error details in case of failure.
     *
     * EosSdk reference: eos::ip_intf_mgr::ip_addrs_is
@@ -84,7 +84,7 @@ service IpIntfMgrService {
     * Adds or deletes one address to an interface.
     *
     * Request:
-    *    operation = IP_ADDR_OP_ADD or IP_ADDR_OP_DELETE
+    *    operation = IP_ADDR_OP_ADD or IP_ADDR_OP_DELETE.
     *    intf_id = name of the interface.
     *    ip_addr_mask = IP address with mask.
     * Response:
@@ -99,9 +99,9 @@ service IpIntfMgrService {
     * Applies multiple IP address changes in a single call.
     *
     * Request:
-    *    requests = list of IpIntfAddrModifyRequest (see above)
+    *    requests = list of IpIntfAddrModifyRequest (see above).
     * Response:
-    *    processed = number of requests processed
+    *    processed = number of requests processed.
     *    status = success or error details in case of failure.
     *
     * EosSdk reference: eos::ip_intf_mgr::ip_addr_add
@@ -116,7 +116,7 @@ service IpIntfMgrService {
     *    intf_id = name of the interface.
     * Response:
     *    merge_mode = True if configuration should be merged with configuration from
-    *       other agents or false if it should be replaced by those
+    *       other agents or false if it should be replaced by those.
     *
     * EosSdk reference: eos::ip_intf_mgr::ip_addr_merge_mode
     * EosSdk reference: eos::ip_intf_mgr::ip_addr_merge_mode_is
@@ -128,7 +128,7 @@ service IpIntfMgrService {
     *
     * Request:
     *    intf_id = name of the interface.
-    *    merge_mode = new IP address merge mode for the interface
+    *    merge_mode = new IP address merge mode for the interface.
     * Response:
     *    none
     *
@@ -156,7 +156,6 @@ service IpIntfMgrService {
     *    intf_id = name of the interface.
     * Response:
     *    vlan_id = internal VLAN ID associated with the interface.
-    *       Please check the EosSdk reference for further details.
     *
     * EosSdk reference: eos::ip_intf_mgr::internal_vlan_id
     */
