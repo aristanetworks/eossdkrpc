@@ -10,7 +10,7 @@ import "ip_route_types.proto";
 package eos.remote;
 
 service IpRouteMgrService {
-	/**
+   /**
     * Queries for the current tag assigned to the ip route manager.
     *
     * Request:
