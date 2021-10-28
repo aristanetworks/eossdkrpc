@@ -10,22 +10,240 @@ import "ip_route_types.proto";
 package eos.remote;
 
 service IpRouteMgrService {
+	/**
+    * Queries for the current tag assigned to the ip route manager.
+    *
+    * Request:
+    *    none
+    * Response:
+    *    tag: the numeric value of the current tag.
+    *
+    * EosSdk reference: eos::ip_route_mgr::tag
+    **/
    rpc tag( TagRequest ) returns ( TagResponse ) {}
+
+   /**
+    * Sets the current tag for the ip route manager.
+    * This service will only interact with routes with the given tag.
+    *
+    * Request:
+    *    tag: the numeric value of the tag.
+    * Response:
+    *    none
+    *
+    * EosSdk reference: eos::ip_route_mgr::tag_is
+    **/
    rpc tag_is( TagIsRequest ) returns ( TagIsResponse ) {}
+
+   /**
+    * Starts the route resync process, to set the routes to a known state.
+    * The resync_complete rpc, must be called to end the resync.
+    * Please check the EosSdk reference for further details.
+    *
+    * Request:
+    *    none
+    * Response:
+    *    none
+    *
+    * EosSdk reference: eos::ip_route_mgr::resync_init
+    **/
    rpc resync_init( IpRouteResyncInitRequest ) returns ( IpRouteResyncInitResponse ) {}
+
+   /**
+    * Ends the current route resync process.
+    * All routes and vias not added or modified during the resync will be deleted.
+    *
+    * Request:
+    *    none
+    * Response:
+    *    none
+    *
+    * EosSdk reference: eos::ip_route_mgr::resync_complete
+    **/
    rpc resync_complete( IpRouteResyncCompleteRequest ) returns ( IpRouteResyncCompleteResponse ) {}
+
+   /**
+    * Enumerates all configured static routes.
+    *
+    * Request:
+    *    none
+    * Response: list of the following:
+    *    response: IpRoute, the configured static route.
+    *
+    * EosSdk reference: eos::ip_route_mgr::ip_route_iter
+    **/
    rpc ip_routes( IpRoutesRequest ) returns ( stream IpRoutesResponse ) {}
+
+   /**
+    * Enumerates all configured vias for a given route.
+    *
+    * Request:
+    *    key: the route to query vias for.
+    *    Optonal fields:
+    *       vrf_name: the VRF where the route is present.
+    * Response: list of the following:
+    *    response: IpRouteVia, the configured via for the given route.
+    *
+    * EosSdk reference: eos::ip_route_mgr::ip_route_via_iter
+    **/
    rpc ip_route_vias( IpRouteViasRequest ) returns ( stream IpRouteViasResponse ) {}
+
+   /**
+    * Queries whether the given route is configured or not.
+    *
+    * Request:
+    *    key: IpRouteKey, the route to query.
+    *    Optional fields:
+    *       vrf_name: the VRF where the route is present.
+    * Response:
+    *    exists: True if the route exists, otherwise False.
+    *
+    * EosSdk reference: eos::ip_route_mgr::exists
+    **/
    rpc ip_route_exists( IpRouteExistsRequest ) returns ( IpRouteExistsResponse ) {}
+
+   /**
+    * Queries whether the given via exists for the given route.
+    *
+    * Request:
+    *    via: the via to query, including the route key.
+    *    Optional fields:
+    *       vrf_name: the VRF where the via is present.
+    * Response:
+    *    response: True if the via exists, otherwise False.
+    *
+    * EosSdk reference: eos::ip_route_mgr::exists
+    **/
    rpc ip_route_via_exists( IpRouteViaExistsRequest ) returns ( IpRouteViaExistsResponse ) {}
+
+   /**
+    * Queries the route for the given route key.
+    *
+    * Request:
+    *    key: the route to query.
+    *    Optional fields:
+    *       vrf_name: the VRF where the route is present.
+    * Response:
+    *    response: IpRoute, if a match is found.
+    *
+    * EosSdk reference: eos::ip_route_mgr::ip_route
+    **/
    rpc ip_route( IpRouteRequest ) returns ( IpRouteResponse ) {}
+
+   /**
+    * Sets a static route.
+    *
+    * Request:
+    *    route: the route to set.
+    *    Optionally set one of these fields:
+    *       vrf_name: the VRF where the route will be present.
+    *       action: the type of vias to be attached -
+    *               used for more efficient route configuration.
+    *               One of these values:
+    *                IP_ROUTE_ACTION_NULL = 0;
+    *                IP_ROUTE_ACTION_FORWARD = 1;
+    *                IP_ROUTE_ACTION_DROP = 2;
+    *                IP_ROUTE_ACTION_NEXTHOP_GROUP = 3;
+    * Response:
+    *    None
+    *
+    * EosSdk reference: eos::ip_route_mgr::ip_route_set
+    **/
    rpc ip_route_set( IpRouteSetRequest ) returns ( IpRouteSetResponse ) {}
+
+   /**
+    * Sets multiple routes at once for each given route key.
+    *
+    * Request:
+    *    requests: array of IpRouteSetRequest.
+    * Response:
+    *    processed: number of successfully set routes.
+    *    status: success or error details in case of failure.
+    *
+    * EosSdk reference: eos::ip_route_mgr::ip_route_set
+    **/
    rpc bulk_ip_route_set( BulkIpRouteSetRequest ) returns ( BulkIpRouteSetResponse ) {}
+
+   /**
+    * Deletes a static route.
+    *
+    * Request:
+    *    key: the route to delete.
+    *    Optional fields:
+    *       vrf_name: the VRF where the route is present.
+    * Response:
+    *    None
+    *
+    * EosSdk reference: eos::ip_route_mgr::ip_route_del
+    **/
    rpc ip_route_del( IpRouteDelRequest ) returns ( IpRouteDelResponse ) {}
+
+   /**
+    * Deletes multiple static routes at once for each given route key.
+    *
+    * Request:
+    *    requests: array of IpRouteDelRequest.
+    * Response:
+    *    processed: number of successfully deleted routes.
+    *    status: success or error details in case of failure..
+    *
+    * EosSdk reference: eos::ip_route_mgr::ip_route_del
+    **/
    rpc bulk_ip_route_del( BulkIpRouteDelRequest ) returns ( BulkIpRouteDelResponse ) {}
+
+   /**
+    * Sets the via for a given route key.
+    * See EosSdk reference for more information.
+    *
+    * Request:
+    *    via: the via to set, including the route key.
+    *    Optional fields:
+    *       vrf_name: the VRF where the via should be present.
+    * Response:
+    *    None
+    *
+    * EosSdk reference: eos::ip_route_mgr::ip_route_via_set
+    **/
    rpc ip_route_via_set( IpRouteViaSetRequest ) returns ( IpRouteViaSetResponse ) {}
+
+   /**
+    * Sets multiple vias at once for each given route key.
+    *
+    * Request:
+    *    requests: array of IpRouteViaSetRequest.
+    * Response:
+    *    processed: number of successfully set vias.
+    *    status: success or error details in case of failure.
+    *
+    * EosSdk reference: eos::ip_route_mgr::ip_route_via_set
+    **/
    rpc bulk_ip_route_via_set( BulkIpRouteViaSetRequest ) returns ( BulkIpRouteViaSetResponse ) {}
+
+   /**
+    * Deletes the via for a given route key.
+    *
+    * Request:
+    *    via: the via to delete, including the route key.
+    *    Optional fields:
+    *       vrf_name: the VRF where the via is present.
+    * Response:
+    *    None
+    *
+    * EosSdk reference: eos::ip_route_mgr::ip_route_via_delete
+    **/
    rpc ip_route_via_del( IpRouteViaDelRequest ) returns ( IpRouteViaDelResponse ) {}
+
+   /**
+    * Deletes multiple vias at once for each given route key.
+    *
+    * Request:
+    *    requests: array of IpRouteViaDelRequest.
+    * Response:
+    *    processed: number of successfully deleted vias.
+    *    status: success or error details in case of failure.
+    *
+    * EosSdk reference: eos::ip_route_mgr::ip_route_via_delete
+    **/
    rpc bulk_ip_route_via_del( BulkIpRouteViaDelRequest ) returns ( BulkIpRouteViaDelResponse ) {}
 }
 

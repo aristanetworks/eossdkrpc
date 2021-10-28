@@ -8,25 +8,172 @@ import "rpc_types.proto";
 package eos.remote;
 
 service AgentService {
-
    /**
-    * the only supported event is on_agent_option.
-    * the events on_initialized and on_agent_enabled are out of rpc scope since
+    * Subscription to monitor changes of the agent. This request
+    * stays active until it is cancelled from client side or the server is shut down.
+    * Supported events:
+    *    eos::agent_handler::on_agent_option:
+    *       Configuration option of the agent has changed.
+    *
+    *       Request:
+    *          None
+    *       Response: Events are streamed as changes happen:
+    *          option: the name of the option for which the notification is received.
+    *          value: the new option value.
+    *
+    * The events on_initialized and on_agent_enabled are out of rpc scope since
     * they imply on creation and destruction of the RPC server itself.
+    *
+    * EosSdk reference: eos::agent_handler (class)
     **/
    rpc watch( WatchAgentRequest ) returns ( stream WatchAgentResponse );
-   rpc agent_id( AgentIdRequest ) returns ( AgentIdResponse );
-   rpc enabled( AgentEnabledRequest ) returns ( AgentEnabledResponse );
-   rpc agent_option( AgentOptionRequest ) returns ( AgentOptionResponse );
-   rpc agent_option_exists( AgentOptionExistsRequest ) returns ( AgentOptionExistsResponse );
-   rpc agent_options( AgentOptionsRequest ) returns ( stream AgentOptionsResponse );
-   rpc status( AgentStatusRequest ) returns ( AgentStatusResponse );
-   rpc statuses( AgentStatusesRequest ) returns ( stream AgentStatusesResponse );
-   rpc status_set( AgentStatusSetRequest ) returns ( AgentStatusSetResponse );
-   rpc bulk_status_set( AgentBulkStatusSetRequest ) returns ( AgentBulkStatusSetResponse );
-   rpc status_del( AgentStatusDelRequest ) returns ( AgentStatusDelResponse );
-   rpc bulk_status_del( AgentBulkStatusDelRequest ) returns ( AgentBulkStatusDelResponse );
-   rpc agent_uptime( AgentUptimeRequest ) returns ( AgentUptimeResponse );
+  
+   /**
+    * Queries for the unique numeric ID of the given agent.
+    *
+    * Request:
+    *    name: the name of the agent to query ID for.
+    * Response:
+    *    agent_id: numeric identifier for the agent.
+    *
+    * EosSdk reference: eos::agent_mgr::id
+    **/ 
+	rpc agent_id( AgentIdRequest ) returns ( AgentIdResponse );
+   
+   /**
+    * Queries whether the agent is enabled or not.
+    *
+    * Request:
+    *    none
+    * Response:
+    *    enabled: True if the agent is enabled, otherwise False.
+    *
+    * EosSdk reference: eos::agent_mgr::enabled
+    **/
+	rpc enabled( AgentEnabledRequest ) returns ( AgentEnabledResponse );
+   
+   /**
+    * Queries for the configured value of the given agent option.
+    *
+    * Request:
+    *    name: the name of the agent option to query for.
+    * Response:
+    *    value: the value for the given option name.
+    *
+    * EosSdk reference: eos:agent_mgr::agent_option
+    **/
+	rpc agent_option( AgentOptionRequest ) returns ( AgentOptionResponse );
+   
+   /**
+    * Queries whether the given option exists in the configuration or not.
+    *
+    * Request:
+    *    name: the name of the agent option to query for.
+    * Response:
+    *    exists: True if the given option name exists, otherwise False.
+    *
+    * EosSdk reference: eos::agent_mgr::agent_option_exists
+    */
+	rpc agent_option_exists( AgentOptionExistsRequest ) returns ( AgentOptionExistsResponse );
+   
+   /**
+    * Enumerates all configured agent options.
+    *
+    * Request:
+    *    none
+    * Response: list of the following:
+    *    option: configured agent option name.
+    *
+    * EosSdk reference: eos::agent::agent_option_iter
+    **/
+	rpc agent_options( AgentOptionsRequest ) returns ( stream AgentOptionsResponse );
+   
+   /**
+    * Queries for the last set value for the given status name.
+    *
+    * Request:
+    *    name: the status name to query for.
+    * Response:
+    *    value: the last set status value.
+    *
+    * EosSdk reference: eos::agent::status
+    **/
+	rpc status( AgentStatusRequest ) returns ( AgentStatusResponse );
+   
+   /**
+    * Enumerates all status values set by this agent.
+    *
+    * Request:
+    *    None
+    * Response: list of the following:
+    *    name: status value set by this agent.
+    *
+    * EosSdk reference: eos::agent::status_iter
+    **/
+	rpc statuses( AgentStatusesRequest ) returns ( stream AgentStatusesResponse );
+   
+   /**
+    * Sets a status value for the given status name.
+    *
+    * Request:
+    *    name: the status name to set.
+    *    value: the corresponding status value to set.
+    * Response:
+    *    None
+    *
+    * EosSdk reference: eos::agent_mgr::status_set
+    **/
+	rpc status_set( AgentStatusSetRequest ) returns ( AgentStatusSetResponse );
+   
+   /**
+    * Sets multiple status name/value pairs at once for this agent.
+    *
+    * Request:
+    *   requests: array of AgentStatusSetRequest
+    * Response:
+    *    processed: number of successfully deleted statuses.
+    *    status: success or error details in case of failure.
+    *
+    * EosSdk reference: eos::agent_mgr::status_set
+    **/
+	rpc bulk_status_set( AgentBulkStatusSetRequest ) returns ( AgentBulkStatusSetResponse );
+   
+   /**
+    * Deletes the stored agent status for the given status name.
+    *
+    * Request:
+    *    name: the status name to delete.
+    * Response:
+    *    none
+    *
+    * EosSdk reference: eos::agent_mgr::status_del
+    **/
+	rpc status_del( AgentStatusDelRequest ) returns ( AgentStatusDelResponse );
+   
+   /**
+    * Deletes multiple statuses at once for each given status name.
+    *
+    * Request:
+    *   requests: array of AgentStatusDelRequest.
+    * Response:
+    *   processed: number of successfully deleted statuses.
+    *   status: success or error details in case of failure.
+    *
+    * EosSdk reference: eos::agent_mgr::status_del
+    **/
+	rpc bulk_status_del( AgentBulkStatusDelRequest ) returns ( AgentBulkStatusDelResponse );
+   
+   /**
+    * Gets the time elapsed since the start of this agent.
+    *
+    * Request:
+    *    none
+    * Response:
+    *    seconds: the elapsed time in seconds.
+    *
+    * EosSdk reference: eos::agent_mgr::agent_uptime
+    **/
+	rpc agent_uptime( AgentUptimeRequest ) returns ( AgentUptimeResponse );
 }
 
 message WatchAgentRequest {}

@@ -8,8 +8,28 @@ import "eapi_types.proto";
 package eos.remote;
 
 service EapiMgrService {
+   /**
+    * Queries for the output of a CLI show command.
+    *
+    * Request:
+    *    command: the show command to execute e.g "show version".
+    * Response:
+    *    response: EapiResponse, containing the output and/or any errors.
+    *
+    * EosSdk reference: eos::eapi_mgr::run_show_cmd
+    **/
    rpc run_show_cmd( RunShowCmdRequest ) returns ( RunShowCmdResponse ) {}
 
+   /**
+    * Executes one or more configuration commands.
+    *
+    * Request:
+    *    commands: array of configuration commands to execute.
+    * Response:
+    *    response: EapiResponse, containing any output and/or any errors.
+    *
+    * EosSdk reference: eos::eapi_mgr::run_config_cmds
+    **/
    rpc run_config_cmds( RunConfigCmdsRequest ) returns ( RunConfigCmdsResponse ) {}
 }
 
