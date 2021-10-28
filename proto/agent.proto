@@ -37,8 +37,8 @@ service AgentService {
     *    agent_id: numeric identifier for the agent.
     *
     * EosSdk reference: eos::agent_mgr::id
-    **/ 
-	rpc agent_id( AgentIdRequest ) returns ( AgentIdResponse );
+    **/
+    rpc agent_id( AgentIdRequest ) returns ( AgentIdResponse );
    
    /**
     * Queries whether the agent is enabled or not.
@@ -50,7 +50,7 @@ service AgentService {
     *
     * EosSdk reference: eos::agent_mgr::enabled
     **/
-	rpc enabled( AgentEnabledRequest ) returns ( AgentEnabledResponse );
+   rpc enabled( AgentEnabledRequest ) returns ( AgentEnabledResponse );
    
    /**
     * Queries for the configured value of the given agent option.
@@ -62,7 +62,7 @@ service AgentService {
     *
     * EosSdk reference: eos:agent_mgr::agent_option
     **/
-	rpc agent_option( AgentOptionRequest ) returns ( AgentOptionResponse );
+   rpc agent_option( AgentOptionRequest ) returns ( AgentOptionResponse );
    
    /**
     * Queries whether the given option exists in the configuration or not.
@@ -74,7 +74,7 @@ service AgentService {
     *
     * EosSdk reference: eos::agent_mgr::agent_option_exists
     */
-	rpc agent_option_exists( AgentOptionExistsRequest ) returns ( AgentOptionExistsResponse );
+   rpc agent_option_exists( AgentOptionExistsRequest ) returns ( AgentOptionExistsResponse );
    
    /**
     * Enumerates all configured agent options.
@@ -86,7 +86,7 @@ service AgentService {
     *
     * EosSdk reference: eos::agent::agent_option_iter
     **/
-	rpc agent_options( AgentOptionsRequest ) returns ( stream AgentOptionsResponse );
+   rpc agent_options( AgentOptionsRequest ) returns ( stream AgentOptionsResponse );
    
    /**
     * Queries for the last set value for the given status name.
@@ -98,7 +98,7 @@ service AgentService {
     *
     * EosSdk reference: eos::agent::status
     **/
-	rpc status( AgentStatusRequest ) returns ( AgentStatusResponse );
+   rpc status( AgentStatusRequest ) returns ( AgentStatusResponse );
    
    /**
     * Enumerates all status values set by this agent.
@@ -110,7 +110,7 @@ service AgentService {
     *
     * EosSdk reference: eos::agent::status_iter
     **/
-	rpc statuses( AgentStatusesRequest ) returns ( stream AgentStatusesResponse );
+   rpc statuses( AgentStatusesRequest ) returns ( stream AgentStatusesResponse );
    
    /**
     * Sets a status value for the given status name.
@@ -123,7 +123,7 @@ service AgentService {
     *
     * EosSdk reference: eos::agent_mgr::status_set
     **/
-	rpc status_set( AgentStatusSetRequest ) returns ( AgentStatusSetResponse );
+   rpc status_set( AgentStatusSetRequest ) returns ( AgentStatusSetResponse );
    
    /**
     * Sets multiple status name/value pairs at once for this agent.
@@ -136,7 +136,7 @@ service AgentService {
     *
     * EosSdk reference: eos::agent_mgr::status_set
     **/
-	rpc bulk_status_set( AgentBulkStatusSetRequest ) returns ( AgentBulkStatusSetResponse );
+   rpc bulk_status_set( AgentBulkStatusSetRequest ) returns ( AgentBulkStatusSetResponse );
    
    /**
     * Deletes the stored agent status for the given status name.
@@ -148,7 +148,7 @@ service AgentService {
     *
     * EosSdk reference: eos::agent_mgr::status_del
     **/
-	rpc status_del( AgentStatusDelRequest ) returns ( AgentStatusDelResponse );
+   rpc status_del( AgentStatusDelRequest ) returns ( AgentStatusDelResponse );
    
    /**
     * Deletes multiple statuses at once for each given status name.
@@ -161,7 +161,7 @@ service AgentService {
     *
     * EosSdk reference: eos::agent_mgr::status_del
     **/
-	rpc bulk_status_del( AgentBulkStatusDelRequest ) returns ( AgentBulkStatusDelResponse );
+   rpc bulk_status_del( AgentBulkStatusDelRequest ) returns ( AgentBulkStatusDelResponse );
    
    /**
     * Gets the time elapsed since the start of this agent.
@@ -173,7 +173,7 @@ service AgentService {
     *
     * EosSdk reference: eos::agent_mgr::agent_uptime
     **/
-	rpc agent_uptime( AgentUptimeRequest ) returns ( AgentUptimeResponse );
+   rpc agent_uptime( AgentUptimeRequest ) returns ( AgentUptimeResponse );
 }
 
 message WatchAgentRequest {}
