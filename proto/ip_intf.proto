@@ -174,6 +174,7 @@ message IpIntfEvent {
    oneof ip_intf_event {
       IpAddrEvent addr = 2;
       VlanId vlan_id = 3;
+      WatchConfirmation confirmation = 4;
    }
 } 
 

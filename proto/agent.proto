@@ -178,9 +178,16 @@ service AgentService {
 
 message WatchAgentRequest {}
 
-message WatchAgentResponse {
-   string option = 1;
+message AgentOption {
+   string name = 1;
    string value = 2;
+}
+
+message WatchAgentResponse {
+   oneof agent_event {
+      AgentOption option_event = 1;
+      WatchConfirmation confirmation = 2;
+   }
 }
 
 message AgentIdRequest {

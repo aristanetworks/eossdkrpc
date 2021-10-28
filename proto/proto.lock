@@ -778,17 +778,32 @@
             "name": "WatchAgentRequest"
           },
           {
-            "name": "WatchAgentResponse",
+            "name": "AgentOption",
             "fields": [
               {
                 "id": 1,
-                "name": "option",
+                "name": "name",
                 "type": "string"
               },
               {
                 "id": 2,
                 "name": "value",
                 "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "WatchAgentResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "option_event",
+                "type": "AgentOption"
+              },
+              {
+                "id": 2,
+                "name": "confirmation",
+                "type": "WatchConfirmation"
               }
             ]
           },
@@ -1845,6 +1860,11 @@
                 "id": 5,
                 "name": "description",
                 "type": "string"
+              },
+              {
+                "id": 6,
+                "name": "confirmation",
+                "type": "WatchConfirmation"
               }
             ]
           },
@@ -2425,6 +2445,11 @@
                 "id": 3,
                 "name": "vlan_id",
                 "type": "VlanId"
+              },
+              {
+                "id": 4,
+                "name": "confirmation",
+                "type": "WatchConfirmation"
               }
             ]
           },
@@ -4810,6 +4835,9 @@
                 "type": "RpcResponseStatus"
               }
             ]
+          },
+          {
+            "name": "WatchConfirmation"
           }
         ],
         "package": {
