@@ -225,7 +225,7 @@ message NexthopGroupsResponse {
 message ProgrammedNexthopGroupsRequest {}
 
 message ProgrammedNexthopGroupsResponse {
-   NexthopGroup nhg = 1; 
+   string name = 1; 
 }
 
 message NexthopGroupRequest {

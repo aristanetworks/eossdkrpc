@@ -4251,8 +4251,8 @@
             "fields": [
               {
                 "id": 1,
-                "name": "nhg",
-                "type": "NexthopGroup"
+                "name": "name",
+                "type": "string"
               }
             ]
           },
