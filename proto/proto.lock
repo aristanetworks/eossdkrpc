@@ -4178,12 +4178,12 @@
             "fields": [
               {
                 "id": 1,
-                "name": "all_intfs",
+                "name": "all",
                 "type": "bool"
               },
               {
                 "id": 2,
-                "name": "nhg_name",
+                "name": "name",
                 "type": "string"
               },
               {
@@ -4198,7 +4198,7 @@
             "fields": [
               {
                 "id": 1,
-                "name": "nhgName",
+                "name": "name",
                 "type": "string"
               },
               {
@@ -4210,6 +4210,11 @@
                 "id": 3,
                 "name": "nhg_programmed",
                 "type": "bool"
+              },
+              {
+                "id": 4,
+                "name": "confirmation",
+                "type": "WatchConfirmation"
               }
             ]
           },
@@ -4276,7 +4281,7 @@
             "fields": [
               {
                 "id": 1,
-                "name": "nhg_name",
+                "name": "name",
                 "type": "string"
               },
               {
