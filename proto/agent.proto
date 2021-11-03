@@ -186,7 +186,6 @@ message AgentOption {
 message WatchAgentResponse {
    oneof agent_event {
       AgentOption option_event = 1;
-      WatchConfirmation confirmation = 2;
    }
 }
 

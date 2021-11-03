@@ -35,5 +35,3 @@ message BulkResponse {
    uint64 processed = 1;
    RpcResponseStatus status = 2;
 }
-
-message WatchConfirmation {}

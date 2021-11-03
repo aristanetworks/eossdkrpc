@@ -188,7 +188,6 @@ message WatchIntfResponse {
       OperStatuses status = 3;
       bool admin_enabled = 4;
       string description = 5;
-      WatchConfirmation confirmation = 6;
    }
 }
 
