@@ -204,7 +204,6 @@ message WatchNhgResponse {
    oneof events {
       bool active_status = 2;
       bool nhg_programmed = 3;
-      WatchConfirmation confirmation = 4;
    }
 }
 

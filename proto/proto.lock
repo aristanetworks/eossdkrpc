@@ -4210,11 +4210,6 @@
                 "id": 3,
                 "name": "nhg_programmed",
                 "type": "bool"
-              },
-              {
-                "id": 4,
-                "name": "confirmation",
-                "type": "WatchConfirmation"
               }
             ]
           },
