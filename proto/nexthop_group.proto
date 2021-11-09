@@ -23,7 +23,6 @@ service NexthopGroupMgrService {
     *    One of the following changes:
     *       active_status = there was a change in the active status.
     *       nhg_programmed = NHG has been programmed.
-    *       confirmation = Indicates subscription is successful.
     *    
     * EosSdk reference: eos::nexthop_group_handler (class)
     */
