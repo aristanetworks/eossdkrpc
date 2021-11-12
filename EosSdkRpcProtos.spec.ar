@@ -54,27 +54,27 @@ EosRemoteSdk files used by other packages during development.
 
 %files
 %defattr(-,root,root)
-%{_datadir}/EosSdkRpcProtos/proto/agent.proto
-%{_datadir}/EosSdkRpcProtos/proto/bgp.proto
-%{_datadir}/EosSdkRpcProtos/proto/bgp_types.proto
-%{_datadir}/EosSdkRpcProtos/proto/bgp_path.proto
-%{_datadir}/EosSdkRpcProtos/proto/bgp_path_types.proto
-%{_datadir}/EosSdkRpcProtos/proto/eapi.proto
-%{_datadir}/EosSdkRpcProtos/proto/eapi_types.proto
-%{_datadir}/EosSdkRpcProtos/proto/EosSdkRpc.proto
-%{_datadir}/EosSdkRpcProtos/proto/intf.proto
-%{_datadir}/EosSdkRpcProtos/proto/intf_types.proto
-%{_datadir}/EosSdkRpcProtos/proto/ip_intf.proto
-%{_datadir}/EosSdkRpcProtos/proto/ip_intf_types.proto
-%{_datadir}/EosSdkRpcProtos/proto/ip_route.proto
-%{_datadir}/EosSdkRpcProtos/proto/ip_route_types.proto
-%{_datadir}/EosSdkRpcProtos/proto/ip_types.proto
-%{_datadir}/EosSdkRpcProtos/proto/macsec.proto
-%{_datadir}/EosSdkRpcProtos/proto/macsec_types.proto
-%{_datadir}/EosSdkRpcProtos/proto/mpls_types.proto
-%{_datadir}/EosSdkRpcProtos/proto/nexthop_group.proto
-%{_datadir}/EosSdkRpcProtos/proto/nexthop_group_types.proto
-%{_datadir}/EosSdkRpcProtos/proto/rpc_types.proto
+%{_datadir}/EosSdkRpc/proto/agent.proto
+%{_datadir}/EosSdkRpc/proto/bgp.proto
+%{_datadir}/EosSdkRpc/proto/bgp_types.proto
+%{_datadir}/EosSdkRpc/proto/bgp_path.proto
+%{_datadir}/EosSdkRpc/proto/bgp_path_types.proto
+%{_datadir}/EosSdkRpc/proto/eapi.proto
+%{_datadir}/EosSdkRpc/proto/eapi_types.proto
+%{_datadir}/EosSdkRpc/proto/EosSdkRpc.proto
+%{_datadir}/EosSdkRpc/proto/intf.proto
+%{_datadir}/EosSdkRpc/proto/intf_types.proto
+%{_datadir}/EosSdkRpc/proto/ip_intf.proto
+%{_datadir}/EosSdkRpc/proto/ip_intf_types.proto
+%{_datadir}/EosSdkRpc/proto/ip_route.proto
+%{_datadir}/EosSdkRpc/proto/ip_route_types.proto
+%{_datadir}/EosSdkRpc/proto/ip_types.proto
+%{_datadir}/EosSdkRpc/proto/macsec.proto
+%{_datadir}/EosSdkRpc/proto/macsec_types.proto
+%{_datadir}/EosSdkRpc/proto/mpls_types.proto
+%{_datadir}/EosSdkRpc/proto/nexthop_group.proto
+%{_datadir}/EosSdkRpc/proto/nexthop_group_types.proto
+%{_datadir}/EosSdkRpc/proto/rpc_types.proto
 %{python_sitelib}/agent_pb2.py*
 %{python3_sitelib}/agent_pb2.py
 %{python3_sitelib}/__pycache__/agent_pb2.cpython*
@@ -175,4 +175,4 @@ EosRemoteSdk files used by other packages during development.
 
 %files devel
 %defattr(-,root,root)
-%{_includedir}/EosSdkRpcProtos
+%{_includedir}/EosSdkRpc

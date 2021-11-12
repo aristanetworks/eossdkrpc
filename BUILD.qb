@@ -93,7 +93,7 @@ protobufFiles= [
 data(
    'EosSdkRpcProtoFiles',
    sources=grpcFiles + protobufFiles,
-   inst_dir='$DATADIR/EosSdkRpcProtos/proto',
+   inst_dir='$DATADIR/EosSdkRpc/proto',
 )
 
 #-----------------------------------------------------------------------
@@ -232,7 +232,7 @@ protocCppGeneratedHeaders = _protoc_cpp_headers( sources=grpcFiles ) + \
 data(
    'protoHeaderInstall',
    sources=protocCppGeneratedHeaders,
-   inst_dir='$INCLUDEDIR/EosSdkRpcProtos',
+   inst_dir='$INCLUDEDIR/EosSdkRpc',
 )
 
 #-----------------------------------------------------------------------
@@ -257,8 +257,8 @@ override(
 #-----------------------------------------------------------------------
 # Protolock
 # If any proto files are updated, the proto.lock file must be updated
-# protolock commit -lockdir /src/EosSdkRpcProtos/proto -protoroot /src/EosSdkRpcProtos/proto
-# May need to a4 edit /src/EosSdkRpcProtos/proto/proto.lock before running the command.
+# protolock commit -lockdir /src/EosSdkRpc/proto -protoroot /src/EosSdkRpc/proto
+# May need to a4 edit /src/EosSdkRpc/proto/proto.lock before running the command.
 
 protolockConflictCheckScript="""
 protolock status -lockdir /src/EosSdkRpcProtos/proto -protoroot /src/EosSdkRpcProtos/proto
