@@ -11,7 +11,7 @@ import "nexthop_group_types.proto";
 service NexthopGroupMgrService {
    /**
     * Subscription to monitor changes on nexthop groups. This request
-    * stays active until it is cancelled from client side or the server is shut down.
+    * stays active until the client cancels or the server shuts down.
     * When all = false and no name is specified, this request has no effect.
     * 
     * Request:
