@@ -12,7 +12,7 @@ service NexthopGroupMgrService {
    /**
     * Subscription to monitor changes on nexthop groups. This request
     * stays active until it is cancelled from client side or the server is shut down.
-    * Making this request with all = false and no name has no effect.
+    * When all = false and no name is specified, this request has no effect.
     * 
     * Request:
     *    One of these options:
@@ -26,10 +26,10 @@ service NexthopGroupMgrService {
     *    
     * EosSdk reference: eos::nexthop_group_handler (class)
     */
-   rpc watch( WatchNhgRequest ) returns ( stream WatchNhgResponse ) {}
+   rpc watch( WatchNexthopGroupRequest ) returns ( stream WatchNexthopGroupResponse ) {}
 
    /**
-    * Initiates a resync process. Starts a blank configuration that will be applied#
+    * Initiates a resync process. Starts a blank configuration to be applied
     * once resync_complete is called.
     *
     * Request:
@@ -39,7 +39,7 @@ service NexthopGroupMgrService {
     *
     * EosSdk reference: eos::nexthop_group_mgr::resync_init
     */
-   rpc resync_init( ResyncNhgInitRequest ) returns ( ResyncNhgInitResponse ) {}
+   rpc resync_init( ResyncNexthopGroupInitRequest ) returns ( ResyncNexthopGroupInitResponse ) {}
 
    /**
     * Deletes current configuration and applies all changes since resync_init has
@@ -52,10 +52,10 @@ service NexthopGroupMgrService {
     *
     * EosSdk reference: eos::nexthop_group_mgr::resync_complete
     */
-   rpc resync_complete( ResyncNhgCompleteRequest ) returns ( ResyncNhgCompleteResponse ) {}
+   rpc resync_complete( ResyncNexthopGroupCompleteRequest ) returns ( ResyncNexthopGroupCompleteResponse ) {}
 
    /**
-    * Returns a list of all configured nexthop groups
+    * Returns a list of all configured nexthop groups.
     *
     * Request:
     *    empty
@@ -113,7 +113,7 @@ service NexthopGroupMgrService {
     *
     * EosSdk reference: eos::nexthop_group_mgr::exists
     */
-   rpc exists( NhgExistsRequest ) returns ( NhgExistsResponse ) {}
+   rpc exists( NexthopGroupExistsRequest ) returns ( NexthopGroupExistsResponse ) {}
 
    /**
     * Queries whether a nexthop group is active
@@ -125,7 +125,7 @@ service NexthopGroupMgrService {
     *
     * EosSdk reference: eos::nexthop_group_mgr::active
     */
-   rpc active( NhgActiveRequest ) returns ( NhgActiveResponse ) {}
+   rpc active( NexthopGroupActiveRequest ) returns ( NexthopGroupActiveResponse ) {}
 
    /**
     * Creates or updates a nexthop group.
@@ -185,12 +185,12 @@ service NexthopGroupMgrService {
     * Response:
     *    nhg = details of the nexthop group (empty if not found).
     *
-    * EosSdk reference: eos::nexthop_group_mgr::!
+    * EosSdk reference: eos::nexthop_group_mgr::programmed_nexthop_group
     */
    rpc programmed_nexthop_group( ProgrammedNexthopGroupRequest ) returns ( ProgrammedNexthopGroupResponse ) {}
 }
 
-message WatchNhgRequest {
+message WatchNexthopGroupRequest {
    oneof overloads {
       bool all = 1;
       string name = 2;
@@ -198,7 +198,7 @@ message WatchNhgRequest {
    bool recv_notifications = 3;
 }
 
-message WatchNhgResponse {
+message WatchNexthopGroupResponse {
    string name = 1;
    oneof events {
       bool active_status = 2;
@@ -206,13 +206,13 @@ message WatchNhgResponse {
    }
 }
 
-message ResyncNhgInitRequest {}
+message ResyncNexthopGroupInitRequest {}
 
-message ResyncNhgInitResponse {}
+message ResyncNexthopGroupInitResponse {}
 
-message ResyncNhgCompleteRequest {}
+message ResyncNexthopGroupCompleteRequest {}
 
-message ResyncNhgCompleteResponse {}
+message ResyncNexthopGroupCompleteResponse {}
 
 message NexthopGroupsRequest {}
 
@@ -243,19 +243,19 @@ message CounterResponse {
    NexthopGroupCounter counter = 1; 
 }
 
-message NhgExistsRequest {
+message NexthopGroupExistsRequest {
    string name = 1; 
 }
 
-message NhgExistsResponse {
+message NexthopGroupExistsResponse {
    bool exists = 1; 
 }
 
-message NhgActiveRequest {
+message NexthopGroupActiveRequest {
    string name = 1; 
 }
 
-message NhgActiveResponse {
+message NexthopGroupActiveResponse {
    bool active = 1; 
 }
 

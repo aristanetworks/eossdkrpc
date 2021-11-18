@@ -4174,7 +4174,7 @@
       "def": {
         "messages": [
           {
-            "name": "WatchNhgRequest",
+            "name": "WatchNexthopGroupRequest",
             "fields": [
               {
                 "id": 1,
@@ -4194,7 +4194,7 @@
             ]
           },
           {
-            "name": "WatchNhgResponse",
+            "name": "WatchNexthopGroupResponse",
             "fields": [
               {
                 "id": 1,
@@ -4214,16 +4214,16 @@
             ]
           },
           {
-            "name": "ResyncNhgInitRequest"
+            "name": "ResyncNexthopGroupInitRequest"
           },
           {
-            "name": "ResyncNhgInitResponse"
+            "name": "ResyncNexthopGroupInitResponse"
           },
           {
-            "name": "ResyncNhgCompleteRequest"
+            "name": "ResyncNexthopGroupCompleteRequest"
           },
           {
-            "name": "ResyncNhgCompleteResponse"
+            "name": "ResyncNexthopGroupCompleteResponse"
           },
           {
             "name": "NexthopGroupsRequest"
@@ -4297,7 +4297,7 @@
             ]
           },
           {
-            "name": "NhgExistsRequest",
+            "name": "NexthopGroupExistsRequest",
             "fields": [
               {
                 "id": 1,
@@ -4307,7 +4307,7 @@
             ]
           },
           {
-            "name": "NhgExistsResponse",
+            "name": "NexthopGroupExistsResponse",
             "fields": [
               {
                 "id": 1,
@@ -4317,7 +4317,7 @@
             ]
           },
           {
-            "name": "NhgActiveRequest",
+            "name": "NexthopGroupActiveRequest",
             "fields": [
               {
                 "id": 1,
@@ -4327,7 +4327,7 @@
             ]
           },
           {
-            "name": "NhgActiveResponse",
+            "name": "NexthopGroupActiveResponse",
             "fields": [
               {
                 "id": 1,
@@ -4441,19 +4441,19 @@
             "rpcs": [
               {
                 "name": "watch",
-                "in_type": "WatchNhgRequest",
-                "out_type": "WatchNhgResponse",
+                "in_type": "WatchNexthopGroupRequest",
+                "out_type": "WatchNexthopGroupResponse",
                 "out_streamed": true
               },
               {
                 "name": "resync_init",
-                "in_type": "ResyncNhgInitRequest",
-                "out_type": "ResyncNhgInitResponse"
+                "in_type": "ResyncNexthopGroupInitRequest",
+                "out_type": "ResyncNexthopGroupInitResponse"
               },
               {
                 "name": "resync_complete",
-                "in_type": "ResyncNhgCompleteRequest",
-                "out_type": "ResyncNhgCompleteResponse"
+                "in_type": "ResyncNexthopGroupCompleteRequest",
+                "out_type": "ResyncNexthopGroupCompleteResponse"
               },
               {
                 "name": "nexthop_groups",
@@ -4479,13 +4479,13 @@
               },
               {
                 "name": "exists",
-                "in_type": "NhgExistsRequest",
-                "out_type": "NhgExistsResponse"
+                "in_type": "NexthopGroupExistsRequest",
+                "out_type": "NexthopGroupExistsResponse"
               },
               {
                 "name": "active",
-                "in_type": "NhgActiveRequest",
-                "out_type": "NhgActiveResponse"
+                "in_type": "NexthopGroupActiveRequest",
+                "out_type": "NexthopGroupActiveResponse"
               },
               {
                 "name": "nexthop_group_set",
