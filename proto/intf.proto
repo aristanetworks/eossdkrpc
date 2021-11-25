@@ -280,22 +280,43 @@ message OperStatusResponse {
 }
 
 service IntfCounterMgrService {
+   /**
+    * Queries the given interface for the current counters.
+    *
+    * Request:
+    *    intf_id = name of the interface.
+    * Response:
+    *    response = The counters associated with the interface.
+    *
+    * EosSdk reference: eos::intf_counter_mgr::counters
+    */
    rpc intf_counters( IntfCountersRequest ) returns ( IntfCountersResponse ) {}
+
+   /**
+    * Queries the given interface for the current traffic rates.
+    *
+    * Request:
+    *    intf_id = name of the interface.
+    * Response:
+    *    response = The traffic rates associated with the interface.
+    *
+    * EosSdk reference: eos::intf_counter_mgr::traffic_rates
+    */
    rpc intf_traffic_counters( IntfTrafficCountersRequest ) returns ( IntfTrafficCountersResponse ) {}
 }
 
 message IntfCountersRequest {
-   IntfId intf_id = 1; 
+   IntfId intf_id = 1;
 }
 
 message IntfCountersResponse {
-   IntfCounters counters = 1; 
+   IntfCounters counters = 1;
 }
 
 message IntfTrafficCountersRequest {
-   IntfId intf_id = 1; 
+   IntfId intf_id = 1;
 }
 
 message IntfTrafficCountersResponse {
-   IntfTrafficRates rates = 1; 
+   IntfTrafficRates rates = 1;
 }
