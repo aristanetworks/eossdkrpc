@@ -1501,7 +1501,7 @@
       "def": {
         "messages": [
           {
-            "name": "WatchBgpPathRequest",
+            "name": "BgpPathWatchRequest",
             "fields": [
               {
                 "id": 1,
@@ -1521,7 +1521,7 @@
             ]
           },
           {
-            "name": "BgpUnicastPathEvent",
+            "name": "BgpPathWatchResponse",
             "fields": [
               {
                 "id": 1,
@@ -1532,36 +1532,11 @@
                 "id": 2,
                 "name": "path_key",
                 "type": "BgpPathKey"
-              }
-            ]
-          },
-          {
-            "name": "ConvergedEvent",
-            "fields": [
-              {
-                "id": 1,
-                "name": "ip_version",
-                "type": "int32"
               },
               {
-                "id": 2,
+                "id": 3,
                 "name": "converged",
                 "type": "bool"
-              }
-            ]
-          },
-          {
-            "name": "WatchBgpPathResponse",
-            "fields": [
-              {
-                "id": 1,
-                "name": "path_event",
-                "type": "BgpUnicastPathEvent"
-              },
-              {
-                "id": 2,
-                "name": "converged_event",
-                "type": "ConvergedEvent"
               }
             ]
           },
@@ -1570,11 +1545,6 @@
             "fields": [
               {
                 "id": 1,
-                "name": "path_key",
-                "type": "BgpPathKey"
-              },
-              {
-                "id": 2,
                 "name": "path_options",
                 "type": "BgpPathOptions"
               }
@@ -1585,7 +1555,7 @@
             "fields": [
               {
                 "id": 1,
-                "name": "response",
+                "name": "path",
                 "type": "BgpPath"
               }
             ]
@@ -1610,7 +1580,7 @@
             "fields": [
               {
                 "id": 1,
-                "name": "response",
+                "name": "path",
                 "type": "BgpPath"
               }
             ]
@@ -1623,7 +1593,7 @@
             "fields": [
               {
                 "id": 1,
-                "name": "response",
+                "name": "converged",
                 "type": "bool"
               }
             ]
@@ -1631,11 +1601,6 @@
           {
             "name": "Ipv6UnicastPathsRequest",
             "fields": [
-              {
-                "id": 1,
-                "name": "path_key",
-                "type": "BgpPathKey"
-              },
               {
                 "id": 2,
                 "name": "path_options",
@@ -1648,7 +1613,7 @@
             "fields": [
               {
                 "id": 1,
-                "name": "response",
+                "name": "path",
                 "type": "BgpPath"
               }
             ]
@@ -1673,7 +1638,7 @@
             "fields": [
               {
                 "id": 1,
-                "name": "response",
+                "name": "path",
                 "type": "BgpPath"
               }
             ]
@@ -1686,7 +1651,7 @@
             "fields": [
               {
                 "id": 1,
-                "name": "response",
+                "name": "converged",
                 "type": "bool"
               }
             ]
@@ -1698,8 +1663,8 @@
             "rpcs": [
               {
                 "name": "watch",
-                "in_type": "WatchBgpPathRequest",
-                "out_type": "WatchBgpPathResponse",
+                "in_type": "BgpPathWatchRequest",
+                "out_type": "BgpPathWatchResponse",
                 "out_streamed": true
               },
               {
@@ -1810,7 +1775,7 @@
               },
               {
                 "id": 2,
-                "name": "fields",
+                "name": "attrs",
                 "type": "BgpPathAttrFields"
               }
             ]
@@ -1865,9 +1830,6 @@
         "imports": [
           {
             "path": "ip_types.proto"
-          },
-          {
-            "path": "rpc_types.proto"
           }
         ],
         "package": {

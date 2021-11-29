@@ -6,7 +6,6 @@ syntax = "proto3";
 package eos.remote;
 
 import "ip_types.proto";
-import "rpc_types.proto";
 
 message BgpPathKey {
    Prefix prefix = 1;
@@ -26,8 +25,7 @@ message BgpPathAttrFields {
 
 message BgpPathOptions {
    BgpReceiveRouteStages stage = 1;
-   BgpPathAttrFields fields = 2;
-
+   BgpPathAttrFields attrs = 2;
 }
 
 message BgpPathAttrs {
