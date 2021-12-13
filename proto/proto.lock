@@ -2362,7 +2362,7 @@
             ]
           },
           {
-            "name": "IntfTrafficCountersRequest",
+            "name": "IntfTrafficRatesRequest",
             "fields": [
               {
                 "id": 1,
@@ -2372,7 +2372,7 @@
             ]
           },
           {
-            "name": "IntfTrafficCountersResponse",
+            "name": "IntfTrafficRatesResponse",
             "fields": [
               {
                 "id": 1,
@@ -2459,9 +2459,9 @@
                 "out_type": "IntfCountersResponse"
               },
               {
-                "name": "intf_traffic_counters",
-                "in_type": "IntfTrafficCountersRequest",
-                "out_type": "IntfTrafficCountersResponse"
+                "name": "intf_traffic_rates",
+                "in_type": "IntfTrafficRatesRequest",
+                "out_type": "IntfTrafficRatesResponse"
               }
             ]
           }
