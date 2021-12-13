@@ -302,7 +302,7 @@ service IntfCounterMgrService {
     *
     * EosSdk reference: eos::intf_counter_mgr::traffic_rates
     */
-   rpc intf_traffic_ratess( IntfTrafficRatesRequest ) returns ( IntfTrafficRatesResponse ) {}
+   rpc intf_traffic_rates( IntfTrafficRatesRequest ) returns ( IntfTrafficRatesResponse ) {}
 }
 
 message IntfCountersRequest {
