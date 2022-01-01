@@ -3,6 +3,5 @@ pkgQdam=True
 tacLibCheckExcused=[]
 lddUnusedCheck=True
 py3lint=True
-pkgdepsForPython3=True
 pylintDatAllowed=False
 pylintSkipRe=[ 'py/' ]
