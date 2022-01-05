@@ -2214,7 +2214,13 @@
         ],
         "package": {
           "name": "eos.remote"
-        }
+        },
+        "options": [
+          {
+            "name": "go_package",
+            "value": "arista/EosSdkRpc"
+          }
+        ]
       }
     },
     {
@@ -2396,7 +2402,13 @@
         ],
         "package": {
           "name": "eos.remote"
-        }
+        },
+        "options": [
+          {
+            "name": "go_package",
+            "value": "arista/EosSdkRpc"
+          }
+        ]
       }
     },
     {
@@ -4824,7 +4836,13 @@
         ],
         "package": {
           "name": "eos.remote"
-        }
+        },
+        "options": [
+          {
+            "name": "go_package",
+            "value": "arista/EosSdkRpc"
+          }
+        ]
       }
     }
   ]
