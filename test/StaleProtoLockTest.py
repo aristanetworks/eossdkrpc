@@ -4,9 +4,10 @@
 
 from __future__ import absolute_import, division, print_function
 
+import Assert
 import glob
+from hashlib import sha256
 import os
-import Tac
 
 # This test ensures that any .proto files within /src/EosSdkRpcProtos/proto
 # have been modified without updating the proto.lock file.
@@ -16,39 +17,39 @@ import Tac
 # Remove files after excluded protobufs are finalised.
 # Used to prevent build failures due to not updating the lock file
 # for template protobufs.
-excludedFiles = [
-   'agent.proto',
-   'bgp.proto',
-   'bgp_path.proto',
-   'defs.proto',
-   'eapi.proto',
-   'intf.proto',
-   'ip_intf.proto',
-   'ip_route.proto',
-   'macsec.proto',
-   'mpls.proto',
-   'nexthop_group.proto',
-   'EosSdkRpc.proto',
-   ]
+excludedFiles = []
+sourceDir = '/src/EosSdkRpcProtos/proto/'
 
-def CheckLockFileIsNotStale():
-   lockFileModifiedDate = os.path.getmtime( '/src/EosSdkRpcProtos/proto/proto.lock' )
-   protoFiles = glob.glob( "/src/EosSdkRpcProtos/proto/*.proto" )
-   # Find the latest modified proto file
-   protoFileTimestamps = [ os.path.getmtime( path )
-                           for path in protoFiles
-                           if os.path.basename( path )
-                           not in excludedFiles ]
-   if protoFileTimestamps:
-      protoFilesModifiedDate = max( protoFileTimestamps )
-      if protoFilesModifiedDate > lockFileModifiedDate:
-         raise AssertionError( "Proto.lock has not been updated to include the "
-               "changes made to the protobuf files.\n"
-               "More protolock info in README.\n"
-               "Please run:\n"
-               "a4 open /src/EosSdkRpcProtos/proto/proto.lock \n"
-               "protolock commit -lockdir /src/EosSdkRpcProtos/proto"
-               " -protoroot /src/EosSdkRpcProtos/proto" )
+def getHashes():
+   with open( sourceDir + 'protolock.shasum', 'r' ) as hashFile:
+      hashes = {}
+      for line in hashFile:
+         hashStr, fileName = line.split()
+         if fileName in excludedFiles:
+            continue
+         hashes[ fileName ] = hashStr
+      return hashes
+
+def matchHashes( hashes ):
+   fail = False
+   for name in hashes:
+      expected = hashes[ name ]
+      name = sourceDir + name
+      with open( name, 'r' ) as testFile:
+         current = sha256( testFile.read() ).hexdigest()
+      if current != expected:
+         print( "hash check failed for proto file {}".format( name ) )
+         fail = True
+   protoFiles = glob.glob( sourceDir + "*.proto" )
+   for protoFile in protoFiles:
+      if not protoFile[ len( sourceDir ): ] in hashes:
+         print( "proto file {} not hashed".format( protoFile ) )
+         fail = True
+   Assert.assertFalse( fail,
+      "Some errors occurred. Please run the script "
+      "/src/EosSdkRpcProtos/checkprotos to verify and maintain the protolock "
+      "metadata and hashes up to date.\n"
+      "See README.md for more details" )
 
 if __name__ == '__main__':
-   CheckLockFileIsNotStale()
+   matchHashes( getHashes() )

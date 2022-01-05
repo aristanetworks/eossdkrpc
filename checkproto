@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# This script does the verification of all proto files against
+# the current proto.lock in the directory proto.
+
+# if the verification succeeds and the proto files gets to be
+# updated, the hash file shall be updated as well.
+
+cd /src/EosSdkRpcProtos/proto
+if protolock status ; then
+   if protolock commit ; then
+      sha256sum *.proto proto.lock > protolock.shasum
+   fi
+fi
