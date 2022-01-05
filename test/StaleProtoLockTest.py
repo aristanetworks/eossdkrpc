@@ -7,7 +7,6 @@ from __future__ import absolute_import, division, print_function
 import Assert
 import glob
 from hashlib import sha256
-import os
 
 # This test ensures that any .proto files within /src/EosSdkRpcProtos/proto
 # have been modified without updating the proto.lock file.
@@ -42,7 +41,7 @@ def matchHashes( hashes ):
          fail = True
    protoFiles = glob.glob( sourceDir + "*.proto" )
    for protoFile in protoFiles:
-      if not protoFile[ len( sourceDir ): ] in hashes:
+      if not protoFile[ len( sourceDir ) : ] in hashes:
          print( "proto file {} not hashed".format( protoFile ) )
          fail = True
    Assert.assertFalse( fail,
