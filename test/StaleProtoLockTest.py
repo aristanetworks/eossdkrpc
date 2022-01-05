@@ -35,7 +35,7 @@ def matchHashes( hashes ):
    for name in hashes:
       expected = hashes[ name ]
       name = sourceDir + name
-      with open( name, 'r' ) as testFile:
+      with open( name, 'rb' ) as testFile:
          current = sha256( testFile.read() ).hexdigest()
       if current != expected:
          print( "hash check failed for proto file {}".format( name ) )
