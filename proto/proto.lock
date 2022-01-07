@@ -2019,6 +2019,1198 @@
       }
     },
     {
+      "protopath": "eth_lag_intf.proto",
+      "def": {
+        "enums": [
+          {
+            "name": "EthLagIntfEvents",
+            "enum_fields": [
+              {
+                "name": "ETH_LAG_INTF_EVENT_NONE"
+              },
+              {
+                "name": "ETH_LAG_INTF_EVENT_CREATED",
+                "integer": 1
+              },
+              {
+                "name": "ETH_LAG_INTF_EVENT_DELETED",
+                "integer": 2
+              },
+              {
+                "name": "ETH_LAG_INTF_EVENT_MEMBER_SET",
+                "integer": 3
+              },
+              {
+                "name": "ETH_LAG_INTF_EVENT_MEMBER_DEL",
+                "integer": 4
+              },
+              {
+                "name": "ETH_LAG_INTF_EVENT_SPEED",
+                "integer": 5
+              }
+            ]
+          }
+        ],
+        "messages": [
+          {
+            "name": "EthLagIntfWatchRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "watchAllIntfs",
+                "type": "bool"
+              },
+              {
+                "id": 2,
+                "name": "eth_lag_intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfWatchResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "event",
+                "type": "EthLagIntfEvents"
+              },
+              {
+                "id": 2,
+                "name": "eth_lag_intf_id",
+                "type": "IntfId"
+              },
+              {
+                "id": 3,
+                "name": "member_intf_id",
+                "type": "IntfId"
+              },
+              {
+                "id": 4,
+                "name": "speed",
+                "type": "uint64"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfsRequest"
+          },
+          {
+            "name": "EthLagIntfsResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "eth_lag_intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfExistsRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "eth_lag_intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfExistsResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "exists",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfMembersRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "eth_lag_intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfMembersResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "member_intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfIsRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "eth_lag_intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfIsResponse"
+          },
+          {
+            "name": "BulkEthLagIntfIsRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "requests",
+                "type": "EthLagIntfIsRequest",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "BulkEthLagIntfIsResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "processed",
+                "type": "uint64"
+              },
+              {
+                "id": 2,
+                "name": "status",
+                "type": "RpcResponseStatus"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "eth_lag_intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "response",
+                "type": "EthLagIntf"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfDelRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "eth_lag_intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfDelResponse"
+          },
+          {
+            "name": "BulkEthLagIntfDelRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "requests",
+                "type": "EthLagIntfDelRequest",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "BulkEthLagIntfDelResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "processed",
+                "type": "uint64"
+              },
+              {
+                "id": 2,
+                "name": "status",
+                "type": "RpcResponseStatus"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfSpeedRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "eth_lag_intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfSpeedResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "speed",
+                "type": "uint64"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfMinLinksIsRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "eth_lag_intf_id",
+                "type": "IntfId"
+              },
+              {
+                "id": 2,
+                "name": "min_links",
+                "type": "uint32"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfMinLinksIsResponse"
+          },
+          {
+            "name": "BulkEthLagIntfMinLinksIsRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "requests",
+                "type": "EthLagIntfMinLinksIsRequest",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "BulkEthLagIntfMinLinksIsResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "processed",
+                "type": "uint64"
+              },
+              {
+                "id": 2,
+                "name": "status",
+                "type": "RpcResponseStatus"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfMinLinksRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "eth_lag_intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfMinLinksResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "min_links",
+                "type": "uint32"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfFallbackTypeIsRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "eth_lag_intf_id",
+                "type": "IntfId"
+              },
+              {
+                "id": 2,
+                "name": "fallback_type",
+                "type": "EthLagIntfFallbackType"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfFallbackTypeIsResponse"
+          },
+          {
+            "name": "BulkEthLagIntfFallbackTypeIsRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "requests",
+                "type": "EthLagIntfFallbackTypeIsRequest",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "BulkEthLagIntfFallbackTypeIsResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "processed",
+                "type": "uint64"
+              },
+              {
+                "id": 2,
+                "name": "status",
+                "type": "RpcResponseStatus"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfFallbackTypeRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "eth_lag_intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfFallbackTypeResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "fallback_type",
+                "type": "EthLagIntfFallbackType"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfFallbackTimeoutIsRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "eth_lag_intf_id",
+                "type": "IntfId"
+              },
+              {
+                "id": 2,
+                "name": "fallback_timeout",
+                "type": "uint32"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfFallbackTimeoutIsResponse"
+          },
+          {
+            "name": "BulkEthLagIntfFallbackTimeoutIsRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "requests",
+                "type": "EthLagIntfFallbackTimeoutIsRequest",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "BulkEthLagIntfFallbackTimeoutIsResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "processed",
+                "type": "uint64"
+              },
+              {
+                "id": 2,
+                "name": "status",
+                "type": "RpcResponseStatus"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfFallbackTimeoutRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "eth_lag_intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfFallbackTimeoutResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "fallback_timeout",
+                "type": "uint32"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfFallbackTimeoutDefaultRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "eth_lag_intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfFallbackTimeoutDefaultResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "fallback_timeout",
+                "type": "uint32"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfMembershipSetRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "member_intf_id",
+                "type": "IntfId"
+              },
+              {
+                "id": 2,
+                "name": "eth_lag_intf_id",
+                "type": "IntfId"
+              },
+              {
+                "id": 3,
+                "name": "mode",
+                "type": "EthLagIntfMemberLacpMode"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfMembershipSetResponse"
+          },
+          {
+            "name": "BulkEthLagIntfMembershipSetRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "requests",
+                "type": "EthLagIntfMembershipSetRequest",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "BulkEthLagIntfMembershipSetResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "processed",
+                "type": "uint64"
+              },
+              {
+                "id": 2,
+                "name": "status",
+                "type": "RpcResponseStatus"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfMembershipDelRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "member_intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfMembershipDelResponse"
+          },
+          {
+            "name": "BulkEthLagIntfMembershipDelRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "requests",
+                "type": "EthLagIntfMembershipDelRequest",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "BulkEthLagIntfMembershipDelResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "processed",
+                "type": "uint64"
+              },
+              {
+                "id": 2,
+                "name": "status",
+                "type": "RpcResponseStatus"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfMembershipRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "member_intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfMembershipResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "eth_lag_intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfMembershipStatusRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "member_intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfMembershipStatusResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "membership",
+                "type": "EthLagIntfMembership"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfMemberPriorityIsRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "member_intf_id",
+                "type": "IntfId"
+              },
+              {
+                "id": 2,
+                "name": "priority",
+                "type": "uint32"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfMemberPriorityIsResponse"
+          },
+          {
+            "name": "BulkEthLagIntfMemberPriorityIsRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "requests",
+                "type": "EthLagIntfMemberPriorityIsRequest",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "BulkEthLagIntfMemberPriorityIsResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "processed",
+                "type": "uint64"
+              },
+              {
+                "id": 2,
+                "name": "status",
+                "type": "RpcResponseStatus"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfMemberPriorityRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "member_intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfMemberPriorityResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "priority",
+                "type": "uint32"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfMemberModeIsRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "member_intf_id",
+                "type": "IntfId"
+              },
+              {
+                "id": 2,
+                "name": "mode",
+                "type": "EthLagIntfMemberLacpMode"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfMemberModeIsResponse"
+          },
+          {
+            "name": "BulkEthLagIntfMemberModeIsRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "requests",
+                "type": "EthLagIntfMemberModeIsRequest",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "BulkEthLagIntfMemberModeIsResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "processed",
+                "type": "uint64"
+              },
+              {
+                "id": 2,
+                "name": "status",
+                "type": "RpcResponseStatus"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfMemberModeRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "member_intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfMemberModeResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "mode",
+                "type": "EthLagIntfMemberLacpMode"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfMemberTimeoutIsRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "member_intf_id",
+                "type": "IntfId"
+              },
+              {
+                "id": 2,
+                "name": "timeout",
+                "type": "EthLagIntfMemberLacpTimeout"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfMemberTimeoutIsResponse"
+          },
+          {
+            "name": "BulkEthLagIntfMemberTimeoutIsRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "requests",
+                "type": "EthLagIntfMemberTimeoutIsRequest",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "BulkEthLagIntfMemberTimeoutIsResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "processed",
+                "type": "uint64"
+              },
+              {
+                "id": 2,
+                "name": "status",
+                "type": "RpcResponseStatus"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfMemberTimeoutRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "member_intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfMemberTimeoutResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "response",
+                "type": "EthLagIntfMemberLacpTimeout"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfMemberActiveRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "member_intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfMemberActiveResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "active",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfMemberTimeRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "member_intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfMemberTimeResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "member_time",
+                "type": "double"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfMemberReasonRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "member_intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfMemberReasonResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "member_reason",
+                "type": "string"
+              }
+            ]
+          }
+        ],
+        "services": [
+          {
+            "name": "EthLagIntfMgrService",
+            "rpcs": [
+              {
+                "name": "watch",
+                "in_type": "EthLagIntfWatchRequest",
+                "out_type": "EthLagIntfWatchResponse",
+                "out_streamed": true
+              },
+              {
+                "name": "eth_lag_intfs",
+                "in_type": "EthLagIntfsRequest",
+                "out_type": "EthLagIntfsResponse",
+                "out_streamed": true
+              },
+              {
+                "name": "exists",
+                "in_type": "EthLagIntfExistsRequest",
+                "out_type": "EthLagIntfExistsResponse"
+              },
+              {
+                "name": "eth_lag_intf_members",
+                "in_type": "EthLagIntfMembersRequest",
+                "out_type": "EthLagIntfMembersResponse",
+                "out_streamed": true
+              },
+              {
+                "name": "eth_lag_intf_is",
+                "in_type": "EthLagIntfIsRequest",
+                "out_type": "EthLagIntfIsResponse"
+              },
+              {
+                "name": "bulk_eth_lag_intf_is",
+                "in_type": "BulkEthLagIntfIsRequest",
+                "out_type": "BulkEthLagIntfIsResponse"
+              },
+              {
+                "name": "bulk_eth_lag_intf",
+                "in_type": "EthLagIntfRequest",
+                "out_type": "EthLagIntfResponse"
+              },
+              {
+                "name": "eth_lag_intf_del",
+                "in_type": "EthLagIntfDelRequest",
+                "out_type": "EthLagIntfDelResponse"
+              },
+              {
+                "name": "bulk_eth_lag_intf_del",
+                "in_type": "BulkEthLagIntfDelRequest",
+                "out_type": "BulkEthLagIntfDelResponse"
+              },
+              {
+                "name": "speed",
+                "in_type": "EthLagIntfSpeedRequest",
+                "out_type": "EthLagIntfSpeedResponse"
+              },
+              {
+                "name": "min_links",
+                "in_type": "EthLagIntfMinLinksRequest",
+                "out_type": "EthLagIntfMinLinksResponse"
+              },
+              {
+                "name": "min_links_is",
+                "in_type": "EthLagIntfMinLinksIsRequest",
+                "out_type": "EthLagIntfMinLinksIsResponse"
+              },
+              {
+                "name": "bulk_min_links_is",
+                "in_type": "BulkEthLagIntfMinLinksIsRequest",
+                "out_type": "BulkEthLagIntfMinLinksIsResponse"
+              },
+              {
+                "name": "fallback_type_is",
+                "in_type": "EthLagIntfFallbackTypeIsRequest",
+                "out_type": "EthLagIntfFallbackTypeIsResponse"
+              },
+              {
+                "name": "bulk_fallback_type_is",
+                "in_type": "BulkEthLagIntfFallbackTypeIsRequest",
+                "out_type": "BulkEthLagIntfFallbackTypeIsResponse"
+              },
+              {
+                "name": "fallback_type",
+                "in_type": "EthLagIntfFallbackTypeRequest",
+                "out_type": "EthLagIntfFallbackTypeResponse"
+              },
+              {
+                "name": "fallback_timeout_is",
+                "in_type": "EthLagIntfFallbackTimeoutIsRequest",
+                "out_type": "EthLagIntfFallbackTimeoutIsResponse"
+              },
+              {
+                "name": "bulk_fallback_timeout_is",
+                "in_type": "BulkEthLagIntfFallbackTimeoutIsRequest",
+                "out_type": "BulkEthLagIntfFallbackTimeoutIsResponse"
+              },
+              {
+                "name": "fallback_timeout",
+                "in_type": "EthLagIntfFallbackTimeoutRequest",
+                "out_type": "EthLagIntfFallbackTimeoutResponse"
+              },
+              {
+                "name": "fallback_timeout_default",
+                "in_type": "EthLagIntfFallbackTimeoutDefaultRequest",
+                "out_type": "EthLagIntfFallbackTimeoutDefaultResponse"
+              },
+              {
+                "name": "membership_set",
+                "in_type": "EthLagIntfMembershipSetRequest",
+                "out_type": "EthLagIntfMembershipSetResponse"
+              },
+              {
+                "name": "bulk_membership_set",
+                "in_type": "BulkEthLagIntfMembershipSetRequest",
+                "out_type": "BulkEthLagIntfMembershipSetResponse"
+              },
+              {
+                "name": "membership_del",
+                "in_type": "EthLagIntfMembershipDelRequest",
+                "out_type": "EthLagIntfMembershipDelResponse"
+              },
+              {
+                "name": "bulk_membership_del",
+                "in_type": "BulkEthLagIntfMembershipDelRequest",
+                "out_type": "BulkEthLagIntfMembershipDelResponse"
+              },
+              {
+                "name": "membership",
+                "in_type": "EthLagIntfMembershipRequest",
+                "out_type": "EthLagIntfMembershipResponse"
+              },
+              {
+                "name": "membership_status",
+                "in_type": "EthLagIntfMembershipStatusRequest",
+                "out_type": "EthLagIntfMembershipStatusResponse"
+              },
+              {
+                "name": "member_priority_is",
+                "in_type": "EthLagIntfMemberPriorityIsRequest",
+                "out_type": "EthLagIntfMemberPriorityIsResponse"
+              },
+              {
+                "name": "bulk_member_priority_is",
+                "in_type": "BulkEthLagIntfMemberPriorityIsRequest",
+                "out_type": "BulkEthLagIntfMemberPriorityIsResponse"
+              },
+              {
+                "name": "member_priority",
+                "in_type": "EthLagIntfMemberPriorityRequest",
+                "out_type": "EthLagIntfMemberPriorityResponse"
+              },
+              {
+                "name": "member_mode_is",
+                "in_type": "EthLagIntfMemberModeIsRequest",
+                "out_type": "EthLagIntfMemberModeIsResponse"
+              },
+              {
+                "name": "bulk_member_mode_is",
+                "in_type": "BulkEthLagIntfMemberModeIsRequest",
+                "out_type": "BulkEthLagIntfMemberModeIsResponse"
+              },
+              {
+                "name": "member_mode",
+                "in_type": "EthLagIntfMemberModeRequest",
+                "out_type": "EthLagIntfMemberModeResponse"
+              },
+              {
+                "name": "member_timeout_is",
+                "in_type": "EthLagIntfMemberTimeoutIsRequest",
+                "out_type": "EthLagIntfMemberTimeoutIsResponse"
+              },
+              {
+                "name": "bulk_member_timeout_is",
+                "in_type": "BulkEthLagIntfMemberTimeoutIsRequest",
+                "out_type": "BulkEthLagIntfMemberTimeoutIsResponse"
+              },
+              {
+                "name": "member_timeout",
+                "in_type": "EthLagIntfMemberTimeoutRequest",
+                "out_type": "EthLagIntfMemberTimeoutResponse"
+              },
+              {
+                "name": "member_active",
+                "in_type": "EthLagIntfMemberActiveRequest",
+                "out_type": "EthLagIntfMemberActiveResponse"
+              },
+              {
+                "name": "member_time",
+                "in_type": "EthLagIntfMemberTimeRequest",
+                "out_type": "EthLagIntfMemberTimeResponse"
+              },
+              {
+                "name": "member_reason",
+                "in_type": "EthLagIntfMemberReasonRequest",
+                "out_type": "EthLagIntfMemberReasonResponse"
+              }
+            ]
+          }
+        ],
+        "imports": [
+          {
+            "path": "rpc_types.proto"
+          },
+          {
+            "path": "intf_types.proto"
+          },
+          {
+            "path": "eth_lag_intf_types.proto"
+          }
+        ],
+        "package": {
+          "name": "eos.remote"
+        }
+      }
+    },
+    {
+      "protopath": "eth_lag_intf_types.proto",
+      "def": {
+        "enums": [
+          {
+            "name": "EthLagIntfFallbackType",
+            "enum_fields": [
+              {
+                "name": "ETH_LAG_INTF_FALLBACK_NULL"
+              },
+              {
+                "name": "ETH_LAG_INTF_FALLBACK_NONE",
+                "integer": 1
+              },
+              {
+                "name": "ETH_LAG_INTF_FALLBACK_STATIC",
+                "integer": 2
+              },
+              {
+                "name": "ETH_LAG_INTF_FALLBACK_INDIVIDUAL",
+                "integer": 3
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfMemberLacpMode",
+            "enum_fields": [
+              {
+                "name": "ETH_LAG_INTF_MEMBER_LACP_MODE_NULL"
+              },
+              {
+                "name": "ETH_LAG_INTF_MEMBER_LACP_MODE_OFF",
+                "integer": 1
+              },
+              {
+                "name": "ETH_LAG_INTF_MEMBER_LACP_MODE_PASSIVE",
+                "integer": 2
+              },
+              {
+                "name": "ETH_LAG_INTF_MEMBER_LACP_MODE_ACTIVE",
+                "integer": 3
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfMemberLacpTimeout",
+            "enum_fields": [
+              {
+                "name": "ETH_LAG_INTF_MEMBER_LACP_TIMEOUT_NULL"
+              },
+              {
+                "name": "ETH_LAG_INTF_MEMBER_LACP_TIMEOUT_SHORT",
+                "integer": 1
+              },
+              {
+                "name": "ETH_LAG_INTF_MEMBER_LACP_TIMEOUT_LONG",
+                "integer": 2
+              }
+            ]
+          }
+        ],
+        "messages": [
+          {
+            "name": "EthLagIntf",
+            "fields": [
+              {
+                "id": 1,
+                "name": "intf",
+                "type": "IntfId"
+              },
+              {
+                "id": 2,
+                "name": "speed",
+                "type": "uint64"
+              },
+              {
+                "id": 3,
+                "name": "min_links",
+                "type": "uint32"
+              },
+              {
+                "id": 4,
+                "name": "fallback_type",
+                "type": "EthLagIntfFallbackType"
+              },
+              {
+                "id": 5,
+                "name": "fallback_timeout",
+                "type": "uint32"
+              },
+              {
+                "id": 6,
+                "name": "default_fallback_timeout",
+                "type": "uint32"
+              }
+            ]
+          },
+          {
+            "name": "EthLagIntfMembership",
+            "fields": [
+              {
+                "id": 1,
+                "name": "eth_lag_intf_id",
+                "type": "IntfId"
+              },
+              {
+                "id": 2,
+                "name": "active",
+                "type": "bool"
+              },
+              {
+                "id": 3,
+                "name": "reason",
+                "type": "string"
+              },
+              {
+                "id": 4,
+                "name": "member_time",
+                "type": "double"
+              },
+              {
+                "id": 5,
+                "name": "mode",
+                "type": "EthLagIntfMemberLacpMode"
+              }
+            ]
+          }
+        ],
+        "imports": [
+          {
+            "path": "intf_types.proto"
+          }
+        ],
+        "package": {
+          "name": "eos.remote"
+        }
+      }
+    },
+    {
       "protopath": "intf.proto",
       "def": {
         "enums": [
