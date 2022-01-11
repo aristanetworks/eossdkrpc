@@ -23,7 +23,7 @@ service EthLagIntfMgrService {
    rpc watch( EthLagIntfWatchRequest ) returns ( stream EthLagIntfWatchResponse ) {}
 
    /**
-    * Returns a list of interfaces configured as member of any LAG interface in
+    * Returns a list of interfaces configured as members of any LAG interface in
     * system.
     *
     * EosSdk reference:: eos::eth_lag_intf_mgr::eth_lag_intf_iter
@@ -31,15 +31,15 @@ service EthLagIntfMgrService {
    rpc eth_lag_intfs( EthLagIntfsRequest ) returns ( stream EthLagIntfsResponse ) {}
 
    /**
-    * Checks whether an ethernet LAG interface exists.
+    * Queries whether an ethernet LAG interface exists.
     *
     * EosSdk reference:: eos::eth_lag_intf_mgr::eth_lag_intf_exists
     */
    rpc exists( EthLagIntfExistsRequest ) returns ( EthLagIntfExistsResponse ) {}
 
    /**
-    * Returns a list of physical interfaces configured as member of any LAG interface
-    * in the system.
+    * Returns a list of physical interfaces configured as members of any LAG
+    * interface in the system.
     *
     * EosSdk reference:: eos::eth_lag_intf_mgr::eth_lag_intf_member_iter
     */
@@ -81,7 +81,7 @@ service EthLagIntfMgrService {
    rpc bulk_eth_lag_intf_del( BulkEthLagIntfDelRequest ) returns ( BulkEthLagIntfDelResponse ) {}
 
     /**
-    * Returns the speed of a LAG interface.
+    * Returns the speed of a LAG interface, in Mbits.
     *
     * EosSdk reference:: eos::eth_lag_intf_mgr::speed
     */
@@ -131,28 +131,28 @@ service EthLagIntfMgrService {
    rpc fallback_type( EthLagIntfFallbackTypeRequest ) returns ( EthLagIntfFallbackTypeResponse ) {}
 
    /**
-    * Sets the fallback timeout for a LAG interface.
+    * Sets the fallback timeout for a LAG interface, in seconds.
     *
     * EosSdk reference: eth_lag_intf_mgr::fallback_timeout_is
     */
    rpc fallback_timeout_is( EthLagIntfFallbackTimeoutIsRequest ) returns ( EthLagIntfFallbackTimeoutIsResponse ) {}
 
    /**
-    * Sets the fallback timeout for a LAG interface.
+    * Sets fallback timeouts for multiple LAG interfaces, in seconds.
     *
     * EosSdk reference: eth_lag_intf_mgr::fallback_timeout_is
     */
    rpc bulk_fallback_timeout_is( BulkEthLagIntfFallbackTimeoutIsRequest ) returns ( BulkEthLagIntfFallbackTimeoutIsResponse ) {}
 
    /**
-    * Returns the LACP active mode timeout value in seconds.
+    * Returns the LACP active mode timeout value, in seconds.
     *
     * EosSdk reference: eth_lag_intf_mgr::fallback_timeout
     */
    rpc fallback_timeout( EthLagIntfFallbackTimeoutRequest ) returns ( EthLagIntfFallbackTimeoutResponse ) {}
 
    /**
-    * Returns the default fallback timeout value in seconds.
+    * Returns the default fallback timeout value, in seconds.
     *
     * EosSdk reference: eth_lag_intf_mgr::fallback_timeout_default
     */
@@ -230,7 +230,7 @@ service EthLagIntfMgrService {
    rpc member_mode_is( EthLagIntfMemberModeIsRequest ) returns ( EthLagIntfMemberModeIsResponse ) {}
 
    /**
-    * Sets the multiple modes of members in LAG interfaces.
+    * Sets the modes of multiple members in LAG interfaces.
     *
     * EosSdk reference: eth_lag_intf_mgr::member_mode_is
     */
@@ -244,21 +244,21 @@ service EthLagIntfMgrService {
    rpc member_mode( EthLagIntfMemberModeRequest ) returns ( EthLagIntfMemberModeResponse ) {}
 
    /**
-    * Sets the LACP timeout for a member in a LAG.
+    * Sets the LACP timeout for a member in a LAG, in seconds.
     *
     * EosSdk reference: eth_lag_intf_mgr::member_timeout_is
     */
    rpc member_timeout_is( EthLagIntfMemberTimeoutIsRequest ) returns ( EthLagIntfMemberTimeoutIsResponse ) {}
 
    /**
-    * Sets the LACP timeout for multiple members in LAGs.
+    * Sets the LACP timeout for multiple members in LAG interfaces, in seconds.
     *
     * EosSdk reference: eth_lag_intf_mgr::member_timeout_is
     */
    rpc bulk_member_timeout_is( BulkEthLagIntfMemberTimeoutIsRequest ) returns ( BulkEthLagIntfMemberTimeoutIsResponse ) {}
 
    /**
-    * Gets the configured LACP timeout for a member in a LAG.
+    * Gets the configured LACP timeout for a member in a LAG, in seconds.
     *
     * EosSdk reference: eth_lag_intf_mgr::member_timeout
     */
@@ -280,7 +280,7 @@ service EthLagIntfMgrService {
    rpc member_time( EthLagIntfMemberTimeRequest ) returns ( EthLagIntfMemberTimeResponse ) {}
 
    /**
-    * Returns the reason this interface isn't active in LAG.
+    * Returns the reason this interface isn't active in a LAG.
     *
     * EosSdk reference: eth_lag_intf_mgr::member_reason
     */
@@ -289,7 +289,9 @@ service EthLagIntfMgrService {
 
 message EthLagIntfWatchRequest {
    oneof overloads {
-      bool watchAllIntfs = 1;
+      // watch all LAG interfaces.
+      bool all_intfs = 1;
+      // watch a single interface.
       IntfId eth_lag_intf_id = 2;
    }
 }
@@ -311,7 +313,7 @@ message EthLagIntfWatchResponse {
    IntfId eth_lag_intf_id = 2;
    // Member interface (if event is member related)
    IntfId member_intf_id = 3;
-   // LAG interface speed (if event is ETH_LAG_INTF_EVENT_SPEED).
+   // LAG interface speed, in Mbits (if event is ETH_LAG_INTF_EVENT_SPEED).
    uint64 speed = 4;
 }
 
@@ -396,6 +398,7 @@ message EthLagIntfSpeedRequest {
 }
 
 message EthLagIntfSpeedResponse {
+   // Interface speed, in Mbits
    uint64 speed = 1;
 }
 
@@ -463,6 +466,7 @@ message EthLagIntfFallbackTypeResponse {
 message EthLagIntfFallbackTimeoutIsRequest {
    // Interface ID for the LAG interface.
    IntfId eth_lag_intf_id = 1;
+   // fallback timeout, in seconds.
    uint32 fallback_timeout = 2;
 }
 
@@ -486,7 +490,7 @@ message EthLagIntfFallbackTimeoutRequest {
 }
 
 message EthLagIntfFallbackTimeoutResponse {
-   // LAG interface fallback timeout.
+   // LAG interface fallback timeout, in seconds.
    uint32 fallback_timeout = 1;
 }
 
@@ -496,7 +500,7 @@ message EthLagIntfFallbackTimeoutDefaultRequest {
 }
 
 message EthLagIntfFallbackTimeoutDefaultResponse {
-   // default fallback timeout.
+   // default fallback timeout, in seconds.
    uint32 fallback_timeout = 1;
 }
 

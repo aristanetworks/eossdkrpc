@@ -2057,7 +2057,7 @@
             "fields": [
               {
                 "id": 1,
-                "name": "watchAllIntfs",
+                "name": "all_intfs",
                 "type": "bool"
               },
               {
