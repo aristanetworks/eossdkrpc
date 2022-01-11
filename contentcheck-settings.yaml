@@ -7,3 +7,6 @@ checks:
 files:
   exclude:
     - proto/
+
+linters:
+  - ./checkproto

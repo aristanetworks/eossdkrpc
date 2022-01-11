@@ -64,7 +64,7 @@ service EthLagIntfMgrService {
     *
     * EosSdk reference:: eos::eth_lag_intf_mgr::eth_lag_intf
     */
-   rpc bulk_eth_lag_intf( EthLagIntfRequest ) returns ( EthLagIntfResponse ) {}
+   rpc eth_lag_intf( EthLagIntfRequest ) returns ( EthLagIntfResponse ) {}
 
    /**
     * Deletes a LAG interface.
