@@ -1526,7 +1526,7 @@
               {
                 "id": 1,
                 "name": "ip_version",
-                "type": "int32"
+                "type": "IpVersion"
               },
               {
                 "id": 2,
@@ -1705,6 +1705,9 @@
         "imports": [
           {
             "path": "bgp_path_types.proto"
+          },
+          {
+            "path": "ip_types.proto"
           }
         ],
         "package": {
@@ -3619,6 +3622,24 @@
     {
       "protopath": "ip_types.proto",
       "def": {
+        "enums": [
+          {
+            "name": "IpVersion",
+            "enum_fields": [
+              {
+                "name": "IP_VERSION_NONE"
+              },
+              {
+                "name": "IP_VERSION_4",
+                "integer": 4
+              },
+              {
+                "name": "IP_VERSION_6",
+                "integer": 6
+              }
+            ]
+          }
+        ],
         "messages": [
           {
             "name": "Prefix",

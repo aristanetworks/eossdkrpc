@@ -6,6 +6,7 @@ syntax = "proto3";
 package eos.remote;
 
 import "bgp_path_types.proto";
+import "ip_types.proto";
 
 service BgpPathMgrService {
    /**
@@ -122,7 +123,7 @@ message BgpPathWatchRequest {
 }
 
 message BgpPathWatchResponse {
-   int32 ip_version = 1;
+   IpVersion ip_version = 1;
    oneof events {
       BgpPathKey path_key = 2;
       bool converged = 3;
