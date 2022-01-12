@@ -1,0 +1,322 @@
+// Copyright (c) 2021 Arista Networks, Inc.  All rights reserved.
+// Arista Networks, Inc. Confidential and Proprietary.
+
+syntax = "proto3";
+
+package eos.remote;
+
+import "acl_types.proto";
+import "intf_types.proto";
+import "policy_map_types.proto";
+import "rpc_types.proto";
+
+service PolicyMapMgrService {
+
+   /**
+   * Subscription to monitor changes on a specified policy feature. This request
+   * stays active until the client cancels or the server shuts down.
+   *
+   * Request:
+   *    key = the policy feature to recieve notifications for.
+   *    interest = true if notifications should be received.
+   *    Optional fields:
+   *       agent_name = the agent which configures the policy being watched.
+   * Response:
+   *    key = the key of the policy map whose status has changed.
+   *    One of these options:
+   *       event_type = the type of event.
+   *       sync_fail_message = provides details when policy map commit or
+   *                           apply operation fails.
+   *
+   * EosSdk reference: eos::policy_map_handler (class)
+   */
+   rpc watch( PolicyMapWatchRequest ) returns ( stream PolicyMapEvent ) {}
+
+   /**
+   * Initiates a resync process. Starts a blank configuration to be applied
+   * once resync_complete is called.
+   *
+   * Request:
+   *    empty
+   * Response:
+   *    none
+   *
+   * EosSdk reference: eos::policy_map_mgr::resync_init
+   */
+   rpc resync_init( PolicyMapResyncInitRequest ) returns (
+       PolicyMapResyncInitResponse ) {}
+
+   /**
+   * Ends the current policy map resync process.
+   *
+   * Request:
+   *    empty
+   * Response:
+   *    none
+   *
+   * EosSdk reference: eos::policy_map_mgr::resync_complete
+   */
+   rpc resync_complete( PolicyMapResyncCompleteRequest ) returns (
+       PolicyMapResyncCompleteResponse ) {}
+
+   /**
+   * Queries whether the provided policy map key is configured or not.
+   *
+   * Request:
+   *    key = the policy map key to query.
+   * Response:
+   *    exists = true if the policy map key is configured otherwise false.
+   *
+   * EosSdk reference: eos::policy_map_mgr::exists
+   */
+   rpc exists( PolicyMapExistsRequest ) returns ( PolicyMapExistsResponse ) {}
+
+   /**
+   * Queries a policy map given its key.
+   *
+   * Request:
+   *    key = the key of the policy map to query.
+   * Response:
+   *    policy_map = the policy map corresponding to the key or empty if not found.
+   *
+   * EosSdk reference: eos::policy_map_mgr::policy_map
+   */
+   rpc policy_map( PolicyMapRequest ) returns ( PolicyMapResponse ) {}
+
+   /**
+   * Creates or updates a policy map.
+   *
+   * Request:
+   *    policy_map = the policy map to create or update.
+   * Response:
+   *    none
+   *
+   * EosSdk reference: eos::policy_map_mgr::policy_map_is
+   */
+   rpc policy_map_is( PolicyMapIsRequest ) returns ( PolicyMapIsResponse ) {}
+
+   /**
+   * Creates or updates multiple policy maps in a single call.
+   *
+   * Request:
+   *    requests = list of PolicyMapIsRequests.
+   * Response:
+   *    processed = number of consecutive successful requests.
+   *    status = success or error details in case of failure.
+   *
+   * EosSdk reference: eos::policy_map_mgr::policy_map_is
+   */
+   rpc bulk_policy_map_is( BulkPolicyMapIsRequest ) returns (
+       BulkPolicyMapIsResponse ) {}
+
+   /**
+   * Deletes a policy map.
+   *
+   * Request:
+   *    key = the key of the policy map to delete.
+   * Response:
+   *    none
+   *
+   * EosSdk reference: eos::policy_map_mgr::policy_map_del
+   */
+   rpc policy_map_del( PolicyMapDelRequest ) returns ( PolicyMapDelResponse ) {}
+
+   /**
+   * Deletes multiple policy maps in a single call.
+   *
+   * Request:
+   *    requests = list of PolicyMapDelRequests.
+   * Response:
+   *    processed = number of consecutive successful requests.
+   *    status = success or error details in case of failure.
+   *
+   * EosSdk reference: eos::policy_map_mgr::policy_map_del
+   */
+   rpc bulk_policy_map_del( BulkPolicyMapDelRequest ) returns (
+       BulkPolicyMapDelResponse ) {}
+
+   /**
+   * Returns a list of the configured policy maps for a policy feature.
+   *
+   * Request:
+   *    feature = the policy feature.
+   * Response:
+   *    policy_map (list) = list of policy maps for the feature.
+   *
+   * EosSdk reference: eos::policy_map_mgr::policy_map_iter
+   */
+   rpc policy_maps( PolicyMapsRequest ) returns ( stream PolicyMapsResponse ) {}
+
+   /**
+   * Applies or unapplies a policy map on the given interface and direction.
+   *
+   * Request:
+   *    key = the key of the policy map to [un]apply.
+   *    intf_id = the inteface ID of the interface to [un]apply the policy map.
+   *    direction = the direction in which to [un]apply the policy map.
+   *    apply = true if the policy map should be applied otherwise false if it
+   *            should be unapplied.
+   * Response:
+   *    none
+   *
+   * EosSdk reference: eos::policy_map_mgr::policy_map_apply
+   */
+   rpc policy_map_apply( PolicyMapApplyRequest ) returns (
+       PolicyMapApplyResponse ) {}
+
+   /**
+   * Applies or unapplies multiple policy maps on the given interfaces and directions
+   * in a single call.
+   *
+   * Request:
+   *    requests = list of PolicyMapApplyRequests.
+   * Response:
+   *    processed = number of consecutive successful requests.
+   *    status = success or error details in case of failure.
+   *
+   * EosSdk reference: eos::policy_map_mgr::policy_map_apply
+   */
+   rpc bulk_policy_map_apply( BulkPolicyMapApplyRequest ) returns (
+       BulkPolicyMapApplyResponse ) {}
+
+   /**
+   * Returns a list of the policy maps in hardware for a policy feature.
+   *
+   * Request:
+   *    feature = the policy feature.
+   * Response:
+   *    key (list) = the keys of the policy maps for the feature.
+   *
+   * EosSdk reference: eos::policy_map_mgr::policy_map_hw_status_iter
+   */
+   rpc policy_map_hw_statuses( PolicyMapHwStatusesRequest ) returns (
+       stream PolicyMapHwStatusesResponse ) {}
+
+   /**
+   * Queries the hardware status for a specified policy map key.
+   *
+   * Request:
+   *    key = the key to get the hardware status for.
+   * Response:
+   *    hw_statuses = the hardware status of the policy map key.
+   *
+   * EosSdk reference: eos::policy_map_mgr::hw_status
+   */
+   rpc hw_status( PolicyMapHwStatusRequest ) returns ( PolicyMapHwStatusResponse ) {}
+}
+
+message PolicyMapWatchRequest {
+   PolicyMapKey key = 1;
+   bool interest = 2;
+   string agent_name = 3;
+}
+
+enum PolicyMapEventType {
+   POLICY_MAP_EVENT_NULL = 0;
+   POLICY_MAP_EVENT_SYNC = 1;
+   POLICY_MAP_EVENT_CONFIG_SET = 2;
+}
+
+message PolicyMapEvent {
+   PolicyMapKey key = 1;
+   oneof policy_map_event {
+      PolicyMapEventType event_type = 2;
+      string sync_fail_message = 3;
+   }
+}
+
+message PolicyMapResyncInitRequest {}
+
+message PolicyMapResyncInitResponse {}
+
+message PolicyMapResyncCompleteRequest {}
+
+message PolicyMapResyncCompleteResponse {}
+
+message PolicyMapExistsRequest {
+   PolicyMapKey key = 1;
+}
+
+message PolicyMapExistsResponse {
+   bool exists = 1;
+}
+
+message PolicyMapRequest {
+   PolicyMapKey key = 1;
+}
+
+message PolicyMapResponse {
+   PolicyMap policy_map = 1;
+}
+
+message PolicyMapIsRequest {
+   PolicyMap policy_map = 1;
+}
+
+message PolicyMapIsResponse {}
+
+message BulkPolicyMapIsRequest {
+   repeated PolicyMapIsRequest requests = 1;
+}
+
+message BulkPolicyMapIsResponse {
+   uint64 processed = 1;
+   RpcResponseStatus status = 2;
+}
+
+message PolicyMapDelRequest {
+   PolicyMapKey key = 1;
+}
+
+message PolicyMapDelResponse {}
+
+message BulkPolicyMapDelRequest {
+   repeated PolicyMapDelRequest requests = 1;
+}
+
+message BulkPolicyMapDelResponse {
+   uint64 processed = 1;
+   RpcResponseStatus status = 2;
+}
+
+message PolicyMapsRequest {
+   PolicyFeature feature = 1;
+}
+
+message PolicyMapsResponse {
+   PolicyMap policy_map = 1;
+}
+
+message PolicyMapApplyRequest {
+   PolicyMapKey key = 1;
+   IntfId intf_id = 2;
+   AclDirection direction = 3;
+   bool apply = 4;
+}
+
+message PolicyMapApplyResponse {}
+
+message BulkPolicyMapApplyRequest {
+   repeated PolicyMapApplyRequest requests = 1;
+}
+
+message BulkPolicyMapApplyResponse {
+   uint64 processed = 1;
+   RpcResponseStatus status = 2;
+}
+
+message PolicyMapHwStatusesRequest {
+   PolicyFeature feature = 1;
+}
+
+message PolicyMapHwStatusesResponse {
+   PolicyMapKey key = 1;
+}
+
+message PolicyMapHwStatusRequest {
+   PolicyMapKey key = 1;
+}
+
+message PolicyMapHwStatusResponse {
+   PolicyMapHwStatuses hw_statuses = 1;
+}

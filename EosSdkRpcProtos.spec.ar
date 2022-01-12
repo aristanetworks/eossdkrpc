@@ -54,6 +54,7 @@ EosRemoteSdk files used by other packages during development.
 
 %files
 %defattr(-,root,root)
+%{_datadir}/EosSdkRpc/proto/acl_types.proto
 %{_datadir}/EosSdkRpc/proto/agent.proto
 %{_datadir}/EosSdkRpc/proto/bgp.proto
 %{_datadir}/EosSdkRpc/proto/bgp_types.proto
@@ -74,7 +75,12 @@ EosRemoteSdk files used by other packages during development.
 %{_datadir}/EosSdkRpc/proto/mpls_types.proto
 %{_datadir}/EosSdkRpc/proto/nexthop_group.proto
 %{_datadir}/EosSdkRpc/proto/nexthop_group_types.proto
+%{_datadir}/EosSdkRpc/proto/policy_map.proto
+%{_datadir}/EosSdkRpc/proto/policy_map_types.proto
 %{_datadir}/EosSdkRpc/proto/rpc_types.proto
+%{python_sitelib}/acl_types_pb2.py*
+%{python3_sitelib}/acl_types_pb2.py
+%{python3_sitelib}/__pycache__/acl_types_pb2.cpython*
 %{python_sitelib}/agent_pb2.py*
 %{python3_sitelib}/agent_pb2.py
 %{python3_sitelib}/__pycache__/agent_pb2.cpython*
@@ -165,6 +171,15 @@ EosRemoteSdk files used by other packages during development.
 %{python_sitelib}/nexthop_group_pb2_grpc.py*
 %{python3_sitelib}/nexthop_group_pb2_grpc.py
 %{python3_sitelib}/__pycache__/nexthop_group_pb2_grpc.cpython*
+%{python_sitelib}/policy_map_pb2.py*
+%{python3_sitelib}/policy_map_pb2.py
+%{python3_sitelib}/__pycache__/policy_map_pb2.cpython*
+%{python_sitelib}/policy_map_types_pb2.py*
+%{python3_sitelib}/policy_map_types_pb2.py
+%{python3_sitelib}/__pycache__/policy_map_types_pb2.cpython*
+%{python_sitelib}/policy_map_pb2_grpc.py*
+%{python3_sitelib}/policy_map_pb2_grpc.py
+%{python3_sitelib}/__pycache__/policy_map_pb2_grpc.cpython*
 %{python_sitelib}/rpc_types_pb2.py*
 %{python3_sitelib}/rpc_types_pb2.py
 %{python3_sitelib}/__pycache__/rpc_types_pb2.cpython*

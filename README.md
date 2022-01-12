@@ -37,12 +37,12 @@ Update the proto.lock file with the new proto changes:
 ```
 
 You should then submit the updated proto.lock file along with your .proto changes.
-Do not forget to update the hashes. These hashes should be use by the test
+Do not forget to update the hashes. These hashes will be used by the test
 `StaleProtoLockTest.py` to detect changes in the protofiles that might not have
 been caught by the `protolock` tool.
 
 ```
-$ pushd /src/EosSdkRpcpProtos
+$ pushd /src/EosSdkRpcProtos
 $ a p4 edit protolock.shasum
 $ sha256sum *.proto proto.lock > protolock.shasum
 $ popd

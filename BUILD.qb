@@ -70,10 +70,12 @@ grpcFiles = [
    'proto/ip_route.proto',
    'proto/macsec.proto',
    'proto/nexthop_group.proto',
+   'proto/policy_map.proto',
 ]
 
 # files listed under protobufFiles shall generate only protobuf files.
-protobufFiles= [
+protobufFiles = [
+   'proto/acl_types.proto',
    'proto/bgp_types.proto',
    'proto/bgp_path_types.proto',
    'proto/eapi_types.proto',
@@ -84,6 +86,7 @@ protobufFiles= [
    'proto/macsec_types.proto',
    'proto/nexthop_group_types.proto',
    'proto/mpls_types.proto',
+   'proto/policy_map_types.proto',
    'proto/rpc_types.proto',
 ]
 

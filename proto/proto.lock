@@ -771,6 +771,268 @@
       }
     },
     {
+      "protopath": "acl_types.proto",
+      "def": {
+        "enums": [
+          {
+            "name": "AclDirection",
+            "enum_fields": [
+              {
+                "name": "ACL_DIRECTION_NULL"
+              },
+              {
+                "name": "ACL_IN",
+                "integer": 1
+              },
+              {
+                "name": "ACL_OUT",
+                "integer": 2
+              }
+            ]
+          },
+          {
+            "name": "AclRangeOperator",
+            "enum_fields": [
+              {
+                "name": "ACL_RANGE_NULL"
+              },
+              {
+                "name": "ACL_RANGE_ANY",
+                "integer": 1
+              },
+              {
+                "name": "ACL_RANGE_EQ",
+                "integer": 2
+              },
+              {
+                "name": "ACL_RANGE_GT",
+                "integer": 3
+              },
+              {
+                "name": "ACL_RANGE_LT",
+                "integer": 4
+              },
+              {
+                "name": "ACL_RANGE_NEQ",
+                "integer": 5
+              },
+              {
+                "name": "ACL_RANGE_BETWEEN",
+                "integer": 6
+              }
+            ]
+          },
+          {
+            "name": "AclAction",
+            "enum_fields": [
+              {
+                "name": "ACL_ACTION_NULL"
+              },
+              {
+                "name": "ACL_PERMIT",
+                "integer": 1
+              },
+              {
+                "name": "ACL_DENY",
+                "integer": 2
+              }
+            ]
+          },
+          {
+            "name": "AclIpType",
+            "enum_fields": [
+              {
+                "name": "ACL_IP_TYPE_NULL"
+              },
+              {
+                "name": "ACL_IP_TYPE_ANY",
+                "integer": 1
+              },
+              {
+                "name": "ACL_IP_TYPE_IP",
+                "integer": 2
+              },
+              {
+                "name": "ACL_IP_TYPE_MPLS",
+                "integer": 3
+              }
+            ]
+          }
+        ],
+        "messages": [
+          {
+            "name": "AclRuleBase",
+            "fields": [
+              {
+                "id": 1,
+                "name": "action",
+                "type": "AclAction"
+              },
+              {
+                "id": 2,
+                "name": "log",
+                "type": "bool"
+              },
+              {
+                "id": 3,
+                "name": "tracked",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "AclRuleIp",
+            "fields": [
+              {
+                "id": 1,
+                "name": "base_fields",
+                "type": "AclRuleBase"
+              },
+              {
+                "id": 2,
+                "name": "vlan",
+                "type": "uint32"
+              },
+              {
+                "id": 3,
+                "name": "vlan_mask",
+                "type": "uint32"
+              },
+              {
+                "id": 4,
+                "name": "inner_vlan",
+                "type": "uint32"
+              },
+              {
+                "id": 5,
+                "name": "inner_vlan_mask",
+                "type": "uint32"
+              },
+              {
+                "id": 6,
+                "name": "ip_protocol",
+                "type": "uint32"
+              },
+              {
+                "id": 7,
+                "name": "ttl",
+                "type": "AclTtlSpec"
+              },
+              {
+                "id": 8,
+                "name": "source_addr",
+                "type": "IpAddrMask"
+              },
+              {
+                "id": 9,
+                "name": "destination_addr",
+                "type": "IpAddrMask"
+              },
+              {
+                "id": 10,
+                "name": "source_port",
+                "type": "AclPortSpec"
+              },
+              {
+                "id": 11,
+                "name": "destination_port",
+                "type": "AclPortSpec"
+              },
+              {
+                "id": 12,
+                "name": "nexthop_group",
+                "type": "string"
+              },
+              {
+                "id": 13,
+                "name": "tcp_flags",
+                "type": "uint32"
+              },
+              {
+                "id": 14,
+                "name": "ip_type",
+                "type": "AclIpType"
+              },
+              {
+                "id": 15,
+                "name": "established",
+                "type": "bool"
+              },
+              {
+                "id": 16,
+                "name": "icmp_type",
+                "type": "uint32"
+              },
+              {
+                "id": 17,
+                "name": "icmp_code",
+                "type": "uint32"
+              },
+              {
+                "id": 18,
+                "name": "priority_value",
+                "type": "uint32"
+              },
+              {
+                "id": 19,
+                "name": "priority_mask",
+                "type": "uint32"
+              },
+              {
+                "id": 20,
+                "name": "match_fragments",
+                "type": "bool"
+              },
+              {
+                "id": 21,
+                "name": "match_ip_priority",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "AclPortSpec",
+            "fields": [
+              {
+                "id": 1,
+                "name": "oper",
+                "type": "AclRangeOperator"
+              },
+              {
+                "id": 2,
+                "name": "ports",
+                "type": "uint32",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "AclTtlSpec",
+            "fields": [
+              {
+                "id": 1,
+                "name": "oper",
+                "type": "AclRangeOperator"
+              },
+              {
+                "id": 2,
+                "name": "ttl",
+                "type": "uint32"
+              }
+            ]
+          }
+        ],
+        "imports": [
+          {
+            "path": "ip_intf_types.proto"
+          }
+        ],
+        "package": {
+          "name": "eos.remote"
+        }
+      }
+    },
+    {
       "protopath": "agent.proto",
       "def": {
         "messages": [
@@ -4722,6 +4984,688 @@
           },
           {
             "path": "mpls_types.proto"
+          }
+        ],
+        "package": {
+          "name": "eos.remote"
+        }
+      }
+    },
+    {
+      "protopath": "policy_map.proto",
+      "def": {
+        "enums": [
+          {
+            "name": "PolicyMapEventType",
+            "enum_fields": [
+              {
+                "name": "POLICY_MAP_EVENT_NULL"
+              },
+              {
+                "name": "POLICY_MAP_EVENT_SYNC",
+                "integer": 1
+              },
+              {
+                "name": "POLICY_MAP_EVENT_CONFIG_SET",
+                "integer": 2
+              }
+            ]
+          }
+        ],
+        "messages": [
+          {
+            "name": "PolicyMapWatchRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "key",
+                "type": "PolicyMapKey"
+              },
+              {
+                "id": 2,
+                "name": "interest",
+                "type": "bool"
+              },
+              {
+                "id": 3,
+                "name": "agent_name",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "PolicyMapEvent",
+            "fields": [
+              {
+                "id": 1,
+                "name": "key",
+                "type": "PolicyMapKey"
+              },
+              {
+                "id": 2,
+                "name": "event_type",
+                "type": "PolicyMapEventType"
+              },
+              {
+                "id": 3,
+                "name": "sync_fail_message",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "PolicyMapResyncInitRequest"
+          },
+          {
+            "name": "PolicyMapResyncInitResponse"
+          },
+          {
+            "name": "PolicyMapResyncCompleteRequest"
+          },
+          {
+            "name": "PolicyMapResyncCompleteResponse"
+          },
+          {
+            "name": "PolicyMapExistsRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "key",
+                "type": "PolicyMapKey"
+              }
+            ]
+          },
+          {
+            "name": "PolicyMapExistsResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "exists",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "PolicyMapRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "key",
+                "type": "PolicyMapKey"
+              }
+            ]
+          },
+          {
+            "name": "PolicyMapResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "policy_map",
+                "type": "PolicyMap"
+              }
+            ]
+          },
+          {
+            "name": "PolicyMapIsRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "policy_map",
+                "type": "PolicyMap"
+              }
+            ]
+          },
+          {
+            "name": "PolicyMapIsResponse"
+          },
+          {
+            "name": "BulkPolicyMapIsRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "requests",
+                "type": "PolicyMapIsRequest",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "BulkPolicyMapIsResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "processed",
+                "type": "uint64"
+              },
+              {
+                "id": 2,
+                "name": "status",
+                "type": "RpcResponseStatus"
+              }
+            ]
+          },
+          {
+            "name": "PolicyMapDelRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "key",
+                "type": "PolicyMapKey"
+              }
+            ]
+          },
+          {
+            "name": "PolicyMapDelResponse"
+          },
+          {
+            "name": "BulkPolicyMapDelRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "requests",
+                "type": "PolicyMapDelRequest",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "BulkPolicyMapDelResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "processed",
+                "type": "uint64"
+              },
+              {
+                "id": 2,
+                "name": "status",
+                "type": "RpcResponseStatus"
+              }
+            ]
+          },
+          {
+            "name": "PolicyMapsRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "feature",
+                "type": "PolicyFeature"
+              }
+            ]
+          },
+          {
+            "name": "PolicyMapsResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "policy_map",
+                "type": "PolicyMap"
+              }
+            ]
+          },
+          {
+            "name": "PolicyMapApplyRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "key",
+                "type": "PolicyMapKey"
+              },
+              {
+                "id": 2,
+                "name": "intf_id",
+                "type": "IntfId"
+              },
+              {
+                "id": 3,
+                "name": "direction",
+                "type": "AclDirection"
+              },
+              {
+                "id": 4,
+                "name": "apply",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "PolicyMapApplyResponse"
+          },
+          {
+            "name": "BulkPolicyMapApplyRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "requests",
+                "type": "PolicyMapApplyRequest",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "BulkPolicyMapApplyResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "processed",
+                "type": "uint64"
+              },
+              {
+                "id": 2,
+                "name": "status",
+                "type": "RpcResponseStatus"
+              }
+            ]
+          },
+          {
+            "name": "PolicyMapHwStatusesRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "feature",
+                "type": "PolicyFeature"
+              }
+            ]
+          },
+          {
+            "name": "PolicyMapHwStatusesResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "key",
+                "type": "PolicyMapKey"
+              }
+            ]
+          },
+          {
+            "name": "PolicyMapHwStatusRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "key",
+                "type": "PolicyMapKey"
+              }
+            ]
+          },
+          {
+            "name": "PolicyMapHwStatusResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "hw_statuses",
+                "type": "PolicyMapHwStatuses"
+              }
+            ]
+          }
+        ],
+        "services": [
+          {
+            "name": "PolicyMapMgrService",
+            "rpcs": [
+              {
+                "name": "watch",
+                "in_type": "PolicyMapWatchRequest",
+                "out_type": "PolicyMapEvent",
+                "out_streamed": true
+              },
+              {
+                "name": "resync_init",
+                "in_type": "PolicyMapResyncInitRequest",
+                "out_type": "PolicyMapResyncInitResponse"
+              },
+              {
+                "name": "resync_complete",
+                "in_type": "PolicyMapResyncCompleteRequest",
+                "out_type": "PolicyMapResyncCompleteResponse"
+              },
+              {
+                "name": "exists",
+                "in_type": "PolicyMapExistsRequest",
+                "out_type": "PolicyMapExistsResponse"
+              },
+              {
+                "name": "policy_map",
+                "in_type": "PolicyMapRequest",
+                "out_type": "PolicyMapResponse"
+              },
+              {
+                "name": "policy_map_is",
+                "in_type": "PolicyMapIsRequest",
+                "out_type": "PolicyMapIsResponse"
+              },
+              {
+                "name": "bulk_policy_map_is",
+                "in_type": "BulkPolicyMapIsRequest",
+                "out_type": "BulkPolicyMapIsResponse"
+              },
+              {
+                "name": "policy_map_del",
+                "in_type": "PolicyMapDelRequest",
+                "out_type": "PolicyMapDelResponse"
+              },
+              {
+                "name": "bulk_policy_map_del",
+                "in_type": "BulkPolicyMapDelRequest",
+                "out_type": "BulkPolicyMapDelResponse"
+              },
+              {
+                "name": "policy_maps",
+                "in_type": "PolicyMapsRequest",
+                "out_type": "PolicyMapsResponse",
+                "out_streamed": true
+              },
+              {
+                "name": "policy_map_apply",
+                "in_type": "PolicyMapApplyRequest",
+                "out_type": "PolicyMapApplyResponse"
+              },
+              {
+                "name": "bulk_policy_map_apply",
+                "in_type": "BulkPolicyMapApplyRequest",
+                "out_type": "BulkPolicyMapApplyResponse"
+              },
+              {
+                "name": "policy_map_hw_statuses",
+                "in_type": "PolicyMapHwStatusesRequest",
+                "out_type": "PolicyMapHwStatusesResponse",
+                "out_streamed": true
+              },
+              {
+                "name": "hw_status",
+                "in_type": "PolicyMapHwStatusRequest",
+                "out_type": "PolicyMapHwStatusResponse"
+              }
+            ]
+          }
+        ],
+        "imports": [
+          {
+            "path": "acl_types.proto"
+          },
+          {
+            "path": "intf_types.proto"
+          },
+          {
+            "path": "policy_map_types.proto"
+          },
+          {
+            "path": "rpc_types.proto"
+          }
+        ],
+        "package": {
+          "name": "eos.remote"
+        }
+      }
+    },
+    {
+      "protopath": "policy_map_types.proto",
+      "def": {
+        "enums": [
+          {
+            "name": "PolicyMapCondition",
+            "enum_fields": [
+              {
+                "name": "POLICY_MAP_CONDITION_NULL"
+              },
+              {
+                "name": "POLICY_MAP_CONDITION_ANY",
+                "integer": 1
+              }
+            ]
+          },
+          {
+            "name": "PolicyFeature",
+            "enum_fields": [
+              {
+                "name": "POLICY_FEATURE_NULL"
+              },
+              {
+                "name": "POLICY_FEATURE_PBR",
+                "integer": 1
+              },
+              {
+                "name": "POLICY_FEATURE_QOS",
+                "integer": 2
+              },
+              {
+                "name": "POLICY_FEATURE_TAP_AGG",
+                "integer": 3
+              }
+            ]
+          },
+          {
+            "name": "PolicyActionType",
+            "enum_fields": [
+              {
+                "name": "POLICY_ACTION_NULL"
+              },
+              {
+                "name": "POLICY_ACTION_NONE",
+                "integer": 1
+              },
+              {
+                "name": "POLICY_ACTION_DROP",
+                "integer": 2
+              },
+              {
+                "name": "POLICY_ACTION_NEXTHOP",
+                "integer": 3
+              },
+              {
+                "name": "POLICY_ACTION_NEXTHOP_GROUP",
+                "integer": 4
+              },
+              {
+                "name": "POLICY_ACTION_DSCP",
+                "integer": 5
+              },
+              {
+                "name": "POLICY_ACTION_TRAFFIC_CLASS",
+                "integer": 6
+              }
+            ]
+          },
+          {
+            "name": "PolicyMapRuleType",
+            "enum_fields": [
+              {
+                "name": "POLICY_RULE_TYPE_NULL"
+              },
+              {
+                "name": "POLICY_RULE_TYPE_CLASSMAP",
+                "integer": 1
+              },
+              {
+                "name": "POLICY_RULE_TYPE_IPV4",
+                "integer": 2
+              },
+              {
+                "name": "POLICY_RULE_TYPE_IPV6",
+                "integer": 3
+              }
+            ]
+          },
+          {
+            "name": "PolicyMapStatus",
+            "enum_fields": [
+              {
+                "name": "POLICY_STATUS_NULL"
+              },
+              {
+                "name": "POLICY_STATUS_NOT_FOUND",
+                "integer": 1
+              },
+              {
+                "name": "POLICY_STATUS_IN_PROGRESS",
+                "integer": 2
+              },
+              {
+                "name": "POLICY_STATUS_FAILED",
+                "integer": 3
+              },
+              {
+                "name": "POLICY_STATUS_SUCCESS",
+                "integer": 4
+              }
+            ]
+          }
+        ],
+        "messages": [
+          {
+            "name": "PolicyMap",
+            "fields": [
+              {
+                "id": 1,
+                "name": "key",
+                "type": "PolicyMapKey"
+              }
+            ],
+            "maps": [
+              {
+                "key_type": "uint32",
+                "field": {
+                  "id": 2,
+                  "name": "rules",
+                  "type": "PolicyMapRule"
+                }
+              }
+            ]
+          },
+          {
+            "name": "PolicyMapAction",
+            "fields": [
+              {
+                "id": 1,
+                "name": "action_type",
+                "type": "PolicyActionType"
+              },
+              {
+                "id": 2,
+                "name": "nexthop_group_name",
+                "type": "string"
+              },
+              {
+                "id": 3,
+                "name": "nexthops",
+                "type": "bytes",
+                "is_repeated": true
+              },
+              {
+                "id": 4,
+                "name": "vrf",
+                "type": "string"
+              },
+              {
+                "id": 5,
+                "name": "dscp",
+                "type": "uint32"
+              },
+              {
+                "id": 6,
+                "name": "traffic_class",
+                "type": "uint32"
+              }
+            ]
+          },
+          {
+            "name": "PolicyMapKey",
+            "fields": [
+              {
+                "id": 1,
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "id": 2,
+                "name": "feature",
+                "type": "PolicyFeature"
+              }
+            ]
+          },
+          {
+            "name": "PolicyMapRule",
+            "fields": [
+              {
+                "id": 1,
+                "name": "class_map_key",
+                "type": "PolicyMapKey"
+              },
+              {
+                "id": 2,
+                "name": "policy_map_rule_type",
+                "type": "PolicyMapRuleType"
+              },
+              {
+                "id": 3,
+                "name": "raw_rule",
+                "type": "AclRuleIp"
+              },
+              {
+                "id": 4,
+                "name": "actions",
+                "type": "PolicyMapAction",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "PolicyMapHwStatuses",
+            "fields": [
+              {
+                "id": 1,
+                "name": "hw_statuses",
+                "type": "PolicyMapStatusValue",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "PolicyMapStatusValue",
+            "fields": [
+              {
+                "id": 1,
+                "name": "hw_status_key",
+                "type": "PolicyMapHwStatusKey"
+              },
+              {
+                "id": 2,
+                "name": "status",
+                "type": "PolicyMapStatus"
+              }
+            ]
+          },
+          {
+            "name": "PolicyMapHwStatusKey",
+            "fields": [
+              {
+                "id": 1,
+                "name": "intf_id",
+                "type": "IntfId"
+              },
+              {
+                "id": 2,
+                "name": "direction",
+                "type": "AclDirection"
+              }
+            ]
+          },
+          {
+            "name": "UnsupportedPolicyFeatureError",
+            "fields": [
+              {
+                "id": 1,
+                "name": "policy_feature",
+                "type": "PolicyFeature"
+              }
+            ]
+          }
+        ],
+        "imports": [
+          {
+            "path": "acl_types.proto"
+          },
+          {
+            "path": "intf_types.proto"
           }
         ],
         "package": {

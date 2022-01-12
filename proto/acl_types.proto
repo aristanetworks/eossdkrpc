@@ -1,0 +1,85 @@
+// Copyright (c) 2021 Arista Networks, Inc.  All rights reserved.
+// Arista Networks, Inc. Confidential and Proprietary.
+
+syntax = "proto3";
+
+package eos.remote;
+
+import "ip_intf_types.proto";
+
+// Contains common fields for ACL rules.
+message AclRuleBase {
+   AclAction action = 1;
+   bool log = 2;
+   bool tracked = 3;
+}
+
+// An individual ACL rule for IPv4 or IPv6 ACLs.
+message AclRuleIp {
+   AclRuleBase base_fields = 1;
+   uint32 vlan = 2;
+   uint32 vlan_mask = 3;
+   uint32 inner_vlan = 4;
+   uint32 inner_vlan_mask = 5;
+   uint32 ip_protocol = 6;
+   AclTtlSpec ttl = 7;
+   IpAddrMask source_addr = 8;
+   IpAddrMask destination_addr = 9;
+   AclPortSpec source_port = 10;
+   AclPortSpec destination_port = 11;
+   string nexthop_group = 12;
+   uint32 tcp_flags = 13;
+   AclIpType ip_type = 14;
+   bool established = 15;
+   uint32 icmp_type = 16;
+   uint32 icmp_code = 17;
+   uint32 priority_value = 18;
+   uint32 priority_mask = 19;
+   bool match_fragments = 20;
+   bool match_ip_priority = 21;
+}
+
+// A UDP or TCP port specifier.
+message AclPortSpec {
+   AclRangeOperator oper = 1;
+   repeated uint32 ports = 2;
+}
+
+// A TTL specifier, used in an IP ACL rule to define TTLs to match.
+message AclTtlSpec {
+   AclRangeOperator oper = 1;
+   uint32 ttl = 2;
+}
+
+// The direction in which an ACL is applied.
+enum AclDirection {
+   ACL_DIRECTION_NULL = 0;
+   ACL_IN = 1;
+   ACL_OUT = 2;
+};
+
+// The type of range operator for TTL and port specifications.
+enum AclRangeOperator {
+   ACL_RANGE_NULL = 0;
+   ACL_RANGE_ANY = 1;
+   ACL_RANGE_EQ = 2;
+   ACL_RANGE_GT = 3;
+   ACL_RANGE_LT = 4;
+   ACL_RANGE_NEQ = 5;
+   ACL_RANGE_BETWEEN = 6;
+}
+
+// The action to take for an individual ACL rule.
+enum AclAction {
+   ACL_ACTION_NULL = 0;
+   ACL_PERMIT = 1;
+   ACL_DENY = 2;
+}
+
+// IP traffic type to be matched.
+enum AclIpType {
+   ACL_IP_TYPE_NULL = 0;
+   ACL_IP_TYPE_ANY = 1;
+   ACL_IP_TYPE_IP = 2;
+   ACL_IP_TYPE_MPLS = 3;
+}
