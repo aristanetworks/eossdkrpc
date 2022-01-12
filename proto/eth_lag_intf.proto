@@ -81,7 +81,7 @@ service EthLagIntfMgrService {
    rpc bulk_eth_lag_intf_del( BulkEthLagIntfDelRequest ) returns ( BulkEthLagIntfDelResponse ) {}
 
     /**
-    * Returns the speed of a LAG interface, in Mbits.
+    * Returns the speed of a LAG interface, in Mbits/s.
     *
     * EosSdk reference:: eos::eth_lag_intf_mgr::speed
     */
@@ -313,7 +313,7 @@ message EthLagIntfWatchResponse {
    IntfId eth_lag_intf_id = 2;
    // Member interface (if event is member related)
    IntfId member_intf_id = 3;
-   // LAG interface speed, in Mbits (if event is ETH_LAG_INTF_EVENT_SPEED).
+   // LAG interface speed, in Mbits/s (if event is ETH_LAG_INTF_EVENT_SPEED).
    uint64 speed = 4;
 }
 
@@ -398,7 +398,7 @@ message EthLagIntfSpeedRequest {
 }
 
 message EthLagIntfSpeedResponse {
-   // Interface speed, in Mbits
+   // Interface speed, in Mbits/s
    uint64 speed = 1;
 }
 

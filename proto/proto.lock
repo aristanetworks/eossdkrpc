@@ -2894,7 +2894,7 @@
                 "out_type": "BulkEthLagIntfIsResponse"
               },
               {
-                "name": "bulk_eth_lag_intf",
+                "name": "eth_lag_intf",
                 "in_type": "EthLagIntfRequest",
                 "out_type": "EthLagIntfResponse"
               },
