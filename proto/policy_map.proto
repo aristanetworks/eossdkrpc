@@ -13,16 +13,15 @@ import "rpc_types.proto";
 service PolicyMapMgrService {
 
    /**
-   * Subscription to monitor changes on a specified policy feature. This request
+   * Subscription to monitor changes on a specified policy map. This request
    * stays active until the client cancels or the server shuts down.
    *
    * Request:
-   *    key = the policy feature to recieve notifications for.
-   *    interest = true if notifications should be received.
-   *    Optional fields:
-   *       agent_name = the agent which configures the policy being watched.
+   *    One of these options:
+   *       all = true if all policy maps should be watched.
+   *       key = the key of the policy map to recieve notifications for.
    * Response:
-   *    key = the key of the policy map whose status has changed.
+   *    key = the key of the policy map that triggered the event.
    *    One of these options:
    *       event_type = the type of event.
    *       sync_fail_message = provides details when policy map commit or
@@ -30,11 +29,11 @@ service PolicyMapMgrService {
    *
    * EosSdk reference: eos::policy_map_handler (class)
    */
-   rpc watch( PolicyMapWatchRequest ) returns ( stream PolicyMapEvent ) {}
+   rpc watch( PolicyMapWatchRequest ) returns ( stream PolicyMapWatchResponse ) {}
 
    /**
-   * Initiates a resync process. Starts a blank configuration to be applied
-   * once resync_complete is called.
+   * Initiates a policy map resync process. Starts a blank configuration to be
+   * applied once resync_complete is called.
    *
    * Request:
    *    empty
@@ -60,12 +59,12 @@ service PolicyMapMgrService {
        PolicyMapResyncCompleteResponse ) {}
 
    /**
-   * Queries whether the provided policy map key is configured or not.
+   * Queries whether the specified policy map is configured or not.
    *
    * Request:
-   *    key = the policy map key to query.
+   *    key = the key of the policy map to query.
    * Response:
-   *    exists = true if the policy map key is configured otherwise false.
+   *    exists = true if the policy map is configured otherwise false.
    *
    * EosSdk reference: eos::policy_map_mgr::exists
    */
@@ -136,12 +135,12 @@ service PolicyMapMgrService {
        BulkPolicyMapDelResponse ) {}
 
    /**
-   * Returns a list of the configured policy maps for a policy feature.
+   * Returns a list of the keys of the configured policy maps for a policy feature.
    *
    * Request:
    *    feature = the policy feature.
    * Response:
-   *    policy_map (list) = list of policy maps for the feature.
+   *    key (list) = the keys of the feature's configured policy maps.
    *
    * EosSdk reference: eos::policy_map_mgr::policy_map_iter
    */
@@ -193,12 +192,12 @@ service PolicyMapMgrService {
        stream PolicyMapHwStatusesResponse ) {}
 
    /**
-   * Queries the hardware status for a specified policy map key.
+   * Queries the hardware status for a specified policy map.
    *
    * Request:
-   *    key = the key to get the hardware status for.
+   *    key = the key of the policy map to get the hardware status for.
    * Response:
-   *    hw_statuses = the hardware status of the policy map key.
+   *    hw_statuses = the hardware status of the policy map.
    *
    * EosSdk reference: eos::policy_map_mgr::hw_status
    */
@@ -206,9 +205,10 @@ service PolicyMapMgrService {
 }
 
 message PolicyMapWatchRequest {
-   PolicyMapKey key = 1;
-   bool interest = 2;
-   string agent_name = 3;
+   oneof overloads {
+      bool all = 1;
+      PolicyMapKey key = 2;
+   }
 }
 
 enum PolicyMapEventType {
@@ -217,7 +217,7 @@ enum PolicyMapEventType {
    POLICY_MAP_EVENT_CONFIG_SET = 2;
 }
 
-message PolicyMapEvent {
+message PolicyMapWatchResponse {
    PolicyMapKey key = 1;
    oneof policy_map_event {
       PolicyMapEventType event_type = 2;
@@ -284,7 +284,7 @@ message PolicyMapsRequest {
 }
 
 message PolicyMapsResponse {
-   PolicyMap policy_map = 1;
+   PolicyMapKey key = 1;
 }
 
 message PolicyMapApplyRequest {

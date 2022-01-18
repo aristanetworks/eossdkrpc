@@ -17,24 +17,24 @@ message AclRuleBase {
 // An individual ACL rule for IPv4 or IPv6 ACLs.
 message AclRuleIp {
    AclRuleBase base_fields = 1;
-   uint32 vlan = 2;
-   uint32 vlan_mask = 3;
-   uint32 inner_vlan = 4;
-   uint32 inner_vlan_mask = 5;
-   uint32 ip_protocol = 6;
+   uint32 vlan = 2; // Must be in range 0 to 65535
+   uint32 vlan_mask = 3; // Must be in range 0 to 65535
+   uint32 inner_vlan = 4; // Must be in range 0 to 65535
+   uint32 inner_vlan_mask = 5; // Must be in range 0 to 65535
+   uint32 ip_protocol = 6; // Must be in range 0 to 255
    AclTtlSpec ttl = 7;
    IpAddrMask source_addr = 8;
    IpAddrMask destination_addr = 9;
    AclPortSpec source_port = 10;
    AclPortSpec destination_port = 11;
    string nexthop_group = 12;
-   uint32 tcp_flags = 13;
+   uint32 tcp_flags = 13; // Must be in range 0 to 65535
    AclIpType ip_type = 14;
    bool established = 15;
-   uint32 icmp_type = 16;
-   uint32 icmp_code = 17;
-   uint32 priority_value = 18;
-   uint32 priority_mask = 19;
+   uint32 icmp_type = 16; // Must be in range 0 to 65535
+   uint32 icmp_code = 17; // Must be in range 0 to 65535
+   uint32 priority_value = 18; // Must be in range 0 to 255
+   uint32 priority_mask = 19; // Must be in range 0 to 255
    bool match_fragments = 20;
    bool match_ip_priority = 21;
 }
@@ -42,13 +42,13 @@ message AclRuleIp {
 // A UDP or TCP port specifier.
 message AclPortSpec {
    AclRangeOperator oper = 1;
-   repeated uint32 ports = 2;
+   repeated uint32 ports = 2; // Must be in range 0 to 65535
 }
 
 // A TTL specifier, used in an IP ACL rule to define TTLs to match.
 message AclTtlSpec {
    AclRangeOperator oper = 1;
-   uint32 ttl = 2;
+   uint32 ttl = 2; // Must be in range 0 to 65535
 }
 
 // The direction in which an ACL is applied.
@@ -78,7 +78,7 @@ enum AclAction {
 
 // IP traffic type to be matched.
 enum AclIpType {
-   ACL_IP_TYPE_NULL = 0;
+   ACL_IP_TYPE_NOT_SET = 0;
    ACL_IP_TYPE_ANY = 1;
    ACL_IP_TYPE_IP = 2;
    ACL_IP_TYPE_MPLS = 3;

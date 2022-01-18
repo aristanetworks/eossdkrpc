@@ -842,7 +842,7 @@
             "name": "AclIpType",
             "enum_fields": [
               {
-                "name": "ACL_IP_TYPE_NULL"
+                "name": "ACL_IP_TYPE_NOT_SET"
               },
               {
                 "name": "ACL_IP_TYPE_ANY",
@@ -6193,23 +6193,18 @@
             "fields": [
               {
                 "id": 1,
-                "name": "key",
-                "type": "PolicyMapKey"
-              },
-              {
-                "id": 2,
-                "name": "interest",
+                "name": "all",
                 "type": "bool"
               },
               {
-                "id": 3,
-                "name": "agent_name",
-                "type": "string"
+                "id": 2,
+                "name": "key",
+                "type": "PolicyMapKey"
               }
             ]
           },
           {
-            "name": "PolicyMapEvent",
+            "name": "PolicyMapWatchResponse",
             "fields": [
               {
                 "id": 1,
@@ -6373,8 +6368,8 @@
             "fields": [
               {
                 "id": 1,
-                "name": "policy_map",
-                "type": "PolicyMap"
+                "name": "key",
+                "type": "PolicyMapKey"
               }
             ]
           },
@@ -6480,7 +6475,7 @@
               {
                 "name": "watch",
                 "in_type": "PolicyMapWatchRequest",
-                "out_type": "PolicyMapEvent",
+                "out_type": "PolicyMapWatchResponse",
                 "out_streamed": true
               },
               {
@@ -6577,18 +6572,6 @@
       "def": {
         "enums": [
           {
-            "name": "PolicyMapCondition",
-            "enum_fields": [
-              {
-                "name": "POLICY_MAP_CONDITION_NULL"
-              },
-              {
-                "name": "POLICY_MAP_CONDITION_ANY",
-                "integer": 1
-              }
-            ]
-          },
-          {
             "name": "PolicyFeature",
             "enum_fields": [
               {
@@ -6644,7 +6627,7 @@
             "name": "PolicyMapRuleType",
             "enum_fields": [
               {
-                "name": "POLICY_RULE_TYPE_NULL"
+                "name": "POLICY_RULE_TYPE_NOT_SET"
               },
               {
                 "name": "POLICY_RULE_TYPE_CLASSMAP",
@@ -6788,7 +6771,7 @@
             "fields": [
               {
                 "id": 1,
-                "name": "hw_statuses",
+                "name": "status_values",
                 "type": "PolicyMapStatusValue",
                 "is_repeated": true
               }
@@ -6821,16 +6804,6 @@
                 "id": 2,
                 "name": "direction",
                 "type": "AclDirection"
-              }
-            ]
-          },
-          {
-            "name": "UnsupportedPolicyFeatureError",
-            "fields": [
-              {
-                "id": 1,
-                "name": "policy_feature",
-                "type": "PolicyFeature"
               }
             ]
           }

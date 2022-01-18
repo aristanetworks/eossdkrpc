@@ -18,8 +18,8 @@ message PolicyMapAction {
    string nexthop_group_name = 2;
    repeated bytes nexthops = 3;
    string vrf = 4;
-   uint32 dscp = 5;
-   uint32 traffic_class = 6;
+   uint32 dscp = 5; // Must be in range 0 to 255
+   uint32 traffic_class = 6; // Must be in range 0 to 255
 }
 
 message PolicyMapKey {
@@ -35,7 +35,7 @@ message PolicyMapRule {
 }
 
 message PolicyMapHwStatuses {
-   repeated PolicyMapStatusValue hw_statuses = 1;
+   repeated PolicyMapStatusValue status_values = 1;
 }
 
 message PolicyMapStatusValue {
@@ -46,16 +46,6 @@ message PolicyMapStatusValue {
 message PolicyMapHwStatusKey {
    IntfId intf_id = 1;
    AclDirection direction = 2;
-}
-
-message UnsupportedPolicyFeatureError {
-   PolicyFeature policy_feature = 1;
-}
-
-// The default match condition for the policy map.
-enum PolicyMapCondition {
-   POLICY_MAP_CONDITION_NULL = 0;
-   POLICY_MAP_CONDITION_ANY = 1;
 }
 
 // A hardware feature a policy map can be used with.
@@ -78,7 +68,7 @@ enum PolicyActionType {
 }
 
 enum PolicyMapRuleType {
-   POLICY_RULE_TYPE_NULL = 0;
+   POLICY_RULE_TYPE_NOT_SET = 0;
    POLICY_RULE_TYPE_CLASSMAP = 1;
    POLICY_RULE_TYPE_IPV4 = 2;
    POLICY_RULE_TYPE_IPV6 = 3;
