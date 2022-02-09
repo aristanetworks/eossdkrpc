@@ -12,6 +12,14 @@ message MacsecIntfStatus {
    MacsecIntfTrafficStatus traffic_status = 2;
 }
 
+message MacsecIntfCounters {
+   uint64 out_pkts_encrypted = 1;
+   uint64 out_octets_encrypted = 2;
+   uint64 in_pkts_decrypted = 3;
+   uint64 in_octets_decrypted = 4;
+   uint64 in_pkts_not_valid = 5;
+}
+
 message MacsecProfile {
    string profile_name = 1;
    MacsecKey primary_key = 2;

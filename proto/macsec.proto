@@ -14,11 +14,11 @@ service MacsecMgrService {
    rpc watch( MacsecWatchRequest ) returns ( stream MacsecWatchResponse ) {}
    
    // Returns whether or not a profile with the given name exists.
-   rpc exists( MacsecProfileExistsRequest ) returns ( MacsecProfileExistsResponse ) {}
+   rpc exists( MacsecExistsRequest ) returns ( MacsecExistsResponse ) {}
    
    // Returns the MACsec profile with the given name, 
    // if no profile is found, the response is empty.
-   rpc macsec_profile( MacsecProfileRequest ) returns ( MacsecProfileResponse ) {}
+   rpc profile( MacsecProfileRequest ) returns ( MacsecProfileResponse ) {}
    
    // Writes the given profile to MACsec config. If a profile with the given name
    // already exists, it will be updated with the given fields.
@@ -38,10 +38,10 @@ service MacsecMgrService {
    rpc intf_profile( MacsecIntfProfileRequest ) returns ( MacsecIntfProfileResponse ) {}
    
    // Configures the given interface to use the given MACsec profile.
-   rpc intf_profile_is( MacsecIntfProfileSetRequest ) returns ( MacsecIntfProfileSetResponse ) {}
+   rpc intf_profile_is( MacsecIntfProfileIsRequest ) returns ( MacsecIntfProfileIsResponse ) {}
 
    // Bulk version of intf_profile_set.
-   rpc bulk_intf_profile_is( BulkMacsecIntfProfileSetRequest ) returns ( BulkMacsecIntfProfileSetResponse ) {}
+   rpc bulk_intf_profile_is( BulkMacsecIntfProfileIsRequest ) returns ( BulkMacsecIntfProfileIsResponse ) {}
 
    // Returns whether or not an interface supports MACsec.
    rpc macsec_capable( MacsecCapableRequest ) returns ( MacsecCapableResponse ) {}
@@ -71,11 +71,11 @@ message MacsecWatchResponse {
    MacsecIntfStatus status = 2;
 }
 
-message MacsecProfileExistsRequest {
+message MacsecExistsRequest {
    string profile_name = 1;
 }
 
-message MacsecProfileExistsResponse {
+message MacsecExistsResponse {
    bool exists = 1;
 }
 
@@ -105,11 +105,10 @@ message BulkMacsecProfileSetResponse {
 }
 
 message MacsecProfileDelRequest {
-   MacsecProfile profile = 1;
+   string profile_name = 1;
 }
 
 message MacsecProfileDelResponse {
-   RpcResponseStatus response_status = 1;
 }
 
 message BulkMacsecProfileDelRequest {
@@ -121,10 +120,6 @@ message BulkMacsecProfileDelResponse {
    RpcResponseStatus status = 2;
 }
 
-message MacsecProfileName {
-   string value = 1;
-}
-
 message MacsecIntfProfileRequest {
    IntfId intf_id = 1;
 }
@@ -133,20 +128,20 @@ message MacsecIntfProfileResponse {
    string macsec_profile_name = 1;
 }
 
-message MacsecIntfProfileSetRequest {
+message MacsecIntfProfileIsRequest {
    IntfId intf_id = 1;
    string mac_sec_profile_name = 2;
 }
 
-message MacsecIntfProfileSetResponse {
+message MacsecIntfProfileIsResponse {
    RpcResponseStatus response_status = 1;
 }
 
-message BulkMacsecIntfProfileSetRequest {
-   repeated MacsecIntfProfileSetRequest requests = 1;
+message BulkMacsecIntfProfileIsRequest {
+   repeated MacsecIntfProfileIsRequest requests = 1;
 }
 
-message BulkMacsecIntfProfileSetResponse {
+message BulkMacsecIntfProfileIsResponse {
    uint64 processed = 1;
    RpcResponseStatus status = 2;
 }
@@ -164,9 +159,7 @@ message MacsecIntfStatusRequest {
 }
 
 message MacsecIntfStatusResponse {
-   MacsecIntfKeyStatus status = 1;
-   MacsecIntfKeyStatus key_status = 2;
-   MacsecIntfTrafficStatus traffic_status = 3;
+   MacsecIntfStatus status = 1;
 }
 
 message MacsecIntfCountersRequest {
@@ -174,11 +167,7 @@ message MacsecIntfCountersRequest {
 }
 
 message MacsecIntfCountersResponse {
-   uint64 out_pkts_encrypted = 1;
-   uint64 out_octets_encrypted = 2;
-   uint64 in_pkts_decrypted = 3;
-   uint64 in_octets_decrypted = 4;
-   uint64 in_pkts_not_valid = 5;
+   MacsecIntfCounters counters = 1;
 }
 
 message MacsecProfilesRequest {}

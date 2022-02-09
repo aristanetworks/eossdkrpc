@@ -4956,7 +4956,7 @@
             ]
           },
           {
-            "name": "MacsecProfileExistsRequest",
+            "name": "MacsecExistsRequest",
             "fields": [
               {
                 "id": 1,
@@ -4966,7 +4966,7 @@
             ]
           },
           {
-            "name": "MacsecProfileExistsResponse",
+            "name": "MacsecExistsResponse",
             "fields": [
               {
                 "id": 1,
@@ -5046,20 +5046,13 @@
             "fields": [
               {
                 "id": 1,
-                "name": "profile",
-                "type": "MacsecProfile"
+                "name": "profile_name",
+                "type": "string"
               }
             ]
           },
           {
-            "name": "MacsecProfileDelResponse",
-            "fields": [
-              {
-                "id": 1,
-                "name": "response_status",
-                "type": "RpcResponseStatus"
-              }
-            ]
+            "name": "MacsecProfileDelResponse"
           },
           {
             "name": "BulkMacsecProfileDelRequest",
@@ -5088,16 +5081,6 @@
             ]
           },
           {
-            "name": "MacsecProfileName",
-            "fields": [
-              {
-                "id": 1,
-                "name": "value",
-                "type": "string"
-              }
-            ]
-          },
-          {
             "name": "MacsecIntfProfileRequest",
             "fields": [
               {
@@ -5118,7 +5101,7 @@
             ]
           },
           {
-            "name": "MacsecIntfProfileSetRequest",
+            "name": "MacsecIntfProfileIsRequest",
             "fields": [
               {
                 "id": 1,
@@ -5133,7 +5116,7 @@
             ]
           },
           {
-            "name": "MacsecIntfProfileSetResponse",
+            "name": "MacsecIntfProfileIsResponse",
             "fields": [
               {
                 "id": 1,
@@ -5143,18 +5126,18 @@
             ]
           },
           {
-            "name": "BulkMacsecIntfProfileSetRequest",
+            "name": "BulkMacsecIntfProfileIsRequest",
             "fields": [
               {
                 "id": 1,
                 "name": "requests",
-                "type": "MacsecIntfProfileSetRequest",
+                "type": "MacsecIntfProfileIsRequest",
                 "is_repeated": true
               }
             ]
           },
           {
-            "name": "BulkMacsecIntfProfileSetResponse",
+            "name": "BulkMacsecIntfProfileIsResponse",
             "fields": [
               {
                 "id": 1,
@@ -5204,17 +5187,7 @@
               {
                 "id": 1,
                 "name": "status",
-                "type": "MacsecIntfKeyStatus"
-              },
-              {
-                "id": 2,
-                "name": "key_status",
-                "type": "MacsecIntfKeyStatus"
-              },
-              {
-                "id": 3,
-                "name": "traffic_status",
-                "type": "MacsecIntfTrafficStatus"
+                "type": "MacsecIntfStatus"
               }
             ]
           },
@@ -5233,28 +5206,8 @@
             "fields": [
               {
                 "id": 1,
-                "name": "out_pkts_encrypted",
-                "type": "uint64"
-              },
-              {
-                "id": 2,
-                "name": "out_octets_encrypted",
-                "type": "uint64"
-              },
-              {
-                "id": 3,
-                "name": "in_pkts_decrypted",
-                "type": "uint64"
-              },
-              {
-                "id": 4,
-                "name": "in_octets_decrypted",
-                "type": "uint64"
-              },
-              {
-                "id": 5,
-                "name": "in_pkts_not_valid",
-                "type": "uint64"
+                "name": "counters",
+                "type": "MacsecIntfCounters"
               }
             ]
           },
@@ -5297,11 +5250,11 @@
               },
               {
                 "name": "exists",
-                "in_type": "MacsecProfileExistsRequest",
-                "out_type": "MacsecProfileExistsResponse"
+                "in_type": "MacsecExistsRequest",
+                "out_type": "MacsecExistsResponse"
               },
               {
-                "name": "macsec_profile",
+                "name": "profile",
                 "in_type": "MacsecProfileRequest",
                 "out_type": "MacsecProfileResponse"
               },
@@ -5332,13 +5285,13 @@
               },
               {
                 "name": "intf_profile_is",
-                "in_type": "MacsecIntfProfileSetRequest",
-                "out_type": "MacsecIntfProfileSetResponse"
+                "in_type": "MacsecIntfProfileIsRequest",
+                "out_type": "MacsecIntfProfileIsResponse"
               },
               {
                 "name": "bulk_intf_profile_is",
-                "in_type": "BulkMacsecIntfProfileSetRequest",
-                "out_type": "BulkMacsecIntfProfileSetResponse"
+                "in_type": "BulkMacsecIntfProfileIsRequest",
+                "out_type": "BulkMacsecIntfProfileIsResponse"
               },
               {
                 "name": "macsec_capable",
@@ -5528,6 +5481,36 @@
                 "id": 2,
                 "name": "traffic_status",
                 "type": "MacsecIntfTrafficStatus"
+              }
+            ]
+          },
+          {
+            "name": "MacsecIntfCounters",
+            "fields": [
+              {
+                "id": 1,
+                "name": "out_pkts_encrypted",
+                "type": "uint64"
+              },
+              {
+                "id": 2,
+                "name": "out_octets_encrypted",
+                "type": "uint64"
+              },
+              {
+                "id": 3,
+                "name": "in_pkts_decrypted",
+                "type": "uint64"
+              },
+              {
+                "id": 4,
+                "name": "in_octets_decrypted",
+                "type": "uint64"
+              },
+              {
+                "id": 5,
+                "name": "in_pkts_not_valid",
+                "type": "uint64"
               }
             ]
           },
