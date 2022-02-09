@@ -7,6 +7,11 @@ package eos.remote;
 
 import "intf_types.proto";
 
+message MacsecIntfStatus {
+   MacsecIntfKeyStatus key_status = 1;
+   MacsecIntfTrafficStatus traffic_status = 2;
+}
+
 message MacsecProfile {
    string profile_name = 1;
    MacsecKey primary_key = 2;

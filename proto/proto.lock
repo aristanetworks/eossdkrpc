@@ -4941,7 +4941,7 @@
             ]
           },
           {
-            "name": "MacsecEvent",
+            "name": "MacsecWatchResponse",
             "fields": [
               {
                 "id": 1,
@@ -4951,17 +4951,7 @@
               {
                 "id": 2,
                 "name": "status",
-                "type": "MacsecIntfKeyStatus"
-              },
-              {
-                "id": 3,
-                "name": "key_status",
-                "type": "MacsecIntfKeyStatus"
-              },
-              {
-                "id": 4,
-                "name": "traffic_status",
-                "type": "MacsecIntfTrafficStatus"
+                "type": "MacsecIntfStatus"
               }
             ]
           },
@@ -5026,7 +5016,7 @@
             ]
           },
           {
-            "name": "MacsecBulkProfileSetRequest",
+            "name": "BulkMacsecProfileSetRequest",
             "fields": [
               {
                 "id": 1,
@@ -5037,13 +5027,17 @@
             ]
           },
           {
-            "name": "MacsecBulkProfileSetResponse",
+            "name": "BulkMacsecProfileSetResponse",
             "fields": [
               {
                 "id": 1,
-                "name": "responses",
-                "type": "RpcResponseStatus",
-                "is_repeated": true
+                "name": "processed",
+                "type": "uint64"
+              },
+              {
+                "id": 2,
+                "name": "status",
+                "type": "RpcResponseStatus"
               }
             ]
           },
@@ -5068,7 +5062,7 @@
             ]
           },
           {
-            "name": "MacsecBulkProfileDelRequest",
+            "name": "BulkMacsecProfileDelRequest",
             "fields": [
               {
                 "id": 1,
@@ -5079,13 +5073,17 @@
             ]
           },
           {
-            "name": "MacsecBulkProfileDelResponse",
+            "name": "BulkMacsecProfileDelResponse",
             "fields": [
               {
                 "id": 1,
-                "name": "responses",
-                "type": "RpcResponseStatus",
-                "is_repeated": true
+                "name": "processed",
+                "type": "uint64"
+              },
+              {
+                "id": 2,
+                "name": "status",
+                "type": "RpcResponseStatus"
               }
             ]
           },
@@ -5145,7 +5143,7 @@
             ]
           },
           {
-            "name": "MacsecBulkIntfProfileSetRequest",
+            "name": "BulkMacsecIntfProfileSetRequest",
             "fields": [
               {
                 "id": 1,
@@ -5156,13 +5154,17 @@
             ]
           },
           {
-            "name": "MacsecBulkIntfProfileSetResponse",
+            "name": "BulkMacsecIntfProfileSetResponse",
             "fields": [
               {
                 "id": 1,
-                "name": "responses",
-                "type": "RpcResponseStatus",
-                "is_repeated": true
+                "name": "processed",
+                "type": "uint64"
+              },
+              {
+                "id": 2,
+                "name": "status",
+                "type": "RpcResponseStatus"
               }
             ]
           },
@@ -5257,43 +5259,28 @@
             ]
           },
           {
-            "name": "MacsecProfileIterRequest"
+            "name": "MacsecProfilesRequest"
           },
           {
-            "name": "MacsecProfileIterResponse",
+            "name": "MacsecProfilesResponse",
             "fields": [
               {
                 "id": 1,
-                "name": "profile",
-                "type": "MacsecProfile"
+                "name": "name",
+                "type": "string"
               }
             ]
           },
           {
-            "name": "MacsecIntfStatusIterRequest"
+            "name": "MacsecIntfStatusesRequest"
           },
           {
-            "name": "MacsecIntfStatusIterResponse",
+            "name": "MacsecIntfStatusesResponse",
             "fields": [
               {
                 "id": 1,
                 "name": "intf_id",
                 "type": "IntfId"
-              },
-              {
-                "id": 2,
-                "name": "status",
-                "type": "MacsecIntfKeyStatus"
-              },
-              {
-                "id": 3,
-                "name": "key_status",
-                "type": "MacsecIntfKeyStatus"
-              },
-              {
-                "id": 4,
-                "name": "traffic_status",
-                "type": "MacsecIntfTrafficStatus"
               }
             ]
           }
@@ -5305,7 +5292,7 @@
               {
                 "name": "watch",
                 "in_type": "MacsecWatchRequest",
-                "out_type": "MacsecEvent",
+                "out_type": "MacsecWatchResponse",
                 "out_streamed": true
               },
               {
@@ -5325,8 +5312,8 @@
               },
               {
                 "name": "bulk_profile_set",
-                "in_type": "MacsecBulkProfileSetRequest",
-                "out_type": "MacsecBulkProfileSetResponse"
+                "in_type": "BulkMacsecProfileSetRequest",
+                "out_type": "BulkMacsecProfileSetResponse"
               },
               {
                 "name": "profile_del",
@@ -5335,8 +5322,8 @@
               },
               {
                 "name": "bulk_profile_del",
-                "in_type": "MacsecBulkProfileDelRequest",
-                "out_type": "MacsecBulkProfileDelResponse"
+                "in_type": "BulkMacsecProfileDelRequest",
+                "out_type": "BulkMacsecProfileDelResponse"
               },
               {
                 "name": "intf_profile",
@@ -5344,14 +5331,14 @@
                 "out_type": "MacsecIntfProfileResponse"
               },
               {
-                "name": "intf_profile_set",
+                "name": "intf_profile_is",
                 "in_type": "MacsecIntfProfileSetRequest",
                 "out_type": "MacsecIntfProfileSetResponse"
               },
               {
-                "name": "bulk_intf_profile_set",
-                "in_type": "MacsecBulkIntfProfileSetRequest",
-                "out_type": "MacsecBulkIntfProfileSetResponse"
+                "name": "bulk_intf_profile_is",
+                "in_type": "BulkMacsecIntfProfileSetRequest",
+                "out_type": "BulkMacsecIntfProfileSetResponse"
               },
               {
                 "name": "macsec_capable",
@@ -5370,14 +5357,14 @@
               },
               {
                 "name": "macsec_profiles",
-                "in_type": "MacsecProfileIterRequest",
-                "out_type": "MacsecProfileIterResponse",
+                "in_type": "MacsecProfilesRequest",
+                "out_type": "MacsecProfilesResponse",
                 "out_streamed": true
               },
               {
                 "name": "macsec_intf_statuses",
-                "in_type": "MacsecIntfStatusIterRequest",
-                "out_type": "MacsecIntfStatusIterResponse",
+                "in_type": "MacsecIntfStatusesRequest",
+                "out_type": "MacsecIntfStatusesResponse",
                 "out_streamed": true
               }
             ]
@@ -5529,6 +5516,21 @@
           }
         ],
         "messages": [
+          {
+            "name": "MacsecIntfStatus",
+            "fields": [
+              {
+                "id": 1,
+                "name": "key_status",
+                "type": "MacsecIntfKeyStatus"
+              },
+              {
+                "id": 2,
+                "name": "traffic_status",
+                "type": "MacsecIntfTrafficStatus"
+              }
+            ]
+          },
           {
             "name": "MacsecProfile",
             "fields": [
