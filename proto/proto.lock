@@ -5347,27 +5347,23 @@
             "name": "MacsecCipherSuite",
             "enum_fields": [
               {
-                "name": "MACSEC_CIPHER_SUITE_INVALID"
-              },
-              {
-                "name": "MACSEC_CIPHER_SUITE_CIPHER_NULL",
-                "integer": 1
+                "name": "MACSEC_CIPHER_SUITE_CIPHER_NULL"
               },
               {
                 "name": "MACSEC_CIPHER_SUITE_GCM_AES_128",
-                "integer": 2
+                "integer": 1
               },
               {
                 "name": "MACSEC_CIPHER_SUITE_GCM_AES_256",
-                "integer": 4
+                "integer": 2
               },
               {
                 "name": "MACSEC_CIPHER_SUITE_GCM_AES_XPN_128",
-                "integer": 5
+                "integer": 3
               },
               {
                 "name": "MACSEC_CIPHER_SUITE_GCM_AES_XPN_256",
-                "integer": 6
+                "integer": 4
               }
             ]
           },
@@ -5395,23 +5391,19 @@
             "name": "MacsecProfileTrafficPolicy",
             "enum_fields": [
               {
-                "name": "MACSEC_PROFILE_TRAFFIC_POLICY_INVALID"
-              },
-              {
-                "name": "MACSEC_PROFILE_TRAFFIC_POLICY_NULL",
-                "integer": 1
+                "name": "MACSEC_PROFILE_TRAFFIC_POLICY_NULL"
               },
               {
                 "name": "MACSEC_PROFILE_TRAFFIC_POLICY_ACTIVE_SAK",
-                "integer": 2
+                "integer": 1
               },
               {
                 "name": "MACSEC_PROFILE_TRAFFIC_POLICY_UNPROTECTED",
-                "integer": 3
+                "integer": 2
               },
               {
                 "name": "MACSEC_PROFILE_TRAFFIC_POLICY_BLOCKED",
-                "integer": 4
+                "integer": 3
               }
             ]
           },
