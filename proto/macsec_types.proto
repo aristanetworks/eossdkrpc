@@ -57,10 +57,9 @@ enum MacsecCipherSuite {
 
 // Bypass level for a protocol.
 enum MacsecBypass {
-   MACSEC_BYPASS_INVALID = 0;
-   MACSEC_BYPASS_NULL = 1;
-   MACSEC_BYPASS_AUTHORIZED = 2;
-   MACSEC_BYPASS_UNAUTHORIZED = 3;
+   MACSEC_BYPASS_NULL = 0;
+   MACSEC_BYPASS_AUTHORIZED = 1;
+   MACSEC_BYPASS_UNAUTHORIZED = 2;
 }
 
 // Traffic policy on a profile.

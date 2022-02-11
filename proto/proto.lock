@@ -5371,19 +5371,15 @@
             "name": "MacsecBypass",
             "enum_fields": [
               {
-                "name": "MACSEC_BYPASS_INVALID"
-              },
-              {
-                "name": "MACSEC_BYPASS_NULL",
-                "integer": 1
+                "name": "MACSEC_BYPASS_NULL"
               },
               {
                 "name": "MACSEC_BYPASS_AUTHORIZED",
-                "integer": 2
+                "integer": 1
               },
               {
                 "name": "MACSEC_BYPASS_UNAUTHORIZED",
-                "integer": 3
+                "integer": 2
               }
             ]
           },
