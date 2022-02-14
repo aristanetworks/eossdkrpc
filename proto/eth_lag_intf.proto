@@ -569,7 +569,7 @@ message EthLagIntfMembershipStatusResponse {
 message EthLagIntfMemberPriorityIsRequest {
    // Interface ID for the member.
    IntfId member_intf_id = 1;
-   // member priority
+   // member priority. Valid values from 0 to 65535
    uint32 priority = 2;
 }
 
