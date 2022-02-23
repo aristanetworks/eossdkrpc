@@ -5110,7 +5110,7 @@
               },
               {
                 "id": 2,
-                "name": "mac_sec_profile_name",
+                "name": "profile_name",
                 "type": "string"
               }
             ]

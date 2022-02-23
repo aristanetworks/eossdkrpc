@@ -130,7 +130,7 @@ message MacsecIntfProfileResponse {
 
 message MacsecIntfProfileIsRequest {
    IntfId intf_id = 1;
-   string mac_sec_profile_name = 2;
+   string profile_name = 2;
 }
 
 message MacsecIntfProfileIsResponse {
