@@ -7,8 +7,4 @@
 # updated, the hash file shall be updated as well.
 
 cd /src/EosSdkRpcProtos/proto
-if protolock status ; then
-   if protolock commit ; then
-      sha256sum *.proto proto.lock > protolock.shasum
-   fi
-fi
+protolock commit "$@"
