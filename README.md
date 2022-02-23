@@ -4,7 +4,7 @@ Protolock is a simple tool that we use to ensure backwards
 compatability for our protobufs. When updating existing .proto files or 
 adding new ones, please do the following:
 
-A shell script called `checkprotos` have been created to ensure all steps described
+A shell script called `checkprotos` has been created to ensure all steps described
 below have been done. The script affects `/src/EosSdkRpcProtos/proto/proto.lock`,
 which must have write permissions. Once it is writable, running the script
 `/src/EosSdkRpcProtos/checkprotos` should be enough to check compatibility of new

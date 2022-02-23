@@ -7,7 +7,7 @@ This test ensures that any modification to any .proto file in the directory
 `/src/EosSdkRpcProtos/proto` will match the contents in the file `proto.lock`.
 
 These files must be kept in sync so that no changes that could break backwards
-compatibility are rejected.
+compatibility are accepted.
 
 A new proto.lock file, created in a temporary directory, is matched against
 the provided (committed) proto.lock in the directory proto. Both must contain
