@@ -125,7 +125,7 @@ message MacsecIntfProfileRequest {
 }
 
 message MacsecIntfProfileResponse {
-   string macsec_profile_name = 1;
+   string profile_name = 1;
 }
 
 message MacsecIntfProfileIsRequest {

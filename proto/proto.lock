@@ -5095,7 +5095,7 @@
             "fields": [
               {
                 "id": 1,
-                "name": "macsec_profile_name",
+                "name": "profile_name",
                 "type": "string"
               }
             ]
