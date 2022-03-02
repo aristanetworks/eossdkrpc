@@ -23,6 +23,7 @@ service NexthopGroupMgrService {
     *    One of the following changes:
     *       active_status = there was a change in the active status.
     *       nhg_programmed = NHG has been programmed.
+    *    version_id = the nexthop group's version ID if it has been programmed.
     *    
     * EosSdk reference: eos::nexthop_group_handler (class)
     */
@@ -128,25 +129,26 @@ service NexthopGroupMgrService {
    rpc active( NexthopGroupActiveRequest ) returns ( NexthopGroupActiveResponse ) {}
 
    /**
-    * Creates or updates a nexthop group.
+    * Creates or updates a nexthop group and returns its version ID.
     *
     * Request:
     *    nhg = details of the new group
     * Response:
-    *    none
+    *    version_id = the nexthop group's version ID.
     *
     * EosSdk reference: eos::nexthop_group_mgr::nexthop_group_set
     */
    rpc nexthop_group_set( NexthopGroupSetRequest ) returns ( NexthopGroupSetResponse ) {}
 
    /**
-    * Creates or updates multiple nexthops groups in a single call.
+    * Creates or updates multiple nexthops groups in a single call and returns their version IDs.
     *
     * Request:
     *    requests = list of NexthopGroupSetRequest
     * Response:
     *    processed = number of consecutive successful requests.
     *    status = success or error details in case of failure.
+    *    responses = list of NexthopGroupSetResponse.
     *
     * EosSdk reference: eos::nexthop_group_mgr::nexthop_group_set
     */
@@ -204,6 +206,8 @@ message WatchNexthopGroupResponse {
       bool active_status = 2;
       bool nhg_programmed = 3;
    }
+   // Only present when event is for a programmed callback.
+   uint32 version_id = 4;
 }
 
 message ResyncNexthopGroupInitRequest {}
@@ -263,7 +267,9 @@ message NexthopGroupSetRequest {
    NexthopGroup nhg = 1; 
 }
 
-message NexthopGroupSetResponse {}
+message NexthopGroupSetResponse {
+   uint32 version_id = 1;
+}
 
 message BulkNexthopGroupSetRequest {
    repeated NexthopGroupSetRequest requests = 1;
@@ -272,6 +278,7 @@ message BulkNexthopGroupSetRequest {
 message BulkNexthopGroupSetResponse {
    uint64 processed = 1;
    RpcResponseStatus status = 2;
+   repeated NexthopGroupSetResponse responses = 3;
 }
 
 message NexthopGroupDelRequest {

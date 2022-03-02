@@ -5659,6 +5659,11 @@
                 "id": 3,
                 "name": "nhg_programmed",
                 "type": "bool"
+              },
+              {
+                "id": 4,
+                "name": "version_id",
+                "type": "uint32"
               }
             ]
           },
@@ -5796,7 +5801,14 @@
             ]
           },
           {
-            "name": "NexthopGroupSetResponse"
+            "name": "NexthopGroupSetResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "version_id",
+                "type": "uint32"
+              }
+            ]
           },
           {
             "name": "BulkNexthopGroupSetRequest",
@@ -5821,6 +5833,12 @@
                 "id": 2,
                 "name": "status",
                 "type": "RpcResponseStatus"
+              },
+              {
+                "id": 3,
+                "name": "responses",
+                "type": "NexthopGroupSetResponse",
+                "is_repeated": true
               }
             ]
           },
