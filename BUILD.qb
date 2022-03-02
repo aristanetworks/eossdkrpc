@@ -5,6 +5,7 @@
 # globals
 
 include( 'version.qbi' )
+include( 'Grpc.qbi' )
 
 include_dirs = [
    '-I$target_dir',
@@ -101,57 +102,16 @@ data(
    inst_dir='$DATADIR/EosSdkRpc/proto',
 )
 
-#-----------------------------------------------------------------------
-# Python protobuf generation
 
-def _protoc_py_output( pkg=None, target_name=None, sources=None ):
-   targets = []
-   for source in sources:
-      assert source.endswith( '.proto' )
-      basename = source.split( '/' )[ -1 ][ :-6 ] # exclude .proto extension
-      targets.append( basename + '_pb2.py' )
-      targets.append( basename + '_pb2_grpc.py' )
-   return targets
-
-def _protobuf_py_output( pkg=None, target_name=None, sources=None ):
-   targets = []
-   for source in sources:
-      assert source.endswith( '.proto' )
-      basename = source.split( '/' )[ -1 ][ :-6 ] # exclude .proto extension
-      targets.append( basename + '_pb2.py' )
-   return targets
-
-template(
-   'protoc_py',
-   description='Generate python gRPC and protobuf files',
-   script='protoc -I ${src_dir}/proto --python_out=${target_dir} '
-      '--grpc_out ${target_dir} --plugin=protoc-gen-grpc=`which grpc_python_plugin` '
-      '${in}',
-   outputs_generator=_protoc_py_output,
-   is_source_generator=True,
-)
-
-
-protoc_py(
+protocPyGenerated = protoc_py(
    'proto',
    sources=grpcFiles,
-)
+)[0]
 
-template(
-   'protobuf_py',
-   description='Generate python protobufs',
-   script='protoc -I ${src_dir}/proto --python_out=${target_dir} ${in}',
-   outputs_generator=_protobuf_py_output,
-   is_source_generator=True,
-)
-
-protobuf_py(
+protocPyGenerated += protobuf_py(
    'protobuf_py',
    sources=protobufFiles,
-)
-
-protocPyGenerated = _protoc_py_output( sources=grpcFiles ) + \
-   _protobuf_py_output( sources=protobufFiles )
+)[0]
 
 #-----------------------------------------------------------------------
 # Python sources
@@ -166,77 +126,20 @@ py_library(
 
 py_test( 'StaleProtoLockTest.py' )
 
-#-----------------------------------------------------------------------
-# Cpp protobuf generation
 
-def _protoc_cpp_output( pkg=None, target_name=None, sources=None ):
-   targets = []
-   for source in sources:
-      assert source.endswith( '.proto' )
-      basename = source.split( '/' )[ -1 ][ :-6 ] # exclude .proto extension
-      targets.append( basename + '.pb.h' )
-      targets.append( basename + '.pb.cc' )
-      targets.append( basename + '.grpc.pb.h' )
-      targets.append( basename + '.grpc.pb.cc' )
-   return targets
-
-def _protobuf_cpp_output( pkg=None, target_name=None, sources=None ):
-   targets = []
-   for source in sources:
-      assert source.endswith( '.proto' )
-      basename = source.split( '/' )[ -1 ][ :-6 ] # exclude .proto extension
-      targets.append( basename + '.pb.h' )
-      targets.append( basename + '.pb.cc' )
-   return targets
-
-template(
-   'protoc_cpp',
-   description="PROTOC ${in}",
-   script='protoc -I ${src_dir}/proto --cpp_out=${target_dir} '
-      '--grpc_out ${target_dir} --plugin=protoc-gen-grpc=`which grpc_cpp_plugin` '
-      '${in}',
-   outputs_generator=_protoc_cpp_output,
-   is_source_generator=True,
-)
-
-protoc_cpp(
+protocCppGenerated = protoc_cpp(
    'protoc',
    sources=grpcFiles,
-)
+)[ 0 ]
 
-template(
-   'protobuf_cpp',
-   description="PROTOC ${in}",
-   script='protoc -I ${src_dir}/proto --cpp_out=${target_dir} ${in}',
-   outputs_generator=_protobuf_cpp_output,
-   is_source_generator=True,
-)
-
-protobuf_cpp(
+protocCppGenerated += protobuf_cpp(
    'protobufc',
    sources=protobufFiles,
-)
-
-protocCppGenerated = _protoc_cpp_output( sources=grpcFiles ) + \
-   _protobuf_cpp_output( sources=protobufFiles )
-
-def _protoc_cpp_headers( pkg=None, target_name=None, sources=None,
-                         generateGrpc=True ):
-   headers=[]
-   for source in sources:
-      assert source.endswith( '.proto' )
-      basename = source.split( '/' )[ -1 ][ :-6 ] # exclude .proto extension
-      headers.append( basename + '.pb.h' )
-      if generateGrpc:
-         headers.append( basename + '.grpc.pb.h' )
-   return headers
-
-protocCppGeneratedHeaders = _protoc_cpp_headers( sources=grpcFiles ) + \
-   _protobuf_cpp_output( sources=protobufFiles )
+)[ 0 ]
 
 data(
    'protoHeaderInstall',
-   sources=protocCppGeneratedHeaders,
+   sources=[ f for f in protocCppGenerated if f.endswith( '.h' ) ],
    inst_dir='$INCLUDEDIR/EosSdkRpc',
 )
 
@@ -245,7 +148,7 @@ data(
 
 shared_library(
    'EosSdkRpcProtos',
-   sources=protocCppGenerated,
+   sources=list( protocCppGenerated ),
    libs=[
       '-lgrpc++',
       '-lgrpc',

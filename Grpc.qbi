@@ -1,0 +1,83 @@
+# Copyright (c) 2021 Arista Networks, Inc.  All rights reserved.
+# Arista Networks, Inc. Confidential and Proprietary.
+
+#-----------------------------------------------------------------------
+# Python protobuf generation
+
+def protoc_py_output( pkg=None, target_name=None, sources=None ):
+   targets = []
+   for source in sources:
+      assert source.endswith( '.proto' )
+      basename = source.split( '/' )[ -1 ][ :-6 ] # exclude .proto extension
+      targets.append( basename + '_pb2.py' )
+      targets.append( basename + '_pb2_grpc.py' )
+   return targets
+
+def protobuf_py_output( pkg=None, target_name=None, sources=None ):
+   targets = []
+   for source in sources:
+      assert source.endswith( '.proto' )
+      basename = source.split( '/' )[ -1 ][ :-6 ] # exclude .proto extension
+      targets.append( basename + '_pb2.py' )
+   return targets
+
+template(
+   'protoc_py',
+   description='Generate python gRPC and protobuf files',
+   script='protoc -I ${src_dir}/proto --python_out=${target_dir} '
+      '--grpc_out ${target_dir} --plugin=protoc-gen-grpc=`which grpc_python_plugin` '
+      '${in}',
+   outputs_generator=protoc_py_output,
+   is_source_generator=True,
+)
+
+template(
+   'protobuf_py',
+   description='Generate python protobufs',
+   script='protoc -I ${src_dir}/proto --python_out=${target_dir} ${in}',
+   outputs_generator=protobuf_py_output,
+   is_source_generator=True,
+)
+
+#-----------------------------------------------------------------------
+# Cpp protobuf generation
+
+def protoc_cpp_output( pkg=None, target_name=None, sources=None ):
+   targets = []
+   for source in sources:
+      assert source.endswith( '.proto' )
+      basename = source.split( '/' )[ -1 ][ :-6 ] # exclude .proto extension
+      targets.append( basename + '.pb.h' )
+      targets.append( basename + '.pb.cc' )
+      targets.append( basename + '.grpc.pb.h' )
+      targets.append( basename + '.grpc.pb.cc' )
+   return targets
+
+def protobuf_cpp_output( pkg=None, target_name=None, sources=None ):
+   targets = []
+   for source in sources:
+      assert source.endswith( '.proto' )
+      basename = source.split( '/' )[ -1 ][ :-6 ] # exclude .proto extension
+      targets.append( basename + '.pb.h' )
+      targets.append( basename + '.pb.cc' )
+   return targets
+
+
+template(
+   'protoc_cpp',
+   description="PROTOC ${in}",
+   script='protoc -I ${src_dir}/proto --cpp_out=${target_dir} '
+      '--grpc_out ${target_dir} --plugin=protoc-gen-grpc=`which grpc_cpp_plugin` '
+      '${in}',
+   outputs_generator=protoc_cpp_output,
+   is_source_generator=True,
+)
+
+
+template(
+   'protobuf_cpp',
+   description="PROTOC ${in}",
+   script='protoc -I ${src_dir}/proto --cpp_out=${target_dir} ${in}',
+   outputs_generator=protobuf_cpp_output,
+   is_source_generator=True,
+)
