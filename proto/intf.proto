@@ -18,10 +18,12 @@ service IntfMgrService {
     * Making this request with all = false and no intf_id has no effect.
     * 
     * Request:
+    *    ack = set to true when an ackowledgment is desired.
     *    One of these options:
     *       all = true
     *       intf_id = name of a particular interface to watch.
     * Response: Events are streamed as changes happen:
+    *    ack = if true, this a only a response. The fields below are invalid.
     *    intf_id = interface whose status changed.
     *    One of the following changes:
     *       event = Interface has been added or removed.
@@ -175,6 +177,7 @@ message WatchIntfRequest {
       bool all_intfs = 1;
       IntfId intf_id = 2;
    }
+   bool ack = 3;
 }
 
 enum IntfEvents {
@@ -191,6 +194,7 @@ message WatchIntfResponse {
       bool admin_enabled = 4;
       string description = 5;
    }
+   bool ack = 6;
 }
 
 message IntfsRequest {}

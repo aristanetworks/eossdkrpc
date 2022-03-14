@@ -15,10 +15,12 @@ service NexthopGroupMgrService {
     * When all = false and no name is specified, this request has no effect.
     * 
     * Request:
+    *    ack = set to true when an ackowledgment is desired.
     *    One of these options:
     *       all = true
     *       name = name of a particular nexthop group to watch.
     * Response: Events are streamed as changes happen:
+    *    ack = if true, this a only a response. The fields below are invalid.
     *    name = interface whose status changed (ignored on confirmation).
     *    One of the following changes:
     *       active_status = there was a change in the active status.
@@ -197,7 +199,7 @@ message WatchNexthopGroupRequest {
       bool all = 1;
       string name = 2;
    }
-   bool recv_notifications = 3;
+   bool ack = 3;
 }
 
 message WatchNexthopGroupResponse {
@@ -208,6 +210,7 @@ message WatchNexthopGroupResponse {
    }
    // Only present when event is for a programmed callback.
    uint32 version_id = 4;
+   bool ack = 5;
 }
 
 message ResyncNexthopGroupInitRequest {}

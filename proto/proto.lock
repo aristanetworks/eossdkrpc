@@ -1399,6 +1399,11 @@
                 "id": 2,
                 "name": "peer_key",
                 "type": "BgpPeerKey"
+              },
+              {
+                "id": 3,
+                "name": "ack",
+                "type": "bool"
               }
             ]
           },
@@ -1419,6 +1424,11 @@
                 "id": 3,
                 "name": "peer_state",
                 "type": "BgpPeerStates"
+              },
+              {
+                "id": 4,
+                "name": "ack",
+                "type": "bool"
               }
             ]
           },
@@ -1517,6 +1527,11 @@
                 "id": 3,
                 "name": "ipv6_unicast_paths",
                 "type": "bool"
+              },
+              {
+                "id": 4,
+                "name": "ack",
+                "type": "bool"
               }
             ]
           },
@@ -1536,6 +1551,11 @@
               {
                 "id": 3,
                 "name": "converged",
+                "type": "bool"
+              },
+              {
+                "id": 4,
+                "name": "ack",
                 "type": "bool"
               }
             ]
@@ -2064,6 +2084,11 @@
                 "id": 2,
                 "name": "eth_lag_intf_id",
                 "type": "IntfId"
+              },
+              {
+                "id": 4,
+                "name": "ack",
+                "type": "bool"
               }
             ]
           },
@@ -2089,6 +2114,11 @@
                 "id": 4,
                 "name": "speed",
                 "type": "uint64"
+              },
+              {
+                "id": 5,
+                "name": "ack",
+                "type": "bool"
               }
             ]
           },
@@ -3244,6 +3274,11 @@
                 "id": 2,
                 "name": "intf_id",
                 "type": "IntfId"
+              },
+              {
+                "id": 3,
+                "name": "ack",
+                "type": "bool"
               }
             ]
           },
@@ -3274,6 +3309,11 @@
                 "id": 5,
                 "name": "description",
                 "type": "string"
+              },
+              {
+                "id": 6,
+                "name": "ack",
+                "type": "bool"
               }
             ]
           },
@@ -3846,6 +3886,11 @@
                 "id": 2,
                 "name": "intf_id",
                 "type": "IntfId"
+              },
+              {
+                "id": 4,
+                "name": "ack",
+                "type": "bool"
               }
             ]
           },
@@ -5637,7 +5682,7 @@
               },
               {
                 "id": 3,
-                "name": "recv_notifications",
+                "name": "ack",
                 "type": "bool"
               }
             ]
@@ -5664,6 +5709,11 @@
                 "id": 4,
                 "name": "version_id",
                 "type": "uint32"
+              },
+              {
+                "id": 5,
+                "name": "ack",
+                "type": "bool"
               }
             ]
           },
@@ -6218,6 +6268,11 @@
                 "id": 2,
                 "name": "key",
                 "type": "PolicyMapKey"
+              },
+              {
+                "id": 4,
+                "name": "ack",
+                "type": "bool"
               }
             ]
           },
@@ -6238,6 +6293,11 @@
                 "id": 3,
                 "name": "sync_fail_message",
                 "type": "string"
+              },
+              {
+                "id": 4,
+                "name": "ack",
+                "type": "bool"
               }
             ]
           },

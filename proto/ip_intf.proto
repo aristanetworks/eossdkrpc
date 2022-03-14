@@ -17,10 +17,12 @@ service IpIntfMgrService {
     * Making this request with all = false and no intf_id has no effect.
     *
     * Request:
+    *    ack = set to true when an ackowledgment is desired.
     *    One of these options:
     *       all = true.
     *       intf_id = name of a particular interface to watch.
     * Response: Stream of events:
+    *    ack = if true, this a only a response. The fields below are invalid.
     *    intf_id = name of the interface.
     *    one of the possible changes:
     *       addr = notifies a change in the interface's addresses.
@@ -167,6 +169,7 @@ message IpIntfWatchRequest {
       bool all_intfs = 1;
       IntfId intf_id = 2;
    }
+   bool ack = 4;
 }
 
 message IpIntfEvent {
@@ -175,6 +178,7 @@ message IpIntfEvent {
       IpAddrEvent addr = 2;
       VlanId vlan_id = 3;
    }
+   bool ack = 4;
 } 
 
 message IpIntfExistsRequest {

@@ -24,6 +24,7 @@ message WatchBgpPeerRequest {
       bool all_peers = 1;
       BgpPeerKey peer_key = 2;
    }
+   bool ack = 3;
 }
 
 message WatchBgpPeerResponse {
@@ -31,7 +32,8 @@ message WatchBgpPeerResponse {
    oneof peer_event {
       BgpPeerEvents event = 2;
       BgpPeerStates peer_state = 3;
-   } 
+   }
+   bool ack = 4;
 }
 
 message PeerExistsRequest {

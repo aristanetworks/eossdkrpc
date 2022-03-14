@@ -17,10 +17,12 @@ service PolicyMapMgrService {
    * stays active until the client cancels or the server shuts down.
    *
    * Request:
+   *    ack = set to true if an immediate acknowledgment is desired.
    *    One of these options:
    *       all = true if all policy maps should be watched.
    *       key = the key of the policy map to recieve notifications for.
    * Response:
+   *    ack = if true, this a only a response. The fields below are invalid.
    *    key = the key of the policy map that triggered the event.
    *    One of these options:
    *       event_type = the type of event.
@@ -212,6 +214,7 @@ message PolicyMapWatchRequest {
       bool all = 1;
       PolicyMapKey key = 2;
    }
+   bool ack = 4;
 }
 
 enum PolicyMapEventType {
@@ -226,6 +229,7 @@ message PolicyMapWatchResponse {
       PolicyMapEventType event_type = 2;
       string sync_fail_message = 3;
    }
+   bool ack = 4;
 }
 
 message PolicyMapResyncInitRequest {}

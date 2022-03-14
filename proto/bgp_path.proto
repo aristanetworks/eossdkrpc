@@ -15,11 +15,13 @@ service BgpPathMgrService {
     * When all = false and no version is specified, this request has no effect.
     * 
     * Request:
+    *    ack = set to true when an ackowledgment is desired.
     *    One of these options:
     *       all = true
     *       ipv4_unicast_paths = true if IPv4 unicast paths should be monitored.
     *       ipv6_unicast_paths = true if IPv6 unicast paths should be monitored.
     * Response: Events are streamed as changes happen:
+    *    ack = if true, this a only a response. The fields below are invalid.
     *    ip_version = IP family affected by the event.
     *    One of the following changes:
     *       path_key = path changed in adj-RIB-in.
@@ -120,6 +122,7 @@ message BgpPathWatchRequest {
       bool ipv4_unicast_paths = 2;
       bool ipv6_unicast_paths = 3;
    }
+   bool ack = 4;
 }
 
 message BgpPathWatchResponse {
@@ -128,6 +131,7 @@ message BgpPathWatchResponse {
       BgpPathKey path_key = 2;
       bool converged = 3;
    }
+   bool ack = 4;
 }
 
 message Ipv4UnicastPathsRequest {

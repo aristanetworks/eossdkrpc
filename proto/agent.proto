@@ -15,11 +15,12 @@ service AgentService {
     *    eos::agent_handler::on_agent_option:
     *       Configuration option of the agent has changed.
     *
-    *       Request:
-    *          None
-    *       Response: Events are streamed as changes happen:
-    *          option: the name of the option for which the notification is received.
-    *          value: the new option value.
+    * Request:
+    *    ack = set to true when an ackowledgment is desired.
+    * Response: Events are streamed as changes happen:
+    *    ack = if true, this a only a response. The fields below are invalid.
+    *    option: the name of the option for which the notification is received.
+    *    value: the new option value.
     *
     * The events on_initialized and on_agent_enabled are out of rpc scope since
     * they imply on creation and destruction of the RPC server itself.
@@ -176,7 +177,9 @@ service AgentService {
    rpc agent_uptime( AgentUptimeRequest ) returns ( AgentUptimeResponse );
 }
 
-message WatchAgentRequest {}
+message WatchAgentRequest {
+   bool ack = 1;
+}
 
 message AgentOption {
    string name = 1;
@@ -187,6 +190,7 @@ message WatchAgentResponse {
    oneof agent_event {
       AgentOption option_event = 1;
    }
+   bool ack = 2;
 }
 
 message AgentIdRequest {
