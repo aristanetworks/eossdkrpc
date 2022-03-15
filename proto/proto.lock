@@ -1037,7 +1037,14 @@
       "def": {
         "messages": [
           {
-            "name": "WatchAgentRequest"
+            "name": "WatchAgentRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "ack",
+                "type": "bool"
+              }
+            ]
           },
           {
             "name": "AgentOption",
@@ -1061,6 +1068,11 @@
                 "id": 1,
                 "name": "option_event",
                 "type": "AgentOption"
+              },
+              {
+                "id": 2,
+                "name": "ack",
+                "type": "bool"
               }
             ]
           },
@@ -3911,6 +3923,11 @@
                 "id": 3,
                 "name": "vlan_id",
                 "type": "VlanId"
+              },
+              {
+                "id": 4,
+                "name": "ack",
+                "type": "bool"
               }
             ]
           },
