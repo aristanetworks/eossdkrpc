@@ -23,7 +23,7 @@ service IntfMgrService {
     *       all = true
     *       intf_id = name of a particular interface to watch.
     * Response: Events are streamed as changes happen:
-    *    ack = if true, this a only a response. The fields below are invalid.
+    *    ack = if true, this not an event and the fields below are invalid.
     *    intf_id = interface whose status changed.
     *    One of the following changes:
     *       event = Interface has been added or removed.

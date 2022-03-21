@@ -20,7 +20,7 @@ service NexthopGroupMgrService {
     *       all = true
     *       name = name of a particular nexthop group to watch.
     * Response: Events are streamed as changes happen:
-    *    ack = if true, this a only a response. The fields below are invalid.
+    *    ack = if true, this not an event and the fields below are invalid.
     *    name = interface whose status changed (ignored on confirmation).
     *    One of the following changes:
     *       active_status = there was a change in the active status.

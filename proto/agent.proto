@@ -16,9 +16,9 @@ service AgentService {
     *       Configuration option of the agent has changed.
     *
     * Request:
-    *    ack = set to true when an ackowledgment is desired.
+    *    ack: set to true when an ackowledgment is desired.
     * Response: Events are streamed as changes happen:
-    *    ack = if true, this a only a response. The fields below are invalid.
+    *    ack: if true, this not an event and the fields below are invalid.
     *    option: the name of the option for which the notification is received.
     *    value: the new option value.
     *
