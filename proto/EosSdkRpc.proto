@@ -177,6 +177,11 @@ message nexthop_group_msg {
   repeated nexthop_msg nexthop = 3;
   // type of the nexthop group.
   nexthop_group_type_enum nexthop_group_type = 4;
+  // Defines whether entry counters are unshared for the nexthop group. When set, do
+  // not share counter values between entries that share the same tunnel destination.
+  // Each entry will have its own unique counter. Disabled (i.e. set to false)
+  // by default.
+  bool counters_unshared = 5;
 }
 
 // NexthopGroupBulkMsg is passed as argument to NexthopGroupBulk

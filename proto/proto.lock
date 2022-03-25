@@ -269,6 +269,11 @@
                 "id": 4,
                 "name": "nexthop_group_type",
                 "type": "nexthop_group_type_enum"
+              },
+              {
+                "id": 5,
+                "name": "counters_unshared",
+                "type": "bool"
               }
             ]
           },
