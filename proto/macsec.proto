@@ -64,11 +64,13 @@ message MacsecWatchRequest {
       bool all_intfs = 1;
       IntfId intf_id = 2;
    }
+   bool ack = 3;
 }
 
 message MacsecWatchResponse {
    IntfId intf_id = 1;
    MacsecIntfStatus status = 2;
+   bool ack = 3;
 }
 
 message MacsecExistsRequest {
