@@ -4937,6 +4937,11 @@
                 "id": 2,
                 "name": "intf_id",
                 "type": "IntfId"
+              },
+              {
+                "id": 3,
+                "name": "ack",
+                "type": "bool"
               }
             ]
           },
@@ -4952,6 +4957,11 @@
                 "id": 2,
                 "name": "status",
                 "type": "MacsecIntfStatus"
+              },
+              {
+                "id": 3,
+                "name": "ack",
+                "type": "bool"
               }
             ]
           },
