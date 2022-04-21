@@ -75,6 +75,8 @@ EosRemoteSdk files used by other packages during development.
 %{_datadir}/EosSdkRpc/proto/macsec.proto
 %{_datadir}/EosSdkRpc/proto/macsec_types.proto
 %{_datadir}/EosSdkRpc/proto/mpls_types.proto
+%{_datadir}/EosSdkRpc/proto/mpls_route.proto
+%{_datadir}/EosSdkRpc/proto/mpls_route_types.proto
 %{_datadir}/EosSdkRpc/proto/nexthop_group.proto
 %{_datadir}/EosSdkRpc/proto/nexthop_group_types.proto
 %{_datadir}/EosSdkRpc/proto/policy_map.proto
@@ -177,6 +179,15 @@ EosRemoteSdk files used by other packages during development.
 %{python_sitelib}/mpls_types_pb2.py*
 %{python3_sitelib}/mpls_types_pb2.py
 %{python3_sitelib}/__pycache__/mpls_types_pb2.cpython*
+%{python_sitelib}/mpls_route_pb2.py*
+%{python3_sitelib}/mpls_route_pb2.py
+%{python3_sitelib}/__pycache__/mpls_route_pb2.cpython*
+%{python_sitelib}/mpls_route_types_pb2.py*
+%{python3_sitelib}/mpls_route_types_pb2.py
+%{python3_sitelib}/__pycache__/mpls_route_types_pb2.cpython*
+%{python_sitelib}/mpls_route_pb2_grpc.py*
+%{python3_sitelib}/mpls_route_pb2_grpc.py
+%{python3_sitelib}/__pycache__/mpls_route_pb2_grpc.cpython*
 %{python_sitelib}/nexthop_group_pb2.py*
 %{python3_sitelib}/nexthop_group_pb2.py
 %{python3_sitelib}/__pycache__/nexthop_group_pb2.cpython*

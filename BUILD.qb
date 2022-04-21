@@ -71,6 +71,7 @@ grpcFiles = [
    'proto/ip_intf.proto',
    'proto/ip_route.proto',
    'proto/macsec.proto',
+   'proto/mpls_route.proto',
    'proto/nexthop_group.proto',
    'proto/policy_map.proto',
 ]
@@ -87,8 +88,9 @@ protobufFiles = [
    'proto/ip_intf_types.proto',
    'proto/ip_route_types.proto',
    'proto/macsec_types.proto',
-   'proto/nexthop_group_types.proto',
    'proto/mpls_types.proto',
+   'proto/mpls_route_types.proto',
+   'proto/nexthop_group_types.proto',
    'proto/policy_map_types.proto',
    'proto/rpc_types.proto',
 ]

@@ -5635,6 +5635,632 @@
       }
     },
     {
+      "protopath": "mpls_route.proto",
+      "def": {
+        "messages": [
+          {
+            "name": "MplsRouteWatchRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "ack",
+                "type": "bool"
+              },
+              {
+                "id": 2,
+                "name": "all",
+                "type": "bool"
+              },
+              {
+                "id": 3,
+                "name": "route_key",
+                "type": "MplsRouteKey"
+              }
+            ]
+          },
+          {
+            "name": "OnMplsRouteSet",
+            "fields": [
+              {
+                "id": 1,
+                "name": "route_key",
+                "type": "MplsRouteKey"
+              },
+              {
+                "id": 2,
+                "name": "fec_id",
+                "type": "MplsFecId"
+              }
+            ]
+          },
+          {
+            "name": "OnMplsRouteDel",
+            "fields": [
+              {
+                "id": 1,
+                "name": "route_key",
+                "type": "MplsRouteKey"
+              }
+            ]
+          },
+          {
+            "name": "OnMplsFecSet",
+            "fields": [
+              {
+                "id": 1,
+                "name": "fec_id",
+                "type": "MplsFecId"
+              }
+            ]
+          },
+          {
+            "name": "OnMplsFecDel",
+            "fields": [
+              {
+                "id": 1,
+                "name": "fec_id",
+                "type": "MplsFecId"
+              }
+            ]
+          },
+          {
+            "name": "MplsRouteWatchResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "ack",
+                "type": "bool"
+              },
+              {
+                "id": 2,
+                "name": "on_mpls_route_set",
+                "type": "OnMplsRouteSet"
+              },
+              {
+                "id": 3,
+                "name": "on_mpls_route_del",
+                "type": "OnMplsRouteDel"
+              },
+              {
+                "id": 4,
+                "name": "on_mpls_fec_set",
+                "type": "OnMplsFecSet"
+              },
+              {
+                "id": 5,
+                "name": "on_mpls_fec_del",
+                "type": "OnMplsFecDel"
+              }
+            ]
+          },
+          {
+            "name": "MplsRouteResyncInitRequest"
+          },
+          {
+            "name": "MplsRouteResyncInitResponse"
+          },
+          {
+            "name": "MplsRouteResyncCompleteRequest"
+          },
+          {
+            "name": "MplsRouteResyncCompleteResponse"
+          },
+          {
+            "name": "MplsRoutesRequest"
+          },
+          {
+            "name": "MplsRoutesResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "route",
+                "type": "MplsRoute"
+              }
+            ]
+          },
+          {
+            "name": "MplsRouteStatusesRequest"
+          },
+          {
+            "name": "MplsRouteStatusesResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "route_key",
+                "type": "MplsRouteKey"
+              }
+            ]
+          },
+          {
+            "name": "MplsRouteViasRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "route_key",
+                "type": "MplsRouteKey"
+              }
+            ]
+          },
+          {
+            "name": "MplsRouteViasResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "route_via",
+                "type": "MplsRouteVia"
+              }
+            ]
+          },
+          {
+            "name": "MplsRouteViaStatusesRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "route_key",
+                "type": "MplsRouteKey"
+              },
+              {
+                "id": 2,
+                "name": "fec_id",
+                "type": "MplsFecId"
+              }
+            ]
+          },
+          {
+            "name": "MplsRouteViaStatusesResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "route_via",
+                "type": "MplsRouteVia"
+              }
+            ]
+          },
+          {
+            "name": "MplsRouteExistsRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "route_key",
+                "type": "MplsRouteKey"
+              },
+              {
+                "id": 2,
+                "name": "route_via",
+                "type": "MplsRouteVia"
+              }
+            ]
+          },
+          {
+            "name": "MplsRouteExistsResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "exists",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "MplsRouteSetRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "route",
+                "type": "MplsRoute"
+              }
+            ]
+          },
+          {
+            "name": "MplsRouteSetResponse"
+          },
+          {
+            "name": "BulkMplsRouteSetRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "requests",
+                "type": "MplsRouteSetRequest",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "BulkMplsRouteSetResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "processed",
+                "type": "uint64"
+              },
+              {
+                "id": 2,
+                "name": "status",
+                "type": "RpcResponseStatus"
+              }
+            ]
+          },
+          {
+            "name": "MplsRouteDelRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "route_key",
+                "type": "MplsRouteKey"
+              }
+            ]
+          },
+          {
+            "name": "MplsRouteDelResponse"
+          },
+          {
+            "name": "BulkMplsRouteDelRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "requests",
+                "type": "MplsRouteDelRequest",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "BulkMplsRouteDelResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "processed",
+                "type": "uint64"
+              },
+              {
+                "id": 2,
+                "name": "status",
+                "type": "RpcResponseStatus"
+              }
+            ]
+          },
+          {
+            "name": "MplsRouteViaSetRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "route_via",
+                "type": "MplsRouteVia"
+              }
+            ]
+          },
+          {
+            "name": "MplsRouteViaSetResponse"
+          },
+          {
+            "name": "BulkMplsRouteViaSetRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "requests",
+                "type": "MplsRouteViaSetRequest",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "BulkMplsRouteViaSetResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "processed",
+                "type": "uint64"
+              },
+              {
+                "id": 2,
+                "name": "status",
+                "type": "RpcResponseStatus"
+              }
+            ]
+          },
+          {
+            "name": "MplsRouteViaDelRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "route_via",
+                "type": "MplsRouteVia"
+              }
+            ]
+          },
+          {
+            "name": "MplsRouteViaDelResponse"
+          },
+          {
+            "name": "BulkMplsRouteViaDelRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "requests",
+                "type": "MplsRouteViaDelRequest",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "BulkMplsRouteViaDelResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "processed",
+                "type": "uint64"
+              },
+              {
+                "id": 2,
+                "name": "status",
+                "type": "RpcResponseStatus"
+              }
+            ]
+          },
+          {
+            "name": "MplsRouteFecIdRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "route_key",
+                "type": "MplsRouteKey"
+              }
+            ]
+          },
+          {
+            "name": "MplsRouteFecIdResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "fec_id",
+                "type": "MplsFecId"
+              }
+            ]
+          },
+          {
+            "name": "MplsRouteMetricRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "route_key",
+                "type": "MplsRouteKey"
+              }
+            ]
+          },
+          {
+            "name": "MplsRouteMetricResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "metric",
+                "type": "uint32"
+              }
+            ]
+          }
+        ],
+        "services": [
+          {
+            "name": "MplsRouteMgrService",
+            "rpcs": [
+              {
+                "name": "watch",
+                "in_type": "MplsRouteWatchRequest",
+                "out_type": "MplsRouteWatchResponse",
+                "out_streamed": true
+              },
+              {
+                "name": "resync_init",
+                "in_type": "MplsRouteResyncInitRequest",
+                "out_type": "MplsRouteResyncInitResponse"
+              },
+              {
+                "name": "resync_complete",
+                "in_type": "MplsRouteResyncCompleteRequest",
+                "out_type": "MplsRouteResyncCompleteResponse"
+              },
+              {
+                "name": "mpls_routes",
+                "in_type": "MplsRoutesRequest",
+                "out_type": "MplsRoutesResponse",
+                "out_streamed": true
+              },
+              {
+                "name": "mpls_route_statuses",
+                "in_type": "MplsRouteStatusesRequest",
+                "out_type": "MplsRouteStatusesResponse",
+                "out_streamed": true
+              },
+              {
+                "name": "mpls_route_vias",
+                "in_type": "MplsRouteViasRequest",
+                "out_type": "MplsRouteViasResponse",
+                "out_streamed": true
+              },
+              {
+                "name": "mpls_route_via_statuses",
+                "in_type": "MplsRouteViaStatusesRequest",
+                "out_type": "MplsRouteViaStatusesResponse",
+                "out_streamed": true
+              },
+              {
+                "name": "exists",
+                "in_type": "MplsRouteExistsRequest",
+                "out_type": "MplsRouteExistsResponse"
+              },
+              {
+                "name": "mpls_route_set",
+                "in_type": "MplsRouteSetRequest",
+                "out_type": "MplsRouteSetResponse"
+              },
+              {
+                "name": "bulk_mpls_route_set",
+                "in_type": "BulkMplsRouteSetRequest",
+                "out_type": "BulkMplsRouteSetResponse"
+              },
+              {
+                "name": "mpls_route_del",
+                "in_type": "MplsRouteDelRequest",
+                "out_type": "MplsRouteDelResponse"
+              },
+              {
+                "name": "bulk_mpls_route_del",
+                "in_type": "BulkMplsRouteDelRequest",
+                "out_type": "BulkMplsRouteDelResponse"
+              },
+              {
+                "name": "mpls_route_via_set",
+                "in_type": "MplsRouteViaSetRequest",
+                "out_type": "MplsRouteViaSetResponse"
+              },
+              {
+                "name": "bulk_mpls_route_via_set",
+                "in_type": "BulkMplsRouteViaSetRequest",
+                "out_type": "BulkMplsRouteViaSetResponse"
+              },
+              {
+                "name": "mpls_route_via_del",
+                "in_type": "MplsRouteViaDelRequest",
+                "out_type": "MplsRouteViaDelResponse"
+              },
+              {
+                "name": "bulk_mpls_route_via_del",
+                "in_type": "BulkMplsRouteViaDelRequest",
+                "out_type": "BulkMplsRouteViaDelResponse"
+              },
+              {
+                "name": "fec_id",
+                "in_type": "MplsRouteFecIdRequest",
+                "out_type": "MplsRouteFecIdResponse"
+              },
+              {
+                "name": "metric",
+                "in_type": "MplsRouteMetricRequest",
+                "out_type": "MplsRouteMetricResponse"
+              }
+            ]
+          }
+        ],
+        "imports": [
+          {
+            "path": "mpls_route_types.proto"
+          },
+          {
+            "path": "rpc_types.proto"
+          }
+        ],
+        "package": {
+          "name": "eos.remote"
+        }
+      }
+    },
+    {
+      "protopath": "mpls_route_types.proto",
+      "def": {
+        "messages": [
+          {
+            "name": "MplsFecId",
+            "fields": [
+              {
+                "id": 1,
+                "name": "id",
+                "type": "uint64"
+              }
+            ]
+          },
+          {
+            "name": "MplsRoute",
+            "fields": [
+              {
+                "id": 1,
+                "name": "key",
+                "type": "MplsRouteKey"
+              }
+            ]
+          },
+          {
+            "name": "MplsRouteKey",
+            "fields": [
+              {
+                "id": 1,
+                "name": "labels",
+                "type": "MplsLabel",
+                "is_repeated": true
+              },
+              {
+                "id": 2,
+                "name": "metric",
+                "type": "uint32"
+              }
+            ]
+          },
+          {
+            "name": "MplsRouteVia",
+            "fields": [
+              {
+                "id": 1,
+                "name": "route_key",
+                "type": "MplsRouteKey"
+              },
+              {
+                "id": 2,
+                "name": "hop",
+                "type": "bytes"
+              },
+              {
+                "id": 3,
+                "name": "intf",
+                "type": "IntfId"
+              },
+              {
+                "id": 4,
+                "name": "pushswap_label",
+                "type": "MplsLabel"
+              },
+              {
+                "id": 5,
+                "name": "label_action",
+                "type": "MplsActions"
+              },
+              {
+                "id": 6,
+                "name": "ttl_mode",
+                "type": "MplsTtlMode"
+              },
+              {
+                "id": 7,
+                "name": "payload_type",
+                "type": "MplsPayloadType"
+              },
+              {
+                "id": 8,
+                "name": "skip_egress_acl",
+                "type": "bool"
+              },
+              {
+                "id": 9,
+                "name": "nexthop_group",
+                "type": "string"
+              }
+            ]
+          }
+        ],
+        "imports": [
+          {
+            "path": "acl_types.proto"
+          },
+          {
+            "path": "intf_types.proto"
+          },
+          {
+            "path": "mpls_types.proto"
+          }
+        ],
+        "package": {
+          "name": "eos.remote"
+        }
+      }
+    },
+    {
       "protopath": "mpls_types.proto",
       "def": {
         "enums": [
@@ -5659,6 +6285,58 @@
               {
                 "name": "MPLS_ACTION_FORWARD",
                 "integer": 4
+              }
+            ]
+          },
+          {
+            "name": "MplsPayloadType",
+            "enum_fields": [
+              {
+                "name": "MPLS_PAYLOAD_TYPE_NULL"
+              },
+              {
+                "name": "MPLS_PAYLOAD_TYPE_MPLS",
+                "integer": 1
+              },
+              {
+                "name": "MPLS_PAYLOAD_TYPE_IPV4",
+                "integer": 2
+              },
+              {
+                "name": "MPLS_PAYLOAD_TYPE_IPV6",
+                "integer": 3
+              },
+              {
+                "name": "MPLS_PAYLOAD_TYPE_GUESS",
+                "integer": 4
+              }
+            ]
+          },
+          {
+            "name": "MplsTtlMode",
+            "enum_fields": [
+              {
+                "name": "MPLS_TTL_MODE_NULL"
+              },
+              {
+                "name": "MPLS_TTL_MODE_PIPE",
+                "integer": 1
+              },
+              {
+                "name": "MPLS_TTL_MODE_UNIFORM",
+                "integer": 2
+              }
+            ]
+          }
+        ],
+        "messages": [
+          {
+            "name": "MplsLabel",
+            "fields": [
+              {
+                "id": 1,
+                "name": "label",
+                "type": "uint32"
               }
             ]
           }
