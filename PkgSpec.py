@@ -14,8 +14,8 @@ dr.add(
                            'Needed to satisfy dependencies protolock' )
    ),
    dr.Rpm( 'EosSdkRpcProtos-devel',
-           buildRequires=( 'grpc-devel',
+           buildRequires=( [ 'grpc-devel', 'grpc-plugins' ],
                            'gRPC headers for compiling the EosSdkRpcProtos'
-                           'gRPC library.' )
+                           'gRPC library, and grpc C++ plugin for protoc.' )
    ),
 )
