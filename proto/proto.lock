@@ -3258,6 +3258,600 @@
       }
     },
     {
+      "protopath": "eth_phy_intf.proto",
+      "def": {
+        "messages": [
+          {
+            "name": "OnEthPhyIntfCreate",
+            "fields": [
+              {
+                "id": 1,
+                "name": "intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "OnEthPhyIntfDelete",
+            "fields": [
+              {
+                "id": 1,
+                "name": "intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "OnEthPhyIntfHardwarePresent",
+            "fields": [
+              {
+                "id": 1,
+                "name": "intf_id",
+                "type": "IntfId"
+              },
+              {
+                "id": 2,
+                "name": "hardware_present",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "OnEthPhyIntfLinkSpeed",
+            "fields": [
+              {
+                "id": 1,
+                "name": "intf_id",
+                "type": "IntfId"
+              },
+              {
+                "id": 2,
+                "name": "link_speed",
+                "type": "EthPhyIntfLinkSpeed"
+              }
+            ]
+          },
+          {
+            "name": "OnEthPhyIntfTransceiverPresent",
+            "fields": [
+              {
+                "id": 1,
+                "name": "intf_id",
+                "type": "IntfId"
+              },
+              {
+                "id": 2,
+                "name": "transceiver_present",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "EthPhyIntfWatchRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "all_intfs",
+                "type": "bool"
+              },
+              {
+                "id": 2,
+                "name": "intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "EthPhyIntfWatchResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "on_eth_phy_intf_create",
+                "type": "OnEthPhyIntfCreate"
+              },
+              {
+                "id": 2,
+                "name": "on_eth_phy_intf_delete",
+                "type": "OnEthPhyIntfDelete"
+              },
+              {
+                "id": 3,
+                "name": "on_eth_phy_intf_hardware_present",
+                "type": "OnEthPhyIntfHardwarePresent"
+              },
+              {
+                "id": 4,
+                "name": "on_eth_phy_intf_link_speed",
+                "type": "OnEthPhyIntfLinkSpeed"
+              },
+              {
+                "id": 5,
+                "name": "on_eth_phy_intf_transceiver_present",
+                "type": "OnEthPhyIntfTransceiverPresent"
+              }
+            ]
+          },
+          {
+            "name": "EthPhyIntfsRequest"
+          },
+          {
+            "name": "EthPhyIntfsResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "EthPhyIntfExistsRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "EthPhyIntfExistsResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "exists",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "EthPhyIntfHardwarePresentRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "EthPhyIntfHardwarePresentResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "hardware_present",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "EthPhyIntfBurnedInEthAddrRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "EthPhyIntfBurnedInEthAddrResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "eth_addr",
+                "type": "bytes"
+              }
+            ]
+          },
+          {
+            "name": "EthPhyIntfLinkSpeedRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "EthPhyIntfLinkSpeedResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "link_speed",
+                "type": "EthPhyIntfLinkSpeed"
+              }
+            ]
+          },
+          {
+            "name": "EthPhyIntfTransceiverPresentRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "EthPhyIntfTransceiverPresentResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "transceiver_present",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "EthPhyIntfCountersRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "EthPhyIntfCountersResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "counters",
+                "type": "EthPhyIntfCounters"
+              }
+            ]
+          },
+          {
+            "name": "EthPhyIntfBinCountersRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "intf_id",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "EthPhyIntfBinCountersResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "counters",
+                "type": "EthPhyIntfBinCounters"
+              }
+            ]
+          }
+        ],
+        "services": [
+          {
+            "name": "EthPhyIntfMgrService",
+            "rpcs": [
+              {
+                "name": "watch",
+                "in_type": "EthPhyIntfWatchRequest",
+                "out_type": "EthPhyIntfWatchResponse",
+                "out_streamed": true
+              },
+              {
+                "name": "eth_phy_intfs",
+                "in_type": "EthPhyIntfsRequest",
+                "out_type": "EthPhyIntfsRequest",
+                "out_streamed": true
+              },
+              {
+                "name": "exists",
+                "in_type": "EthPhyIntfExistsRequest",
+                "out_type": "EthPhyIntfExistsResponse"
+              },
+              {
+                "name": "hardware_present",
+                "in_type": "EthPhyIntfHardwarePresentRequest",
+                "out_type": "EthPhyIntfHardwarePresentResponse"
+              },
+              {
+                "name": "burned_in_eth_addr",
+                "in_type": "EthPhyIntfBurnedInEthAddrRequest",
+                "out_type": "EthPhyIntfBurnedInEthAddrResponse"
+              },
+              {
+                "name": "link_speed",
+                "in_type": "EthPhyIntfLinkSpeedRequest",
+                "out_type": "EthPhyIntfLinkSpeedResponse"
+              },
+              {
+                "name": "transceiver_present",
+                "in_type": "EthPhyIntfTransceiverPresentRequest",
+                "out_type": "EthPhyIntfTransceiverPresentResponse"
+              }
+            ]
+          },
+          {
+            "name": "EthPhyIntfCounterMgrService",
+            "rpcs": [
+              {
+                "name": "counters",
+                "in_type": "EthPhyIntfCountersRequest",
+                "out_type": "EthPhyIntfCountersResponse"
+              },
+              {
+                "name": "bin_counters",
+                "in_type": "EthPhyIntfBinCountersRequest",
+                "out_type": "EthPhyIntfBinCountersResponse"
+              }
+            ]
+          }
+        ],
+        "imports": [
+          {
+            "path": "rpc_types.proto"
+          },
+          {
+            "path": "intf_types.proto"
+          },
+          {
+            "path": "eth_phy_intf_types.proto"
+          }
+        ],
+        "package": {
+          "name": "eos.remote"
+        }
+      }
+    },
+    {
+      "protopath": "eth_phy_intf_types.proto",
+      "def": {
+        "enums": [
+          {
+            "name": "EthPhyIntfLinkSpeed",
+            "enum_fields": [
+              {
+                "name": "ETH_PHY_INTF_LINK_SPEED_UNKNOWN"
+              },
+              {
+                "name": "ETH_PHY_INTF_LINK_SPEED_10MBPS",
+                "integer": 1
+              },
+              {
+                "name": "ETH_PHY_INTF_LINK_SPEED_100MBPS",
+                "integer": 2
+              },
+              {
+                "name": "ETH_PHY_INTF_LINK_SPEED_1GBPS",
+                "integer": 3
+              },
+              {
+                "name": "ETH_PHY_INTF_LINK_SPEED_2P5GBPS",
+                "integer": 4
+              },
+              {
+                "name": "ETH_PHY_INTF_LINK_SPEED_5GBPS",
+                "integer": 5
+              },
+              {
+                "name": "ETH_PHY_INTF_LINK_SPEED_10GBPS",
+                "integer": 6
+              },
+              {
+                "name": "ETH_PHY_INTF_LINK_SPEED_25GBPS",
+                "integer": 7
+              },
+              {
+                "name": "ETH_PHY_INTF_LINK_SPEED_40GBPS",
+                "integer": 8
+              },
+              {
+                "name": "ETH_PHY_INTF_LINK_SPEED_50GBPS",
+                "integer": 9
+              },
+              {
+                "name": "ETH_PHY_INTF_LINK_SPEED_100GBPS",
+                "integer": 10
+              },
+              {
+                "name": "ETH_PHY_INTF_LINK_SPEED_200GBPS",
+                "integer": 11
+              },
+              {
+                "name": "ETH_PHY_INTF_LINK_SPEED_400GBPS",
+                "integer": 12
+              },
+              {
+                "name": "ETH_PHY_INTF_LINK_SPEED_800GBPS",
+                "integer": 13
+              },
+              {
+                "name": "ETH_PHY_INTF_LINK_SPEED_UNEXPECTED",
+                "integer": 14
+              }
+            ]
+          }
+        ],
+        "messages": [
+          {
+            "name": "EthPhyIntfCounters",
+            "fields": [
+              {
+                "id": 1,
+                "name": "single_collision_frames",
+                "type": "uint64"
+              },
+              {
+                "id": 2,
+                "name": "multiple_collision_frames",
+                "type": "uint64"
+              },
+              {
+                "id": 3,
+                "name": "fcs_errors",
+                "type": "uint64"
+              },
+              {
+                "id": 4,
+                "name": "alignment_errors",
+                "type": "uint64"
+              },
+              {
+                "id": 5,
+                "name": "deferred_transmissions",
+                "type": "uint64"
+              },
+              {
+                "id": 6,
+                "name": "late_collisions",
+                "type": "uint64"
+              },
+              {
+                "id": 7,
+                "name": "excessive_collisions",
+                "type": "uint64"
+              },
+              {
+                "id": 8,
+                "name": "internal_mac_transmit_errors",
+                "type": "uint64"
+              },
+              {
+                "id": 9,
+                "name": "carrier_sense_errors",
+                "type": "uint64"
+              },
+              {
+                "id": 10,
+                "name": "internal_mac_receive_errors",
+                "type": "uint64"
+              },
+              {
+                "id": 11,
+                "name": "frame_too_shorts",
+                "type": "uint64"
+              },
+              {
+                "id": 12,
+                "name": "frame_too_longs",
+                "type": "uint64"
+              },
+              {
+                "id": 13,
+                "name": "sqe_test_errors",
+                "type": "uint64"
+              },
+              {
+                "id": 14,
+                "name": "symbol_errors",
+                "type": "uint64"
+              },
+              {
+                "id": 15,
+                "name": "in_unknown_opcodes",
+                "type": "uint64"
+              },
+              {
+                "id": 16,
+                "name": "out_pause_frames",
+                "type": "uint64"
+              },
+              {
+                "id": 17,
+                "name": "in_pause_frames",
+                "type": "uint64"
+              },
+              {
+                "id": 18,
+                "name": "fragments",
+                "type": "uint64"
+              },
+              {
+                "id": 19,
+                "name": "jabbers",
+                "type": "uint64"
+              }
+            ]
+          },
+          {
+            "name": "EthPhyIntfBinCounters",
+            "fields": [
+              {
+                "id": 1,
+                "name": "in_64_octet_frames",
+                "type": "uint64"
+              },
+              {
+                "id": 2,
+                "name": "in_65_to_127_octet_frames",
+                "type": "uint64"
+              },
+              {
+                "id": 3,
+                "name": "in_128_to_255_octet_frames",
+                "type": "uint64"
+              },
+              {
+                "id": 4,
+                "name": "in_256_to_511_octet_frames",
+                "type": "uint64"
+              },
+              {
+                "id": 5,
+                "name": "in_512_to_1023_octet_frames",
+                "type": "uint64"
+              },
+              {
+                "id": 6,
+                "name": "in_1024_to_1522_octet_frames",
+                "type": "uint64"
+              },
+              {
+                "id": 7,
+                "name": "in_1523_to_max_octet_frames",
+                "type": "uint64"
+              },
+              {
+                "id": 8,
+                "name": "out_64_octet_frames",
+                "type": "uint64"
+              },
+              {
+                "id": 9,
+                "name": "out_65_to_127_octet_frames",
+                "type": "uint64"
+              },
+              {
+                "id": 10,
+                "name": "out_128_to_255_octet_frames",
+                "type": "uint64"
+              },
+              {
+                "id": 11,
+                "name": "out_256_to_511_octet_frames",
+                "type": "uint64"
+              },
+              {
+                "id": 12,
+                "name": "out_512_to_1023_octet_frames",
+                "type": "uint64"
+              },
+              {
+                "id": 13,
+                "name": "out_1024_to_1522_octet_frames",
+                "type": "uint64"
+              },
+              {
+                "id": 14,
+                "name": "out_1523_to_max_octet_frames",
+                "type": "uint64"
+              }
+            ]
+          }
+        ],
+        "package": {
+          "name": "eos.remote"
+        }
+      }
+    },
+    {
       "protopath": "intf.proto",
       "def": {
         "enums": [
