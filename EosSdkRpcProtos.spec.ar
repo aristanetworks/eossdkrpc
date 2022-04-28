@@ -65,6 +65,8 @@ EosRemoteSdk files used by other packages during development.
 %{_datadir}/EosSdkRpc/proto/EosSdkRpc.proto
 %{_datadir}/EosSdkRpc/proto/eth_lag_intf.proto
 %{_datadir}/EosSdkRpc/proto/eth_lag_intf_types.proto
+%{_datadir}/EosSdkRpc/proto/eth_phy_intf.proto
+%{_datadir}/EosSdkRpc/proto/eth_phy_intf_types.proto
 %{_datadir}/EosSdkRpc/proto/intf.proto
 %{_datadir}/EosSdkRpc/proto/intf_types.proto
 %{_datadir}/EosSdkRpc/proto/ip_intf.proto
@@ -153,6 +155,10 @@ EosRemoteSdk files used by other packages during development.
 %{python_sitelib}/eth_phy_intf_pb2_grpc.py*
 %{python3_sitelib}/eth_phy_intf_pb2_grpc.py
 %{python3_sitelib}/__pycache__/eth_phy_intf_pb2_grpc.cpython*
+
+%{python_sitelib}/eth_phy_intf_pb2.py*
+%{python3_sitelib}/eth_phy_intf_pb2.py
+%{python3_sitelib}/__pycache__/eth_phy_intf_pb2.cpython*
 
 %{python_sitelib}/eth_phy_intf_types_pb2.py*
 %{python3_sitelib}/eth_phy_intf_types_pb2.py
