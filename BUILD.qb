@@ -5,7 +5,7 @@
 # globals
 
 include( 'version.qbi' )
-include( 'Grpc.qbi' )
+include( '//Qube/protobuf.qbi' )
 
 include_dirs = [
    '-I$target_dir',
@@ -103,14 +103,18 @@ data(
 )
 
 
-protocPyGenerated = protoc_py(
-   'proto',
+protocPyGenerated = proto_grpc_py(
+   'grpc_py',
    sources=grpcFiles,
+   proto_path='$src_dir/proto',
+   protoc_out='$target_dir/proto'
 )[0]
 
-protocPyGenerated += protobuf_py(
-   'protobuf_py',
+protocPyGenerated += proto_py(
+   'proto_py',
    sources=protobufFiles,
+   proto_path='$src_dir/proto',
+   protoc_out='$target_dir/proto'
 )[0]
 
 #-----------------------------------------------------------------------
@@ -127,14 +131,18 @@ py_library(
 py_test( 'StaleProtoLockTest.py' )
 
 
-protocCppGenerated = protoc_cpp(
-   'protoc',
+protocCppGenerated = proto_grpc_cpp(
+   'grpc_cpp',
    sources=grpcFiles,
+   proto_path='$src_dir/proto',
+   protoc_out='$target_dir/proto'
 )[ 0 ]
 
-protocCppGenerated += protobuf_cpp(
-   'protobufc',
+protocCppGenerated += proto_cpp(
+   'proto_cpp',
    sources=protobufFiles,
+   proto_path='$src_dir/proto',
+   protoc_out='$target_dir/proto'
 )[ 0 ]
 
 data(
