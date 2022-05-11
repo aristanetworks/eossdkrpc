@@ -108,14 +108,14 @@ protocPyGenerated = proto_grpc_py(
    sources=grpcFiles,
    proto_path='$src_dir/proto',
    protoc_out='$target_dir/proto'
-)[0]
+).outputs
 
 protocPyGenerated += proto_py(
    'proto_py',
    sources=protobufFiles,
    proto_path='$src_dir/proto',
    protoc_out='$target_dir/proto'
-)[0]
+).outputs
 
 #-----------------------------------------------------------------------
 # Python sources
@@ -136,14 +136,14 @@ protocCppGenerated = proto_grpc_cpp(
    sources=grpcFiles,
    proto_path='$src_dir/proto',
    protoc_out='$target_dir/proto'
-)[ 0 ]
+).outputs
 
 protocCppGenerated += proto_cpp(
    'proto_cpp',
    sources=protobufFiles,
    proto_path='$src_dir/proto',
    protoc_out='$target_dir/proto'
-)[ 0 ]
+).outputs
 
 data(
    'protoHeaderInstall',
