@@ -1,4 +1,4 @@
-supportedToolchains=[ 'gcc', 'clang', 'ubsan' ]
+supportedToolchains=[ 'gcc11', 'clang', 'ubsan' ]
 pkgQdam=True
 tacLibCheckExcused=[]
 lddUnusedCheck=True
