@@ -12,12 +12,33 @@ import "eth_phy_intf_types.proto";
 service EthPhyIntfMgrService {
 
    /**
-    * subscribes to events on a single interface or on all interfaces.
+    * Subscription to monitor interface events. This request
+    * stays active until the client cancels or the server shuts down.
+    * When all = false and no version is specified, this request has no effect.
+    *
+    * Request:
+    *    ack = set to true when instant acknowledgment is desired.
+    *    one of these options:
+    *    
+    * Response:
+    *    one of the possible events. See EthPhyIntfWatchResponse for details.
+    * 
+    * EosSdk reference: eos::eth_phy_intf_handler (class)
     */
    rpc watch( EthPhyIntfWatchRequest ) returns ( stream EthPhyIntfWatchResponse );
 
-   // Collection management
-   rpc eth_phy_intfs( EthPhyIntfsRequest ) returns ( stream EthPhyIntfsRequest );
+   /**
+    * Returns the list of interfaces.
+    *
+    * Request:
+    *    Empty
+    *
+    * Response:
+    *    intf_id (list) = list of present interfaces
+    *
+    * EosSdk reference: eos::eth_phy_intf_mgr::eth_phy_intf_iter
+    */
+   rpc eth_phy_intfs( EthPhyIntfsRequest ) returns ( stream EthPhyIntfsResponse );
 
    /**
     * Returns whether the given physical ethernet interface exists.
@@ -31,10 +52,28 @@ service EthPhyIntfMgrService {
     * interface (ie intf_mgr, eth_intf_mgr, and eth_phy_intf_mgr for
     * physical interfaces) are all guaranteed to return the same
     * result.
+    *
+    * Request:
+    *    intf_id = Interface ID to be checked
+    *
+    * Response
+    *    exists = true if the interface exists
+    *
+    * EosSdk reference : eos::eth_phy_intf_mgr::exists
     */
    rpc exists( EthPhyIntfExistsRequest ) returns ( EthPhyIntfExistsResponse );
 
-   /// Returns whether the underlying hardware for this interface is present
+   /**
+    * Returns whether the underlying hardware for this interface is present.
+    *
+    * Request:
+    *    intf_id = ID of interface to be checked
+    *
+    * Response:
+    *    hardware_present = true if hardware is present.
+    *
+    * EosSdk reference: eos::eth_phy_intf_mgr::hardware_present
+    */
    rpc hardware_present( EthPhyIntfHardwarePresentRequest ) returns ( EthPhyIntfHardwarePresentResponse );
    
    /**
@@ -82,6 +121,7 @@ message OnEthPhyIntfTransceiverPresent {
 }
 
 message EthPhyIntfWatchRequest {
+   bool ack = 3;
    oneof options {
       // subscribes events on all interfaces.
       bool all_intfs = 1;
@@ -136,6 +176,8 @@ message EthPhyIntfWatchResponse {
       OnEthPhyIntfLinkSpeed on_eth_phy_intf_link_speed = 4;
       /// Notification when a transceiver insertion or removal is detected
       OnEthPhyIntfTransceiverPresent on_eth_phy_intf_transceiver_present = 5;
+      /// Simple acknowledgment
+      bool ack = 6;
    }
 }
 
