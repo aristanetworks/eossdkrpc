@@ -776,9 +776,787 @@
       }
     },
     {
+      "protopath": "acl.proto",
+      "def": {
+        "messages": [
+          {
+            "name": "AclWatchRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "ack",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "OnAclSync"
+          },
+          {
+            "name": "OnAclSyncFail",
+            "fields": [
+              {
+                "id": 1,
+                "name": "linecard",
+                "type": "string"
+              },
+              {
+                "id": 2,
+                "name": "message",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "AclWatchResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "ack",
+                "type": "bool"
+              },
+              {
+                "id": 2,
+                "name": "on_acl_sync",
+                "type": "OnAclSync"
+              },
+              {
+                "id": 3,
+                "name": "on_acl_sync_fail",
+                "type": "OnAclSyncFail"
+              }
+            ]
+          },
+          {
+            "name": "AclsRequest"
+          },
+          {
+            "name": "AclsResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "key",
+                "type": "AclKey"
+              }
+            ]
+          },
+          {
+            "name": "AclsAllRequest"
+          },
+          {
+            "name": "AclsAllResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "key",
+                "type": "AclKey"
+              }
+            ]
+          },
+          {
+            "name": "AclRuleIpsRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "key",
+                "type": "AclKey"
+              }
+            ]
+          },
+          {
+            "name": "AclRuleIpEntry",
+            "fields": [
+              {
+                "id": 1,
+                "name": "sequence_number",
+                "type": "uint32"
+              },
+              {
+                "id": 2,
+                "name": "ip_rule",
+                "type": "AclRuleIp"
+              }
+            ]
+          },
+          {
+            "name": "AclRuleIpsResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "ip_rule",
+                "type": "AclRuleIpEntry"
+              }
+            ]
+          },
+          {
+            "name": "AclAllRuleIpsRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "key",
+                "type": "AclKey"
+              }
+            ]
+          },
+          {
+            "name": "AclAllRuleIpsResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "ip_rule",
+                "type": "AclRuleIpEntry"
+              }
+            ]
+          },
+          {
+            "name": "AclRuleEthsRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "key",
+                "type": "AclKey"
+              }
+            ]
+          },
+          {
+            "name": "AclRuleEthEntry",
+            "fields": [
+              {
+                "id": 1,
+                "name": "sequence_number",
+                "type": "uint32"
+              },
+              {
+                "id": 2,
+                "name": "eth_rule",
+                "type": "AclRuleEth"
+              }
+            ]
+          },
+          {
+            "name": "AclRuleEthsResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "eth_rule",
+                "type": "AclRuleEthEntry"
+              }
+            ]
+          },
+          {
+            "name": "AclAllRuleEthsRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "key",
+                "type": "AclKey"
+              }
+            ]
+          },
+          {
+            "name": "AclAllRuleEthsResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "eth_rule",
+                "type": "AclRuleEthEntry"
+              }
+            ]
+          },
+          {
+            "name": "AclExistsRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "key",
+                "type": "AclKey"
+              }
+            ]
+          },
+          {
+            "name": "AclExistsResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "exists",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "AclAllExistsRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "key",
+                "type": "AclKey"
+              }
+            ]
+          },
+          {
+            "name": "AclAllExistsResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "exists",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "AclRuleSetRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "key",
+                "type": "AclKey"
+              },
+              {
+                "id": 2,
+                "name": "sequence_number",
+                "type": "uint32"
+              },
+              {
+                "id": 3,
+                "name": "ip_rule",
+                "type": "AclRuleIp"
+              },
+              {
+                "id": 4,
+                "name": "eth_rule",
+                "type": "AclRuleEth"
+              }
+            ]
+          },
+          {
+            "name": "AclRuleSetResponse"
+          },
+          {
+            "name": "BulkAclRuleSetRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "requests",
+                "type": "AclRuleSetRequest",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "BulkAclRuleSetResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "processed",
+                "type": "uint64"
+              },
+              {
+                "id": 2,
+                "name": "status",
+                "type": "RpcResponseStatus"
+              }
+            ]
+          },
+          {
+            "name": "AclRuleDelRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "key",
+                "type": "AclKey"
+              },
+              {
+                "id": 2,
+                "name": "sequence_number",
+                "type": "uint32"
+              }
+            ]
+          },
+          {
+            "name": "AclRuleDelResponse"
+          },
+          {
+            "name": "BulkAclRuleDelRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "requests",
+                "type": "AclRuleDelRequest",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "BulkAclRuleDelResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "processed",
+                "type": "uint64"
+              },
+              {
+                "id": 2,
+                "name": "status",
+                "type": "RpcResponseStatus"
+              }
+            ]
+          },
+          {
+            "name": "AclCommitRequest"
+          },
+          {
+            "name": "AclCommitResponse"
+          },
+          {
+            "name": "AclDelRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "key",
+                "type": "AclKey"
+              }
+            ]
+          },
+          {
+            "name": "AclDelResponse"
+          },
+          {
+            "name": "BulkAclDelRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "requests",
+                "type": "AclDelRequest",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "BulkAclDelResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "processed",
+                "type": "uint64"
+              },
+              {
+                "id": 2,
+                "name": "status",
+                "type": "RpcResponseStatus"
+              }
+            ]
+          },
+          {
+            "name": "AclApplyRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "key",
+                "type": "AclKey"
+              },
+              {
+                "id": 2,
+                "name": "intf_id",
+                "type": "IntfId"
+              },
+              {
+                "id": 3,
+                "name": "direction",
+                "type": "AclDirection"
+              },
+              {
+                "id": 4,
+                "name": "apply",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "AclApplyResponse"
+          },
+          {
+            "name": "BulkAclApplyRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "requests",
+                "type": "AclApplyRequest",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "BulkAclApplyResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "processed",
+                "type": "uint64"
+              },
+              {
+                "id": 2,
+                "name": "status",
+                "type": "RpcResponseStatus"
+              }
+            ]
+          },
+          {
+            "name": "AclCountersEnabledSetRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "key",
+                "type": "AclKey"
+              },
+              {
+                "id": 2,
+                "name": "enabled",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "AclCountersEnabledSetResponse"
+          },
+          {
+            "name": "BulkAclCountersEnabledSetRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "requests",
+                "type": "AclCountersEnabledSetRequest",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "BulkAclCountersEnabledSetResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "processed",
+                "type": "uint64"
+              },
+              {
+                "id": 2,
+                "name": "status",
+                "type": "RpcResponseStatus"
+              }
+            ]
+          },
+          {
+            "name": "AclFragmentsEnabledSetRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "key",
+                "type": "AclKey"
+              },
+              {
+                "id": 2,
+                "name": "enabled",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "AclFragmentsEnabledSetResponse"
+          },
+          {
+            "name": "BulkAclFragmentsEnabledSetRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "requests",
+                "type": "AclFragmentsEnabledSetRequest",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
+            "name": "BulkAclFragmentsEnabledSetResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "processed",
+                "type": "uint64"
+              },
+              {
+                "id": 2,
+                "name": "status",
+                "type": "RpcResponseStatus"
+              }
+            ]
+          },
+          {
+            "name": "StreamAllowedRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "source_addr",
+                "type": "bytes"
+              },
+              {
+                "id": 2,
+                "name": "dest_addr",
+                "type": "bytes"
+              },
+              {
+                "id": 3,
+                "name": "protocol",
+                "type": "uint32"
+              },
+              {
+                "id": 4,
+                "name": "source_port",
+                "type": "uint32"
+              },
+              {
+                "id": 5,
+                "name": "dest_port",
+                "type": "uint32"
+              }
+            ]
+          },
+          {
+            "name": "StreamAllowedResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "stream_allowed",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "DgramAllowedRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "source_addr",
+                "type": "bytes"
+              },
+              {
+                "id": 2,
+                "name": "dest_addr",
+                "type": "bytes"
+              },
+              {
+                "id": 3,
+                "name": "source_port",
+                "type": "uint32"
+              },
+              {
+                "id": 4,
+                "name": "dest_port",
+                "type": "uint32"
+              },
+              {
+                "id": 5,
+                "name": "ttl",
+                "type": "uint32"
+              },
+              {
+                "id": 6,
+                "name": "tos",
+                "type": "uint32"
+              },
+              {
+                "id": 7,
+                "name": "recipient_intf",
+                "type": "IntfId"
+              }
+            ]
+          },
+          {
+            "name": "DgramAllowedResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "dgram_allowed",
+                "type": "bool"
+              }
+            ]
+          }
+        ],
+        "services": [
+          {
+            "name": "AclMgrService",
+            "rpcs": [
+              {
+                "name": "watch",
+                "in_type": "AclWatchRequest",
+                "out_type": "AclWatchResponse",
+                "out_streamed": true
+              },
+              {
+                "name": "acls",
+                "in_type": "AclsRequest",
+                "out_type": "AclsResponse",
+                "out_streamed": true
+              },
+              {
+                "name": "acls_all",
+                "in_type": "AclsAllRequest",
+                "out_type": "AclsAllResponse",
+                "out_streamed": true
+              },
+              {
+                "name": "acl_rule_ips",
+                "in_type": "AclRuleIpsRequest",
+                "out_type": "AclRuleIpsResponse",
+                "out_streamed": true
+              },
+              {
+                "name": "acl_all_rule_ips",
+                "in_type": "AclAllRuleIpsRequest",
+                "out_type": "AclAllRuleIpsResponse",
+                "out_streamed": true
+              },
+              {
+                "name": "acl_rule_eths",
+                "in_type": "AclRuleEthsRequest",
+                "out_type": "AclRuleEthsResponse",
+                "out_streamed": true
+              },
+              {
+                "name": "acl_all_rule_eths",
+                "in_type": "AclAllRuleEthsRequest",
+                "out_type": "AclAllRuleEthsResponse",
+                "out_streamed": true
+              },
+              {
+                "name": "acl_exists",
+                "in_type": "AclExistsRequest",
+                "out_type": "AclExistsResponse"
+              },
+              {
+                "name": "acl_all_exists",
+                "in_type": "AclAllExistsRequest",
+                "out_type": "AclAllExistsResponse"
+              },
+              {
+                "name": "acl_rule_set",
+                "in_type": "AclRuleSetRequest",
+                "out_type": "AclRuleSetResponse"
+              },
+              {
+                "name": "bulk_acl_rule_set",
+                "in_type": "BulkAclRuleSetRequest",
+                "out_type": "BulkAclRuleSetResponse"
+              },
+              {
+                "name": "acl_rule_del",
+                "in_type": "AclRuleDelRequest",
+                "out_type": "AclRuleDelResponse"
+              },
+              {
+                "name": "bulk_acl_rule_del",
+                "in_type": "BulkAclRuleDelRequest",
+                "out_type": "BulkAclRuleDelResponse"
+              },
+              {
+                "name": "acl_commit",
+                "in_type": "AclCommitRequest",
+                "out_type": "AclCommitResponse"
+              },
+              {
+                "name": "acl_del",
+                "in_type": "AclDelRequest",
+                "out_type": "AclDelResponse"
+              },
+              {
+                "name": "bulk_acl_del",
+                "in_type": "BulkAclDelRequest",
+                "out_type": "BulkAclDelResponse"
+              },
+              {
+                "name": "acl_apply",
+                "in_type": "AclApplyRequest",
+                "out_type": "AclApplyResponse"
+              },
+              {
+                "name": "bulk_acl_apply",
+                "in_type": "BulkAclApplyRequest",
+                "out_type": "BulkAclApplyResponse"
+              },
+              {
+                "name": "acl_counters_enabled_set",
+                "in_type": "AclCountersEnabledSetRequest",
+                "out_type": "AclCountersEnabledSetResponse"
+              },
+              {
+                "name": "bulk_acl_counters_enabled_set",
+                "in_type": "BulkAclCountersEnabledSetRequest",
+                "out_type": "BulkAclCountersEnabledSetResponse"
+              },
+              {
+                "name": "acl_fragments_enabled_set",
+                "in_type": "AclFragmentsEnabledSetRequest",
+                "out_type": "AclFragmentsEnabledSetResponse"
+              },
+              {
+                "name": "bulk_acl_fragments_enabled_set",
+                "in_type": "BulkAclFragmentsEnabledSetRequest",
+                "out_type": "BulkAclFragmentsEnabledSetResponse"
+              },
+              {
+                "name": "stream_allowed",
+                "in_type": "StreamAllowedRequest",
+                "out_type": "StreamAllowedResponse"
+              },
+              {
+                "name": "dgram_allowed",
+                "in_type": "DgramAllowedRequest",
+                "out_type": "DgramAllowedResponse"
+              }
+            ]
+          }
+        ],
+        "imports": [
+          {
+            "path": "acl_types.proto"
+          },
+          {
+            "path": "intf_types.proto"
+          },
+          {
+            "path": "rpc_types.proto"
+          }
+        ],
+        "package": {
+          "name": "eos.remote"
+        }
+      }
+    },
+    {
       "protopath": "acl_types.proto",
       "def": {
         "enums": [
+          {
+            "name": "AclType",
+            "enum_fields": [
+              {
+                "name": "ACL_TYPE_NULL"
+              },
+              {
+                "name": "ACL_TYPE_IPV4",
+                "integer": 1
+              },
+              {
+                "name": "ACL_TYPE_IPV6",
+                "integer": 2
+              },
+              {
+                "name": "ACL_TYPE_ETH",
+                "integer": 3
+              },
+              {
+                "name": "ACL_TYPE_MPLS",
+                "integer": 4
+              }
+            ]
+          },
           {
             "name": "AclDirection",
             "enum_fields": [
@@ -844,6 +1622,38 @@
             ]
           },
           {
+            "name": "AclTcpFlag",
+            "enum_fields": [
+              {
+                "name": "ACL_TCP_NULL"
+              },
+              {
+                "name": "ACL_TCP_FIN",
+                "integer": 1
+              },
+              {
+                "name": "ACL_TCP_SYN",
+                "integer": 2
+              },
+              {
+                "name": "ACL_TCP_RST",
+                "integer": 4
+              },
+              {
+                "name": "ACL_TCP_PSH",
+                "integer": 8
+              },
+              {
+                "name": "ACL_TCP_ACK",
+                "integer": 16
+              },
+              {
+                "name": "ACL_TCP_URG",
+                "integer": 32
+              }
+            ]
+          },
+          {
             "name": "AclIpType",
             "enum_fields": [
               {
@@ -865,6 +1675,21 @@
           }
         ],
         "messages": [
+          {
+            "name": "AclKey",
+            "fields": [
+              {
+                "id": 1,
+                "name": "acl_name",
+                "type": "string"
+              },
+              {
+                "id": 2,
+                "name": "acl_type",
+                "type": "AclType"
+              }
+            ]
+          },
           {
             "name": "AclRuleBase",
             "fields": [
@@ -992,6 +1817,61 @@
                 "id": 21,
                 "name": "match_ip_priority",
                 "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "AclRuleEth",
+            "fields": [
+              {
+                "id": 1,
+                "name": "base_fields",
+                "type": "AclRuleBase"
+              },
+              {
+                "id": 2,
+                "name": "vlan",
+                "type": "uint32"
+              },
+              {
+                "id": 3,
+                "name": "vlan_mask",
+                "type": "uint32"
+              },
+              {
+                "id": 4,
+                "name": "inner_vlan",
+                "type": "uint32"
+              },
+              {
+                "id": 5,
+                "name": "inner_vlan_mask",
+                "type": "uint32"
+              },
+              {
+                "id": 6,
+                "name": "source_addr",
+                "type": "bytes"
+              },
+              {
+                "id": 7,
+                "name": "destination_addr",
+                "type": "bytes"
+              },
+              {
+                "id": 8,
+                "name": "source_mask",
+                "type": "bytes"
+              },
+              {
+                "id": 9,
+                "name": "destination_mask",
+                "type": "bytes"
+              },
+              {
+                "id": 10,
+                "name": "eth_protocol",
+                "type": "uint32"
               }
             ]
           },

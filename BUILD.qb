@@ -61,6 +61,7 @@ extra_dist(
 
 # files listed under grpcFiles shall generate both gRPC and protobuf files
 grpcFiles = [
+   'proto/acl.proto',
    'proto/agent.proto',
    'proto/bgp.proto',
    'proto/bgp_path.proto',

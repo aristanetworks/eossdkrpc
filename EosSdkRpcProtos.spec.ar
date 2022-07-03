@@ -54,6 +54,7 @@ EosRemoteSdk files used by other packages during development.
 
 %files
 %defattr(-,root,root)
+%{_datadir}/EosSdkRpc/proto/acl.proto
 %{_datadir}/EosSdkRpc/proto/acl_types.proto
 %{_datadir}/EosSdkRpc/proto/agent.proto
 %{_datadir}/EosSdkRpc/proto/bgp.proto
@@ -84,6 +85,15 @@ EosRemoteSdk files used by other packages during development.
 %{_datadir}/EosSdkRpc/proto/policy_map.proto
 %{_datadir}/EosSdkRpc/proto/policy_map_types.proto
 %{_datadir}/EosSdkRpc/proto/rpc_types.proto
+
+%{python_sitelib}/acl_pb2.py*
+%{python3_sitelib}/acl_pb2.py
+%{python3_sitelib}/__pycache__/acl_pb2.cpython*
+
+%{python_sitelib}/acl_pb2_grpc.py*
+%{python3_sitelib}/acl_pb2_grpc.py
+%{python3_sitelib}/__pycache__/acl_pb2_grpc.cpython*
+
 %{python_sitelib}/acl_types_pb2.py*
 %{python3_sitelib}/acl_types_pb2.py
 %{python3_sitelib}/__pycache__/acl_types_pb2.cpython*
