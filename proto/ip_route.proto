@@ -66,7 +66,11 @@ service IpRouteMgrService {
     * Enumerates all configured static routes.
     *
     * Request:
-    *    none
+    *    Setting more than one field below will apply AND logic. Leaving all fields
+    *       unset returns all results. These filters are not supported yet
+    *    vrf_name: filters response by VRF Name
+    *    vtep_addr: filters response by vtep address
+    *    vni: filters responses by VNI
     * Response: list of the following:
     *    response: IpRoute, the configured static route.
     *
@@ -267,7 +271,11 @@ message IpRouteResyncCompleteRequest {}
 
 message IpRouteResyncCompleteResponse {}
 
-message IpRoutesRequest {}
+message IpRoutesRequest {
+   string vrf_name = 1; // not yet supported
+   bytes vtep_addr = 2; // not yet supported
+   uint32 vni = 3; // not yet supported
+}
 
 message IpRoutesResponse {
    IpRoute response = 1; 

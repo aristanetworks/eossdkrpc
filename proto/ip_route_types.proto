@@ -17,6 +17,7 @@ message IpRouteKey {
 message IpRoute {
    IpRouteKey key = 1;
    uint32 tag = 2;
+   bool ribBypass = 3; // not yet supported
 }
 
 enum IpRouteActions {
@@ -37,4 +38,5 @@ message IpRouteVia {
    bytes router_mac_eth_addr = 8;
    string egress_vrf = 9;
    uint32 metric = 10;
+   bool vtep_sip_validation = 11; // not yet supported
 }

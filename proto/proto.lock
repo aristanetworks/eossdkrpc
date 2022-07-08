@@ -4346,7 +4346,24 @@
             "name": "IpRouteResyncCompleteResponse"
           },
           {
-            "name": "IpRoutesRequest"
+            "name": "IpRoutesRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "vrf_name",
+                "type": "string"
+              },
+              {
+                "id": 2,
+                "name": "vtep_addr",
+                "type": "bytes"
+              },
+              {
+                "id": 3,
+                "name": "vni",
+                "type": "uint32"
+              }
+            ]
           },
           {
             "name": "IpRoutesResponse",
@@ -4803,6 +4820,11 @@
                 "id": 2,
                 "name": "tag",
                 "type": "uint32"
+              },
+              {
+                "id": 3,
+                "name": "ribBypass",
+                "type": "bool"
               }
             ]
           },
@@ -4858,6 +4880,11 @@
                 "id": 10,
                 "name": "metric",
                 "type": "uint32"
+              },
+              {
+                "id": 11,
+                "name": "vtep_sip_validation",
+                "type": "bool"
               }
             ]
           }
