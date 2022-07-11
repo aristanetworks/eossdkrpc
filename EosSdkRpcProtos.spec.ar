@@ -1,6 +1,6 @@
 Summary: Protobufs for communicating with EosSdkRpc and EosSdkRpcClient
 Name: EosSdkRpcProtos
-Version: 1.0.6
+Version: 1.0.7
 Release: %{?release:%{release}}%{!?release:eng}
 Source0: %{name}-%{version}.tar.gz
 License: Arista Networks
@@ -216,4 +216,4 @@ EosRemoteSdk files used by other packages during development.
 
 %files devel
 %defattr(-,root,root)
-%{_includedir}/EosSdkRpc
+%{_includedir}/EosSdkRpcProtos

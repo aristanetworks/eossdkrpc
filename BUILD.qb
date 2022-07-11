@@ -150,7 +150,7 @@ protocCppGenerated += proto_cpp(
 data(
    'protoHeaderInstall',
    sources=[ f for f in protocCppGenerated if f.endswith( '.h' ) ],
-   inst_dir='$INCLUDEDIR/EosSdkRpc',
+   inst_dir='$INCLUDEDIR/EosSdkRpcProtos',
 )
 
 #-----------------------------------------------------------------------
