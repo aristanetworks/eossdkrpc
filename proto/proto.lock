@@ -4362,6 +4362,11 @@
                 "id": 3,
                 "name": "vni",
                 "type": "uint32"
+              },
+              {
+                "id": 4,
+                "name": "vxlan_intf_id",
+                "type": "IntfId"
               }
             ]
           },
@@ -4885,6 +4890,11 @@
                 "id": 11,
                 "name": "vtep_sip_validation",
                 "type": "bool"
+              },
+              {
+                "id": 12,
+                "name": "vxlan_intf_id",
+                "type": "IntfId"
               }
             ]
           }
