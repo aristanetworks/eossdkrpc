@@ -39,4 +39,5 @@ message IpRouteVia {
    string egress_vrf = 9;
    uint32 metric = 10;
    bool vtep_sip_validation = 11; // not yet supported
+   IntfId vxlan_intf_id = 12; // not yet supported
 }
