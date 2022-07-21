@@ -8,7 +8,7 @@ import "rpc_types.proto";
 import "intf_types.proto";
 import "eth_phy_intf_types.proto";
 
-
+// This module is not yet supported.
 service EthPhyIntfMgrService {
 
    /**
