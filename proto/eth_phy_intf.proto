@@ -79,21 +79,39 @@ service EthPhyIntfMgrService {
    /**
     * Returns the "burned in" address of the interface.
     *
-    * If the underlying hardware is not present, returns the default
-    * eth_addr_t(). Once hardware_present is true, burned_in_eth_addr
-    * is guaranteed to be available.
+    * Request:
+    *    intf_id = Interface to be queried for
+    * Response
+    *    eth_addr = Once hardware_present is true, burned_in_eth_addr
+    * is guaranteed to be available. Otherwise, the return is empty.
+    *
+    * EosSdk reference: eos::eth_phy_intf_mgr::burned_in_eth_addr
     */
    rpc burned_in_eth_addr( EthPhyIntfBurnedInEthAddrRequest ) returns ( EthPhyIntfBurnedInEthAddrResponse );
 
    /**
     * Returns the operational link speed.
     *
-    * If the underlying hardware is not present, returns
-    * LINK_SPEED_UNKNOWN.
+    * Request:
+    *    intf_id = Interface to be queried for
+    * Response
+    *    link_speed = one of the value speeds or ETH_PHY_INTF_LINK_SPEED_UNKNOWN if
+    *       the hardware is not present.
+    *
+    * EosSdk reference: eos::eth_phy_intf_mgr::link_speed
     */
    rpc link_speed( EthPhyIntfLinkSpeedRequest ) returns ( EthPhyIntfLinkSpeedResponse );
 
-   // Returns the presence of transceiver for the given interface
+   /**
+    * Returns the presence of transceiver for the given interface
+    *
+    * Request:
+    *    intf_id = Interface to be queried for
+    * Response
+    *    transceiver_present = true if the transceiver is present.
+    *
+    * EosSdk reference: eos::eth_phy_intf_mgr::transceiver_present
+    */
    rpc transceiver_present( EthPhyIntfTransceiverPresentRequest ) returns ( EthPhyIntfTransceiverPresentResponse );
 }
 

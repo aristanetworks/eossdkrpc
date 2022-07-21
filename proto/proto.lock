@@ -3330,6 +3330,11 @@
             "name": "EthPhyIntfWatchRequest",
             "fields": [
               {
+                "id": 3,
+                "name": "ack",
+                "type": "bool"
+              },
+              {
                 "id": 1,
                 "name": "all_intfs",
                 "type": "bool"
@@ -3368,6 +3373,11 @@
                 "id": 5,
                 "name": "on_eth_phy_intf_transceiver_present",
                 "type": "OnEthPhyIntfTransceiverPresent"
+              },
+              {
+                "id": 6,
+                "name": "ack",
+                "type": "bool"
               }
             ]
           },
@@ -3538,7 +3548,7 @@
               {
                 "name": "eth_phy_intfs",
                 "in_type": "EthPhyIntfsRequest",
-                "out_type": "EthPhyIntfsRequest",
+                "out_type": "EthPhyIntfsResponse",
                 "out_streamed": true
               },
               {
