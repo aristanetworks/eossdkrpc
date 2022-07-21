@@ -87,6 +87,12 @@ message EthPhyIntfCounters {
    uint64 jabbers = 19;
 }
 
+/**
+ * Ethernet interface counters.
+ *
+ * All of these attributes have the same meanings as the corresponding objects in
+ * the Ethernetlike (RFC3635) and RMON (RFC2819) MIBs.
+ */
 message EthPhyIntfBinCounters {
 
    /** Input 64 octet frame counter. */
