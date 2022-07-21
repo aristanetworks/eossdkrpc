@@ -29,160 +29,105 @@ enum EthPhyIntfLinkSpeed {
  * the Ethernetlike (RFC3635) and RMON (RFC2819) MIBs.
  */
 message EthPhyIntfCounters {
-   /**
-    * Getter for 'single_collision_frames': Etherlike-MIB singleCollisionFrames
-    * counter.
-    */
+   /** Etherlike-MIB singleCollisionFrames counter. */
    uint64 single_collision_frames = 1;
 
-   /**
-    * Getter for 'multiple_collision_frames': Etherlike-MIB multipleCollisionFrames
-    * counter.
-    */
+   /** Etherlike-MIB multipleCollisionFrames counter. */
    uint64 multiple_collision_frames = 2;
 
-   /** Getter for 'fcs_errors': Etherlike-MIB fcsErrors counter. */
+   /** Etherlike-MIB fcsErrors counter. */
    uint64 fcs_errors = 3;
 
-   /** Getter for 'alignment_errors': Etherlike-MIB alignmentErrors counter. */
+   /** Etherlike-MIB alignmentErrors counter. */
    uint64 alignment_errors = 4;
 
-   /**
-    * Getter for 'deferred_transmissions': Etherlike-MIB deferredTransmissions
-    * counter.
-    */
+   /** Etherlike-MIB deferredTransmissions counter. */
    uint64 deferred_transmissions = 5;
 
-   /** Getter for 'late_collisions': Etherlike-MIB lateCollisions counter. */
+   /** Etherlike-MIB lateCollisions counter. */
    uint64 late_collisions = 6;
 
-   /**
-    * Getter for 'excessive_collisions': Etherlike-MIB excessiveCollisions counter.
-    */
+   /** Etherlike-MIB excessiveCollisions counter. */
    uint64 excessive_collisions = 7;
 
-   /**
-    * Getter for 'internal_mac_transmit_errors': Etherlike-MIB
-    * internalMacTransmitErrors counter.
-    */
+   /** Etherlike-MIB internalMacTransmitErrors counter. */
    uint64 internal_mac_transmit_errors = 8;
 
-   /**
-    * Getter for 'carrier_sense_errors': Etherlike-MIB carrierSenseErrors counter.
-    */
+   /** Etherlike-MIB carrierSenseErrors counter. */
    uint64 carrier_sense_errors = 9;
 
-   /**
-    * Getter for 'internal_mac_receive_errors': Etherlike-MIB
-    * internalMacReceiveErrors counter.
-    */
+   /** Etherlike-MIB internalMacReceiveErrors counter. */
    uint64 internal_mac_receive_errors = 10;
 
-   /** Getter for 'frame_too_shorts': Etherlike-MIB frameTooShorts counter. */
+   /** Etherlike-MIB frameTooShorts counter. */
    uint64 frame_too_shorts = 11;
 
-   /** Getter for 'frame_too_longs': Etherlike-MIB frameTooLongs counter. */
+   /** Etherlike-MIB frameTooLongs counter. */
    uint64 frame_too_longs = 12;
 
-   /** Getter for 'sqe_test_errors': Etherlike-MIB sqeTestErrors counter. */
+   /** Etherlike-MIB sqeTestErrors counter. */
    uint64 sqe_test_errors = 13;
 
-   /** Getter for 'symbol_errors': Etherlike-MIB symbolErrors counter. */
+   /** Etherlike-MIB symbolErrors counter. */
    uint64 symbol_errors = 14;
 
-   /** Getter for 'in_unknown_opcodes': Etherlike-MIB inUnknownOpcodes counter. */
+   /** Etherlike-MIB inUnknownOpcodes counter. */
    uint64 in_unknown_opcodes = 15;
 
-   /** Getter for 'out_pause_frames': Etherlike-MIB outPauseFrames counter. */
+   /** Etherlike-MIB outPauseFrames counter. */
    uint64 out_pause_frames = 16;
 
-   /** Getter for 'in_pause_frames': Etherlike-MIB inPauseFrames counter. */
+   /** Etherlike-MIB inPauseFrames counter. */
    uint64 in_pause_frames = 17;
 
-   /** Getter for 'fragments': RMON-MIB fragments counter. */
+   /** RMON-MIB fragments counter. */
    uint64 fragments = 18;
 
-   /** Getter for 'jabbers': RMON-MIB jabbers counter. */
+   /** RMON-MIB jabbers counter. */
    uint64 jabbers = 19;
 }
 
 message EthPhyIntfBinCounters {
 
-   /** Getter for 'in_64_octet_frames': Input 64 octet frame counter. */
+   /** Input 64 octet frame counter. */
    uint64 in_64_octet_frames = 1;
 
-   /**
-    * Getter for 'in_65_to_127_octet_frames': Input 65 to 127 octet frame counter.
-    */
+   /** Input 65 to 127 octet frame counter. */
    uint64 in_65_to_127_octet_frames = 2;
 
-   /**
-    * Getter for 'in_128_to_255_octet_frames': Input 128 to 255 octet frame
-    * counter.
-    */
+   /** Input 128 to 255 octet frame counter. */
    uint64 in_128_to_255_octet_frames = 3;
 
-   /**
-    * Getter for 'in_256_to_511_octet_frames': Input 256 to 511 octet frame
-    * counter.
-    */
+   /** Input 256 to 511 octet frame counter. */
    uint64 in_256_to_511_octet_frames = 4;
 
-   /**
-    * Getter for 'in_512_to_1023_octet_frames': Input 512 to 1023 octet frame
-    * counter.
-    */
+   /** Input 512 to 1023 octet frame counter. */
    uint64 in_512_to_1023_octet_frames = 5;
 
-   /**
-    * Getter for 'in_1024_to_1522_octet_frames': Input 1024 to 1522 octet frame
-    * counter.
-    */
+   /** Input 1024 to 1522 octet frame counter. */
    uint64 in_1024_to_1522_octet_frames = 6;
 
-   /**
-    * Getter for 'in_1523_to_max_octet_frames': Input 1523 to max octet frame
-    * counter.
-    */
+   /** Input 1523 to max octet frame counter. */
    uint64 in_1523_to_max_octet_frames = 7;
 
-
-   /** Getter for 'out_64_octet_frames': Output 64 octet frame counter. */
+   /** Output 64 octet frame counter. */
    uint64 out_64_octet_frames = 8;
 
-   /**
-    * Getter for 'out_65_to_127_octet_frames': Output 65 to 127 octet frame
-    * counter.
-    */
+   /** Output 65 to 127 octet frame counter. */
    uint64 out_65_to_127_octet_frames = 9;
 
-   /**
-    * Getter for 'out_128_to_255_octet_frames': Output 128 to 255 octet frame
-    * counter.
-    */
+   /** Output 128 to 255 octet frame counter. */
    uint64 out_128_to_255_octet_frames = 10;
 
-   /**
-    * Getter for 'out_256_to_511_octet_frames': Output 256 to 511 octet frame
-    * counter.
-    */
+   /** Output 256 to 511 octet frame counter. */
    uint64 out_256_to_511_octet_frames = 11;
 
-   /**
-    * Getter for 'out_512_to_1023_octet_frames': Output 512 to 1023 octet frame
-    * counter.
-    */
+   /** Output 512 to 1023 octet frame counter. */
    uint64 out_512_to_1023_octet_frames = 12;
 
-   /**
-    * Getter for 'out_1024_to_1522_octet_frames': Output 1024 to 1522 octet frame
-    * counter.
-    */
+   /** Output 1024 to 1522 octet frame counter. */
    uint64 out_1024_to_1522_octet_frames = 13;
 
-   /**
-    * Getter for 'out_1523_to_max_octet_frames': Output 1523 to max octet frame
-    * counter.
-    */
+   /** Output 1523 to max octet frame counter. */
    uint64 out_1523_to_max_octet_frames = 14;
 }
