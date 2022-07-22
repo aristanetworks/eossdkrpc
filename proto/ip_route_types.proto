@@ -17,7 +17,7 @@ message IpRouteKey {
 message IpRoute {
    IpRouteKey key = 1;
    uint32 tag = 2;
-   bool ribBypass = 3; // not yet supported
+   bool rib_bypass = 3; // not yet supported
 }
 
 enum IpRouteActions {

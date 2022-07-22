@@ -4828,7 +4828,7 @@
               },
               {
                 "id": 3,
-                "name": "ribBypass",
+                "name": "rib_bypass",
                 "type": "bool"
               }
             ]
