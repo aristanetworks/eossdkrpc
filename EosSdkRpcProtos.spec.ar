@@ -15,7 +15,6 @@ Conflicts: EosSdkRpc <= 1.0.5
 #       error messages.
 
 %{expand: %define _eosgosrc %(echo $EOSGOSRC) }
-%{expand: %define _eosgopkg %(echo $EOSGOPKG) }
 
 %description
 Protobufs for communicating with the EosSdkRpc and EosSdkRpcClient.
