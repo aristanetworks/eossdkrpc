@@ -273,10 +273,10 @@ message IpRouteResyncCompleteRequest {}
 message IpRouteResyncCompleteResponse {}
 
 message IpRoutesRequest {
-   string vrf_name = 1; // not yet supported
-   bytes vtep_addr = 2; // not yet supported
-   uint32 vni = 3; // not yet supported
-   IntfId vxlan_intf_id = 4; // not yet supported
+   string vrf_name = 1;
+   bytes vtep_addr = 2;
+   uint32 vni = 3;
+   IntfId vxlan_intf_id = 4;
 }
 
 message IpRoutesResponse {
