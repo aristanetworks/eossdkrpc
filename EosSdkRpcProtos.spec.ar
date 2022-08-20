@@ -1,6 +1,6 @@
 Summary: Protobufs for communicating with EosSdkRpc and EosSdkRpcClient
 Name: EosSdkRpcProtos
-Version: 1.0.7
+Version: 1.0.8
 Release: %{?release:%{release}}%{!?release:eng}
 Source0: %{name}-%{version}.tar.gz
 License: Arista Networks
@@ -53,37 +53,7 @@ EosRemoteSdk files used by other packages during development.
 
 %files
 %defattr(-,root,root)
-%{_datadir}/EosSdkRpc/proto/acl.proto
-%{_datadir}/EosSdkRpc/proto/acl_types.proto
-%{_datadir}/EosSdkRpc/proto/agent.proto
-%{_datadir}/EosSdkRpc/proto/bgp.proto
-%{_datadir}/EosSdkRpc/proto/bgp_types.proto
-%{_datadir}/EosSdkRpc/proto/bgp_path.proto
-%{_datadir}/EosSdkRpc/proto/bgp_path_types.proto
-%{_datadir}/EosSdkRpc/proto/eapi.proto
-%{_datadir}/EosSdkRpc/proto/eapi_types.proto
-%{_datadir}/EosSdkRpc/proto/EosSdkRpc.proto
-%{_datadir}/EosSdkRpc/proto/eth_lag_intf.proto
-%{_datadir}/EosSdkRpc/proto/eth_lag_intf_types.proto
-%{_datadir}/EosSdkRpc/proto/eth_phy_intf.proto
-%{_datadir}/EosSdkRpc/proto/eth_phy_intf_types.proto
-%{_datadir}/EosSdkRpc/proto/intf.proto
-%{_datadir}/EosSdkRpc/proto/intf_types.proto
-%{_datadir}/EosSdkRpc/proto/ip_intf.proto
-%{_datadir}/EosSdkRpc/proto/ip_intf_types.proto
-%{_datadir}/EosSdkRpc/proto/ip_route.proto
-%{_datadir}/EosSdkRpc/proto/ip_route_types.proto
-%{_datadir}/EosSdkRpc/proto/ip_types.proto
-%{_datadir}/EosSdkRpc/proto/macsec.proto
-%{_datadir}/EosSdkRpc/proto/macsec_types.proto
-%{_datadir}/EosSdkRpc/proto/mpls_types.proto
-%{_datadir}/EosSdkRpc/proto/mpls_route.proto
-%{_datadir}/EosSdkRpc/proto/mpls_route_types.proto
-%{_datadir}/EosSdkRpc/proto/nexthop_group.proto
-%{_datadir}/EosSdkRpc/proto/nexthop_group_types.proto
-%{_datadir}/EosSdkRpc/proto/policy_map.proto
-%{_datadir}/EosSdkRpc/proto/policy_map_types.proto
-%{_datadir}/EosSdkRpc/proto/rpc_types.proto
+%{_datadir}/EosSdkRpc/proto/*.proto
 
 %{python_sitelib}/acl_pb2.py*
 %{python3_sitelib}/acl_pb2.py

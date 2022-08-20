@@ -5,8 +5,6 @@ syntax = "proto3";
 
 package eos.remote;
 
-import "rpc_types.proto";
-
 message BgpPeerKey {
    string vrf_name = 1;
    string peer_addr = 2;

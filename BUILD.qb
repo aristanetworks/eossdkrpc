@@ -61,14 +61,11 @@ extra_dist(
 
 # files listed under grpcFiles shall generate both gRPC and protobuf files
 grpcFiles = [
-   'proto/acl.proto',
    'proto/agent.proto',
-   'proto/bgp.proto',
    'proto/bgp_path.proto',
    'proto/eapi.proto',
    'proto/EosSdkRpc.proto',
    'proto/eth_lag_intf.proto',
-   'proto/eth_phy_intf.proto',
    'proto/intf.proto',
    'proto/ip_intf.proto',
    'proto/ip_route.proto',
@@ -81,11 +78,9 @@ grpcFiles = [
 # files listed under protobufFiles shall generate only protobuf files.
 protobufFiles = [
    'proto/acl_types.proto',
-   'proto/bgp_types.proto',
    'proto/bgp_path_types.proto',
    'proto/eapi_types.proto',
    'proto/eth_lag_intf_types.proto',
-   'proto/eth_phy_intf_types.proto',
    'proto/intf_types.proto',
    'proto/ip_types.proto',
    'proto/ip_intf_types.proto',
@@ -98,6 +93,20 @@ protobufFiles = [
    'proto/rpc_types.proto',
 ]
 
+
+# the next variables list proto files in the upcoming_proto directory
+# these are meant to be the unimplemented features.
+upcomingGrpcFiles = [
+   'upcoming_proto/acl.proto',
+   'upcoming_proto/bgp.proto',
+   'upcoming_proto/eth_phy_intf.proto',
+]
+
+upcomingProtobufFiles = [
+   'upcoming_proto/bgp_types.proto',
+   'upcoming_proto/eth_phy_intf_types.proto',
+]
+
 #-----------------------------------------------------------------------
 # data target
 
@@ -107,19 +116,33 @@ data(
    inst_dir='$DATADIR/EosSdkRpc/proto',
 )
 
-
+protoc_out = '$target_dir/proto'
 protocPyGenerated = proto_grpc_py(
    'grpc_py',
    sources=grpcFiles,
    proto_path='$src_dir/proto',
-   protoc_out='$target_dir/proto'
+   protoc_out=protoc_out
 ).outputs
 
 protocPyGenerated += proto_py(
    'proto_py',
    sources=protobufFiles,
    proto_path='$src_dir/proto',
-   protoc_out='$target_dir/proto'
+   protoc_out=protoc_out
+).outputs
+
+protocPyGenerated += proto_grpc_py(
+   'upcoming_grpc_py',
+   sources=upcomingGrpcFiles,
+   proto_path='$src_dir/upcoming_proto:$src_dir/proto',
+   protoc_out=protoc_out
+).outputs
+
+protocPyGenerated += proto_py(
+   'upcoming_proto_py',
+   sources=upcomingProtobufFiles,
+   proto_path='$src_dir/upcoming_proto:$src_dir/proto',
+   protoc_out=protoc_out
 ).outputs
 
 #-----------------------------------------------------------------------
@@ -140,14 +163,28 @@ protocCppGenerated = proto_grpc_cpp(
    'grpc_cpp',
    sources=grpcFiles,
    proto_path='$src_dir/proto',
-   protoc_out='$target_dir/proto'
+   protoc_out=protoc_out
 ).outputs
 
 protocCppGenerated += proto_cpp(
    'proto_cpp',
    sources=protobufFiles,
    proto_path='$src_dir/proto',
-   protoc_out='$target_dir/proto'
+   protoc_out=protoc_out
+).outputs
+
+protocCppGenerated += proto_grpc_cpp(
+   'upcoming_grpc_cpp',
+   sources=upcomingGrpcFiles,
+   proto_path='$src_dir/upcoming_proto:$src_dir/proto',
+   protoc_out=protoc_out
+).outputs
+
+protocCppGenerated += proto_cpp(
+   'upcoming_proto_cpp',
+   sources=upcomingProtobufFiles,
+   proto_path='$src_dir/upcoming_proto:$src_dir/proto',
+   protoc_out=protoc_out
 ).outputs
 
 data(
