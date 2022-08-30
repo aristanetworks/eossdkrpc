@@ -1421,6 +1421,36 @@
                 "type": "double"
               }
             ]
+          },
+          {
+            "name": "AgentPingRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "payload",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "AgentPingResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "payload",
+                "type": "string"
+              },
+              {
+                "id": 2,
+                "name": "rpc_ack_timestamp",
+                "type": "uint64"
+              },
+              {
+                "id": 3,
+                "name": "sdk_ack_timestamp",
+                "type": "uint64"
+              }
+            ]
           }
         ],
         "services": [
@@ -1494,6 +1524,11 @@
                 "name": "agent_uptime",
                 "in_type": "AgentUptimeRequest",
                 "out_type": "AgentUptimeResponse"
+              },
+              {
+                "name": "ping",
+                "in_type": "AgentPingRequest",
+                "out_type": "AgentPingResponse"
               }
             ]
           }
