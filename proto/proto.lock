@@ -5554,11 +5554,6 @@
                 "type": "bool"
               },
               {
-                "id": 10,
-                "name": "bypass_lldp",
-                "type": "bool"
-              },
-              {
                 "id": 11,
                 "name": "lldp_bypass_level",
                 "type": "MacsecBypass"
@@ -5567,11 +5562,6 @@
                 "id": 12,
                 "name": "traffic_policy",
                 "type": "MacsecProfileTrafficPolicy"
-              },
-              {
-                "id": 13,
-                "name": "allow_unprotected",
-                "type": "bool"
               },
               {
                 "id": 14,
@@ -5594,6 +5584,14 @@
                 "type": "IntfId",
                 "is_repeated": true
               }
+            ],
+            "reserved_ids": [
+              10,
+              13
+            ],
+            "reserved_names": [
+              "bypass_lldp",
+              "allow_unprotected"
             ]
           },
           {
