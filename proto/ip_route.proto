@@ -66,8 +66,12 @@ service IpRouteMgrService {
     * Enumerates all configured static routes.
     *
     * Request:
-    *    Setting more than one field below will apply AND logic. Leaving all fields
-    *       unset returns all results. These filters are not supported yet
+    *    Setting more than one field below will apply AND logic. With an exception
+    *    for vrf_name, leaving filters unset disables them. In case of vrf_name,
+    *    if unset, it reverts to the default VRF, in accordance with all SDK APIs.
+    *    A special value "all" has been introduced to allow this function to return
+    *    routes from all VRFs, in the same fashion as CLI commands.
+    *
     *    vrf_name: filters response by VRF Name
     *    vtep_addr: filters response by vtep address
     *    vni: filters responses by VNI
