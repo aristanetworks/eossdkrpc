@@ -6853,6 +6853,11 @@
                 "id": 11,
                 "name": "hierarchical_fecs_enabled",
                 "type": "bool"
+              },
+              {
+                "id": 12,
+                "name": "counters_persistent",
+                "type": "bool"
               }
             ],
             "maps": [
