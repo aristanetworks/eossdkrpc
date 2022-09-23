@@ -9,8 +9,6 @@ import "acl_types.proto";
 import "intf_types.proto";
 import "rpc_types.proto";
 
-// This module is not yet supported.
-
 service AclMgrService {
 
    /**
@@ -90,6 +88,10 @@ service AclMgrService {
     * Response:
     *    eth_rule (list) = the ethernet rules.
     *
+    * Note: Behavior differs from EosSdk version. BUG711262 does not apply to the
+    *       EosSdkRpc so "vlan_mask", "inner_vlan_mask", "source_addr" and
+    *       "destination_addr" will have their correct values returned.
+    *
     * EosSdk reference: eos::acl_mgr::acl_rule_eth_iter
     */
    rpc acl_rule_eths( AclRuleEthsRequest ) returns ( stream AclRuleEthsResponse ) {}
@@ -101,6 +103,10 @@ service AclMgrService {
     *    key = the key of ACL to get the ethernet rules for.
     * Response:
     *    eth_rule (list) = the ethernet rules.
+    *
+    * Note: Behavior differs from EosSdk version. BUG711262 does not apply to the
+    *       EosSdkRpc so "vlan_mask", "inner_vlan_mask", "source_addr" and
+    *       "destination_addr" will have their correct values returned.
     *
     * EosSdk reference: eos::acl_mgr::acl_all_rule_eth_iter
     */

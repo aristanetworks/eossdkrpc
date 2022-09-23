@@ -61,6 +61,7 @@ extra_dist(
 
 # files listed under grpcFiles shall generate both gRPC and protobuf files
 grpcFiles = [
+   'proto/acl.proto',
    'proto/agent.proto',
    'proto/bgp_path.proto',
    'proto/eapi.proto',
@@ -97,7 +98,6 @@ protobufFiles = [
 # the next variables list proto files in the upcoming_proto directory
 # these are meant to be the unimplemented features.
 upcomingGrpcFiles = [
-   'upcoming_proto/acl.proto',
    'upcoming_proto/bgp.proto',
    'upcoming_proto/eth_phy_intf.proto',
 ]
