@@ -79,6 +79,8 @@ service IpRouteMgrService {
     *    vtep_addr: filters response by vtep address
     *    vni: filters responses by VNI
     *    vxlan_intf_id: filters responses by VXLAN Interface
+    *    report_vias: if true, the stream response will also include vias for every
+    *                 reported path.
     * Response: list of the following:
     *    response: IpRoute, the configured static route.
     *
@@ -284,10 +286,14 @@ message IpRoutesRequest {
    bytes vtep_addr = 2;
    uint32 vni = 3;
    IntfId vxlan_intf_id = 4;
+   bool report_vias = 5;
 }
 
 message IpRoutesResponse {
-   IpRoute response = 1; 
+   oneof item {
+      IpRoute response = 1;
+      IpRouteVia via = 2;
+   }
 }
 
 message IpRouteViasRequest {

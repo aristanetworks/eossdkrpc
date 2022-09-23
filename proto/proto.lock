@@ -5689,6 +5689,11 @@
                 "id": 4,
                 "name": "vxlan_intf_id",
                 "type": "IntfId"
+              },
+              {
+                "id": 5,
+                "name": "report_vias",
+                "type": "bool"
               }
             ]
           },
@@ -5699,6 +5704,11 @@
                 "id": 1,
                 "name": "response",
                 "type": "IpRoute"
+              },
+              {
+                "id": 2,
+                "name": "via",
+                "type": "IpRouteVia"
               }
             ]
           },
