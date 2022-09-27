@@ -67,6 +67,7 @@ grpcFiles = [
    'proto/eapi.proto',
    'proto/EosSdkRpc.proto',
    'proto/eth_lag_intf.proto',
+   'proto/eth_phy_intf.proto',
    'proto/intf.proto',
    'proto/ip_intf.proto',
    'proto/ip_route.proto',
@@ -82,6 +83,7 @@ protobufFiles = [
    'proto/bgp_path_types.proto',
    'proto/eapi_types.proto',
    'proto/eth_lag_intf_types.proto',
+   'proto/eth_phy_intf_types.proto',
    'proto/intf_types.proto',
    'proto/ip_types.proto',
    'proto/ip_intf_types.proto',
@@ -99,12 +101,10 @@ protobufFiles = [
 # these are meant to be the unimplemented features.
 upcomingGrpcFiles = [
    'upcoming_proto/bgp.proto',
-   'upcoming_proto/eth_phy_intf.proto',
 ]
 
 upcomingProtobufFiles = [
    'upcoming_proto/bgp_types.proto',
-   'upcoming_proto/eth_phy_intf_types.proto',
 ]
 
 #-----------------------------------------------------------------------

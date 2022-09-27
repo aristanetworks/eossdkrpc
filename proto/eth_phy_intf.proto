@@ -247,7 +247,7 @@ message EthPhyIntfTransceiverPresentResponse {
 
 /// --- Counter service
 
-service EthPhyIntfCounterMgrService {
+service EthPhyIntfCountersMgrService {
    /**
     * Gets the current counters of the given ethernet interface.
     *
