@@ -5845,6 +5845,12 @@
                 "id": 3,
                 "name": "vrf_name",
                 "type": "string"
+              },
+              {
+                "id": 4,
+                "name": "vias",
+                "type": "IpRouteVia",
+                "is_repeated": true
               }
             ]
           },
