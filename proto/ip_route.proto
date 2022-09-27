@@ -158,6 +158,10 @@ service IpRouteMgrService {
     *                IP_ROUTE_ACTION_FORWARD = 1;
     *                IP_ROUTE_ACTION_DROP = 2;
     *                IP_ROUTE_ACTION_NEXTHOP_GROUP = 3;
+    *       vias: optional number of IpRouteVia messages to be created
+    *             along with the route. if any of the vias fail, the route will be
+    *             deleted at once and the error returned will be the reason for the
+    *             via creation failure.
     * Response:
     *    None
     *
@@ -338,6 +342,7 @@ message IpRouteSetRequest {
       IpRouteActions action = 2;
       string vrf_name = 3;
    }
+   repeated IpRouteVia vias = 4;
 }
 
 message IpRouteSetResponse {}
