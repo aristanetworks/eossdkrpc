@@ -72,6 +72,9 @@ service IpRouteMgrService {
     *    A special value "all" has been introduced to allow this function to return
     *    routes from all VRFs, in the same fashion as CLI commands.
     *
+    *    In the presence of multiple vias, a route is selected if any of the
+    *    underlying vias matches the criteria.
+    *
     *    vrf_name: filters response by VRF Name
     *    vtep_addr: filters response by vtep address
     *    vni: filters responses by VNI
