@@ -11,6 +11,11 @@ enum IpVersion {
    IP_VERSION_6 = 6;
 }
 
+message IpAddrMask {
+   bytes addr = 1;
+   uint32 mask_length = 2;
+}
+
 message Prefix {
    bytes ip_addr = 1;
    int32 length = 2;

@@ -86,7 +86,6 @@ protobufFiles = [
    'proto/eth_phy_intf_types.proto',
    'proto/intf_types.proto',
    'proto/ip_types.proto',
-   'proto/ip_intf_types.proto',
    'proto/ip_route_types.proto',
    'proto/macsec_types.proto',
    'proto/mpls_types.proto',

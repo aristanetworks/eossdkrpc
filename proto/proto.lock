@@ -1726,11 +1726,6 @@
                 "id": 2,
                 "name": "log",
                 "type": "bool"
-              },
-              {
-                "id": 3,
-                "name": "tracked",
-                "type": "bool"
               }
             ]
           },
@@ -1933,7 +1928,7 @@
         ],
         "imports": [
           {
-            "path": "ip_intf_types.proto"
+            "path": "ip_types.proto"
           }
         ],
         "package": {
@@ -5228,7 +5223,40 @@
     {
       "protopath": "ip_intf.proto",
       "def": {
+        "enums": [
+          {
+            "name": "IpAddrOperations",
+            "enum_fields": [
+              {
+                "name": "IP_ADDR_OP_NONE"
+              },
+              {
+                "name": "IP_ADDR_OP_ADD",
+                "integer": 1
+              },
+              {
+                "name": "IP_ADDR_OP_DELETE",
+                "integer": 2
+              }
+            ]
+          }
+        ],
         "messages": [
+          {
+            "name": "IpAddrEvent",
+            "fields": [
+              {
+                "id": 1,
+                "name": "operation",
+                "type": "IpAddrOperations"
+              },
+              {
+                "id": 2,
+                "name": "ip_addr_mask",
+                "type": "IpAddrMask"
+              }
+            ]
+          },
           {
             "name": "IpIntfWatchRequest",
             "fields": [
@@ -5250,7 +5278,7 @@
             ]
           },
           {
-            "name": "IpIntfEvent",
+            "name": "IpIntfWatchResponse",
             "fields": [
               {
                 "id": 1,
@@ -5265,7 +5293,7 @@
               {
                 "id": 3,
                 "name": "vlan_id",
-                "type": "VlanId"
+                "type": "uint32"
               },
               {
                 "id": 4,
@@ -5489,7 +5517,7 @@
               {
                 "id": 1,
                 "name": "vlan_id",
-                "type": "VlanId"
+                "type": "uint32"
               }
             ]
           }
@@ -5501,7 +5529,7 @@
               {
                 "name": "watch",
                 "in_type": "IpIntfWatchRequest",
-                "out_type": "IpIntfEvent",
+                "out_type": "IpIntfWatchResponse",
                 "out_streamed": true
               },
               {
@@ -5565,75 +5593,7 @@
             "path": "intf_types.proto"
           },
           {
-            "path": "ip_intf_types.proto"
-          }
-        ],
-        "package": {
-          "name": "eos.remote"
-        }
-      }
-    },
-    {
-      "protopath": "ip_intf_types.proto",
-      "def": {
-        "enums": [
-          {
-            "name": "IpAddrOperations",
-            "enum_fields": [
-              {
-                "name": "IP_ADDR_OP_NONE"
-              },
-              {
-                "name": "IP_ADDR_OP_ADD",
-                "integer": 1
-              },
-              {
-                "name": "IP_ADDR_OP_DELETE",
-                "integer": 2
-              }
-            ]
-          }
-        ],
-        "messages": [
-          {
-            "name": "IpAddrEvent",
-            "fields": [
-              {
-                "id": 1,
-                "name": "operation",
-                "type": "IpAddrOperations"
-              },
-              {
-                "id": 2,
-                "name": "ip_addr_mask",
-                "type": "IpAddrMask"
-              }
-            ]
-          },
-          {
-            "name": "IpAddrMask",
-            "fields": [
-              {
-                "id": 1,
-                "name": "addr",
-                "type": "bytes"
-              },
-              {
-                "id": 2,
-                "name": "mask_length",
-                "type": "uint32"
-              }
-            ]
-          },
-          {
-            "name": "VlanId",
-            "fields": [
-              {
-                "id": 1,
-                "name": "id",
-                "type": "uint32"
-              }
-            ]
+            "path": "ip_types.proto"
           }
         ],
         "package": {
@@ -6291,6 +6251,21 @@
           }
         ],
         "messages": [
+          {
+            "name": "IpAddrMask",
+            "fields": [
+              {
+                "id": 1,
+                "name": "addr",
+                "type": "bytes"
+              },
+              {
+                "id": 2,
+                "name": "mask_length",
+                "type": "uint32"
+              }
+            ]
+          },
           {
             "name": "Prefix",
             "fields": [
@@ -7790,16 +7765,16 @@
             ]
           },
           {
-            "name": "ResyncNexthopGroupInitRequest"
+            "name": "NexthopGroupResyncInitRequest"
           },
           {
-            "name": "ResyncNexthopGroupInitResponse"
+            "name": "NexthopGroupResyncInitResponse"
           },
           {
-            "name": "ResyncNexthopGroupCompleteRequest"
+            "name": "NexthopGroupResyncCompleteRequest"
           },
           {
-            "name": "ResyncNexthopGroupCompleteResponse"
+            "name": "NexthopGroupResyncCompleteResponse"
           },
           {
             "name": "NexthopGroupsRequest"
@@ -8036,13 +8011,13 @@
               },
               {
                 "name": "resync_init",
-                "in_type": "ResyncNexthopGroupInitRequest",
-                "out_type": "ResyncNexthopGroupInitResponse"
+                "in_type": "NexthopGroupResyncInitRequest",
+                "out_type": "NexthopGroupResyncInitResponse"
               },
               {
                 "name": "resync_complete",
-                "in_type": "ResyncNexthopGroupCompleteRequest",
-                "out_type": "ResyncNexthopGroupCompleteResponse"
+                "in_type": "NexthopGroupResyncCompleteRequest",
+                "out_type": "NexthopGroupResyncCompleteResponse"
               },
               {
                 "name": "nexthop_groups",
@@ -8904,14 +8879,14 @@
             "name": "PolicyMapRule",
             "fields": [
               {
-                "id": 1,
-                "name": "class_map_key",
-                "type": "PolicyMapKey"
-              },
-              {
                 "id": 2,
                 "name": "policy_map_rule_type",
                 "type": "PolicyMapRuleType"
+              },
+              {
+                "id": 1,
+                "name": "class_map_key",
+                "type": "PolicyMapKey"
               },
               {
                 "id": 3,

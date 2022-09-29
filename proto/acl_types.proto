@@ -5,7 +5,7 @@ syntax = "proto3";
 
 package eos.remote;
 
-import "ip_intf_types.proto";
+import "ip_types.proto";
 
 /**
  * An ACL key is the combination of its name and ACL type.
@@ -27,7 +27,6 @@ message AclRuleBase {
       AclAction action = 1;
    }
    bool log = 2;
-   bool tracked = 3;
 }
 
 /**

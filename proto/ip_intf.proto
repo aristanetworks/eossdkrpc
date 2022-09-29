@@ -7,7 +7,7 @@ package eos.remote;
 
 import "rpc_types.proto";
 import "intf_types.proto";
-import "ip_intf_types.proto";
+import "ip_types.proto";
 
 service IpIntfMgrService {
 
@@ -30,7 +30,7 @@ service IpIntfMgrService {
     *
     * EosSdk reference: eos::ip_intf_handler (class)
     */
-   rpc watch( IpIntfWatchRequest ) returns ( stream IpIntfEvent ) {}
+   rpc watch( IpIntfWatchRequest ) returns ( stream IpIntfWatchResponse ) {}
 
    /**
     * Queries whether the given interface exists and is able to have IP addresses.
@@ -164,6 +164,17 @@ service IpIntfMgrService {
    rpc internal_vlan_id( IpIntfInternalVlanIdRequest ) returns ( IpIntfInternalVlanIdResponse ) {}
 }
 
+enum IpAddrOperations {
+   IP_ADDR_OP_NONE = 0;
+   IP_ADDR_OP_ADD = 1;
+   IP_ADDR_OP_DELETE = 2;
+}
+
+message IpAddrEvent {
+   IpAddrOperations operation = 1;
+   IpAddrMask ip_addr_mask = 2;
+}
+
 message IpIntfWatchRequest {
    oneof overloads {
       bool all_intfs = 1;
@@ -172,11 +183,11 @@ message IpIntfWatchRequest {
    bool ack = 4;
 }
 
-message IpIntfEvent {
+message IpIntfWatchResponse {
    IntfId intf_id = 1;
    oneof ip_intf_event {
       IpAddrEvent addr = 2;
-      VlanId vlan_id = 3;
+      uint32 vlan_id = 3;
    }
    bool ack = 4;
 } 
@@ -259,5 +270,5 @@ message IpIntfInternalVlanIdRequest {
 }
 
 message IpIntfInternalVlanIdResponse {
-   VlanId vlan_id = 1;
+   uint32 vlan_id = 1;
 }
