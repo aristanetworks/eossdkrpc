@@ -35,6 +35,7 @@ message MplsRoute {
 * EosSdk reference: eos::mpls_route_key_t
 **/
 message MplsRouteKey {
+   // When no labels are specified a single label with a value of 0 is used.
    repeated MplsLabel labels = 1;
    uint32 metric = 2; // Must be in range 0 to 255
 }

@@ -29,7 +29,9 @@ message PolicyMapKey {
 
 message PolicyMapRule {
    PolicyMapKey class_map_key = 1;
-   PolicyMapRuleType policy_map_rule_type = 2;
+   oneof policy_map_rule_type_present { // default value is POLICY_RULE_TYPE_CLASSMAP
+      PolicyMapRuleType policy_map_rule_type = 2;
+   }
    AclRuleIp raw_rule = 3;
    repeated PolicyMapAction actions = 4;
 }

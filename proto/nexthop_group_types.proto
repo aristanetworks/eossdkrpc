@@ -38,7 +38,9 @@ message NexthopGroup {
    string name = 1;
    NexthopGroupEncapTypes type = 2;
    NexthopGroupGreKeyTypes gre_key_type = 3;
-   uint32 ttl = 4;
+   oneof ttl_present { // default value is 64
+      uint32 ttl = 4;
+   }
    bytes source_ip_addr = 5;
    IntfId source_intf = 6;
    bool autosize = 7;
