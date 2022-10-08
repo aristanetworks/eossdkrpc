@@ -182,6 +182,11 @@ message nexthop_group_msg {
   // Each entry will have its own unique counter. Disabled (i.e. set to false)
   // by default.
   bool counters_unshared = 5;
+  // Dynamic resizing configuration for the nexthop group.
+  // When set, unresolved entries from the nexthop group are not programmed into
+  // hardware, and packets will be hashed across the remaining reachable entries
+  // in the group. Disabled (i.e. set to false) by default.
+  bool autosize = 6;
 }
 
 // NexthopGroupBulkMsg is passed as argument to NexthopGroupBulk
@@ -359,6 +364,11 @@ message sbfd_echo_session_msg {
    uint32 min_tx = 4;
    // Detection multiplier. If not specified, 3 will be used.
    uint32 detection_multiplier = 5;
+   // If true, the sbfd session will be notified as down, if the outgoing
+   // interface changes state to admin or operational down.
+   // If false, or unspecified, the state of the sbfd session relies only
+   // on probe state.
+   bool track_outgoing_interface_state = 6;
 }
 
 // SbfdEchoSessionBulkMsg is used as an argument to

@@ -215,8 +215,9 @@ override(
 #-----------------------------------------------------------------------
 # Protolock
 # If any proto files are updated, the proto.lock file must be updated
-# protolock commit -lockdir /src/EosSdkRpc/proto -protoroot /src/EosSdkRpc/proto
-# May need to a4 edit /src/EosSdkRpc/proto/proto.lock before running the command.
+# protolock commit -lockdir /src/EosSdkRpcProtos/proto -protoroot /src/EosSdkRpcProtos/proto
+# May need to a4 edit /src/EosSdkRpcProtos/proto/proto.lock before running the
+# command.
 
 protolockConflictCheckScript="""
 protolock status -lockdir /src/EosSdkRpcProtos/proto -protoroot /src/EosSdkRpcProtos/proto

@@ -274,6 +274,11 @@
                 "id": 5,
                 "name": "counters_unshared",
                 "type": "bool"
+              },
+              {
+                "id": 6,
+                "name": "autosize",
+                "type": "bool"
               }
             ]
           },
@@ -565,6 +570,11 @@
                 "id": 5,
                 "name": "detection_multiplier",
                 "type": "uint32"
+              },
+              {
+                "id": 6,
+                "name": "track_outgoing_interface_state",
+                "type": "bool"
               }
             ]
           },
