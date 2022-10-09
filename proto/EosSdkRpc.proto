@@ -416,7 +416,8 @@ message sbfd_echo_session_rtt_msg {
 // stream of WatchSbfdEchoSessionStatusMsg objects is returned by
 // WatchSbfdEchoSessionStatusMsgs API.
 message watch_sbfd_echo_session_status_msg {
-   // The session that the update pertains to.
+   // The session that the update pertains to, applies in the case
+   // of 'status' or 'rtt' only.
    sbfd_echo_session_key_msg session_key = 1;
 
    oneof update {
@@ -428,4 +429,7 @@ message watch_sbfd_echo_session_status_msg {
       // have been generated is completed
       bool sbfd_echo_session_oper_status_end_of_batch = 4;
    }
+
+   // A batch of status messages, packed together for efficiency reasons.
+   repeated watch_sbfd_echo_session_status_msg bulk = 5;
 }

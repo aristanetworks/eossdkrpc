@@ -671,6 +671,12 @@
                 "id": 4,
                 "name": "sbfd_echo_session_oper_status_end_of_batch",
                 "type": "bool"
+              },
+              {
+                "id": 5,
+                "name": "bulk",
+                "type": "watch_sbfd_echo_session_status_msg",
+                "is_repeated": true
               }
             ]
           }
