@@ -47,6 +47,7 @@ message NexthopGroup {
    bool counters_unshared = 10;
    bool hierarchical_fecs_enabled = 11;
    bool counters_persistent = 12;
+   uint32 version_id = 13; // NOTE: this is actually a 16-bit value
 }
 
 message NexthopGroupCounter {

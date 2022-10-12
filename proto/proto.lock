@@ -8256,6 +8256,11 @@
                 "id": 12,
                 "name": "counters_persistent",
                 "type": "bool"
+              },
+              {
+                "id": 13,
+                "name": "version_id",
+                "type": "uint32"
               }
             ],
             "maps": [
