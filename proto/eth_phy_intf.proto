@@ -21,7 +21,12 @@ service EthPhyIntfMgrService {
     *    one of these options:
     *    
     * Response:
-    *    one of the possible events. See EthPhyIntfWatchResponse for details.
+    *    ack = true if message is only an acknowledgment or possible combinations of
+    *    events. Whenever multiple events are present in a single message, the event
+    *    on_eth_phy_intf_created, if present, is always the first in the sequence
+    *    and the event on_eth_intf_deleted, if present, is always the last one in
+    *    the original sequence. The order of the remaining events is not relevant.
+    *    See EthPhyIntfWatchResponse for details.
     * 
     * EOS SDK reference:: eos::eth_phy_intf_handler (class)
     */
