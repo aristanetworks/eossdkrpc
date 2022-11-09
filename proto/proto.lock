@@ -8987,7 +8987,7 @@
                 "integer": 5
               },
               {
-                "name": "RPC_STATUS_ALREDY_EXISTS",
+                "name": "RPC_STATUS_ALREADY_EXISTS",
                 "integer": 6
               },
               {
@@ -8995,36 +8995,44 @@
                 "integer": 7
               },
               {
-                "name": "RPC_STATUS_RESOURCE_EXHAUSTED",
+                "name": "RPC_STATUS_UNAUTHENTICATED",
                 "integer": 8
               },
               {
-                "name": "RPC_STATUS_FAILED_PRECONDITION",
+                "name": "RPC_STATUS_RESOURCE_EXHAUSTED",
                 "integer": 9
               },
               {
-                "name": "RPC_STATUS_ABORTED",
+                "name": "RPC_STATUS_FAILED_PRECONDITION",
                 "integer": 10
               },
               {
-                "name": "RPC_STATUS_OUT_OF_RANGE",
+                "name": "RPC_STATUS_ABORTED",
                 "integer": 11
               },
               {
-                "name": "RPC_STATUS_UNIMPLEMENTED",
+                "name": "RPC_STATUS_OUT_OF_RANGE",
                 "integer": 12
               },
               {
-                "name": "RPC_STATUS_INTERNAL",
+                "name": "RPC_STATUS_UNIMPLEMENTED",
                 "integer": 13
               },
               {
-                "name": "RPC_STATUS_UNAVAILABLE",
+                "name": "RPC_STATUS_INTERNAL",
                 "integer": 14
               },
               {
-                "name": "RPC_STATUS_DATA_LOSS",
+                "name": "RPC_STATUS_UNAVAILABLE",
                 "integer": 15
+              },
+              {
+                "name": "RPC_STATUS_DATA_LOSS",
+                "integer": 16
+              },
+              {
+                "name": "RPC_DO_NOT_USE",
+                "integer": 17
               }
             ]
           }
