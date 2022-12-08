@@ -283,6 +283,7 @@ message MplsRouteWatchRequest {
       bool all = 2;
       MplsRouteKey route_key = 3;
    }
+   bool dump = 4;
 }
 
 /**
@@ -320,14 +321,22 @@ message OnMplsFecDel {
    MplsFecId fec_id = 1;
 }
 
+message OnMplsRouteEntryDump {
+  MplsRoute route = 1;
+  repeated MplsRouteVia vias = 2;
+}
+
 message MplsRouteWatchResponse {
-   oneof event {
-      bool ack = 1;
+   bool ack = 1;
+   oneof route_event {
       OnMplsRouteSet on_mpls_route_set = 2;
       OnMplsRouteDel on_mpls_route_del = 3;
+   }
+   oneof fec_event {
       OnMplsFecSet on_mpls_fec_set = 4;
       OnMplsFecDel on_mpls_fec_del = 5;
    }
+   OnMplsRouteEntryDump on_mpls_route_entry_dump = 6;
 }
 
 message MplsRouteResyncInitRequest {}

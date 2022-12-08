@@ -7019,6 +7019,11 @@
                 "id": 3,
                 "name": "route_key",
                 "type": "MplsRouteKey"
+              },
+              {
+                "id": 4,
+                "name": "dump",
+                "type": "bool"
               }
             ]
           },
@@ -7068,6 +7073,22 @@
             ]
           },
           {
+            "name": "OnMplsRouteEntryDump",
+            "fields": [
+              {
+                "id": 1,
+                "name": "route",
+                "type": "MplsRoute"
+              },
+              {
+                "id": 2,
+                "name": "vias",
+                "type": "MplsRouteVia",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
             "name": "MplsRouteWatchResponse",
             "fields": [
               {
@@ -7094,6 +7115,11 @@
                 "id": 5,
                 "name": "on_mpls_fec_del",
                 "type": "OnMplsFecDel"
+              },
+              {
+                "id": 6,
+                "name": "on_mpls_route_entry_dump",
+                "type": "OnMplsRouteEntryDump"
               }
             ]
           },
