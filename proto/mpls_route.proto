@@ -277,13 +277,22 @@ service MplsRouteMgrService {
 
 }
 
+enum MplsRouteUpdateFields {
+  MPLS_ROUTE = 0;
+  MPLS_ROUTE_VIAS = 1;
+}
+
+message MplsRouteFieldRequired {
+  repeated MplsRouteUpdateFields fields = 1;
+}
+
 message MplsRouteWatchRequest {
    bool ack = 1;
    oneof overload {
       bool all = 2;
       MplsRouteKey route_key = 3;
    }
-   bool dump = 4;
+   MplsRouteFieldRequired dump_fields = 4;
 }
 
 /**
@@ -321,7 +330,7 @@ message OnMplsFecDel {
    MplsFecId fec_id = 1;
 }
 
-message OnMplsRouteEntryDump {
+message OnMplsRouteDump {
   MplsRoute route = 1;
   repeated MplsRouteVia vias = 2;
 }
@@ -336,7 +345,7 @@ message MplsRouteWatchResponse {
       OnMplsFecSet on_mpls_fec_set = 4;
       OnMplsFecDel on_mpls_fec_del = 5;
    }
-   OnMplsRouteEntryDump on_mpls_route_entry_dump = 6;
+   OnMplsRouteDump on_mpls_route_dump = 6;
 }
 
 message MplsRouteResyncInitRequest {}

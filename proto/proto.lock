@@ -7001,7 +7001,32 @@
     {
       "protopath": "mpls_route.proto",
       "def": {
+        "enums": [
+          {
+            "name": "MplsRouteUpdateFields",
+            "enum_fields": [
+              {
+                "name": "MPLS_ROUTE"
+              },
+              {
+                "name": "MPLS_ROUTE_VIAS",
+                "integer": 1
+              }
+            ]
+          }
+        ],
         "messages": [
+          {
+            "name": "MplsRouteFieldRequired",
+            "fields": [
+              {
+                "id": 1,
+                "name": "fields",
+                "type": "MplsRouteUpdateFields",
+                "is_repeated": true
+              }
+            ]
+          },
           {
             "name": "MplsRouteWatchRequest",
             "fields": [
@@ -7022,8 +7047,8 @@
               },
               {
                 "id": 4,
-                "name": "dump",
-                "type": "bool"
+                "name": "dump_fields",
+                "type": "MplsRouteFieldRequired"
               }
             ]
           },
@@ -7073,7 +7098,7 @@
             ]
           },
           {
-            "name": "OnMplsRouteEntryDump",
+            "name": "OnMplsRouteDump",
             "fields": [
               {
                 "id": 1,
@@ -7118,8 +7143,8 @@
               },
               {
                 "id": 6,
-                "name": "on_mpls_route_entry_dump",
-                "type": "OnMplsRouteEntryDump"
+                "name": "on_mpls_route_dump",
+                "type": "OnMplsRouteDump"
               }
             ]
           },
