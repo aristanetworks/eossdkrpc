@@ -4600,6 +4600,26 @@
       "def": {
         "enums": [
           {
+            "name": "IntfWatchedField",
+            "enum_fields": [
+              {
+                "name": "INTF_ALL_FIELDS"
+              },
+              {
+                "name": "INTF_OPER_STATUS",
+                "integer": 1
+              },
+              {
+                "name": "INTF_ADMIN_ENABLED",
+                "integer": 2
+              },
+              {
+                "name": "INTF_DESCRIPTION",
+                "integer": 3
+              }
+            ]
+          },
+          {
             "name": "IntfEvents",
             "enum_fields": [
               {
@@ -4618,6 +4638,17 @@
         ],
         "messages": [
           {
+            "name": "IntfFieldsControl",
+            "fields": [
+              {
+                "id": 1,
+                "name": "fields",
+                "type": "IntfWatchedField",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
             "name": "WatchIntfRequest",
             "fields": [
               {
@@ -4634,6 +4665,11 @@
                 "id": 3,
                 "name": "ack",
                 "type": "bool"
+              },
+              {
+                "id": 4,
+                "name": "dump_fields",
+                "type": "IntfFieldsControl"
               }
             ]
           },

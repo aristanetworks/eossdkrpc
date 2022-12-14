@@ -22,8 +22,16 @@ service IntfMgrService {
     *    One of these options:
     *       all = true
     *       intf_id = name of a particular interface to watch.
+    *    dump_fields = controls whether a dump of the existing state is performed
+    *                  and what data it contains. This dump takes place when the
+    *                  watcher starts up. At least one IntfWatchedField must be
+    *                  specified in order to perform a dump.
     * Response: Events are streamed as changes happen:
-    *    ack = if true, this not an event and the fields below are invalid.
+    *    ack = if true, this is not an event and the fields below are invalid. It
+    *          will be sent immediately if a dump is not being performed and an
+    *          acknowledgement was requested. If a dump is taking place it will
+    *          instead be sent at the end of the dump regardless of whether an
+    *          acknowledgement was requested or not.
     *    intf_id = interface whose status changed.
     *    One of the following changes:
     *       event = Interface has been added or removed.
@@ -172,12 +180,24 @@ service IntfMgrService {
    rpc oper_status( OperStatusRequest ) returns ( OperStatusResponse ) {}
 } 
 
+enum IntfWatchedField {
+   INTF_ALL_FIELDS = 0;
+   INTF_OPER_STATUS = 1;
+   INTF_ADMIN_ENABLED = 2;
+   INTF_DESCRIPTION = 3;
+}
+
+message IntfFieldsControl {
+   repeated IntfWatchedField fields = 1;
+}
+
 message WatchIntfRequest {
    oneof overloads {
       bool all_intfs = 1;
       IntfId intf_id = 2;
    }
    bool ack = 3;
+   IntfFieldsControl dump_fields = 4;
 }
 
 enum IntfEvents {
@@ -187,14 +207,20 @@ enum IntfEvents {
 }
 
 message WatchIntfResponse {
-   IntfId intf_id = 1;
-   oneof intf_event {
-      IntfEvents event = 2;
-      OperStatuses status = 3;
-      bool admin_enabled = 4;
-      string description = 5;
-   }
-   bool ack = 6;
+  IntfId intf_id = 1;
+  oneof event_present {
+     IntfEvents event = 2;
+  }
+  oneof oper_status_present {
+     OperStatuses status = 3;
+  }
+  oneof admin_enabled_present {
+     bool admin_enabled = 4;
+  }
+  oneof description_present {
+     string description = 5;
+  }
+  bool ack = 6;
 }
 
 message IntfsRequest {}
