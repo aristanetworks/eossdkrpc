@@ -2794,6 +2794,18 @@
       "def": {
         "enums": [
           {
+            "name": "EthLagIntfUpdateFields",
+            "enum_fields": [
+              {
+                "name": "FULL_MEMBER_LIST"
+              },
+              {
+                "name": "SPEED",
+                "integer": 1
+              }
+            ]
+          },
+          {
             "name": "EthLagIntfEvents",
             "enum_fields": [
               {
@@ -2824,6 +2836,17 @@
         ],
         "messages": [
           {
+            "name": "EthLagIntfFieldRequired",
+            "fields": [
+              {
+                "id": 1,
+                "name": "fields",
+                "type": "EthLagIntfUpdateFields",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
             "name": "EthLagIntfWatchRequest",
             "fields": [
               {
@@ -2840,6 +2863,11 @@
                 "id": 4,
                 "name": "ack",
                 "type": "bool"
+              },
+              {
+                "id": 5,
+                "name": "dump_fields",
+                "type": "EthLagIntfFieldRequired"
               }
             ]
           },
@@ -2859,7 +2887,8 @@
               {
                 "id": 3,
                 "name": "member_intf_id",
-                "type": "IntfId"
+                "type": "IntfId",
+                "is_repeated": true
               },
               {
                 "id": 4,

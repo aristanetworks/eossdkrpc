@@ -287,6 +287,16 @@ service EthLagIntfMgrService {
    rpc member_reason( EthLagIntfMemberReasonRequest ) returns ( EthLagIntfMemberReasonResponse ) {}
 }
 
+enum EthLagIntfUpdateFields {
+  FULL_MEMBER_LIST = 0;
+  SPEED = 1;
+  ETH_LAG_INTF_DETAIL = 2;
+}
+
+message EthLagIntfFieldRequired {
+  repeated EthLagIntfUpdateFields fields = 1;
+}
+
 message EthLagIntfWatchRequest {
    oneof overloads {
       // watch all LAG interfaces.
@@ -296,6 +306,8 @@ message EthLagIntfWatchRequest {
    }
    // set to true if acknowledgment is desired.
    bool ack = 4;
+   // specification of which fields to receive on dump.
+   EthLagIntfFieldRequired dump_fields = 5;
 }
 
 // Possible events for LAG interfaces.
@@ -314,11 +326,17 @@ message EthLagIntfWatchResponse {
    // LAG interface that changed state.
    IntfId eth_lag_intf_id = 2;
    // Member interface (if event is member related)
-   IntfId member_intf_id = 3;
+   // could be repeated in dump message.
+   repeated IntfId member_intf_id = 3;
    // LAG interface speed, in Mbits/s (if event is ETH_LAG_INTF_EVENT_SPEED).
-   uint64 speed = 4;
+   oneof speed_present {
+      uint64 speed = 4;
+   }
    // this message is merely an ack and not an event
    bool ack = 5;
+   oneof eth_lag_intf_present {
+      EthLagIntf eth_lag_intf = 6;
+   }
 }
 
 message EthLagIntfsRequest {}
