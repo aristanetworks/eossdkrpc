@@ -7003,7 +7003,7 @@
       "def": {
         "enums": [
           {
-            "name": "MplsRouteUpdateFields",
+            "name": "MplsRouteWatchedFields",
             "enum_fields": [
               {
                 "name": "MPLS_ROUTE"
@@ -7017,12 +7017,12 @@
         ],
         "messages": [
           {
-            "name": "MplsRouteFieldRequired",
+            "name": "MplsRouteFieldControl",
             "fields": [
               {
                 "id": 1,
                 "name": "fields",
-                "type": "MplsRouteUpdateFields",
+                "type": "MplsRouteWatchedFields",
                 "is_repeated": true
               }
             ]
@@ -7048,7 +7048,7 @@
               {
                 "id": 4,
                 "name": "dump_fields",
-                "type": "MplsRouteFieldRequired"
+                "type": "MplsRouteFieldControl"
               }
             ]
           },
