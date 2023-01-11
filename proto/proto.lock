@@ -7006,18 +7006,22 @@
             "name": "MplsRouteWatchedFields",
             "enum_fields": [
               {
-                "name": "MPLS_ROUTE"
+                "name": "MPLS_ROUTE_ALL_FIELDS"
+              },
+              {
+                "name": "MPLS_ROUTE",
+                "integer": 1
               },
               {
                 "name": "MPLS_ROUTE_VIAS",
-                "integer": 1
+                "integer": 2
               }
             ]
           }
         ],
         "messages": [
           {
-            "name": "MplsRouteFieldControl",
+            "name": "MplsRouteFieldsControl",
             "fields": [
               {
                 "id": 1,
@@ -7048,7 +7052,7 @@
               {
                 "id": 4,
                 "name": "dump_fields",
-                "type": "MplsRouteFieldControl"
+                "type": "MplsRouteFieldsControl"
               }
             ]
           },

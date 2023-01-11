@@ -278,11 +278,12 @@ service MplsRouteMgrService {
 }
 
 enum MplsRouteWatchedFields {
-  MPLS_ROUTE = 0;
-  MPLS_ROUTE_VIAS = 1;
+   MPLS_ROUTE_ALL_FIELDS = 0;
+   MPLS_ROUTE = 1;
+   MPLS_ROUTE_VIAS = 2;
 }
 
-message MplsRouteFieldControl {
+message MplsRouteFieldsControl {
   repeated MplsRouteWatchedFields fields = 1;
 }
 
@@ -292,7 +293,7 @@ message MplsRouteWatchRequest {
       bool all = 2;
       MplsRouteKey route_key = 3;
    }
-   MplsRouteFieldControl dump_fields = 4;
+   MplsRouteFieldsControl dump_fields = 4;
 }
 
 /**
