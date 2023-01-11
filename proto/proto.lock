@@ -7003,7 +7003,7 @@
       "def": {
         "enums": [
           {
-            "name": "MplsRouteWatchedFields",
+            "name": "MplsRouteWatchedField",
             "enum_fields": [
               {
                 "name": "MPLS_ROUTE_ALL_FIELDS"
@@ -7026,7 +7026,7 @@
               {
                 "id": 1,
                 "name": "fields",
-                "type": "MplsRouteWatchedFields",
+                "type": "MplsRouteWatchedField",
                 "is_repeated": true
               }
             ]

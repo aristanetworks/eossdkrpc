@@ -277,14 +277,14 @@ service MplsRouteMgrService {
 
 }
 
-enum MplsRouteWatchedFields {
+enum MplsRouteWatchedField {
    MPLS_ROUTE_ALL_FIELDS = 0;
    MPLS_ROUTE = 1;
    MPLS_ROUTE_VIAS = 2;
 }
 
 message MplsRouteFieldsControl {
-  repeated MplsRouteWatchedFields fields = 1;
+  repeated MplsRouteWatchedField fields = 1;
 }
 
 message MplsRouteWatchRequest {
