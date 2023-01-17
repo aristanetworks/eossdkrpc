@@ -8987,6 +8987,10 @@
                 "integer": 5
               },
               {
+                "name": "RPC_STATUS_ALREDY_EXISTS",
+                "integer": 6
+              },
+              {
                 "name": "RPC_STATUS_ALREADY_EXISTS",
                 "integer": 6
               },
@@ -9033,6 +9037,12 @@
               {
                 "name": "RPC_DO_NOT_USE",
                 "integer": 17
+              }
+            ],
+            "options": [
+              {
+                "name": "allow_alias",
+                "value": "true"
               }
             ]
           }

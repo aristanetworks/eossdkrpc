@@ -10,12 +10,14 @@ package eos.remote;
 // The status codes below match gRPC StatusCodes
 // in both naming and numeric values.
 enum RpcStatusCodes {
+   option allow_alias = true;
    RPC_STATUS_OK = 0;
    RPC_STATUS_CANCELLED = 1;
    RPC_STATUS_UNKNOWN = 2;
    RPC_STATUS_INVALID_ARGUMENT = 3;
    RPC_STATUS_DEADLINE_EXCEEDED = 4;
    RPC_STATUS_NOT_FOUND = 5;
+   RPC_STATUS_ALREDY_EXISTS = 6;
    RPC_STATUS_ALREADY_EXISTS = 6;
    RPC_STATUS_PERMISSION_DENIED = 7;
    RPC_STATUS_UNAUTHENTICATED = 8;
