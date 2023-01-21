@@ -1,6 +1,6 @@
 Summary: Protobufs for communicating with EosSdkRpc and EosSdkRpcClient
 Name: EosSdkRpcProtos
-Version: 1.0.9
+Version: 1.0.8
 Release: %{?release:%{release}}%{!?release:eng}
 Source0: %{name}-%{version}.tar.gz
 License: Arista Networks
@@ -162,6 +162,10 @@ EosRemoteSdk files used by other packages during development.
 %{python_sitelib}/ip_intf_pb2_grpc.py*
 %{python3_sitelib}/ip_intf_pb2_grpc.py
 %{python3_sitelib}/__pycache__/ip_intf_pb2_grpc.cpython*
+
+%{python_sitelib}/ip_intf_types_pb2.py*
+%{python3_sitelib}/ip_intf_types_pb2.py
+%{python3_sitelib}/__pycache__/ip_intf_types_pb2.cpython*
 
 %{python_sitelib}/ip_route_pb2.py*
 %{python3_sitelib}/ip_route_pb2.py

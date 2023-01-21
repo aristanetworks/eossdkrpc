@@ -42,8 +42,7 @@ service NexthopGroupMgrService {
     *
     * EosSdk reference: eos::nexthop_group_mgr::resync_init
     */
-   rpc resync_init( NexthopGroupResyncInitRequest ) returns (
-       NexthopGroupResyncInitResponse ) {}
+   rpc resync_init( ResyncNexthopGroupInitRequest ) returns ( ResyncNexthopGroupInitResponse ) {}
 
    /**
     * Deletes current configuration and applies all changes since resync_init has
@@ -56,8 +55,7 @@ service NexthopGroupMgrService {
     *
     * EosSdk reference: eos::nexthop_group_mgr::resync_complete
     */
-   rpc resync_complete( NexthopGroupResyncCompleteRequest ) returns (
-       NexthopGroupResyncCompleteResponse ) {}
+   rpc resync_complete( ResyncNexthopGroupCompleteRequest ) returns ( ResyncNexthopGroupCompleteResponse ) {}
 
    /**
     * Returns a list of all configured nexthop groups.
@@ -215,13 +213,13 @@ message WatchNexthopGroupResponse {
    bool ack = 5;
 }
 
-message NexthopGroupResyncInitRequest {}
+message ResyncNexthopGroupInitRequest {}
 
-message NexthopGroupResyncInitResponse {}
+message ResyncNexthopGroupInitResponse {}
 
-message NexthopGroupResyncCompleteRequest {}
+message ResyncNexthopGroupCompleteRequest {}
 
-message NexthopGroupResyncCompleteResponse {}
+message ResyncNexthopGroupCompleteResponse {}
 
 message NexthopGroupsRequest {}
 
