@@ -2797,11 +2797,15 @@
             "name": "EthLagIntfUpdateFields",
             "enum_fields": [
               {
-                "name": "FULL_MEMBER_LIST"
+                "name": "ETH_LAG_INTF_ALL_FIELDS"
               },
               {
-                "name": "SPEED",
+                "name": "ETH_LAG_INTF_FULL_MEMBER_LIST",
                 "integer": 1
+              },
+              {
+                "name": "ETH_LAG_INTF_SPEED",
+                "integer": 2
               }
             ]
           },
@@ -2836,7 +2840,7 @@
         ],
         "messages": [
           {
-            "name": "EthLagIntfFieldRequired",
+            "name": "EthLagIntfFieldControl",
             "fields": [
               {
                 "id": 1,
@@ -2867,7 +2871,7 @@
               {
                 "id": 5,
                 "name": "dump_fields",
-                "type": "EthLagIntfFieldRequired"
+                "type": "EthLagIntfFieldControl"
               }
             ]
           },
@@ -2899,6 +2903,11 @@
                 "id": 5,
                 "name": "ack",
                 "type": "bool"
+              },
+              {
+                "id": 6,
+                "name": "eth_lag_intf",
+                "type": "EthLagIntf"
               }
             ]
           },
