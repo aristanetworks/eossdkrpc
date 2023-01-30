@@ -318,9 +318,8 @@ enum EthLagIntfEvents {
    ETH_LAG_INTF_EVENT_MEMBER_SET = 3;
    ETH_LAG_INTF_EVENT_MEMBER_DEL = 4;
    ETH_LAG_INTF_EVENT_SPEED = 5;
-
-   // messages that do not represent events
-   ETH_LAG_INTF_MESSAGE_DUMP = -1;
+   // dump message is not an actual event and gets prefixed as MESSAGE instead.
+   ETH_LAG_INTF_MESSAGE_DUMP = 6;
 }
 
 message EthLagIntfWatchResponse {

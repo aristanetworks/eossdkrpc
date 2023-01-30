@@ -2837,7 +2837,7 @@
               },
               {
                 "name": "ETH_LAG_INTF_MESSAGE_DUMP",
-                "integer": -1
+                "integer": 6
               }
             ]
           }
