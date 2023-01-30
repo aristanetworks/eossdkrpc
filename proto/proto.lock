@@ -2834,6 +2834,10 @@
               {
                 "name": "ETH_LAG_INTF_EVENT_SPEED",
                 "integer": 5
+              },
+              {
+                "name": "ETH_LAG_INTF_MESSAGE_DUMP",
+                "integer": -1
               }
             ]
           }
