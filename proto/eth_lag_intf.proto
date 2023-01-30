@@ -328,8 +328,7 @@ message EthLagIntfWatchResponse {
    // LAG interface that changed state.
    IntfId eth_lag_intf_id = 2;
    // Member interface (if event is member related)
-   // could be repeated in dump message.
-   repeated IntfId member_intf_id = 3;
+   IntfId member_intf_id = 3;
    // LAG interface speed, in Mbits/s (if event is ETH_LAG_INTF_EVENT_SPEED).
    oneof speed_present {
       uint64 speed = 4;
@@ -339,6 +338,7 @@ message EthLagIntfWatchResponse {
    oneof eth_lag_intf_present {
       EthLagIntf eth_lag_intf = 6;
    }
+   repeated IntfId all_member_intf_id = 7;
 }
 
 message EthLagIntfsRequest {}

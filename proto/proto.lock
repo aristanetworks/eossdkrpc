@@ -2895,8 +2895,7 @@
               {
                 "id": 3,
                 "name": "member_intf_id",
-                "type": "IntfId",
-                "is_repeated": true
+                "type": "IntfId"
               },
               {
                 "id": 4,
@@ -2912,6 +2911,12 @@
                 "id": 6,
                 "name": "eth_lag_intf",
                 "type": "EthLagIntf"
+              },
+              {
+                "id": 7,
+                "name": "all_member_intf_id",
+                "type": "IntfId",
+                "is_repeated": true
               }
             ]
           },
