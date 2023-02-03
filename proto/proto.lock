@@ -2794,7 +2794,7 @@
       "def": {
         "enums": [
           {
-            "name": "EthLagIntfUpdateFields",
+            "name": "EthLagIntfUpdateField",
             "enum_fields": [
               {
                 "name": "ETH_LAG_INTF_ALL_FIELDS"
@@ -2844,12 +2844,12 @@
         ],
         "messages": [
           {
-            "name": "EthLagIntfFieldControl",
+            "name": "EthLagIntfFieldsControl",
             "fields": [
               {
                 "id": 1,
                 "name": "fields",
-                "type": "EthLagIntfUpdateFields",
+                "type": "EthLagIntfUpdateField",
                 "is_repeated": true
               }
             ]
@@ -2875,7 +2875,7 @@
               {
                 "id": 5,
                 "name": "dump_fields",
-                "type": "EthLagIntfFieldControl"
+                "type": "EthLagIntfFieldsControl"
               }
             ]
           },
