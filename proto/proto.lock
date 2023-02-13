@@ -8892,6 +8892,10 @@
               {
                 "name": "POLICY_FEATURE_TAP_AGG",
                 "integer": 3
+              },
+              {
+                "name": "POLICY_FEATURE_TRAFFIC_POLICY",
+                "integer": 4
               }
             ]
           },

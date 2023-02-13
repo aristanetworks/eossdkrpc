@@ -56,6 +56,7 @@ enum PolicyFeature {
    POLICY_FEATURE_PBR = 1;
    POLICY_FEATURE_QOS = 2;
    POLICY_FEATURE_TAP_AGG = 3;
+   POLICY_FEATURE_TRAFFIC_POLICY =4;   
 }
 
 // The actions a policy map rule may apply to classified packets.
