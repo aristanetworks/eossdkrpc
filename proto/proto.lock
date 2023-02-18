@@ -7882,7 +7882,44 @@
     {
       "protopath": "nexthop_group.proto",
       "def": {
+        "enums": [
+          {
+            "name": "NexthopGroupWatchedField",
+            "enum_fields": [
+              {
+                "name": "NEXTHOP_GROUP_ALL"
+              },
+              {
+                "name": "NEXTHOP_GROUP_ACTIVE",
+                "integer": 1
+              },
+              {
+                "name": "NEXTHOP_GROUP_PROGRAMMED",
+                "integer": 2
+              },
+              {
+                "name": "NEXTHOP_GROUP_VERSION_ID",
+                "integer": 3
+              },
+              {
+                "name": "NEXTHOP_GROUP_NHG",
+                "integer": 4
+              }
+            ]
+          }
+        ],
         "messages": [
+          {
+            "name": "NexthopGroupFieldsControl",
+            "fields": [
+              {
+                "id": 1,
+                "name": "fields",
+                "type": "NexthopGroupWatchedField",
+                "is_repeated": true
+              }
+            ]
+          },
           {
             "name": "WatchNexthopGroupRequest",
             "fields": [
@@ -7900,6 +7937,11 @@
                 "id": 3,
                 "name": "ack",
                 "type": "bool"
+              },
+              {
+                "id": 4,
+                "name": "dump_fields",
+                "type": "NexthopGroupFieldsControl"
               }
             ]
           },
@@ -7930,6 +7972,11 @@
                 "id": 5,
                 "name": "ack",
                 "type": "bool"
+              },
+              {
+                "id": 6,
+                "name": "nhg",
+                "type": "NexthopGroup"
               }
             ]
           },

@@ -194,23 +194,42 @@ service NexthopGroupMgrService {
    rpc programmed_nexthop_group( ProgrammedNexthopGroupRequest ) returns ( ProgrammedNexthopGroupResponse ) {}
 }
 
+enum NexthopGroupWatchedField
+{
+   // 'NEXTHOP_GROUP_ALL' represents including all the fields in
+   // 'WatchNexthopGroupResponse'
+   NEXTHOP_GROUP_ALL = 0;
+   NEXTHOP_GROUP_ACTIVE = 1;
+   NEXTHOP_GROUP_PROGRAMMED = 2;
+   NEXTHOP_GROUP_VERSION_ID = 3;
+   NEXTHOP_GROUP_NHG = 4;
+}
+
+message NexthopGroupFieldsControl {
+   repeated NexthopGroupWatchedField fields = 1;
+}
+
 message WatchNexthopGroupRequest {
    oneof overloads {
       bool all = 1;
       string name = 2;
    }
    bool ack = 3;
+   NexthopGroupFieldsControl dump_fields = 4;
 }
 
 message WatchNexthopGroupResponse {
    string name = 1;
-   oneof events {
+   oneof active_status_present {
       bool active_status = 2;
+   }
+   oneof nhg_programmed_present {
       bool nhg_programmed = 3;
    }
    // Only present when event is for a programmed callback.
    uint32 version_id = 4;
    bool ack = 5;
+   NexthopGroup nhg = 6;
 }
 
 message ResyncNexthopGroupInitRequest {}
