@@ -203,6 +203,7 @@ enum NexthopGroupWatchedField
    NEXTHOP_GROUP_PROGRAMMED = 2;
    NEXTHOP_GROUP_VERSION_ID = 3;
    NEXTHOP_GROUP_NHG = 4;
+   NEXTHOP_GROUP_ON_NHG_PROGRAMMED = 5;
 }
 
 message NexthopGroupFieldsControl {
@@ -230,6 +231,7 @@ message WatchNexthopGroupResponse {
    uint32 version_id = 4;
    bool ack = 5;
    NexthopGroup nhg = 6;
+   OnNexthopGroupProgrammed on_nhg_programmed = 7;
 }
 
 message ResyncNexthopGroupInitRequest {}

@@ -7904,6 +7904,10 @@
               {
                 "name": "NEXTHOP_GROUP_NHG",
                 "integer": 4
+              },
+              {
+                "name": "NEXTHOP_GROUP_ON_NHG_PROGRAMMED",
+                "integer": 5
               }
             ]
           }
@@ -7977,6 +7981,11 @@
                 "id": 6,
                 "name": "nhg",
                 "type": "NexthopGroup"
+              },
+              {
+                "id": 7,
+                "name": "on_nhg_programmed",
+                "type": "OnNexthopGroupProgrammed"
               }
             ]
           },
@@ -8351,6 +8360,22 @@
                 "integer": 1
               }
             ]
+          },
+          {
+            "name": "NexthopGroupProgrammedHwState",
+            "enum_fields": [
+              {
+                "name": "NEXTHOP_GROUP_HW_DROP"
+              },
+              {
+                "name": "NEXTHOP_GROUP_HW_PARTIALLY_PROGRAMMED",
+                "integer": 1
+              },
+              {
+                "name": "NEXTHOP_GROUP_HW_ALL_PROGRAMMED",
+                "integer": 2
+              }
+            ]
           }
         ],
         "messages": [
@@ -8490,6 +8515,16 @@
                 "id": 3,
                 "name": "valid",
                 "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "OnNexthopGroupProgrammed",
+            "fields": [
+              {
+                "id": 1,
+                "name": "hw_state",
+                "type": "NexthopGroupProgrammedHwState"
               }
             ]
           }
