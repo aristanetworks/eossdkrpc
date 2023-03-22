@@ -46,7 +46,6 @@ cfg = config(
       '--Werror=7',
    ],
    tacc_include_dirs=include_dirs,
-   py_versions=[ '2', '3' ],
 )
 
 #-----------------------------------------------------------------------
