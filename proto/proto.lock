@@ -5794,6 +5794,11 @@
                 "id": 5,
                 "name": "report_vias",
                 "type": "bool"
+              },
+              {
+                "id": 6,
+                "name": "suppress_routes",
+                "type": "bool"
               }
             ]
           },

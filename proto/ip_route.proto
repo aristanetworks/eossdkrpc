@@ -81,6 +81,8 @@ service IpRouteMgrService {
     *    vxlan_intf_id: filters responses by VXLAN Interface
     *    report_vias: if true, the stream response will also include vias for every
     *                 reported path.
+    *    suppress_routes: if true, the stream response will contain only vias if
+    *                     `report_vias' is true, and be empty otherwise
     * Response: list of the following:
     *    response: IpRoute, the configured static route.
     *
@@ -291,6 +293,7 @@ message IpRoutesRequest {
    uint32 vni = 3;
    IntfId vxlan_intf_id = 4;
    bool report_vias = 5;
+   bool suppress_routes = 6;
 }
 
 message IpRoutesResponse {
