@@ -56,6 +56,7 @@ message NexthopGroupCounter {
    uint64 packets = 1;
    uint64 bytes = 2;
    bool valid = 3;
+   uint32 entry_id = 4;
 }
 
 enum NexthopGroupProgrammedHwState {

@@ -8078,6 +8078,37 @@
             ]
           },
           {
+            "name": "NexthopGroupCountersRequest",
+            "fields": [
+              {
+                "id": 1,
+                "name": "all",
+                "type": "bool"
+              },
+              {
+                "id": 2,
+                "name": "name",
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "NexthopGroupCountersResponse",
+            "fields": [
+              {
+                "id": 1,
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "id": 2,
+                "name": "counters",
+                "type": "NexthopGroupCounter",
+                "is_repeated": true
+              }
+            ]
+          },
+          {
             "name": "NexthopGroupExistsRequest",
             "fields": [
               {
@@ -8270,6 +8301,12 @@
                 "name": "counter",
                 "in_type": "CounterRequest",
                 "out_type": "CounterResponse"
+              },
+              {
+                "name": "nhg_counters",
+                "in_type": "NexthopGroupCountersRequest",
+                "out_type": "NexthopGroupCountersResponse",
+                "out_streamed": true
               },
               {
                 "name": "exists",
@@ -8520,6 +8557,11 @@
                 "id": 3,
                 "name": "valid",
                 "type": "bool"
+              },
+              {
+                "id": 4,
+                "name": "entry_id",
+                "type": "uint32"
               }
             ]
           },

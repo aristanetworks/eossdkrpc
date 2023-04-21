@@ -106,6 +106,24 @@ service NexthopGroupMgrService {
     */
    rpc counter( CounterRequest ) returns ( CounterResponse ) {}
 
+ /**
+    * Returns the counter corresponding to the given nexthop group name or
+    * all nexthop groups in the system when all=true. When all = false and
+    * no name is specified, this request has no effect.
+    *
+    * Request:
+    *    One of these options:
+    *       all = true
+    *       name = name of a particular nexthop group to get the counters for.
+    * Response:
+    *    counters = list of all nexthop groups' entry counters when all = true or
+    *       when the name is given in a request that nexthop group's entries counters
+    *       will be returned.
+    *
+    * EosSdk reference: eos::nexthop_group_handler (class)
+    */
+   rpc nhg_counters( NexthopGroupCountersRequest ) returns (  stream NexthopGroupCountersResponse ) {}
+
    /**
     * Queries if the nexthop group with given name exists.
     *
@@ -269,6 +287,18 @@ message CounterRequest {
 
 message CounterResponse {
    NexthopGroupCounter counter = 1; 
+}
+
+message NexthopGroupCountersRequest {
+   oneof overloads {
+      bool all = 1; // All nexthop groups
+      string name = 2;
+   }
+}
+
+message NexthopGroupCountersResponse {
+   string name = 1;
+   repeated NexthopGroupCounter counters = 2;
 }
 
 message NexthopGroupExistsRequest {
