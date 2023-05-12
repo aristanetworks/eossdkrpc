@@ -11,7 +11,8 @@ package eos.remote;
 
 message IpRouteKey {
    Prefix prefix = 1;
-   oneof preference_present { // default value is 1
+   oneof preference_present {
+      // Default value is 1.
       uint32 preference = 2;
    }
 }
@@ -35,7 +36,8 @@ message IpRouteVia {
    bytes hop_addr = 2;
    IntfId intf_id = 3;
    string nhg_name = 4;
-   oneof mpls_label_present { // default value is 1048576 (invalid label)
+   oneof mpls_label_present {
+      // Default value is 1048576 (invalid label).
       uint32 mpls_label = 5;
    }
    uint32 vni = 6;

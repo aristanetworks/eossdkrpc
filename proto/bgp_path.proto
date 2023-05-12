@@ -13,34 +13,13 @@ service BgpPathMgrService {
     * Subscription to monitor changes to bgp paths. This request
     * stays active until the client cancels or the server shuts down.
     * When all = false and no version is specified, this request has no effect.
-    * 
-    * Request:
-    *    ack = set to true when an ackowledgment is desired.
-    *    One of these options:
-    *       all = true
-    *       ipv4_unicast_paths = true if IPv4 unicast paths should be monitored.
-    *       ipv6_unicast_paths = true if IPv6 unicast paths should be monitored.
-    * Response: Events are streamed as changes happen:
-    *    ack = if true, this is not an event and the fields below are invalid.
-    *    ip_version = IP family affected by the event.
-    *    One of the following changes:
-    *       path_key = path changed in adj-RIB-in.
-    *       converged = BGP convergence changed for that IP family.
-    *    
+    *
     * EosSdk reference: eos::bgp_path_handler (class)
     */
    rpc watch( BgpPathWatchRequest ) returns ( stream BgpPathWatchResponse ) {}
 
    /**
     * Iterates through all IPv4 paths in adj-RIB-in that match the search criteria.
-    *
-    * Request:
-    *    stage = Either BGP_PATH_PRE_POLICY or BGP_PATH_POST_POLICY.
-    *    fields:
-    *       nexthop = perform next hop lookup.
-    *       community_list = perform community list lookup.
-    * Response:
-    *    path (list) = list of paths that match the criteria.
     *
     * EosSdk reference: eos::bgp_path_mgr::ipv4_unicast_path_iter
     */
@@ -49,25 +28,12 @@ service BgpPathMgrService {
    /**
     * Queries a single path, given its key and search criteria.
     *
-    * Request:
-    *    stage = Either BGP_PATH_PRE_POLICY or BGP_PATH_POST_POLICY.
-    *    fields:
-    *       nexthop = perform next hop lookup.
-    *       community_list = perform community list lookup.
-    * Response:
-    *    path = path matching criteria or empty if not found.
-    *
     * EosSdk reference: eos::bgp_path_mgr::ipv4_unicast_path
     */
    rpc ipv4_unicast_path( Ipv4UnicastPathRequest ) returns ( Ipv4UnicastPathResponse ) {}
 
    /**
     * Queries if IPv4 family has converged.
-    *
-    * Request:
-    *    empty.
-    * Response:
-    *    converged = true if IPv4 family has converged.
     *
     * EosSdk reference: eos::bgp_path_mgr::ipv4_unicast_bgp_convergence
     */
@@ -76,14 +42,6 @@ service BgpPathMgrService {
    /**
     * Iterates through adj-RIB-in for paths that match the criteria.
     *
-    * Request:
-    *    stage = Either BGP_PATH_PRE_POLICY or BGP_PATH_POST_POLICY.
-    *    fields:
-    *       nexthop = perform next hop lookup.
-    *       community_list = perform community list lookup.
-    * Response:
-    *    path (list) = list of paths that match the criteria.
-    *
     * EosSdk reference: eos::bgp_path_mgr::ipv6_unicast_path_iter
     */
    rpc ipv6_unicast_paths( Ipv6UnicastPathsRequest ) returns ( stream Ipv6UnicastPathsResponse ) {}
@@ -91,25 +49,12 @@ service BgpPathMgrService {
    /**
     * Queries a single path, given its key and search criteria.
     *
-    * Request:
-    *    stage = Either BGP_PATH_PRE_POLICY or BGP_PATH_POST_POLICY.
-    *    fields:
-    *       nexthop = perform next hop lookup.
-    *       community_list = perform community list lookup.
-    * Response:
-    *    path = path matching criteria or empty if not found.
-    *
     * EosSdk reference: eos::bgp_path_mgr::ipv6_unicast_path
     */
    rpc ipv6_unicast_path( Ipv6UnicastPathRequest ) returns ( Ipv6UnicastPathResponse ) {}
 
    /**
     * Queries if IPv6 family has converged.
-    *
-    * Request:
-    *    empty.
-    * Response:
-    *    converged = true if IPv6 family has converged.
     *
     * EosSdk reference: eos::bgp_path_mgr::ipv6_unicast_bgp_convergence
     */
@@ -119,18 +64,28 @@ service BgpPathMgrService {
 message BgpPathWatchRequest {
    oneof overloads {
       bool all_paths = 1;
+      // True if IPv4 unicast paths should be monitored.
       bool ipv4_unicast_paths = 2;
+      // True if IPv6 unicast paths should be monitored.
       bool ipv6_unicast_paths = 3;
    }
+   // Set to true when an ackowledgment is desired.
    bool ack = 4;
 }
 
+/**
+ * Events are streamed as changes happen.
+ */
 message BgpPathWatchResponse {
+   // IP family affected by the event.
    IpVersion ip_version = 1;
    oneof events {
+      // Path changed in adj-RIB-in.
       BgpPathKey path_key = 2;
+      // BGP convergence changed for that IP family.
       bool converged = 3;
    }
+   // If true, this is not an event and the fields below are invalid.
    bool ack = 4;
 }
 
@@ -139,6 +94,7 @@ message Ipv4UnicastPathsRequest {
 }
 
 message Ipv4UnicastPathsResponse {
+   // List of paths that match the criteria.
    BgpPath path = 1; 
 }
 
@@ -148,12 +104,14 @@ message Ipv4UnicastPathRequest {
 }
 
 message Ipv4UnicastPathResponse {
+   // Path matching criteria or empty if not found.
    BgpPath path = 1; 
 }
 
 message Ipv4UnicastBgpConvergenceRequest {}
 
 message Ipv4UnicastBgpConvergenceResponse {
+   // True if IPv4 family has converged.
    bool converged = 1; 
 }
 
@@ -162,6 +120,7 @@ message Ipv6UnicastPathsRequest {
 }
 
 message Ipv6UnicastPathsResponse {
+   // A path that matches the criteria.
    BgpPath path = 1; 
 }
 
@@ -171,11 +130,13 @@ message Ipv6UnicastPathRequest {
 }
 
 message Ipv6UnicastPathResponse {
+   // Path matching criteria or empty if not found.
    BgpPath path = 1; 
 }
 
 message Ipv6UnicastBgpConvergenceRequest {}
 
 message Ipv6UnicastBgpConvergenceResponse {
+   // True if IPv6 family has converged.
    bool converged = 1; 
 }

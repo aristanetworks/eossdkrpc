@@ -10,8 +10,11 @@ import "intf_types.proto";
 import "eth_lag_intf_types.proto";
 
 
-// -- functions marked as @deprecated in the original SDK shall not be ported
-// to RPC calls.
+/**
+ * @exclude
+ * Functions marked as @deprecated in the original SDK shall not be ported
+ * to RPC calls.
+ */
 service EthLagIntfMgrService {
    /**
     * Subscription to monitor LAG interface events. This request
@@ -299,18 +302,20 @@ message EthLagIntfFieldsControl {
 
 message EthLagIntfWatchRequest {
    oneof overloads {
-      // watch all LAG interfaces.
+      // Watch all LAG interfaces.
       bool all_intfs = 1;
-      // watch a single interface.
+      // Watch a single interface.
       IntfId eth_lag_intf_id = 2;
    }
-   // set to true if acknowledgment is desired.
+   // Set to true if acknowledgment is desired.
    bool ack = 4;
-   // specification of which fields to receive on dump.
+   // Specification of which fields to receive on dump.
    EthLagIntfFieldsControl dump_fields = 5;
 }
 
-// Possible events for LAG interfaces.
+/**
+ * Possible events for LAG interfaces.
+ */
 enum EthLagIntfEvents {
    ETH_LAG_INTF_EVENT_NONE = 0;
    ETH_LAG_INTF_EVENT_CREATED = 1;
@@ -318,7 +323,7 @@ enum EthLagIntfEvents {
    ETH_LAG_INTF_EVENT_MEMBER_SET = 3;
    ETH_LAG_INTF_EVENT_MEMBER_DEL = 4;
    ETH_LAG_INTF_EVENT_SPEED = 5;
-   // dump message is not an actual event and gets prefixed as MESSAGE instead.
+   // Dump message is not an actual event and gets prefixed as MESSAGE instead.
    ETH_LAG_INTF_MESSAGE_DUMP = 6;
 }
 
@@ -333,7 +338,7 @@ message EthLagIntfWatchResponse {
    oneof speed_present {
       uint64 speed = 4;
    }
-   // this message is merely an ack and not an event
+   // This message is merely an ack and not an event.
    bool ack = 5;
    oneof eth_lag_intf_present {
       EthLagIntf eth_lag_intf = 6;
@@ -354,7 +359,7 @@ message EthLagIntfExistsRequest {
 }
 
 message EthLagIntfExistsResponse {
-   // `true` if LAG interface exists
+   // True if LAG interface exists.
    bool exists = 1;
 }
 
@@ -376,14 +381,14 @@ message EthLagIntfIsRequest {
 message EthLagIntfIsResponse {}
 
 message BulkEthLagIntfIsRequest {
-   // list of individual requests.
+   // List of individual requests.
    repeated EthLagIntfIsRequest requests = 1;
 }
 
 message BulkEthLagIntfIsResponse {
-   // number of successful requests.
+   // Number of successful requests.
    uint64 processed = 1;
-   // cause of error (if any).
+   // Cause of error (if any).
    RpcResponseStatus status = 2;
 }
 
@@ -405,14 +410,14 @@ message EthLagIntfDelRequest {
 message EthLagIntfDelResponse {}
 
 message BulkEthLagIntfDelRequest {
-   // list of individual requests.
+   // List of individual requests.
    repeated EthLagIntfDelRequest requests = 1;
 }
 
 message BulkEthLagIntfDelResponse {
-   // number of successful requests.
+   // Number of successful requests.
    uint64 processed = 1;
-   // cause of error (if any).
+   // Cause of error (if any).
    RpcResponseStatus status = 2;
 }
 
@@ -422,28 +427,28 @@ message EthLagIntfSpeedRequest {
 }
 
 message EthLagIntfSpeedResponse {
-   // Interface speed, in Mbits/s
+   // Interface speed, in Mbits/s.
    uint64 speed = 1;
 }
 
 message EthLagIntfMinLinksIsRequest {
    // Interface ID for the LAG interface.
    IntfId eth_lag_intf_id = 1;
-   // minimum number of links that need to be up for LAG to be considered up.
+   // Minimum number of links that need to be up for LAG to be considered up.
    uint32 min_links = 2;
 }
 
 message EthLagIntfMinLinksIsResponse {}
 
 message BulkEthLagIntfMinLinksIsRequest {
-   // list of individual requests.
+   // List of individual requests.
    repeated EthLagIntfMinLinksIsRequest requests = 1;
 }
 
 message BulkEthLagIntfMinLinksIsResponse {
-   // number of successful requests.
+   // Number of successful requests.
    uint64 processed = 1;
-   // cause of error (if any).
+   // Cause of error (if any).
    RpcResponseStatus status = 2;
 }
 
@@ -453,7 +458,7 @@ message EthLagIntfMinLinksRequest {
 }
 
 message EthLagIntfMinLinksResponse {
-   // minimum number of links that need to be up for LAG to be considered up.
+   // Minimum number of links that need to be up for LAG to be considered up.
    uint32 min_links = 1;
 }
 
@@ -466,14 +471,14 @@ message EthLagIntfFallbackTypeIsRequest {
 message EthLagIntfFallbackTypeIsResponse {}
 
 message BulkEthLagIntfFallbackTypeIsRequest {
-   // list of individual requests.
+   // List of individual requests.
    repeated EthLagIntfFallbackTypeIsRequest requests = 1;
 }
 
 message BulkEthLagIntfFallbackTypeIsResponse {
-   // number of successful requests.
+   // Number of successful requests.
    uint64 processed = 1;
-   // cause of error (if any).
+   // Cause of error (if any).
    RpcResponseStatus status = 2;
 }
 
@@ -490,21 +495,21 @@ message EthLagIntfFallbackTypeResponse {
 message EthLagIntfFallbackTimeoutIsRequest {
    // Interface ID for the LAG interface.
    IntfId eth_lag_intf_id = 1;
-   // fallback timeout, in seconds.
+   // Fallback timeout, in seconds.
    uint32 fallback_timeout = 2;
 }
 
 message EthLagIntfFallbackTimeoutIsResponse {}
 
 message BulkEthLagIntfFallbackTimeoutIsRequest {
-   // list of individual requests.
+   // List of individual requests.
    repeated EthLagIntfFallbackTimeoutIsRequest requests = 1;
 }
 
 message BulkEthLagIntfFallbackTimeoutIsResponse {
-   // number of successful requests.
+   // Number of successful requests.
    uint64 processed = 1;
-   // cause of error (if any).
+   // Cause of error (if any).
    RpcResponseStatus status = 2;
 }
 
@@ -524,7 +529,7 @@ message EthLagIntfFallbackTimeoutDefaultRequest {
 }
 
 message EthLagIntfFallbackTimeoutDefaultResponse {
-   // default fallback timeout, in seconds.
+   // Default fallback timeout, in seconds.
    uint32 fallback_timeout = 1;
 }
 
@@ -540,14 +545,14 @@ message EthLagIntfMembershipSetRequest {
 message EthLagIntfMembershipSetResponse {}
 
 message BulkEthLagIntfMembershipSetRequest {
-   // list of individual requests.
+   // List of individual requests.
    repeated EthLagIntfMembershipSetRequest requests = 1;
 }
 
 message BulkEthLagIntfMembershipSetResponse {
-   // number of successful requests.
+   // Number of successful requests.
    uint64 processed = 1;
-   // cause of error (if any).
+   // Cause of error (if any).
    RpcResponseStatus status = 2;
 }
 
@@ -559,14 +564,14 @@ message EthLagIntfMembershipDelRequest {
 message EthLagIntfMembershipDelResponse {}
 
 message BulkEthLagIntfMembershipDelRequest {
-   // list of individual requests.
+   // List of individual requests.
    repeated EthLagIntfMembershipDelRequest requests = 1;
 }
 
 message BulkEthLagIntfMembershipDelResponse {
-   // number of successful requests.
+   // Number of successful requests.
    uint64 processed = 1;
-   // cause of error (if any).
+   // Cause of error (if any).
    RpcResponseStatus status = 2;
 }
 
@@ -593,21 +598,21 @@ message EthLagIntfMembershipStatusResponse {
 message EthLagIntfMemberPriorityIsRequest {
    // Interface ID for the member.
    IntfId member_intf_id = 1;
-   // member priority. Valid values from 0 to 65535
+   // Member priority. Valid values from 0 to 65535
    uint32 priority = 2;
 }
 
 message EthLagIntfMemberPriorityIsResponse {}
 
 message BulkEthLagIntfMemberPriorityIsRequest {
-   // list of individual requests.
+   // List of individual requests.
    repeated EthLagIntfMemberPriorityIsRequest requests = 1;
 }
 
 message BulkEthLagIntfMemberPriorityIsResponse {
-   // number of successful requests.
+   // Number of successful requests.
    uint64 processed = 1;
-   // cause of error (if any).
+   // Cause of error (if any).
    RpcResponseStatus status = 2;
 }
 
@@ -617,7 +622,7 @@ message EthLagIntfMemberPriorityRequest {
 }
 
 message EthLagIntfMemberPriorityResponse {
-   // member priority
+   // Member priority.
    uint32 priority = 1;
 }
 
@@ -631,14 +636,14 @@ message EthLagIntfMemberModeIsRequest {
 message EthLagIntfMemberModeIsResponse {}
 
 message BulkEthLagIntfMemberModeIsRequest {
-   // list of individual requests.
+   // List of individual requests.
    repeated EthLagIntfMemberModeIsRequest requests = 1;
 }
 
 message BulkEthLagIntfMemberModeIsResponse {
-   // number of successful requests.
+   // Number of successful requests.
    uint64 processed = 1;
-   // cause of error (if any).
+   // Cause of error (if any).
    RpcResponseStatus status = 2;
 }
 
@@ -662,14 +667,14 @@ message EthLagIntfMemberTimeoutIsRequest {
 message EthLagIntfMemberTimeoutIsResponse {}
 
 message BulkEthLagIntfMemberTimeoutIsRequest {
-   // list of individual requests.
+   // List of individual requests.
    repeated EthLagIntfMemberTimeoutIsRequest requests = 1;
 }
 
 message BulkEthLagIntfMemberTimeoutIsResponse {
-   // number of successful requests.
+   // Number of successful requests.
    uint64 processed = 1;
-   // cause of error (if any).
+   // Cause of error (if any).
    RpcResponseStatus status = 2;
 }
 
