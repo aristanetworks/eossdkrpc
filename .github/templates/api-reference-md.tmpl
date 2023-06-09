@@ -1,0 +1,75 @@
+{{$files := .Files}}
+{{- range .Files -}}
+--- {{.Name}}
+
+{{range .Services -}}
+## {{.Name}}
+
+{{.Description}}
+
+{{- range .Methods}}
+### {{.Name}}
+
+> **rpc** {{.Name}}([{{.RequestLongType}}](#{{.RequestLongType | lower | replace "." ""}}))
+    [{{.ResponseLongType}}](#{{.ResponseLongType | lower | replace "." ""}})
+
+{{ .Description}}
+
+{{end}} <!-- end methods -->
+{{end}} <!-- end services -->
+
+{{if .HasMessages}}
+## Messages
+{{range .Messages}}
+
+### {{.LongName}}
+
+{{.Description}}
+
+{{if .HasFields}}
+<!-- The big template block loops through files and finds where the message type is located in order to craft a correct link to the file after the api-reference is split. -->
+
+| Field | Type | Description |
+| ----- | ---- | ----------- |
+{{range .Fields -}}
+{{- $typePath := "" -}}
+{{- $type := .LongType -}}
+{{- range $files -}}
+{{- $fileIter := .Name -}}
+{{- range .Messages -}}
+{{- if eq .Name $type -}}
+{{- $typePath = $fileIter -}}
+{{- break -}}
+{{- end -}}
+{{- end -}}
+{{- if empty $typePath}}
+{{- range .Enums -}}
+{{- if eq .LongName $type -}}
+{{- $typePath = $fileIter -}}
+{{- end -}}
+{{- end -}}
+{{- end -}}
+{{- end -}}
+| {{if .IsOneof}}**oneof** {{.OneofDecl}}.{{end}}{{.Name}} | {{if .IsMap}}map {{else}}{{.Label}} {{end}}{{empty $typePath | ternary .LongType (printf "[%s](../%s/#%s)" .LongType ($typePath | trimSuffix  ".proto" | lower) (.LongType | lower | replace "." ""))}} | {{if .Description}}{{nobr .Description | replace "\n" "<br>"}}{{if .DefaultValue}} Default: {{.DefaultValue}}{{end}}{{end}} |
+{{end}}
+{{else}}
+Empty message.
+{{end}} <!-- end HasFields -->
+{{end}} <!-- end messages -->
+{{end}} <!-- end if -->
+
+{{if .HasEnums}}
+## Enums
+{{range .Enums}}
+
+### {{.LongName}}
+{{.Description}}
+
+| Name | Value | Description |
+| ---- | ------ | ----------- |
+{{range .Values -}}
+| {{.Name}} | {{.Number}} | {{if .Description}}{{nobr .Description | replace "\n" "<br>"}}{{end}} |
+{{end}}
+{{end}} <!-- end Enums -->
+{{end}} <!-- end Files -->
+{{end}} <!-- end if -->

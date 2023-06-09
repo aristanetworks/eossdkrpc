@@ -1,0 +1,41 @@
+site_name: EOS SDK RPC documentation
+repo_url: https://github.com/aristanetworks/eossdkrpc
+site_author: Arista Networks
+site_description: Arista's EOS SDK RPC documentation
+repo_name: eossdkrpc on GitHub
+copyright: Copyright &copy; 2021 Arista Networks, Inc. All rights reserved.
+docs_dir: docs/
+plugins:
+  - search
+extra:
+  social:
+    - icon: fontawesome/brands/github-alt
+      link: https://github.com/aristanetworks/eossdkrpc
+    - icon: fontawesome/solid/globe
+      link: https://www.arista.com
+markdown_extensions:
+  - toc:
+      permalink: "¶"
+      toc_depth: 3
+  - tables
+theme:
+  name: material
+  language: en
+  favicon: assets/favicon.ico
+  features:
+    - navigation.tabs
+    - navigation.instant
+    - navigation.top # back to top button on scrolling down
+    - header.autohide
+    - navigation.footer # previous and next buttons
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/weather-night
+        name: Switch to light mode
