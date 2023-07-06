@@ -29,9 +29,7 @@ message PolicyMapKey {
 
 message PolicyMapRule {
    PolicyMapKey class_map_key = 1;
-   oneof policy_map_rule_type_present { // default value is POLICY_RULE_TYPE_CLASSMAP
-      PolicyMapRuleType policy_map_rule_type = 2;
-   }
+   PolicyMapRuleType policy_map_rule_type = 2;
    AclRuleIp raw_rule = 3;
    repeated PolicyMapAction actions = 4;
 }
@@ -56,7 +54,6 @@ enum PolicyFeature {
    POLICY_FEATURE_PBR = 1;
    POLICY_FEATURE_QOS = 2;
    POLICY_FEATURE_TAP_AGG = 3;
-   POLICY_FEATURE_TRAFFIC_POLICY =4;   
 }
 
 // The actions a policy map rule may apply to classified packets.

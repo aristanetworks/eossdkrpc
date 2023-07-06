@@ -22,7 +22,7 @@ service PolicyMapMgrService {
    *       all = true if all policy maps should be watched.
    *       key = the key of the policy map to recieve notifications for.
    * Response:
-   *    ack = if true, this is not an event and the fields below are invalid.
+   *    ack = if true, this not an event and the fields below are invalid.
    *    key = the key of the policy map that triggered the event.
    *    One of these options:
    *       event_type = the type of event.

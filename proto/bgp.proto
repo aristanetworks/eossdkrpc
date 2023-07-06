@@ -1,0 +1,53 @@
+// Copyright (c) 2021 Arista Networks, Inc.  All rights reserved.
+// Arista Networks, Inc. Confidential and Proprietary.
+
+syntax = "proto3";
+
+package eos.remote;
+
+import "bgp_types.proto";
+
+service BgpMgrService {
+   rpc watch( WatchBgpPeerRequest ) returns ( stream WatchBgpPeerResponse ) {}
+   rpc exists( PeerExistsRequest ) returns ( PeerExistsResponse ) {}
+   rpc peer_state( PeerStateRequest ) returns ( PeerStateResponse ) {}
+}
+
+enum BgpPeerEvents {
+   EVENT_BGP_PEER_NO_CHANGES = 0;
+   EVENT_BGP_PEER_CREATED = 1;
+   EVENT_BGP_PEER_DELETED = 2;
+}
+
+message WatchBgpPeerRequest {
+   oneof overloads {
+      bool all_peers = 1;
+      BgpPeerKey peer_key = 2;
+   }
+   bool ack = 3;
+}
+
+message WatchBgpPeerResponse {
+   BgpPeerKey peer_key = 1;
+   oneof peer_event {
+      BgpPeerEvents event = 2;
+      BgpPeerStates peer_state = 3;
+   }
+   bool ack = 4;
+}
+
+message PeerExistsRequest {
+   BgpPeerKey peer_key = 1; 
+}
+
+message PeerExistsResponse {
+   bool exists = 1; 
+}
+
+message PeerStateRequest {
+   BgpPeerKey peer_key = 1; 
+}
+
+message PeerStateResponse {
+   BgpPeerStates peer_state = 1; 
+}

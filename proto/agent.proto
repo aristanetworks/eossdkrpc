@@ -18,7 +18,7 @@ service AgentService {
     * Request:
     *    ack: set to true when an ackowledgment is desired.
     * Response: Events are streamed as changes happen:
-    *    ack: if true, this is not an event and the fields below are invalid.
+    *    ack: if true, this not an event and the fields below are invalid.
     *    option: the name of the option for which the notification is received.
     *    value: the new option value.
     *
@@ -175,23 +175,6 @@ service AgentService {
     * EosSdk reference: eos::agent_mgr::agent_uptime
     **/
    rpc agent_uptime( AgentUptimeRequest ) returns ( AgentUptimeResponse );
-
-   /**
-    * Causes EosSdkRpc agent to echo the payload and verify that the SDK thread is
-    * also responsive.
-    *
-    * Request:
-    *    payload: a user-defined payload.
-    * Response:
-    *    payload: An echo of the request's payload.
-    *    rpc_timestamp: wall-time timestamp when the request gets acknowledged by the
-    *       RPC thread expressed in nanoseconds.
-    *    sdk_timestamp: wall-time timestamp when the request gets acknowledged by the
-    *       SDK thread, expressed in nanoseconds.
-    * 
-    * This function is specific to RPC and does not match any EOS SDK function.
-    */
-    rpc ping( AgentPingRequest ) returns ( AgentPingResponse );
 }
 
 message WatchAgentRequest {
@@ -295,14 +278,4 @@ message AgentUptimeRequest {}
 
 message AgentUptimeResponse {
    double seconds = 1;
-}
-
-message AgentPingRequest {
-   string payload = 1;
-}
-
-message AgentPingResponse {
-   string payload = 1;
-   uint64 rpc_ack_timestamp = 2;
-   uint64 sdk_ack_timestamp = 3;
 }

@@ -22,7 +22,7 @@ service IpIntfMgrService {
     *       all = true.
     *       intf_id = name of a particular interface to watch.
     * Response: Stream of events:
-    *    ack = if true, this is not an event and the fields below are invalid.
+    *    ack = if true, this not an event and the fields below are invalid.
     *    intf_id = name of the interface.
     *    one of the possible changes:
     *       addr = notifies a change in the interface's addresses.

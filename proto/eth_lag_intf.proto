@@ -287,16 +287,6 @@ service EthLagIntfMgrService {
    rpc member_reason( EthLagIntfMemberReasonRequest ) returns ( EthLagIntfMemberReasonResponse ) {}
 }
 
-enum EthLagIntfUpdateField {
-  ETH_LAG_INTF_ALL_FIELDS = 0;
-  ETH_LAG_INTF_FULL_MEMBER_LIST = 1;
-  ETH_LAG_INTF_SPEED = 2;
-}
-
-message EthLagIntfFieldsControl {
-  repeated EthLagIntfUpdateField fields = 1;
-}
-
 message EthLagIntfWatchRequest {
    oneof overloads {
       // watch all LAG interfaces.
@@ -306,8 +296,6 @@ message EthLagIntfWatchRequest {
    }
    // set to true if acknowledgment is desired.
    bool ack = 4;
-   // specification of which fields to receive on dump.
-   EthLagIntfFieldsControl dump_fields = 5;
 }
 
 // Possible events for LAG interfaces.
@@ -318,8 +306,6 @@ enum EthLagIntfEvents {
    ETH_LAG_INTF_EVENT_MEMBER_SET = 3;
    ETH_LAG_INTF_EVENT_MEMBER_DEL = 4;
    ETH_LAG_INTF_EVENT_SPEED = 5;
-   // dump message is not an actual event and gets prefixed as MESSAGE instead.
-   ETH_LAG_INTF_MESSAGE_DUMP = 6;
 }
 
 message EthLagIntfWatchResponse {
@@ -330,15 +316,9 @@ message EthLagIntfWatchResponse {
    // Member interface (if event is member related)
    IntfId member_intf_id = 3;
    // LAG interface speed, in Mbits/s (if event is ETH_LAG_INTF_EVENT_SPEED).
-   oneof speed_present {
-      uint64 speed = 4;
-   }
+   uint64 speed = 4;
    // this message is merely an ack and not an event
    bool ack = 5;
-   oneof eth_lag_intf_present {
-      EthLagIntf eth_lag_intf = 6;
-   }
-   repeated IntfId all_member_intf_id = 7;
 }
 
 message EthLagIntfsRequest {}

@@ -20,7 +20,7 @@ service NexthopGroupMgrService {
     *       all = true
     *       name = name of a particular nexthop group to watch.
     * Response: Events are streamed as changes happen:
-    *    ack = if true, this is not an event and the fields below are invalid.
+    *    ack = if true, this not an event and the fields below are invalid.
     *    name = interface whose status changed (ignored on confirmation).
     *    One of the following changes:
     *       active_status = there was a change in the active status.
@@ -105,24 +105,6 @@ service NexthopGroupMgrService {
     * EosSdk reference: eos::nexthop_group_mgr::counter
     */
    rpc counter( CounterRequest ) returns ( CounterResponse ) {}
-
- /**
-    * Returns the counter corresponding to the given nexthop group name or
-    * all nexthop groups in the system when all=true. When all = false and
-    * no name is specified, this request has no effect.
-    *
-    * Request:
-    *    One of these options:
-    *       all = true
-    *       name = name of a particular nexthop group to get the counters for.
-    * Response:
-    *    counters = list of all nexthop groups' entry counters when all = true or
-    *       when the name is given in a request that nexthop group's entries counters
-    *       will be returned.
-    *
-    * EosSdk reference: eos::nexthop_group_handler (class)
-    */
-   rpc nhg_counters( NexthopGroupCountersRequest ) returns (  stream NexthopGroupCountersResponse ) {}
 
    /**
     * Queries if the nexthop group with given name exists.
@@ -212,44 +194,23 @@ service NexthopGroupMgrService {
    rpc programmed_nexthop_group( ProgrammedNexthopGroupRequest ) returns ( ProgrammedNexthopGroupResponse ) {}
 }
 
-enum NexthopGroupWatchedField
-{
-   // 'NEXTHOP_GROUP_ALL' represents including all the fields in
-   // 'WatchNexthopGroupResponse'
-   NEXTHOP_GROUP_ALL = 0;
-   NEXTHOP_GROUP_ACTIVE = 1;
-   NEXTHOP_GROUP_PROGRAMMED = 2;
-   NEXTHOP_GROUP_VERSION_ID = 3;
-   NEXTHOP_GROUP_NHG = 4;
-   NEXTHOP_GROUP_ON_NHG_PROGRAMMED = 5;
-}
-
-message NexthopGroupFieldsControl {
-   repeated NexthopGroupWatchedField fields = 1;
-}
-
 message WatchNexthopGroupRequest {
    oneof overloads {
       bool all = 1;
       string name = 2;
    }
    bool ack = 3;
-   NexthopGroupFieldsControl dump_fields = 4;
 }
 
 message WatchNexthopGroupResponse {
    string name = 1;
-   oneof active_status_present {
+   oneof events {
       bool active_status = 2;
-   }
-   oneof nhg_programmed_present {
       bool nhg_programmed = 3;
    }
    // Only present when event is for a programmed callback.
    uint32 version_id = 4;
    bool ack = 5;
-   NexthopGroup nhg = 6;
-   OnNexthopGroupProgrammed on_nhg_programmed = 7;
 }
 
 message ResyncNexthopGroupInitRequest {}
@@ -287,18 +248,6 @@ message CounterRequest {
 
 message CounterResponse {
    NexthopGroupCounter counter = 1; 
-}
-
-message NexthopGroupCountersRequest {
-   oneof overloads {
-      bool all = 1; // All nexthop groups
-      string name = 2;
-   }
-}
-
-message NexthopGroupCountersResponse {
-   string name = 1;
-   repeated NexthopGroupCounter counters = 2;
 }
 
 message NexthopGroupExistsRequest {

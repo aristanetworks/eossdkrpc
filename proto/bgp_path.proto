@@ -21,7 +21,7 @@ service BgpPathMgrService {
     *       ipv4_unicast_paths = true if IPv4 unicast paths should be monitored.
     *       ipv6_unicast_paths = true if IPv6 unicast paths should be monitored.
     * Response: Events are streamed as changes happen:
-    *    ack = if true, this is not an event and the fields below are invalid.
+    *    ack = if true, this not an event and the fields below are invalid.
     *    ip_version = IP family affected by the event.
     *    One of the following changes:
     *       path_key = path changed in adj-RIB-in.

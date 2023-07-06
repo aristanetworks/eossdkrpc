@@ -38,9 +38,7 @@ message NexthopGroup {
    string name = 1;
    NexthopGroupEncapTypes type = 2;
    NexthopGroupGreKeyTypes gre_key_type = 3;
-   oneof ttl_present { // default value is 64
-      uint32 ttl = 4;
-   }
+   uint32 ttl = 4;
    bytes source_ip_addr = 5;
    IntfId source_intf = 6;
    bool autosize = 7;
@@ -48,23 +46,10 @@ message NexthopGroup {
    map<uint32, bytes> destination_ips = 9;
    bool counters_unshared = 10;
    bool hierarchical_fecs_enabled = 11;
-   bool counters_persistent = 12;
-   uint32 version_id = 13; // NOTE: this is actually a 16-bit value
 }
 
 message NexthopGroupCounter {
    uint64 packets = 1;
    uint64 bytes = 2;
    bool valid = 3;
-   uint32 entry_id = 4;
-}
-
-enum NexthopGroupProgrammedHwState {
-   NEXTHOP_GROUP_HW_DROP = 0; 
-   NEXTHOP_GROUP_HW_PARTIALLY_PROGRAMMED = 1; 
-   NEXTHOP_GROUP_HW_ALL_PROGRAMMED = 2; 
-}
-
-message OnNexthopGroupProgrammed {
-   NexthopGroupProgrammedHwState hw_state = 1;
 }
