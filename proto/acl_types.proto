@@ -23,7 +23,9 @@ message AclKey {
  * EosSdk reference: eos::acl_rule_base_t
  */
 message AclRuleBase {
-   AclAction action = 1;
+   oneof action_present { // default value is ACL_PERMIT
+      AclAction action = 1;
+   }
    bool log = 2;
    bool tracked = 3;
 }
@@ -36,9 +38,13 @@ message AclRuleBase {
 message AclRuleIp {
    AclRuleBase base_fields = 1;
    uint32 vlan = 2; // Must be in range 0 to 65535
-   uint32 vlan_mask = 3; // Must be in range 0 to 65535
+   oneof vlan_mask_present { // default value is 0xFFF
+      uint32 vlan_mask = 3; // Must be in range 0 to 65535
+   }
    uint32 inner_vlan = 4; // Must be in range 0 to 65535
-   uint32 inner_vlan_mask = 5; // Must be in range 0 to 65535
+   oneof inner_vlan_mask_present { // default value is 0xFFF
+      uint32 inner_vlan_mask = 5; // Must be in range 0 to 65535
+   }
    uint32 ip_protocol = 6; // Must be in range 0 to 255
    AclTtlSpec ttl = 7;
    IpAddrMask source_addr = 8;
@@ -49,10 +55,16 @@ message AclRuleIp {
    // Bitmask of TCP flags. Bits should match the desired flag values defined in the
    // enum AclTcpFlag.
    uint32 tcp_flags = 13; // Must be in range 0 to 65535
-   AclIpType ip_type = 14;
+   oneof ip_type_present { // default value is ACL_IP_TYPE_ANY
+      AclIpType ip_type = 14;
+   }
    bool established = 15;
-   uint32 icmp_type = 16; // Must be in range 0 to 65535
-   uint32 icmp_code = 17; // Must be in range 0 to 65535
+   oneof icmp_type_present { // default value is 65535
+      uint32 icmp_type = 16; // Must be in range 0 to 65535
+   }
+   oneof icmp_code_present { // default value is 65535
+      uint32 icmp_code = 17; // Must be in range 0 to 65535
+   }
    uint32 priority_value = 18; // Must be in range 0 to 255
    uint32 priority_mask = 19; // Must be in range 0 to 255
    bool match_fragments = 20;
@@ -67,14 +79,20 @@ message AclRuleIp {
 message AclRuleEth {
    AclRuleBase base_fields = 1;
    uint32 vlan = 2; // Must be in range 0 to 65535
-   uint32 vlan_mask = 3; // Must be in range 0 to 65535
+   oneof vlan_mask_present { // default value is 0xFFF
+      uint32 vlan_mask = 3; // Must be in range 0 to 65535
+   }
    uint32 inner_vlan = 4; // Must be in range 0 to 65535
-   uint32 inner_vlan_mask = 5; // Must be in range 0 to 65535
+   oneof inner_vlan_mask_present { // default value is 0xFFF
+      uint32 inner_vlan_mask = 5; // Must be in range 0 to 65535
+   }
    bytes source_addr = 6;
    bytes destination_addr = 7;
    bytes source_mask = 8;
    bytes destination_mask = 9;
-   uint32 eth_protocol = 10;
+   oneof eth_protocol_present { // default value is 0xFFFFFFFF
+      uint32 eth_protocol = 10;
+   }
 }
 
 /**
@@ -83,7 +101,9 @@ message AclRuleEth {
  * EosSdk reference: eos::acl_port_spec_t
  */
 message AclPortSpec {
-   AclRangeOperator oper = 1;
+   oneof oper_present { // default value is ACL_RANGE_ANY
+      AclRangeOperator oper = 1;
+   }
    repeated uint32 ports = 2; // Must be in range 0 to 65535
 }
 
@@ -93,7 +113,9 @@ message AclPortSpec {
  * EosSdk reference: eos::acl_ttl_spec_t
  */
 message AclTtlSpec {
-   AclRangeOperator oper = 1;
+   oneof oper_present { // default value is ACL_RANGE_ANY
+      AclRangeOperator oper = 1;
+   }
    uint32 ttl = 2; // Must be in range 0 to 255
 }
 

@@ -11,7 +11,9 @@ package eos.remote;
 
 message IpRouteKey {
    Prefix prefix = 1;
-   uint32 preference = 2;
+   oneof preference_present { // default value is 1
+      uint32 preference = 2;
+   }
 }
 
 message IpRoute {

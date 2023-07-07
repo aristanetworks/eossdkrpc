@@ -27,15 +27,25 @@ message MacsecProfile {
    string profile_name = 1;
    MacsecKey primary_key = 2;
    MacsecKey fallback_key = 3;
-   uint32 key_server_priority = 4;
+   oneof key_server_priority_present { // default value is 16
+      uint32 key_server_priority = 4;
+   }
    uint32 rekey_period = 5;
-   uint32 mka_life_time = 6;
-   MacsecCipherSuite cipher = 7;
+   oneof mka_life_time_present { // default value is 6
+      uint32 mka_life_time = 6;
+   }
+   oneof cipher_present { // default value is GCM_AES_XPN_128
+      MacsecCipherSuite cipher = 7;
+   }
    bool dot1x = 8;
    bool include_sci = 9;
    MacsecBypass lldp_bypass_level = 11;
-   MacsecProfileTrafficPolicy traffic_policy = 12;
-   bool replay_protection = 14;
+   oneof traffic_policy_present { // default value is TRAFFIC_POLICY_ACTIVE_SAK
+      MacsecProfileTrafficPolicy traffic_policy = 12;
+   }
+   oneof replay_protection_present { // default value is True
+      bool replay_protection = 14;
+   }
    uint32 replay_protection_window = 15;
    bool key_retirement_immediate = 16;
    repeated IntfId intf_ids = 17; // For reading back only. Setting it has no effect.
