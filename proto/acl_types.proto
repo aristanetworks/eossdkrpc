@@ -23,11 +23,12 @@ message AclKey {
  * EosSdk reference: eos::acl_rule_base_t
  */
 message AclRuleBase {
+   reserved 3;
+   reserved "tracked";
    oneof action_present { // default value is ACL_PERMIT
       AclAction action = 1;
    }
    bool log = 2;
-   bool tracked = 3;
 }
 
 /**
