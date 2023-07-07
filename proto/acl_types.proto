@@ -162,6 +162,8 @@ enum AclTcpFlag {
    ACL_TCP_PSH = 8;
    ACL_TCP_ACK = 16;
    ACL_TCP_URG = 32;
+   ACL_TCP_ECE = 64;
+   ACL_TCP_CWR = 128;
 }
 
 /**

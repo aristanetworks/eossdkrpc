@@ -46,6 +46,7 @@ message NexthopGroup {
    map<uint32, bytes> destination_ips = 9;
    bool counters_unshared = 10;
    bool hierarchical_fecs_enabled = 11;
+   bool counters_persistent = 12;
 }
 
 message NexthopGroupCounter {
