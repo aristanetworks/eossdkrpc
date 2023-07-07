@@ -57,3 +57,13 @@ message NexthopGroupCounter {
    uint64 bytes = 2;
    bool valid = 3;
 }
+
+enum NexthopGroupProgrammedHwState {
+   NEXTHOP_GROUP_HW_DROP = 0; 
+   NEXTHOP_GROUP_HW_PARTIALLY_PROGRAMMED = 1; 
+   NEXTHOP_GROUP_HW_ALL_PROGRAMMED = 2; 
+}
+
+message OnNexthopGroupProgrammed {
+   NexthopGroupProgrammedHwState hw_state = 1;
+}

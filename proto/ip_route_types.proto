@@ -34,7 +34,9 @@ message IpRouteVia {
    bytes hop_addr = 2;
    IntfId intf_id = 3;
    string nhg_name = 4;
-   uint32 mpls_label = 5;
+   oneof mpls_label_present { // default value is 1048576 (invalid label)
+      uint32 mpls_label = 5;
+   }
    uint32 vni = 6;
    bytes vtep_addr = 7;
    bytes router_mac_eth_addr = 8;

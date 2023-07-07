@@ -17,7 +17,9 @@ message MplsLabel {
    * The default value of 0 is the explicit null label. LSRs receiving this label
    * are expected to pop it and perform ultimate IP forwarding.
    */
-   uint32 label = 1;
+   oneof label_present { // default value is 1048576 (invalid label)
+      uint32 label = 1;
+   }
 }
 
 /**
