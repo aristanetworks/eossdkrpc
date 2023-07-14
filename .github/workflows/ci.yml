@@ -1,0 +1,41 @@
+name: ci
+on:
+  push:
+    branches:
+      - main
+permissions:
+  contents: write
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: install protobuf-compiler
+        run: sudo apt install -y protobuf-compiler
+      - uses: actions/setup-go@v4
+        with:
+          go-version: '>=1.17.0'
+      - name: install protoc-gen-doc
+        # TODO use this command instead when the PR is merged
+        # https://github.com/pseudomuto/protoc-gen-doc/pull/522
+        # run: go install github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@latest
+        run: |
+          cd ${{github.workspace}}
+          wget https://github.com/aristanetworks/protoc-gen-doc/archive/refs/heads/feat/separate-files.zip
+          unzip separate-files.zip
+          cd protoc-gen-doc-feat-separate-files
+          make build
+      - name: generate markdown files from comments
+        # TODO remove the first argument line when the PR is merged
+        run: |
+          protoc \
+              --plugin=protoc-gen-doc=${{github.workspace}}/protoc-gen-doc-feat-separate-files/bin/protoc-gen-doc \
+              -I${{github.workspace}}/proto \
+              --doc_out=${{github.workspace}}/docs/api-reference \
+              --doc_opt=${{github.workspace}}/.github/templates/api-reference-md.tmpl,md,default,separate_files \
+              ${{github.workspace}}/proto/*.proto
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.x
+      - run: pip install mkdocs-material mkdocs-awesome-pages-plugin mdx_truly_sane_lists
+      - run: mkdocs gh-deploy --force
