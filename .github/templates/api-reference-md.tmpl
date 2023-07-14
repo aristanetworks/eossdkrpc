@@ -1,0 +1,57 @@
+{{range .Files -}}
+# {{.Name}}
+
+{{range .Services -}}
+## {{.Name}}
+
+{{.Description}}
+
+{{range .Methods -}}
+### {{.Name}}
+
+> **rpc** {{.Name}}([{{.RequestLongType}}](../{{(printf "%s#%s" .RequestTypeFile .RequestLongType) | lower | replace "." ""}}))
+    [{{.ResponseLongType}}](../{{(printf "%s#%s" .ResponseTypeFile .ResponseLongType) | lower | replace "." ""}})
+
+{{ .Description}}
+
+{{end -}} <!-- end Methods -->
+{{end -}} <!-- end Services -->
+
+{{if .HasMessages}}
+## Messages
+{{end}} <!-- end HasMessages -->
+
+{{range .Messages}}
+### {{.LongName}}
+
+{{.Description}}
+
+{{if .HasFields -}}
+| Name | Value | Description |
+| ---- | ------ | ----------- |
+{{range .Fields -}}
+| {{if .IsOneof}}**oneof** {{.OneofDecl}}.{{end}}{{.Name}} | {{if .IsMap}}map {{else}}{{.Label}} {{end}}{{if empty .TypeFile}}{{.LongType}}{{else}}[{{.LongType}}](../{{(printf "%s#%s" .TypeFile .LongType) | lower | replace "." ""}}){{end}} | {{if .Description}}{{nobr .Description | replace "\n" "<br>"}}{{if .DefaultValue}} Default: {{.DefaultValue}}{{end}}{{end}} |
+{{end}}
+<!-- end Fields -->
+{{else}}
+Empty message.
+{{end}} <!-- end HasFields -->
+{{end}} <!-- end Messages -->
+
+{{if .HasEnums}}
+## Enums
+{{end}} <!-- end HasEnums -->
+
+{{range .Enums}}
+### {{.LongName}}
+
+{{.Description}}
+
+| Name | Value | Description |
+| ---- | ------ | ----------- |
+{{range .Values -}}
+| {{.Name}} | {{.Number}} | {{if .Description}}{{nobr .Description | replace "\n" "<br>"}}{{end}} |
+{{end}}
+<!-- end Values -->
+{{end}} <!-- end Enums -->
+{{end}} <!-- end Files -->
