@@ -20,6 +20,9 @@ markdown_extensions:
       toc_depth: 3
   - tables
   - mdx_truly_sane_lists
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
 theme:
   name: material
   language: en
