@@ -18,8 +18,10 @@ message PolicyMapAction {
    string nexthop_group_name = 2;
    repeated bytes nexthops = 3;
    string vrf = 4;
-   uint32 dscp = 5; // Must be in range 0 to 255
-   uint32 traffic_class = 6; // Must be in range 0 to 255
+   // Must be in range 0 to 255.
+   uint32 dscp = 5;
+   // Must be in range 0 to 255.
+   uint32 traffic_class = 6;
 }
 
 message PolicyMapKey {
@@ -29,7 +31,8 @@ message PolicyMapKey {
 
 message PolicyMapRule {
    PolicyMapKey class_map_key = 1;
-   oneof policy_map_rule_type_present { // default value is POLICY_RULE_TYPE_CLASSMAP
+   oneof policy_map_rule_type_present {
+      // Default value is POLICY_RULE_TYPE_CLASSMAP.
       PolicyMapRuleType policy_map_rule_type = 2;
    }
    AclRuleIp raw_rule = 3;
@@ -50,7 +53,9 @@ message PolicyMapHwStatusKey {
    AclDirection direction = 2;
 }
 
-// A hardware feature a policy map can be used with.
+/**
+ * A hardware feature a policy map can be used with.
+ */
 enum PolicyFeature {
    POLICY_FEATURE_NULL = 0;
    POLICY_FEATURE_PBR = 1;
@@ -59,7 +64,9 @@ enum PolicyFeature {
    POLICY_FEATURE_TRAFFIC_POLICY =4;   
 }
 
-// The actions a policy map rule may apply to classified packets.
+/**
+ * The actions a policy map rule may apply to classified packets.
+ */
 enum PolicyActionType {
    POLICY_ACTION_NULL = 0;
    POLICY_ACTION_NONE = 1;
@@ -77,7 +84,9 @@ enum PolicyMapRuleType {
    POLICY_RULE_TYPE_IPV6 = 3;
 }
 
-// The policy map hardware status type.
+/**
+ * The policy map hardware status type.
+ */
 enum PolicyMapStatus {
    POLICY_STATUS_NULL = 0;
    POLICY_STATUS_NOT_FOUND = 1;

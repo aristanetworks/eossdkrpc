@@ -13,11 +13,6 @@ service IpRouteMgrService {
    /**
     * Queries for the current tag assigned to the ip route manager.
     *
-    * Request:
-    *    none
-    * Response:
-    *    tag: the numeric value of the current tag.
-    *
     * EosSdk reference: eos::ip_route_mgr::tag
     **/
    rpc tag( TagRequest ) returns ( TagResponse ) {}
@@ -25,11 +20,6 @@ service IpRouteMgrService {
    /**
     * Sets the current tag for the ip route manager.
     * This service will only interact with routes with the given tag.
-    *
-    * Request:
-    *    tag: the numeric value of the tag.
-    * Response:
-    *    none
     *
     * EosSdk reference: eos::ip_route_mgr::tag_is
     **/
@@ -40,11 +30,6 @@ service IpRouteMgrService {
     * The resync_complete rpc, must be called to end the resync.
     * Please check the EosSdk reference for further details.
     *
-    * Request:
-    *    none
-    * Response:
-    *    none
-    *
     * EosSdk reference: eos::ip_route_mgr::resync_init
     **/
    rpc resync_init( IpRouteResyncInitRequest ) returns ( IpRouteResyncInitResponse ) {}
@@ -53,36 +38,12 @@ service IpRouteMgrService {
     * Ends the current route resync process.
     * All routes and vias not added or modified during the resync will be deleted.
     *
-    * Request:
-    *    none
-    * Response:
-    *    none
-    *
     * EosSdk reference: eos::ip_route_mgr::resync_complete
     **/
    rpc resync_complete( IpRouteResyncCompleteRequest ) returns ( IpRouteResyncCompleteResponse ) {}
 
    /**
     * Enumerates all configured static routes.
-    *
-    * Request:
-    *    Setting more than one field below will apply AND logic. With an exception
-    *    for vrf_name, leaving filters unset disables them. In case of vrf_name,
-    *    if unset, it reverts to the default VRF, in accordance with all SDK APIs.
-    *    A special value "all" has been introduced to allow this function to return
-    *    routes from all VRFs, in the same fashion as CLI commands.
-    *
-    *    In the presence of multiple vias, a route is selected if any of the
-    *    underlying vias matches the criteria.
-    *
-    *    vrf_name: filters response by VRF Name
-    *    vtep_addr: filters response by vtep address
-    *    vni: filters responses by VNI
-    *    vxlan_intf_id: filters responses by VXLAN Interface
-    *    report_vias: if true, the stream response will also include vias for every
-    *                 reported path.
-    * Response: list of the following:
-    *    response: IpRoute, the configured static route.
     *
     * EosSdk reference: eos::ip_route_mgr::ip_route_iter
     **/
@@ -91,26 +52,12 @@ service IpRouteMgrService {
    /**
     * Enumerates all configured vias for a given route.
     *
-    * Request:
-    *    key: the route to query vias for.
-    *    Optonal fields:
-    *       vrf_name: the VRF where the route is present.
-    * Response: list of the following:
-    *    response: IpRouteVia, the configured via for the given route.
-    *
     * EosSdk reference: eos::ip_route_mgr::ip_route_via_iter
     **/
    rpc ip_route_vias( IpRouteViasRequest ) returns ( stream IpRouteViasResponse ) {}
 
    /**
     * Queries whether the given route is configured or not.
-    *
-    * Request:
-    *    key: IpRouteKey, the route to query.
-    *    Optional fields:
-    *       vrf_name: the VRF where the route is present.
-    * Response:
-    *    exists: True if the route exists, otherwise False.
     *
     * EosSdk reference: eos::ip_route_mgr::exists
     **/
@@ -119,26 +66,12 @@ service IpRouteMgrService {
    /**
     * Queries whether the given via exists for the given route.
     *
-    * Request:
-    *    via: the via to query, including the route key.
-    *    Optional fields:
-    *       vrf_name: the VRF where the via is present.
-    * Response:
-    *    response: True if the via exists, otherwise False.
-    *
     * EosSdk reference: eos::ip_route_mgr::exists
     **/
    rpc ip_route_via_exists( IpRouteViaExistsRequest ) returns ( IpRouteViaExistsResponse ) {}
 
    /**
     * Queries the route for the given route key.
-    *
-    * Request:
-    *    key: the route to query.
-    *    Optional fields:
-    *       vrf_name: the VRF where the route is present.
-    * Response:
-    *    response: IpRoute, if a match is found.
     *
     * EosSdk reference: eos::ip_route_mgr::ip_route
     **/
@@ -147,36 +80,12 @@ service IpRouteMgrService {
    /**
     * Sets a static route.
     *
-    * Request:
-    *    route: the route to set.
-    *    Optionally set one of these fields:
-    *       vrf_name: the VRF where the route will be present.
-    *       action: the type of vias to be attached -
-    *               used for more efficient route configuration.
-    *               One of these values:
-    *                IP_ROUTE_ACTION_NULL = 0;
-    *                IP_ROUTE_ACTION_FORWARD = 1;
-    *                IP_ROUTE_ACTION_DROP = 2;
-    *                IP_ROUTE_ACTION_NEXTHOP_GROUP = 3;
-    *       vias: optional number of IpRouteVia messages to be created
-    *             along with the route. if any of the vias fail, the route will be
-    *             deleted at once and the error returned will be the reason for the
-    *             via creation failure.
-    * Response:
-    *    None
-    *
     * EosSdk reference: eos::ip_route_mgr::ip_route_set
     **/
    rpc ip_route_set( IpRouteSetRequest ) returns ( IpRouteSetResponse ) {}
 
    /**
     * Sets multiple routes at once for each given route key.
-    *
-    * Request:
-    *    requests: array of IpRouteSetRequest.
-    * Response:
-    *    processed: number of successfully set routes.
-    *    status: success or error details in case of failure.
     *
     * EosSdk reference: eos::ip_route_mgr::ip_route_set
     **/
@@ -185,25 +94,12 @@ service IpRouteMgrService {
    /**
     * Deletes a static route.
     *
-    * Request:
-    *    key: the route to delete.
-    *    Optional fields:
-    *       vrf_name: the VRF where the route is present.
-    * Response:
-    *    None
-    *
     * EosSdk reference: eos::ip_route_mgr::ip_route_del
     **/
    rpc ip_route_del( IpRouteDelRequest ) returns ( IpRouteDelResponse ) {}
 
    /**
     * Deletes multiple static routes at once for each given route key.
-    *
-    * Request:
-    *    requests: array of IpRouteDelRequest.
-    * Response:
-    *    processed: number of successfully deleted routes.
-    *    status: success or error details in case of failure..
     *
     * EosSdk reference: eos::ip_route_mgr::ip_route_del
     **/
@@ -213,25 +109,12 @@ service IpRouteMgrService {
     * Sets the via for a given route key.
     * See EosSdk reference for more information.
     *
-    * Request:
-    *    via: the via to set, including the route key.
-    *    Optional fields:
-    *       vrf_name: the VRF where the via should be present.
-    * Response:
-    *    None
-    *
     * EosSdk reference: eos::ip_route_mgr::ip_route_via_set
     **/
    rpc ip_route_via_set( IpRouteViaSetRequest ) returns ( IpRouteViaSetResponse ) {}
 
    /**
     * Sets multiple vias at once for each given route key.
-    *
-    * Request:
-    *    requests: array of IpRouteViaSetRequest.
-    * Response:
-    *    processed: number of successfully set vias.
-    *    status: success or error details in case of failure.
     *
     * EosSdk reference: eos::ip_route_mgr::ip_route_via_set
     **/
@@ -240,25 +123,12 @@ service IpRouteMgrService {
    /**
     * Deletes the via for a given route key.
     *
-    * Request:
-    *    via: the via to delete, including the route key.
-    *    Optional fields:
-    *       vrf_name: the VRF where the via is present.
-    * Response:
-    *    None
-    *
     * EosSdk reference: eos::ip_route_mgr::ip_route_via_delete
     **/
    rpc ip_route_via_del( IpRouteViaDelRequest ) returns ( IpRouteViaDelResponse ) {}
 
    /**
     * Deletes multiple vias at once for each given route key.
-    *
-    * Request:
-    *    requests: array of IpRouteViaDelRequest.
-    * Response:
-    *    processed: number of successfully deleted vias.
-    *    status: success or error details in case of failure.
     *
     * EosSdk reference: eos::ip_route_mgr::ip_route_via_delete
     **/
@@ -268,11 +138,13 @@ service IpRouteMgrService {
 message TagRequest {}
 
 message TagResponse {
-   uint32 tag = 1; 
+   // The numeric value of the current tag
+   uint32 tag = 1;
 }
 
 message TagIsRequest {
-   uint32 tag = 1; 
+   // The numeric value of the tag
+   uint32 tag = 1;
 }
 
 message TagIsResponse {}
@@ -285,121 +157,179 @@ message IpRouteResyncCompleteRequest {}
 
 message IpRouteResyncCompleteResponse {}
 
+/**
+ * Setting more than one field below will apply AND logic. With an exception
+ * for vrf_name, leaving filters unset disables them. In case of vrf_name,
+ * if unset, it reverts to the default VRF, in accordance with all SDK APIs.
+ * A special value "all" has been introduced to allow this function to return
+ * routes from all VRFs, in the same fashion as CLI commands.
+ *
+ * In the presence of multiple vias, a route is selected if any of the
+ * underlying vias matches the criteria.
+ **/
 message IpRoutesRequest {
+   // Filters response by VRF Name.
    string vrf_name = 1;
+   // Filters response by vtep address.
    bytes vtep_addr = 2;
+   // Filters responses by VNI.
    uint32 vni = 3;
+   // Filters responses by VXLAN Interface.
    IntfId vxlan_intf_id = 4;
+   // If true, the stream response will also include vias for every reported path.
    bool report_vias = 5;
+   // If true, the stream response will contain only vias if
+   // `report_vias` is true, and be empty otherwise.
+   bool suppress_routes = 6;
 }
 
 message IpRoutesResponse {
    oneof item {
+      // The configured static route.
       IpRoute response = 1;
+      // VIA of a configured static route.
       IpRouteVia via = 2;
    }
 }
 
 message IpRouteViasRequest {
+   // The route to query vias for.
    IpRouteKey key = 1;
+   // Optonal: the VRF where the route is present.
    string vrf_name = 2;
 }
 
 message IpRouteViasResponse {
+   // The configured via for the given route.
    IpRouteVia response = 1; 
 }
 
 message IpRouteExistsRequest {
+   // The route to query.
    IpRouteKey key = 1;
+   // Optional: the VRF where the route is present.
    string vrf_name = 2;
 }
 
 message IpRouteExistsResponse {
+   // True if the route exists, otherwise False.
    bool exists = 1; 
 }
 
 message IpRouteViaExistsRequest {
+   // The via to query, including the route key.
    IpRouteVia via = 1;
+   // Optional: the VRF where the via is present.
    string vrf_name = 2;
 }
 
 message IpRouteViaExistsResponse {
+   // True if the via exists, otherwise False.
    bool exists = 1; 
 }
 
 message IpRouteRequest {
+   // The route to query.
    IpRouteKey key = 1;
+   // Optional: the VRF where the route is present.
    string vrf_name = 2;
 }
 
 message IpRouteResponse {
+   // If a match is found.
    IpRoute response = 1; 
 }
 
 message IpRouteSetRequest {
+   // The route to set.
    IpRoute route = 1;
    oneof additional_arg {
+      // The type of vias to be attached.
+      // Used for more efficient route configuration.
       IpRouteActions action = 2;
+      // The VRF where the route will be present.
       string vrf_name = 3;
    }
+   // Optional: number of IpRouteVia messages to be created
+   // along with the route. If any of the vias fail, the route will be
+   // deleted at once and the error returned will be the reason for the
+   // via creation failure.
    repeated IpRouteVia vias = 4;
 }
 
 message IpRouteSetResponse {}
 
 message BulkIpRouteSetRequest {
+   // Array of IpRouteSetRequest.
    repeated IpRouteSetRequest requests = 1; 
 }
 
 message BulkIpRouteSetResponse {
+   // Number of successfully set routes.
    uint64 processed = 1;
+   // Success or error details in case of failure.
    RpcResponseStatus status = 2;
 }
 
 message IpRouteDelRequest {
+   // The route to delete.
    IpRouteKey key = 1;
+   // Optional: the VRF where the route is present.
    string vrf_name = 2;
 }
 
 message IpRouteDelResponse {}
 
 message BulkIpRouteDelRequest {
+   // Array of IpRouteDelRequest.
    repeated IpRouteDelRequest requests = 1; 
 }
 
 message BulkIpRouteDelResponse {
+   // Number of successfully deleted routes.
    uint64 processed = 1;
+   // Success or error details in case of failure.
    RpcResponseStatus status = 2;
 }
 
 message IpRouteViaSetRequest {
+   // The via to set, including the route key.
    IpRouteVia via = 1;
+   // Optional: the VRF where the via should be present.
    string vrf_name = 2;
 }
 
 message IpRouteViaSetResponse {}
 
 message BulkIpRouteViaSetRequest {
+   // Array of IpRouteViaSetRequest.
    repeated IpRouteViaSetRequest requests = 1; 
 }
 
 message BulkIpRouteViaSetResponse {
+   // Number of successfully set vias.
    uint64 processed = 1;
+   // Success or error details in case of failure.
    RpcResponseStatus status = 2;
 }
 
 message IpRouteViaDelRequest {
+   // The via to delete, including the route key.
    IpRouteVia via = 1;
+   // Optional: the VRF where the via is present.
    string vrf_name = 2;
 }
 
 message IpRouteViaDelResponse {}
 
 message BulkIpRouteViaDelRequest {
+   // Array of IpRouteViaDelRequest.
    repeated IpRouteViaDelRequest requests = 1; 
 }
 
 message BulkIpRouteViaDelResponse {
+   // Number of successfully deleted vias.
    uint64 processed = 1;
+   // Success or error details in case of failure.
    RpcResponseStatus status = 2;
 }

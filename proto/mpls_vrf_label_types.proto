@@ -1,0 +1,13 @@
+// Copyright (c) 2023 Arista Networks, Inc.  All rights reserved.
+// Arista Networks, Inc. Confidential and Proprietary.
+
+syntax = "proto3";
+
+package eos.remote;
+
+import "mpls_types.proto";
+
+message MplsVrfLabel {
+   MplsLabel label = 1;
+   string vrf_name = 2;
+}

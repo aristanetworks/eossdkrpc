@@ -19,11 +19,14 @@ enum BgpReceiveRouteStages {
 };
 
 message BgpPathAttrFields {
+   // Perform next hop lookup.
    bool next_hop = 1;
+   // Perform community list lookup.
    bool community_list = 2;
 }
 
 message BgpPathOptions {
+   // Either BGP_PATH_PRE_POLICY or BGP_PATH_POST_POLICY.
    BgpReceiveRouteStages stage = 1;
    BgpPathAttrFields attrs = 2;
 }

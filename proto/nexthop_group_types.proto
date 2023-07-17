@@ -34,11 +34,26 @@ enum NexthopGroupGreKeyTypes {
    NEXTHOP_GROUP_GRE_KEY_INGRESS_INTF = 1;
 }
 
+enum NexthopGroupCounterState {
+   // Nexthop group entry counters are not enabled for this group.
+   NEXTHOP_GROUP_COUNTER_INACTIVE = 0;
+   // At least one nexthop group entry counter for this group has failed to be
+   // programmed.
+   //
+   // Confirm that the expected configuration fits within the hardware limits of the
+   // system and reconfigure all nexthop groups.
+   NEXTHOP_GROUP_COUNTER_PROGRAMMING_FAILED = 1;
+   // All nexthop group entry counters for this group have been successfully
+   // programmed.
+   NEXTHOP_GROUP_COUNTER_PROGRAMMING_COMPLETE = 2;
+}
+
 message NexthopGroup {
    string name = 1;
    NexthopGroupEncapTypes type = 2;
    NexthopGroupGreKeyTypes gre_key_type = 3;
-   oneof ttl_present { // default value is 64
+   oneof ttl_present {
+      // Default value is 64.
       uint32 ttl = 4;
    }
    bytes source_ip_addr = 5;
@@ -49,13 +64,15 @@ message NexthopGroup {
    bool counters_unshared = 10;
    bool hierarchical_fecs_enabled = 11;
    bool counters_persistent = 12;
-   uint32 version_id = 13; // NOTE: this is actually a 16-bit value
+   // NOTE: this is actually a 16-bit value.
+   uint32 version_id = 13;
 }
 
 message NexthopGroupCounter {
    uint64 packets = 1;
    uint64 bytes = 2;
    bool valid = 3;
+   uint32 entry_id = 4;
 }
 
 enum NexthopGroupProgrammedHwState {
@@ -66,4 +83,5 @@ enum NexthopGroupProgrammedHwState {
 
 message OnNexthopGroupProgrammed {
    NexthopGroupProgrammedHwState hw_state = 1;
+   NexthopGroupCounterState counter_state = 2;
 }
