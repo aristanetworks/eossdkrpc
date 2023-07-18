@@ -23,6 +23,13 @@ markdown_extensions:
   - admonition
   - pymdownx.details
   - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
 theme:
   name: material
   language: en
@@ -34,6 +41,8 @@ theme:
     - navigation.instant # toc follows scrolling
     - navigation.top # back to top button on scrolling down
     - navigation.footer # previous and next buttons
+    - content.code.copy # copy button in code blocks
+    - content.code.select # line selection button code blocks
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default

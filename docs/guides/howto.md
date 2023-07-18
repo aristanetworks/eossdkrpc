@@ -4,9 +4,9 @@
 
 EosSdkRpc is an agent built on top of our EosSdk that uses gRPC as a mechanism to provide remote access to the SDK.
 
-This agent is present in development versions of EOS, and is currently enabled via the "daemon" command set - starting in the 4.29 release a first-class CLI was created "management api eos-sdk-rpc" and is now the recommended configuration method. The gRPC interface that the agent supports closely matches the interface provided by EosSdk, and the intent is that the .proto interface can be publicly supported. As well as potentially allowing for remote access, using protobuf to specify the interface isolates customer code from the Linux ABI issues that come with building C++ applications on different compiler, libc, and kernel versions.
+This agent is present in development versions of EOS, and is currently enabled via the "daemon" command set - starting in the 4.29 release a first-class CLI was created `management api eos-sdk-rpc` and is now the recommended configuration method. The gRPC interface that the agent supports closely matches the interface provided by EosSdk, and the intent is that the .proto interface can be publicly supported. As well as potentially allowing for remote access, using protobuf to specify the interface isolates customer code from the Linux ABI issues that come with building C++ applications on different compiler, libc, and kernel versions.
 
-The default listen point for the agent is localhost:9543 but this can be changed to allow external access. Only encrypted access is supported for EosSdkRpc agents configured via the “management api eos-sdk-rpc” CLI. An ACL should be used to limit the hosts that have access to the agent.
+The default listen point for the agent is `localhost:9543` but this can be changed to allow external access. Only encrypted access is supported for EosSdkRpc agents configured via the `management api eos-sdk-rpc` CLI. An ACL should be used to limit the hosts that have access to the agent.
 
 The API mirroring is intended to be modular in the same fashion as the SDK itself. Each proto file mirrors one specific SDK module and the RPC definitions and messages also aim to be as close as possible to the original SDK API call, in an attempt to make the learning gap as small as possible.
 
@@ -223,8 +223,8 @@ This will result in a directory proto being created under our root. Now we have 
 
 CMake has a good integration with Protobuf and already provides a convenient way to generate C++ files and headers. Unfortunately there is no official solution for gRPC yet. The file described below is a helper module to allow generation of gRPC C++ files with the same convenience as protobuf.
 
-```cmake
-## gRPC.cmake - a convenient gRPC proto file generator for CMake
+```cmake title="gRPC.cmake"
+## A convenient gRPC proto file generator for CMake
 
 find_library( grpc_LIBRARY grpc REQUIRED )
 find_library( grpcpp_LIBRARY grpc++ REQUIRED )
@@ -262,8 +262,7 @@ endfunction()
 
 Now we can start our own `CMakeLists.txt`:
 
-```cmake
-# CMakeLists.txt
+```cmake title="CMakeLists.txt"
 cmake_minimum_required( VERSION 3.6 )
 project( eosrpcclient )
 
@@ -309,8 +308,7 @@ target_link_libraries( eosrpcclient
 
 We can now add the client code (update the address on `CreateChannel`):
 
-```c++
-// -- client.cc
+```c++ title="client.cc"
 #include <grpc/grpc.h>
 #include <grpcpp/grpcpp.h>
 #include <grpcpp/client_context.h>
@@ -374,9 +372,9 @@ Response to "show version": {"imageFormatVersion": "1.0", "uptime": 1506.9400000
 
 ### Expanding our previous example: creating and removing one EVPN route
 
-Now, let's expand our example to use the SDK (ip_route) to add and remove a single static route. The example below builds on top of the previous. The differences are marked in bold.
+Now, let's expand our example to use the SDK (ip_route) to add and remove a single static route. The example below builds on top of the previous.
 
-```cmake
+```cmake title="CMakeLists.txt" hl_lines="12 18 24-27 47"
 cmake_minimum_required( VERSION 3.6 )
 project( eosrpcclient )
 
@@ -429,8 +427,7 @@ target_link_libraries( eosrpcclient
 
 And the updated code, with some added functions:
 
-```c++
-// -- client.cc
+```c++ title="client.cc"
 #include <grpc/grpc.h>
 #include <grpcpp/grpcpp.h>
 #include <grpcpp/client_context.h>
