@@ -34,6 +34,13 @@ jobs:
               --doc_out=${{github.workspace}}/docs/api-reference \
               --doc_opt=${{github.workspace}}/.github/templates/api-reference-md.tmpl,md,default,separate_files \
               ${{github.workspace}}/proto/*.proto
+      - name: upload generated documentation as an artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: api-reference-protofiles
+          path: |
+            ${{github.workspace}}/docs/api-reference
+            !${{github.workspace}}/docs/api-reference/index.md
       - uses: actions/setup-python@v4
         with:
           python-version: 3.x
