@@ -1,0 +1,25 @@
+name: Deploy website
+on:
+  push:
+    branches:
+      - main
+jobs:
+  generate-api-reference:
+    uses: ./.github/workflows/generate-api-reference.yml
+  deploy:
+    needs: generate-api-reference
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Import generated API reference
+        uses: actions/download-artifact@v3
+        with:
+          name: api-reference-protofiles
+          path: docs/api-reference/
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.x
+      - name: Install MkDocs and dependencies
+        run: pip install mkdocs-material mkdocs-awesome-pages-plugin mdx_truly_sane_lists
+      - name: Push website to gh-pages branch
+        run: mkdocs gh-deploy --force
