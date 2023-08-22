@@ -120,6 +120,8 @@ E0223 09:59:07.960911143   32483 ssl_transport_security.cc:1469] Handshake faile
 ### How can I secure gRPC communication?
 gRPC supports various security mechanisms, including Transport Layer Security (TLS) for securing communication between clients and servers. You can configure security options when setting up the server and client by first configuring an SSL profile within EOS. Optional, AAA username and password authentication is also supported as an additional layer ontop of TLS.
 
+See the [security configuration](/guides/security/) guide for more information.
+
 ## Troubleshooting EosSdkRpc
 
 ### Where are EosSdkRpc logs located?
