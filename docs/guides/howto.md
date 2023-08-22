@@ -1,19 +1,5 @@
 # EosSdkRpc HOWTO
 
-## Introduction
-
-EosSdkRpc is an agent built on top of our EosSdk that uses gRPC as a mechanism to provide remote access to the SDK.
-
-This agent is present in development versions of EOS, and is currently enabled via the "daemon" command set - starting in the 4.29 release a first-class CLI was created `management api eos-sdk-rpc` and is now the recommended configuration method. The gRPC interface that the agent supports closely matches the interface provided by EosSdk, and the intent is that the .proto interface can be publicly supported. As well as potentially allowing for remote access, using protobuf to specify the interface isolates customer code from the Linux ABI issues that come with building C++ applications on different compiler, libc, and kernel versions.
-
-The default listen point for the agent is `localhost:9543` but this can be changed to allow external access. Only encrypted access is supported for EosSdkRpc agents configured via the `management api eos-sdk-rpc` CLI. An ACL should be used to limit the hosts that have access to the agent.
-
-The API mirroring is intended to be modular in the same fashion as the SDK itself. Each proto file mirrors one specific SDK module and the RPC definitions and messages also aim to be as close as possible to the original SDK API call, in an attempt to make the learning gap as small as possible.
-
-For performance reasons, “setter” RPC calls also come with bulk versions, which minimizes the RPC overhead. These calls differ from their original counterparts by providing a sequence of individual operations which are performed locally in batches, without requiring a round-trip to the client for each operation.
-
-Multiple clients are supported by EosSdkRpc and all state is shared between these clients. Requests are fulfilled without regard to which client invoked the RPC call. Any strategy to coordinate multiple clients is out of the scope of this guide.
-
 ## Configuration
 
 #### Releases 4.29 and greater
