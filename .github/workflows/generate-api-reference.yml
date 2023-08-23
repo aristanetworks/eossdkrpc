@@ -1,0 +1,45 @@
+name: Generate API reference
+on:
+  push:
+    branches-ignore:
+      - main # worflow called by deployment in this case
+  workflow_call:
+permissions:
+  contents: write
+jobs:
+  install-run-protoc-gen-doc:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install protobuf-compiler
+        run: sudo apt install -y protobuf-compiler
+      - uses: actions/setup-go@v4
+        with:
+          go-version: '>=1.17.0'
+      - name: Install protoc-gen-doc
+        # TODO use this command instead when the PR is merged
+        # https://github.com/pseudomuto/protoc-gen-doc/pull/522
+        # run: go install github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@latest
+        run: |
+          wget https://github.com/aristanetworks/protoc-gen-doc/archive/refs/heads/feat/separate-files.zip
+          unzip separate-files.zip
+          make \
+              --directory=protoc-gen-doc-feat-separate-files \
+              --print-directory \
+              build
+      - name: Generate markdown files from comments
+        # TODO remove the --plugin argument when the PR is merged
+        run: |
+          protoc \
+              --plugin=protoc-gen-doc=protoc-gen-doc-feat-separate-files/bin/protoc-gen-doc \
+              -Iproto \
+              --doc_out=docs/api-reference \
+              --doc_opt=.github/templates/api-reference-md.tmpl,md,default,separate_files \
+              proto/*.proto
+      - name: Upload generated documentation as an artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: api-reference-protofiles
+          path: |
+            docs/api-reference
+            !docs/api-reference/index.md
