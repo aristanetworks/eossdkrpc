@@ -1,0 +1,56 @@
+site_name: EOS SDK RPC documentation
+site_author: Arista Networks
+site_description: Arista's EOS SDK RPC documentation
+repo_name: eossdkrpc on GitHub
+repo_url: https://github.com/aristanetworks/eossdkrpc
+copyright: Copyright &copy; 2021 Arista Networks, Inc. All rights reserved.
+docs_dir: docs/
+plugins:
+  - search # built in
+  - awesome-pages # rename and reorder sections (see the .pages file)
+extra:
+  social:
+    - icon: fontawesome/brands/github-alt
+      link: https://github.com/aristanetworks/eossdkrpc
+    - icon: fontawesome/solid/globe
+      link: https://www.arista.com
+markdown_extensions:
+  - toc:
+      permalink: "¶"
+      toc_depth: 3
+  - tables
+  - mdx_truly_sane_lists
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+theme:
+  name: material
+  language: en
+  favicon: assets/favicon.ico
+  features:
+    - header.autohide
+    - navigation.tabs # tabs under header
+    - navigation.indexes # merge index.md page with section
+    - navigation.instant # toc follows scrolling
+    - navigation.top # back to top button on scrolling down
+    - navigation.footer # previous and next buttons
+    - content.code.copy # copy button in code blocks
+    - content.code.select # line selection button code blocks
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/weather-night
+        name: Switch to light mode

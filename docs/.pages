@@ -1,0 +1,5 @@
+nav:
+  - Home: index.md
+  - Guides: guides
+  - API reference: api-reference
+  - FAQ: faq.md
