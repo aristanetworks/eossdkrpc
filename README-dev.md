@@ -15,10 +15,10 @@ The downloaded files should then be unzipped to `docs/api-reference/`. The websi
 │   ├── templates         		# Templates used by our custom github workflows
 │   │   └── api-reference-md.tmpl       # Custom output doc template used by proto-gen-doc
 │   └── workflows         		# Standardized github actions workflows directory
-│	├── ci.yml			# Workflow for both generating documentation and deploying the site
 │	├── deploy-website.yml          # Workflow for deploying the site using MkDocs after generating proto docs
 │	└── generate-api-reference.yml  # Workflow for generating docs from proto files using proto-gen-doc
 ├── README.md
+├── README-dev.md
 ├── docs                   		# Documentation and guides relating to the use of EosSdkRpc
 │   ├── api-reference      		# MkDocs api reference information
 │   ├── assets             		# Additional assets including the Arista favicon
