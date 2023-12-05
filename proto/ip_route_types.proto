@@ -21,7 +21,6 @@ message IpRoute {
    IpRouteKey key = 1;
    uint32 tag = 2;
    bool rib_bypass = 3;
-   string command_tag = 4;
 }
 
 enum IpRouteActions {
