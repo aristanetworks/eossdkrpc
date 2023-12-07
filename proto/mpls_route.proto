@@ -255,11 +255,17 @@ message MplsRouteResyncCompleteRequest{}
 
 message MplsRouteResyncCompleteResponse {}
 
-message MplsRoutesRequest {}
+message MplsRoutesRequest {
+   // If true, the stream response will also include vias for every
+   // reported MPLS route key.
+   bool report_vias = 1;
+}
 
 message MplsRoutesResponse {
    // The configured MPLS routes.
    MplsRoute route = 1;
+   // VIAs of a configured route.
+   repeated MplsRouteVia vias = 2;
 }
 
 message MplsRouteStatusesRequest {}

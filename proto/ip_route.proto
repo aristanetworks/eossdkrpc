@@ -240,6 +240,19 @@ message IpRouteResponse {
    IpRoute response = 1; 
 }
 
+enum IpRouteSetViasAction {
+   // Convenience method to create routes and vias in a single
+   // RPC call. This is intended for route creation but when used with an existing
+   // route key will cause it to erase all previous vias associated with that key (at
+   // the SDK level). In case of failure to add vias, the route shall be deleted.
+   IP_ROUTE_SET_VIAS_CREATE = 0;
+   // Choosing this action with an existing route will replace vias in a
+   // make-before-break fashion within the RPC server, when possible. Vias that are
+   // common between the old set and the new set should remain untouched. If the
+   // operation fails, then the original via set is restored.
+   IP_ROUTE_SET_VIAS_REPLACE = 1;
+}
+
 message IpRouteSetRequest {
    // The route to set.
    IpRoute route = 1;
@@ -255,6 +268,8 @@ message IpRouteSetRequest {
    // deleted at once and the error returned will be the reason for the
    // via creation failure.
    repeated IpRouteVia vias = 4;
+   // defines how vias should be replaced, when applicable.
+   IpRouteSetViasAction vias_action = 5;
 }
 
 message IpRouteSetResponse {}
