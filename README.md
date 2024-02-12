@@ -24,3 +24,8 @@ INFO     -  [04:20:07] Serving on http://127.0.0.1:8000/
 ```
 
 By default, the former does not include the API reference (only guides, FAQ, and general structure/look).
+
+
+## License
+
+All examples and demos available in this repository are provided under [Apache License](LICENSE)
