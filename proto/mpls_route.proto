@@ -313,9 +313,28 @@ message MplsRouteExistsResponse {
    bool exists = 1;
 }
 
+enum MplsRouteSetViasAction {
+   // Use this convenience method to create routes and vias in a single RPC call.
+   // While primarily designed for route creation, when utilized with an existing
+   // route key, any vias present within the MplsRouteSetRequest message will be
+   // appended to the existing set of vias for that route. If adding the vias
+   // results in a failure, the route shall be deleted.
+   MPLS_ROUTE_SET_VIAS_ADD = 0;
+   // Choosing this action with an existing route will replace vias in a
+   // make-before-break fashion within the RPC server, when possible.
+   // Vias that are common between the old set and the new set should
+   // remain untouched. If the operation fails, then the original via set
+   // is restored.
+   MPLS_ROUTE_SET_VIAS_REPLACE = 1;
+}
+
 message MplsRouteSetRequest {
    // The MPLS route to insert or update.
    MplsRoute route = 1;
+   // MPLS vias to be added to the route.
+   repeated MplsRouteVia vias = 2;
+   // action associated with vias, i.e., ADD or REPLACE.
+   MplsRouteSetViasAction vias_action = 3;
 }
 
 message MplsRouteSetResponse {}

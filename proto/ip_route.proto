@@ -181,6 +181,9 @@ message IpRoutesRequest {
    // If true, the stream response will contain only vias if
    // `report_vias` is true, and be empty otherwise.
    bool suppress_routes = 6;
+   // If true, each route and all its vias will be streamed in a single message.
+   // When this flag is set to true, 'report_vias' and 'suppress_routes' are ignored.
+   bool packed_route_vias = 7;
 }
 
 message IpRoutesResponse {
@@ -190,6 +193,7 @@ message IpRoutesResponse {
       // VIA of a configured static route.
       IpRouteVia via = 2;
    }
+   repeated IpRouteVia vias = 3;
 }
 
 message IpRouteViasRequest {

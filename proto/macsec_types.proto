@@ -21,11 +21,6 @@ message MacsecIntfCounters {
 }
 
 message MacsecProfile {
-   reserved 10, 13;
-   // Use lldp_bypass_level instead.
-   reserved "bypass_lldp";
-   // Use traffic_policy instead.
-   reserved "allow_unprotected";
    string profile_name = 1;
    MacsecKey primary_key = 2;
    MacsecKey fallback_key = 3;
@@ -44,11 +39,17 @@ message MacsecProfile {
    }
    bool dot1x = 8;
    bool include_sci = 9;
+   // The field bypass_lldp is for reading back only. Setting it has no effect.
+   // Please use lldp_bypass_level instead.
+   bool bypass_lldp = 10;
    MacsecBypass lldp_bypass_level = 11;
    oneof traffic_policy_present {
       // Default value is TRAFFIC_POLICY_ACTIVE_SAK.
       MacsecProfileTrafficPolicy traffic_policy = 12;
    }
+   // Deprecated. Please use traffic_policy instead.
+   // Only used if traffic_policy_present is not set.
+   bool allow_unprotected = 13;
    oneof replay_protection_present {
       // Default value is True.
       bool replay_protection = 14;

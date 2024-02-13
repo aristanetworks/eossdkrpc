@@ -119,6 +119,78 @@ service PolicyMapMgrService {
    * EosSdk reference: eos::policy_map_mgr::hw_status
    */
    rpc hw_status( PolicyMapHwStatusRequest ) returns ( PolicyMapHwStatusResponse ) {}
+
+   /**
+    * Queries whether the specified traffic policy is configured or not.
+    *
+    * EosSdk reference: eos::policy_map_mgr::traffic_policy_exists
+    */
+   rpc traffic_policy_exists( TrafficPolicyExistsRequest )
+      returns ( TrafficPolicyExistsResponse ) {}
+
+   /**
+    * Queries a traffic policy given its key.
+    *
+    * EosSdk reference: eos::policy_map_mgr::traffic_policy
+    */
+   rpc traffic_policy( TrafficPolicyRequest ) returns ( TrafficPolicyResponse ) {}
+
+   /**
+    * Creates or updates a traffic policy.
+    *
+    * EosSdk reference: eos::policy_map_mgr::traffic_policy_is
+    */
+   rpc traffic_policy_is( TrafficPolicyIsRequest )
+      returns ( TrafficPolicyIsResponse ) {}
+
+   /**
+    * Creates or updates multiple traffic policies in a single call.
+    *
+    * EosSdk reference: eos::policy_map_mgr::traffic_policy_is
+    */
+   rpc bulk_traffic_policy_is( BulkTrafficPolicyIsRequest )
+      returns ( BulkTrafficPolicyIsResponse ) {}
+
+   /**
+    * Deletes a traffic policy.
+    *
+    * EosSdk reference: eos::policy_map_mgr::traffic_policy_del
+    */
+   rpc traffic_policy_del( TrafficPolicyDelRequest )
+      returns ( TrafficPolicyDelResponse ) {}
+
+   /**
+    * Deletes multiple traffic policies in a single call.
+    *
+    * EosSdk reference: eos::policy_map_mgr::traffic_policy_del
+    */
+   rpc bulk_traffic_policy_del( BulkTrafficPolicyDelRequest )
+      returns ( BulkTrafficPolicyDelResponse ) {}
+
+   /**
+    * Returns a list of the keys of the configured traffic policies.
+    *
+    * EosSdk reference: eos::policy_map_mgr::traffic_policy_iter
+    */
+   rpc traffic_policies( TrafficPoliciesRequest )
+      returns ( stream TrafficPoliciesResponse ) {}
+
+   /**
+    * Applies or unapplies a traffic policy on the given interface and direction.
+    *
+    * EosSdk reference: eos::policy_map_mgr::traffic_policy_apply
+    */
+   rpc traffic_policy_apply( TrafficPolicyApplyRequest )
+      returns ( TrafficPolicyApplyResponse ) {}
+
+   /**
+    * Applies or unapplies multiple traffic policies on the given interfaces and
+    * directions in a single call.
+    *
+    * EosSdk reference: eos::policy_map_mgr::traffic_policy_apply
+    */
+   rpc bulk_traffic_policy_apply( BulkTrafficPolicyApplyRequest )
+      returns ( BulkTrafficPolicyApplyResponse ) {}
 }
 
 message PolicyMapWatchRequest {
@@ -136,6 +208,7 @@ enum PolicyMapEventType {
    POLICY_MAP_EVENT_NULL = 0;
    POLICY_MAP_EVENT_SYNC = 1;
    POLICY_MAP_EVENT_CONFIG_SET = 2;
+   POLICY_MAP_EVENT_TP_CONFIG_SET = 3;
 }
 
 message PolicyMapWatchResponse {
@@ -276,4 +349,95 @@ message PolicyMapHwStatusRequest {
 message PolicyMapHwStatusResponse {
    // The hardware status of the policy map.
    PolicyMapHwStatuses hw_statuses = 1;
+}
+
+message TrafficPolicyExistsRequest {
+   // The key of the traffic policy to query.
+   string key = 1;
+}
+
+message TrafficPolicyExistsResponse {
+   // True if the traffic policy is configured otherwise false.
+   bool exists = 1;
+}
+
+message TrafficPolicyRequest {
+   // The key of the traffic policy to query.
+   string key = 1;
+}
+
+message TrafficPolicyResponse {
+   // The traffic policy corresponding to the key or empty if not found.
+   TrafficPolicy traffic_policy = 1;
+}
+
+message TrafficPolicyIsRequest {
+   // The traffic policy to create or update.
+   TrafficPolicy traffic_policy = 1;
+}
+
+message TrafficPolicyIsResponse {}
+
+message BulkTrafficPolicyIsRequest {
+   // List of TrafficPolicyIsRequests.
+   repeated TrafficPolicyIsRequest requests = 1;
+}
+
+message BulkTrafficPolicyIsResponse {
+   // Number of consecutive successful requests.
+   uint64 processed = 1;
+   // Success or error details in case of failure.
+   RpcResponseStatus status = 2;
+}
+
+message TrafficPolicyDelRequest {
+   // The key of the traffic policy to delete.
+   string key = 1;
+}
+
+message TrafficPolicyDelResponse {}
+
+message BulkTrafficPolicyDelRequest {
+   // List of TrafficPolicyDelRequests.
+   repeated TrafficPolicyDelRequest requests = 1;
+}
+
+message BulkTrafficPolicyDelResponse {
+   // Number of consecutive successful requests.
+   uint64 processed = 1;
+   // Success or error details in case of failure.
+   RpcResponseStatus status = 2;
+}
+
+message TrafficPoliciesRequest {}
+
+message TrafficPoliciesResponse {
+   // The key of one of the feature's configured policy maps.
+   PolicyMapKey key = 1;
+}
+
+message TrafficPolicyApplyRequest {
+   // The key of the traffic policy to [un]apply.
+   string key = 1;
+   // The inteface ID of the interface to [un]apply the policy map.
+   IntfId intf_id = 2;
+   // The direction in which to [un]apply the traffic policy.
+   TrafficPolicyDirection direction = 3;
+   // True if the traffic policy should be applied otherwise false if it should
+   // be unapplied.
+   bool apply = 4;
+}
+
+message TrafficPolicyApplyResponse {}
+
+message BulkTrafficPolicyApplyRequest {
+   // List of TrafficPolicyApplyRequests.
+   repeated TrafficPolicyApplyRequest requests = 1;
+}
+
+message BulkTrafficPolicyApplyResponse {
+   // Number of consecutive successful requests.
+   uint64 processed = 1;
+   // Success or error details in case of failure.
+   RpcResponseStatus status = 2;
 }

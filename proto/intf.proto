@@ -280,6 +280,12 @@ service IntfCounterMgrService {
     * EosSdk reference: eos::intf_counter_mgr::traffic_rates
     */
    rpc intf_traffic_rates( IntfTrafficRatesRequest ) returns ( IntfTrafficRatesResponse ) {}
+
+   /*
+   * Streams traffic rate updates
+   */
+   rpc intf_traffic_rates_stream( IntfTrafficRatesStreamRequest ) returns (
+      stream IntfTrafficRatesStreamResponse ) {}
 }
 
 message IntfCountersRequest {
@@ -300,4 +306,25 @@ message IntfTrafficRatesRequest {
 message IntfTrafficRatesResponse {
    // The traffic rates associated with the interface.
    IntfTrafficRates rates = 1;
+}
+
+message IntfTrafficRatesStreamRequest {
+   // Set to true when an ackowledgment is desired.
+   bool ack = 1;
+   // Regular expression to report only interfaces with matching names.
+   // When empty, all interfaces are sent.
+   string intf_name_regex = 2;
+}
+
+message IntfTrafficRatesStreamResponse {
+   message DataEntry {
+      // Interface name
+      IntfId intf_id = 1;
+      // The traffic rates associated with the interface.
+      IntfTrafficRates rates = 2;
+   }
+   // If true the agent is now actively watching for events.
+   bool ack = 1;
+   // Traffic rates data
+   repeated DataEntry data = 2;
 }
