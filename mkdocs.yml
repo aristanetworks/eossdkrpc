@@ -3,7 +3,7 @@ site_author: Arista Networks
 site_description: Arista's EOS SDK RPC documentation
 repo_name: eossdkrpc on GitHub
 repo_url: https://github.com/aristanetworks/eossdkrpc
-copyright: Copyright &copy; 2021 Arista Networks, Inc. All rights reserved.
+copyright: Copyright &copy; 2024 Arista Networks, Inc. All rights reserved.
 docs_dir: docs/
 plugins:
   - search # built in
