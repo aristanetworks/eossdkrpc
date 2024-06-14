@@ -3,6 +3,8 @@
 
 syntax = "proto3";
 
+option go_package = "arista/EosSdkRpc";
+
 import "intf_types.proto";
 import "ip_types.proto";
 import "rpc_types.proto";
@@ -47,5 +49,6 @@ message IpRouteVia {
    uint32 metric = 10;
    bool vtep_sip_validation = 11;
    IntfId vxlan_intf_id = 12;
+   // Valid range of 1 - (2^24)-1, set to 0 if unused.
    uint32 weight = 13;
 }

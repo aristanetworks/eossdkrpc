@@ -3,6 +3,8 @@
 
 syntax = "proto3";
 
+option go_package = "arista/EosSdkRpc";
+
 package eos.remote;
 
 import "intf_types.proto";
@@ -59,6 +61,7 @@ message NexthopGroup {
    bytes source_ip_addr = 5;
    IntfId source_intf = 6;
    bool autosize = 7;
+   // The numeric key corresponds to the nexthop index position for the entry.
    map<uint32, NexthopGroupEntry> nexthops = 8;
    map<uint32, bytes> destination_ips = 9;
    bool counters_unshared = 10;

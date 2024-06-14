@@ -3,6 +3,8 @@
 
 syntax = "proto3";
 
+option go_package = "arista/EosSdkRpc";
+
 package eos.remote;
 
 import "rpc_types.proto";
@@ -260,6 +262,8 @@ message NexthopGroupActiveResponse {
 message NexthopGroupSetRequest {
    // Details of the new group.
    NexthopGroup nhg = 1; 
+   // Must be in range 1 to 65535
+   optional uint32 client_version_id = 2;
 }
 
 message NexthopGroupSetResponse {

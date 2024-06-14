@@ -3,6 +3,8 @@
 
 syntax = "proto3";
 
+option go_package = "arista/EosSdkRpc";
+
 import "rpc_types.proto";
 import "intf_types.proto";
 import "ip_route_types.proto";

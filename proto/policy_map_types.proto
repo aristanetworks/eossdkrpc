@@ -3,6 +3,8 @@
 
 syntax = "proto3";
 
+option go_package = "arista/EosSdkRpc";
+
 package eos.remote;
 
 import "acl_types.proto";
@@ -160,6 +162,7 @@ enum TrafficPolicyActionType {
 }
 
 enum PoliceRateUnit {
+   // NULL refers to the default unit in SDK (POLICE_RATE_UNIT_BPS)
    POLICE_RATE_UNIT_NULL = 0;
    POLICE_RATE_UNIT_BPS = 1;
    POLICE_RATE_UNIT_KBPS = 2;
@@ -168,6 +171,7 @@ enum PoliceRateUnit {
 }
 
 enum PoliceBurstUnit {
+   // NULL refers to the default unit in SDK (POLICE_BURST_UNIT_BYTES)
    POLICE_BURST_UNIT_NULL = 0;
    POLICE_BURST_UNIT_BYTES = 1;
    POLICE_BURST_UNIT_KBYTES = 2;
