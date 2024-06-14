@@ -3,6 +3,8 @@
 
 syntax = "proto3";
 
+option go_package = "arista/EosSdkRpc";
+
 package eos.remote;
 
 import "policy_map_types.proto";
@@ -16,6 +18,8 @@ message PolicyMapCountersKey {
 message PolicyMapRuleCounters {
    uint64 packets_count = 1;
    uint64 bytes_count = 2;
+   /// Last update timestamp, UTC, sub-second precision
+   double last_update_timestamp = 3;
 }
 
 message PolicyMapCountersOutAction {

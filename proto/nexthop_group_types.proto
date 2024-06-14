@@ -69,6 +69,8 @@ message NexthopGroup {
    bool counters_persistent = 12;
    // NOTE: this is actually a 16-bit value.
    uint32 version_id = 13;
+   // The numeric key corresponds to the nexthop index position for the entry.
+   map<uint32, NexthopGroupEntry> backup_nexthops = 14;
 }
 
 message NexthopGroupCounter {
