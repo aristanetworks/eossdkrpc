@@ -29,6 +29,8 @@ message MplsFecId {
  */
 message MplsRoute {
    MplsRouteKey key = 1;
+   // MPLS route version in range <1-65535>
+   optional uint32 version_id = 2;
 }
 
 /**
@@ -40,6 +42,16 @@ message MplsRouteKey {
    repeated MplsLabel labels = 1;
    // Must be in range 0 to 255.
    uint32 metric = 2;
+}
+
+/**
+ * Programmed hardware state of the MPLS route's via set
+ */
+enum ViaSetProgrammedHwState {
+   VIA_SET_HW_UNKNOWN = 0;
+   VIA_SET_HW_DROP = 1;
+   VIA_SET_HW_PARTIALLY_PROGRAMMED = 2;
+   VIA_SET_HW_ALL_PROGRAMMED = 3;
 }
 
 /**

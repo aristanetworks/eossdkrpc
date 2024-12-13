@@ -21,6 +21,20 @@ service MplsRouteMgrService {
    rpc watch( MplsRouteWatchRequest ) returns (stream MplsRouteWatchResponse ) {}
 
    /**
+   * Subscription to monitor accurate programming of MPLS routes in hardware along
+   * with the NHG it was pointing to and its programmed version. This request stays
+   * active until the client cancels or the server shuts down.
+   *
+   * MplsIntegratedAckResponse will be generated only for versioned MPLS routes that
+   * point to a single versioned nexthop group (NHG version could be explicitly set
+   * by the client or auto-versioned), i.e., 'version_id' field set as part of
+   * 'MplsRouteSetRequest' and 'MplsRouteVia' contains non-empty 'nexthop_group'
+   * field.
+   */
+   rpc watch_mpls_integrated( MplsIntegratedAckRequest ) returns (
+      stream MplsIntegratedAckResponse ) {}
+
+   /**
    * Initiate a MPLS resync proccess. Starts a blank configuration to be applied once
    * resync_complete is called.
    *
@@ -199,6 +213,8 @@ message OnMplsRouteSet {
    MplsRouteKey route_key = 1;
    // The ID of the MPLS route's associated FEC.
    MplsFecId fec_id = 2;
+   // The version of the MPLS route, 0 means version is unset.
+   uint32 version_id = 3;
 }
 
 /**
@@ -247,6 +263,27 @@ message MplsRouteWatchResponse {
       OnMplsFecDel on_mpls_fec_del = 5;
    }
    OnMplsRouteDump on_mpls_route_dump = 6;
+}
+
+message MplsIntegratedAckRequest {}
+
+message NexthopGroupVersionInfo {
+   string name = 1;
+   uint32 version = 2;
+}
+
+message MplsRouteViaSetVersionInfo {
+   MplsRouteKey mpls_route_key = 1;
+   uint32 mpls_route_version_id = 2;
+   NexthopGroupVersionInfo nexthop_group_version_info = 3;
+   ViaSetProgrammedHwState hw_state = 4;
+}
+
+message MplsIntegratedAckResponse {
+   // When this field is set to 'True' it indicates RPC server
+   // has registered for any future updates and streams them.
+   bool stream_ready = 1;
+   MplsRouteViaSetVersionInfo route_version_info = 2;
 }
 
 message MplsRouteResyncInitRequest {}

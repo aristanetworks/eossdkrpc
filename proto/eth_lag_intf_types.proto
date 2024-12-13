@@ -22,6 +22,8 @@ message EthLagIntf {
    uint32 fallback_timeout = 5;
    // Default value for the timeout above, in seconds.
    uint32 default_fallback_timeout = 6;
+   // Minimal speed in Mbps.
+   uint64 min_speed = 7;
 }
 
 enum EthLagIntfFallbackType {

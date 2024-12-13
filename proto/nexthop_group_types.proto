@@ -81,8 +81,11 @@ message NexthopGroupCounter {
 }
 
 enum NexthopGroupProgrammedHwState {
-   NEXTHOP_GROUP_HW_DROP = 0; 
-   NEXTHOP_GROUP_HW_PARTIALLY_PROGRAMMED = 1; 
+   // All nexthop group entries are not programmed in hardware.
+   NEXTHOP_GROUP_HW_DROP = 0;
+   // At least one nexthop group entry is programmed in hardware.
+   NEXTHOP_GROUP_HW_PARTIALLY_PROGRAMMED = 1;
+   // All nexthop group entries are programmed in hardware.
    NEXTHOP_GROUP_HW_ALL_PROGRAMMED = 2; 
 }
 

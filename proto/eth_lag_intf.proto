@@ -115,6 +115,27 @@ service EthLagIntfMgrService {
    rpc bulk_min_links_is( BulkEthLagIntfMinLinksIsRequest ) returns ( BulkEthLagIntfMinLinksIsResponse ) {}
 
    /**
+    * Returns the configured value for minimum speed (in Mbps)
+    *
+    * EosSdk reference: eos::eth_lag_intf_mgr::min_speed
+    */
+   rpc min_speed( EthLagIntfMinSpeedRequest ) returns ( EthLagIntfMinSpeedResponse );
+
+   /**
+    * Sets the configuration for minimum speed (in Mbps)
+    *
+    * EosSdk reference: eos::eth_lag_intf_mgr::min_speed_is
+    */
+   rpc min_speed_is( EthLagIntfMinSpeedIsRequest ) returns ( EthLagIntfMinSpeedIsResponse );
+
+   /**
+    * Bulk variant for min_speed_is
+    *
+    * EosSdk reference: eos::eth_lag_intf_mgr::min_speed_is
+    */
+   rpc bulk_min_speed_is( BulkEthLagIntfMinSpeedIsRequest ) returns ( BulkEthLagIntfMinSpeedIsResponse );
+
+   /**
     * Sets the fallback type for a LAG interface.
     *
     * EosSdk reference: eth_lag_intf_mgr::fallback_type_is
@@ -462,6 +483,37 @@ message EthLagIntfMinLinksRequest {
 message EthLagIntfMinLinksResponse {
    // Minimum number of links that need to be up for LAG to be considered up.
    uint32 min_links = 1;
+}
+
+message EthLagIntfMinSpeedRequest {
+   // LAG interface ID (Port-Channel)
+   IntfId eth_lag_intf_id = 1;
+}
+
+message EthLagIntfMinSpeedResponse {
+   // Speed in Mbps
+   uint64 min_speed = 1;
+}
+
+message EthLagIntfMinSpeedIsRequest {
+   // LAG interface ID (Port-Channel)
+   IntfId eth_lag_intf_id = 1;
+   // Speed in Mbps
+   uint64 min_speed = 2;
+}
+
+message EthLagIntfMinSpeedIsResponse {}
+
+message BulkEthLagIntfMinSpeedIsRequest {
+   // List of individual requests
+   repeated EthLagIntfMinSpeedIsRequest requests = 1;
+}
+
+message BulkEthLagIntfMinSpeedIsResponse {
+   // Number of successful requests.
+   uint64 processed = 1;
+   // Cause of error (if any).
+   RpcResponseStatus status = 2;
 }
 
 message EthLagIntfFallbackTypeIsRequest {
