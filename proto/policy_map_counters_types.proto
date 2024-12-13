@@ -1,44 +1,87 @@
-// Copyright (c) 2023 Arista Networks, Inc.  All rights reserved.
+// Copyright (c) 2024 Arista Networks, Inc.  All rights reserved.
 // Arista Networks, Inc. Confidential and Proprietary.
-
+// Auto-generated - Do not modify
 syntax = "proto3";
-
-option go_package = "arista/EosSdkRpc";
 
 package eos.remote;
 
+option go_package = "arista/EosSdkRpc";
+
 import "policy_map_types.proto";
 
+/// Key that uniquely identifies a counter
 message PolicyMapCountersKey {
-   PolicyMapKey policy_key = 1;
+   /// Policy map key
+   eos.remote.PolicyMapKey policy_key = 1;
+   /// Policy class name
    string class_name = 2;
+   /// ACL rule name
    string acl_rule = 3;
 }
 
-message PolicyMapRuleCounters {
-   uint64 packets_count = 1;
-   uint64 bytes_count = 2;
-   /// Last update timestamp, UTC, sub-second precision
-   double last_update_timestamp = 3;
-}
-
+/// Next-hop information of output action
 message PolicyMapCountersOutAction {
+   /// Next-hop list details
    message NexthopAction {
+      /// Recursive (indirect) next-hop
       bool recursive = 1;
+      /// List of next-hop addresses
       repeated bytes nexthop_addrs = 2;
+      /// Egress VRF name
       string vrf = 3;
    }
 
-  oneof nexthop {
-     NexthopAction nexthops = 1;
-     string nexthop_group = 2;
-  }
-  uint32 ttl = 3;
+   /// Next-hop details
+   /// TACC Only
+   oneof nexthop {
+      NexthopAction nexthops = 1;
+      string nexthop_group = 2;
+   }
+
+   /// Egress TTL
+   uint32 ttl = 3;
 }
 
+/// Output action associated with counter data
 message PolicyMapCountersAction {
-  oneof action {
+   /// Possible output actions
+   /// TACC Only
+   oneof action {
       bool deny = 1;
       PolicyMapCountersOutAction out_action = 2;
-  }
+   }
+
 }
+
+/// Possible update actions
+enum PolicyMapCountersOperation {
+   /// Entry updates previous value
+   POLICY_MAP_COUNTERS_UPDATE = 0;
+   /// Entry deletes previous value
+   POLICY_MAP_COUNTERS_DELETE = 1;
+}
+
+/// Counter data
+message PolicyMapRuleCounters {
+   /// Packet count
+   uint64 packets_count = 1;
+   /// Byte count
+   uint64 bytes_count = 2;
+   /// Counter update timestamp (wallclock, seconds)
+   double last_update_timestamp = 3;
+}
+
+/// The policy map counter entry
+message PolicyMapCounters {
+   /// Short key
+   uint64 key_id = 1;
+   /// Long key
+   PolicyMapCountersKey key_name = 2;
+   /// Counter data
+   PolicyMapRuleCounters counters = 3;
+   /// Associated output action
+   PolicyMapCountersAction policy_action = 4;
+   /// Update action of the entry
+   PolicyMapCountersOperation operation = 5;
+}
+
