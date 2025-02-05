@@ -265,7 +265,17 @@ message MplsRouteWatchResponse {
    OnMplsRouteDump on_mpls_route_dump = 6;
 }
 
-message MplsIntegratedAckRequest {}
+enum MplsIntegratedField {
+   MPLS_INTEGRATED_ALL_FIELDS = 0;
+}
+
+message MplsIntegratedFieldsControl {
+  repeated MplsIntegratedField fields = 1;
+}
+
+message MplsIntegratedAckRequest {
+   MplsIntegratedFieldsControl dump_fields = 1;
+}
 
 message NexthopGroupVersionInfo {
    string name = 1;
@@ -301,9 +311,9 @@ message MplsRoutesRequest {
 }
 
 message MplsRoutesResponse {
-   // The configured MPLS routes.
+   // A configured MPLS route.
    MplsRoute route = 1;
-   // VIAs of a configured route.
+   // VIAs of the configured route.
    repeated MplsRouteVia vias = 2;
 }
 
@@ -410,7 +420,7 @@ message BulkMplsRouteDelResponse {
 }
 
 message MplsRouteViaSetRequest {
-   // The via to add to the route.
+   // The primary via to add to the route.
    MplsRouteVia route_via = 1;
 }
 
@@ -429,7 +439,7 @@ message BulkMplsRouteViaSetResponse {
 }
 
 message MplsRouteViaDelRequest {
-   // The via to remove.
+   // The primary via to remove.
    MplsRouteVia route_via = 1;
 }
 
