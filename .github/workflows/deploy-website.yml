@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Import generated API reference
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: api-reference-protofiles
           path: docs/api-reference/
