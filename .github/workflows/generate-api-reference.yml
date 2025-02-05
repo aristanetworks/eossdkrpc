@@ -38,7 +38,7 @@ jobs:
               --doc_opt=.github/templates/api-reference-md.tmpl,md,default,separate_files \
               proto/*.proto
       - name: Upload generated documentation as an artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: api-reference-protofiles
           path: |
