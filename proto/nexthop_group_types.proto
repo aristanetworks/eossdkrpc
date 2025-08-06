@@ -10,6 +10,11 @@ package eos.remote;
 import "intf_types.proto";
 import "mpls_types.proto";
 
+enum NexthopGroupBackupNexthopsPolicy {
+   NEXTHOP_GROUP_BACKUP_NEXTHOPS_ALL_TO_ALL = 0;
+   NEXTHOP_GROUP_BACKUP_NEXTHOPS_ONE_TO_ONE = 1;
+}
+
 message NexthopGroupEntry {
    NexthopGroupMplsAction mpls_action = 1;
    bytes nexthop_ip = 2;
@@ -71,6 +76,13 @@ message NexthopGroup {
    uint32 version_id = 13;
    // The numeric key corresponds to the nexthop index position for the entry.
    map<uint32, NexthopGroupEntry> backup_nexthops = 14;
+   // Policy indicating how backup nexthops are to be activated. By default, all
+   // backup nexthops are activated when all primary nexthops are inactive. When
+   // the policy is set to NEXTHOP_GROUP_BACKUP_NEXTHOPS_ONE_TO_ONE, then the
+   // backup entries will be activated on a per entry basis when the
+   // corresponding entry in the same index position in the primary nexthops
+   // mapping becomes inactive.
+   NexthopGroupBackupNexthopsPolicy backup_nexthops_policy = 15;
 }
 
 message NexthopGroupCounter {

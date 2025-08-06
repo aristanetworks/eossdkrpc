@@ -1,0 +1,182 @@
+// Copyright (c) 2024 Arista Networks, Inc.  All rights reserved.
+// Arista Networks, Inc. Confidential and Proprietary.
+
+syntax = "proto3";
+
+option go_package = "arista/EosSdkRpc";
+
+package eos.remote;
+
+import "fib_override_types.proto";
+import "rpc_types.proto";
+
+/**
+ * A service for managing FIB overrides.
+ * 
+ * The FIB contains mappings between a prefix (identifying a destination network) and
+ * its associated FEC, with the FEC containing one or more resolved Vias defining how
+ * traffic should be forwarded towards that destination network.
+ *
+ * The FIB override service allows these FECs and their Vias to be modified/replaced
+ * by defining a number of Via-specific overrides. Each Via override contains a
+ * unique matcher which identifies those Vias in a FEC that should be modified as
+ * specified by the override (subject to any additional qualifying criteria).
+ *
+ * A FEC will only be overridden when one or more of its Vias match a configured
+ * override, even if some of its other Vias have no matching override. Any unmatched
+ * Vias in the FEC will still be implicitly overridden by applying default values for
+ * the overridable properties (as mentioned below). It's important to note that FECs
+ * with no explicitly overridden Vias will remain unchanged.
+ *
+ * At the moment, the following Via properties can be overridden:
+ *    1. The UCMP weight associated with the Via. If not specified, the configured
+ *       default UCMP weight will be used. Note that a default UCMP weight *must* be
+ *       configured before configuring a Via override with an explicit UCMP weight.
+ * Note the these overridden properties will take precedence over the equivalent
+ * properties in the matched Via.
+ */
+service FibOverrideService {
+   /**
+    * Returns the currently configured default UCMP weight.
+    *
+    * When configured, this default weight will be used for any Vias in an overridden
+    * FEC without an explicitly overridden UCMP weight.
+    */
+   rpc default_ucmp_weight( FibOverrideDefaultUcmpWeightRequest )
+      returns ( FibOverrideDefaultUcmpWeightResponse ) {}
+
+   /**
+    * Sets the default UCMP weight to the specified value.
+    *
+    * This must be configured before attempting to configure any Via overrides with
+    * an explicitly overridden UCMP weight.
+    *
+    * Note that modifying the default weight will cause the re-evaluation of any
+    * already overridden FECs.
+    */
+   rpc default_ucmp_weight_set( FibOverrideDefaultUcmpWeightSetRequest )
+      returns ( FibOverrideDefaultUcmpWeightSetResponse ) {}
+
+   /**
+    * Enumerates all the configured per-Via FIB overrides.
+    */
+   rpc via_overrides( FibOverrideViasRequest )
+      returns ( stream FibOverrideViasResponse ) {}
+
+   /**
+    * Set the FIB override for multiple Vias.
+    */
+   rpc bulk_via_override_set( BulkFibOverrideViaSetRequest )
+      returns ( BulkFibOverrideViaSetResponse ) {}
+
+   /**
+    * Remove the FIB override for multiple Vias.
+    */
+   rpc bulk_via_override_del( BulkFibOverrideViaDelRequest )
+      returns ( BulkFibOverrideViaDelResponse ) {}
+
+   /**
+    * Begins the process of resyncing the configured per-Via FIB overrides to the
+    * desired state.
+    *
+    * Once called, the per-Via overrides can be modified in the usual way (and those
+    * modifications will be applied immediately). Once all desired modifications have
+    * been made, call via_override_resync_complete() to delete any per-Via overrides
+    * that were not added/modified during the resync.
+    */
+   rpc via_override_resync_init( FibOverrideViaResyncInitRequest )
+      returns ( FibOverrideViaResyncInitResponse ) {}
+
+   /**
+    * Completes the process of resyncing the configured per-Via FIB overrides to the
+    * desired states.
+    *
+    * Any per-Via overrides that were not explicitly added/modified after calling
+    * via_override_resync_init() will now be deleted.
+    *
+    * A FAILED_PRECONDITION error will be returned if this is called without first
+    * calling via_override_resync_init().
+    */
+   rpc via_override_resync_complete( FibOverrideViaResyncCompleteRequest )
+      returns ( FibOverrideViaResyncCompleteResponse ) {}
+}
+
+message FibOverrideDefaultUcmpWeightRequest {}
+
+message FibOverrideDefaultUcmpWeightResponse {
+   // The current default UCMP weight.
+   //
+   // A value of 0 indicates that no default UCMP weight is currently set.
+   uint32 ucmp_weight = 1;
+}
+
+message FibOverrideDefaultUcmpWeightSetRequest {
+   // The UCMP weight to use by default.
+   //
+   // An INVALID_ARGUMENT error will be returned if the specified weight is not
+   // within the range 1 to (2^24)-1 inclusive.
+   uint32 ucmp_weight = 1;
+}
+
+message FibOverrideDefaultUcmpWeightSetResponse {}
+
+message FibOverrideViasRequest {}
+
+message FibOverrideViasResponse {
+   // The FIB override for a particular Via.
+   repeated FibOverrideVia via_overrides = 1;
+} 
+
+message FibOverrideViaSetRequest {
+   // The FIB override to be set for a particular Via.
+   //
+   // An INVALID_ARGUMENT error will be returned if no override is specified, if any
+   // of its mandatory fields are missing or if any of its fields are malformed.
+   //
+   // A FAILED_PRECONDITION error will be returned if UCMP parameters are specified
+   // in the override without having first configured a default UCMP weight (using
+   // the default_ucmp_weight_set() RPC).
+   FibOverrideVia via_override = 1;
+} 
+
+message BulkFibOverrideViaSetRequest {
+   // The FIB override set requests for multiple Vias.
+   repeated FibOverrideViaSetRequest requests = 1;
+} 
+
+message BulkFibOverrideViaSetResponse {
+   // The number of requests processed successfully.
+   uint64 processed = 1;
+
+   // Success, or error details in the event of failure.
+   RpcResponseStatus status = 2;
+}
+
+message FibOverrideViaDelRequest {
+   // The Via matcher whose associated override should be removed.
+   //
+   // An INVALID_ARGUMENT error will be returned if no matcher is specified, or if
+   // any of its mandatory fields are missing/malformed.
+   FibOverrideViaMatcher via_matcher = 1;
+} 
+
+message BulkFibOverrideViaDelRequest {
+   // The FIB override delete requests for multiple Via matchers.
+   repeated FibOverrideViaDelRequest requests = 1;
+} 
+
+message BulkFibOverrideViaDelResponse {
+   // The number of requests processed successfully.
+   uint64 processed = 1;
+
+   // Success, or error details in the event of failure.
+   RpcResponseStatus status = 2;
+}
+
+message FibOverrideViaResyncInitRequest {}
+
+message FibOverrideViaResyncInitResponse {}
+
+message FibOverrideViaResyncCompleteRequest {}
+
+message FibOverrideViaResyncCompleteResponse {}
