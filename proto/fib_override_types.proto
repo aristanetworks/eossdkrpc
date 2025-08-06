@@ -1,0 +1,67 @@
+// Copyright (c) 2024 Arista Networks, Inc.  All rights reserved.
+// Arista Networks, Inc. Confidential and Proprietary.
+
+syntax = "proto3";
+
+option go_package = "arista/EosSdkRpc";
+
+package eos.remote;
+
+import "intf_types.proto";
+
+/**
+ * A message defining a matcher used to identify the resolved Vias in a FEC that a
+ * particular Via override should be applied to.
+ *
+ * A Via override will only apply to a Via in a FEC if all the fields of the matcher
+ * are identical to the equivalent fields in the Via.
+ */
+message FibOverrideViaMatcher {
+   // Match the resolved nexthop IP address in the Via.
+   //
+   // An address must be present and it must not be malformed.
+   bytes nexthop_addr = 1;
+
+   // Match the egress interface ID in the Via.
+   //
+   // An ID must be present and it must refer to a valid interface.
+   IntfId intf_id = 2;
+}
+
+/**
+ * A message defining the UCMP parameters that should be applied to an overridden
+ * Via.
+ *
+ * These parameters specify how traffic should be distributed across the Vias in any
+ * multi-path FEC that uses the overridden Via.
+ *
+ * These parameters will replace any existing UCMP related parameters already
+ * carried by the Via.
+ */
+message FibOverrideViaUcmp {
+   // The UCMP weight to associate with the Via when it is used for forwarding.
+   //
+   // A weight must be present and must be within the range 1 to (2^24)-1 inclusive.
+   //
+   // In the context of a FEC, traffic will be forwarded based on the configured
+   // weights of the overridden Vias in that FEC. If some of the Vias in the FEC are
+   // not explicitly overridden (or have no overridden weight), the configured
+   // default weight will be used for them.
+   uint32 weight = 1;
+}
+
+/**
+ * A message defining the overrides that should be applied to any matching Vias.
+ */
+message FibOverrideVia {
+   // The matcher identifying the Via(s) the override should be applied to.
+   //
+   // A valid matcher must be present.
+   FibOverrideViaMatcher via_matcher = 1;
+
+   // The UCMP parameters that should be used to load-balance traffic across the
+   // matching Vias in a FEC.
+   //
+   // Valid UCMP parameters must be present.
+   FibOverrideViaUcmp ucmp = 2;
+}
