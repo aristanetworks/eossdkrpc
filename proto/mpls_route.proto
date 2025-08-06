@@ -287,6 +287,17 @@ message MplsRouteViaSetVersionInfo {
    uint32 mpls_route_version_id = 2;
    NexthopGroupVersionInfo nexthop_group_version_info = 3;
    ViaSetProgrammedHwState hw_state = 4;
+   // MPLS route hw programming timestamp in UTC.
+   // Nano seconds from the Unix epoch.
+   uint64 mpls_route_hw_programming_timestamp = 5;
+   // Via Set (only NHG is supported) hw programming timestamp in UTC.
+   // Nano seconds from the Unix epoch.
+   uint64 via_set_hw_programming_timestamp = 6;
+   // Timestamp at which MPLS route & via set (only NHG is supported) are programmed
+   // in the hardware at given versions in UTC. This field's value is maximum of
+   // above fields, mpls_route_hw_programming_timestamp and
+   // via_set_hw_programming_timestamp.
+   uint64 integrated_hw_programming_timestamp = 7;
 }
 
 message MplsIntegratedAckResponse {
