@@ -63,12 +63,10 @@ message MplsRouteVia {
    MplsRouteKey route_key = 1;
    bytes hop = 2;
    IntfId intf = 3;
-   repeated MplsLabel pushswap_label = 4;
+   MplsLabel pushswap_label = 4;
    MplsActions label_action = 5;
    MplsTtlMode ttl_mode = 6;
    MplsPayloadType payload_type = 7;
    bool skip_egress_acl = 8;
    string nexthop_group = 9;
-   // Defaults to 1 if not specified
-   uint32 weight = 10;
 }

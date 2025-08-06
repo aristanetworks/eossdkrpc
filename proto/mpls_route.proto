@@ -244,7 +244,6 @@ message OnMplsFecDel {
 message OnMplsRouteDump {
   MplsRoute route = 1;
   repeated MplsRouteVia vias = 2;
-  repeated MplsRouteVia backup_vias = 3;
 }
 
 message MplsRouteWatchResponse {
@@ -327,8 +326,6 @@ message MplsRoutesResponse {
    MplsRoute route = 1;
    // VIAs of the configured route.
    repeated MplsRouteVia vias = 2;
-   // Backup VIAs of the configured route.
-   repeated MplsRouteVia backup_vias = 3;
 }
 
 message MplsRouteStatusesRequest {}
@@ -346,8 +343,6 @@ message MplsRouteViasRequest {
 message MplsRouteViasResponse {
    // The vias configured for the route.
    MplsRouteVia route_via = 1;
-   // The backup vias configured for the route.
-   MplsRouteVia backup_route_via = 2;
 }
 
 message MplsRouteViaStatusesRequest {
@@ -400,8 +395,6 @@ message MplsRouteSetRequest {
    repeated MplsRouteVia vias = 2;
    // action associated with vias, i.e., ADD or REPLACE.
    MplsRouteSetViasAction vias_action = 3;
-   // MPLS backup vias to be added to the route.
-   repeated MplsRouteVia backup_vias = 4;
 }
 
 message MplsRouteSetResponse {}
@@ -440,8 +433,6 @@ message BulkMplsRouteDelResponse {
 message MplsRouteViaSetRequest {
    // The primary via to add to the route.
    MplsRouteVia route_via = 1;
-   // The backup via to add to the route.
-   MplsRouteVia backup_route_via = 2;
 }
 
 message MplsRouteViaSetResponse {}
@@ -461,8 +452,6 @@ message BulkMplsRouteViaSetResponse {
 message MplsRouteViaDelRequest {
    // The primary via to remove.
    MplsRouteVia route_via = 1;
-   // The backup via to remove.
-   MplsRouteVia backup_route_via = 2;
 }
 
 message MplsRouteViaDelResponse {}
