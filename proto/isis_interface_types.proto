@@ -1,0 +1,45 @@
+// Copyright (c) 2025 Arista Networks, Inc.  All rights reserved.
+// Arista Networks, Inc. Confidential and Proprietary.
+
+syntax = "proto3";
+
+option go_package = "arista/EosSdkRpc";
+
+package eos.remote;
+
+import "intf_types.proto";
+
+message IsisInterfaceKey {
+   // VRF name of an IS-IS inteface.
+   string vrf_name = 1;
+   // IS-IS instances configured on an inteface.
+   repeated string instances_names = 2;
+   // Interface name of an IS-IS configured interface.
+   IntfId intf_id = 3;
+}
+
+message IsisInterface {
+   // Unique identity of the IS-IS configured interface.
+   IsisInterfaceKey key = 1;
+   // Ipv4 metric value of an IS-IS configured interface.
+   uint32 ipv4_metric = 2;
+   // Ipv6 metric value of an IS-IS configured interface.
+   uint32 ipv6_metric = 3;
+   // Level of an IS-IS configured interface.
+   IsisLevel level = 4; 
+   // Type of an IS-IS configured interface.
+   IsisInterfaceType type = 5; 
+}
+
+enum IsisLevel {
+   ISIS_LEVEL_NULL = 0;
+   ISIS_LEVEL_LEVEL1 = 1;
+   ISIS_LEVEL_LEVEL2 = 2;
+   ISIS_LEVEL_LEVEL1_2 = 3; 
+}
+
+enum IsisInterfaceType {
+   ISIS_INTF_TYPE_NULL = 0;
+   ISIS_INTF_TYPE_LAN = 1; 
+   ISIS_INTF_TYPE_P2P = 2;
+}

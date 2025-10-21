@@ -14,12 +14,18 @@ service PolicyMapCountersMgrService {
       returns ( stream PolicyMapCountersWatchResponse );
 }
 
+enum PolicyActionCaching {
+   POLICY_MAP_COUNTERS_WITH_POLICY_ACTION_REQUIRED = 0;
+   POLICY_MAP_COUNTERS_WITH_POLICY_ACTION_EVENTUALLY = 1;
+}
+
 message PolicyMapCountersWatchRequest {
    // When set to true, messages will mostly carry a short key that can be
    // mapped to the descriptive key.
    // Disabling compression is not supported, theferefore the default choice
    // for this argument is `true`.
    optional bool compress_keys = 1;
+   PolicyActionCaching policy_action_caching = 2;
 }
 
 message PolicyMapCountersWatchResponse {

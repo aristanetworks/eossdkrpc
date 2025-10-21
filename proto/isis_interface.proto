@@ -1,0 +1,81 @@
+// Copyright (c) 2025 Arista Networks, Inc.  All rights reserved.
+// Arista Networks, Inc. Confidential and Proprietary.
+
+syntax = "proto3";
+
+option go_package = "arista/EosSdkRpc";
+
+package eos.remote;
+
+import "intf_types.proto";
+import "isis_interface_types.proto";
+
+/**
+ * Service for retrieving IS-IS configured interface(s) along with providing a watch
+ * on all the IS-IS configured interfaces.
+ * 
+ * This service provides the following functionality:
+ * - Watching all the interfaces and streaming the interface's configuration if any  
+ *   new interface is configured with one or more IS-IS instances or existing interface 
+ *   is removed from any IS-IS instance.
+ * - Fetching a specific IS-IS configured interface's configuration parameters.
+ * - Fetching all IS-IS configured interfaces associated with a specified VRF.
+ * - Fetching all IS-IS configured interfaces across all VRFs.
+ */
+service IsisInterfaceMgrService {
+   /**
+   * Subscription to monitor changes on IS-IS enabled interfaces. This request stays 
+   * active until the client cancels or the server shuts down. The watch will be enabled 
+   * on all the IS-IS configured interfaces.
+   */
+   rpc watch( IsisInterfaceWatchRequest ) returns ( stream IsisInterfaceWatchResponse ) {}
+
+   /**
+   * When intfId is specified: Returns IS-IS configured interface.
+   * When intfId is not specified or intfId is specified but hasn't been configured
+   * with IS-IS: Returns an error.
+   */
+   rpc isis_interface( IsisInterfaceRequest ) returns ( IsisInterfaceResponse ) {}
+
+   /**
+   * When VRF is specified: Returns IS-IS configured interfaces for the given VRF.
+   * When VRF is not specified: Returns all IS-IS configured interfaces.
+   * If VRF is specified but has no IS-IS interfaces configured: Returns an empty response.
+   */
+   rpc isis_interfaces( IsisInterfacesRequest ) returns ( stream IsisInterfacesResponse ) {}
+}
+
+enum IsisInterfaceEvents {
+   ISIS_INTERFACE_EVENT_NONE = 0;
+   ISIS_INTERFACE_EVENT_SET = 1;
+   ISIS_INTERFACE_EVENT_DEL = 2;
+   ISIS_INTERFACE_MESSAGE_DUMP = 3;
+}
+
+message IsisInterfaceWatchRequest {}
+
+message IsisInterfaceWatchResponse {
+   // Descriptor of an event.
+   IsisInterfaceEvents event = 1;
+   // IS-IS interface's configuration.
+   IsisInterface isis_interface = 2;
+   bool stream_ready = 3;
+}
+
+message IsisInterfaceRequest {
+   IntfId intf_id = 1;
+}
+
+message IsisInterfaceResponse {
+   // Interface that matches the criteria.
+   IsisInterface isis_interface = 1;
+}
+
+message IsisInterfacesRequest {
+   string vrf_name = 1; 
+}
+
+message IsisInterfacesResponse {
+   // List of interfaces that matches the criteria.
+   IsisInterface isis_interface = 1;
+}
