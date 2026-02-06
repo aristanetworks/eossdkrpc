@@ -68,10 +68,10 @@ service NexthopGroupMgrService {
     * Returns the counter corresponding to the given nexthop group name or
     * a set of nexthop groups that have names matching the regex pattern or
     * all nexthop groups in the system when all=true. 
-    * When all = false and no name or regex is specified, this request has no effect. 
+    * When all=false and no name or regex is specified, this request has no effect.
     * When multiple fields are set, the last set field takes precedence.
     *
-    * EosSdk reference: eos::nexthop_group_handler (class)
+    * EosSdk reference: eos::nexthop_group_mgr::counter (class)
     */
    rpc nhg_counters( NexthopGroupCountersRequest ) returns (  stream NexthopGroupCountersResponse ) {}
 

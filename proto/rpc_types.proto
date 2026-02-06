@@ -8,8 +8,10 @@ option go_package = "arista/EosSdkRpc";
 package eos.remote;
 
 /**
- * The status codes below match gRPC StatusCodes
- * in both naming and numeric values.
+ * Status codes for bulk RPCs. They match the gRPC Status Codes in naming.
+ * However, for historic and compatibility reasons some of them have different
+ * numeric values. These status codes are only used in the response of bulk RPCs.
+ * For unary and stream RPCs the gRPC Status Codes are used instead.
  */
 enum RpcStatusCodes {
    option allow_alias = true;

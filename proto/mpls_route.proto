@@ -215,6 +215,8 @@ message OnMplsRouteSet {
    MplsFecId fec_id = 2;
    // The version of the MPLS route, 0 means version is unset.
    uint32 version_id = 3;
+   // Behaviour when the primary via returns after transistion to backup.
+   MplsOnPrimaryViaRestored on_primary_via_restored = 4;
 }
 
 /**

@@ -23,6 +23,21 @@ message MplsFecId {
 }
 
 /**
+ * Defines the expected forwarding behaviour for a route when the primary via is
+ * restored after going down.
+ *
+ * The route will revert back to an available primary via if a config update is
+ * pushed regardless of this value.
+ *
+ * EosSdk reference: eos::mpls_on_primary_via_restored_t
+ */
+enum MplsOnPrimaryViaRestored {
+   MPLS_ON_PRIMARY_VIA_RESTORED_NULL = 0;
+   MPLS_ON_PRIMARY_VIA_RESTORED_REVERT_TO_PRIMARY = 1;
+   MPLS_ON_PRIMARY_VIA_RESTORED_STAY_ON_BACKUP = 2;
+}  
+
+/**
  * An MPLS v4/v6 static route.
  *
  * EosSdk reference: eos::mpls_route_t
@@ -31,6 +46,8 @@ message MplsRoute {
    MplsRouteKey key = 1;
    // MPLS route version in range <1-65535>
    optional uint32 version_id = 2;
+   // Behaviour when the primary via returns after transistion to backup.
+   optional MplsOnPrimaryViaRestored on_primary_via_restored = 3; 
 }
 
 /**
