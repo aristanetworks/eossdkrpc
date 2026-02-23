@@ -1,0 +1,5083 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Arista's EOS SDK RPC documentation">
+      
+      
+        <meta name="author" content="Arista Networks">
+      
+      
+      
+        <link rel="prev" href="../macsec_types/">
+      
+      
+        <link rel="next" href="../mpls_route_types/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.2">
+    
+    
+      
+        <title>mpls_route.proto - EOS SDK RPC documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mpls_routeproto" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="EOS SDK RPC documentation" class="md-header__button md-logo" aria-label="EOS SDK RPC documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            EOS SDK RPC documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              mpls_route.proto
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/aristanetworks/eossdkrpc" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    eossdkrpc on GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../guides/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Guides
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  API reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../faq/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  FAQ
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="EOS SDK RPC documentation" class="md-nav__button md-logo" aria-label="EOS SDK RPC documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    EOS SDK RPC documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/aristanetworks/eossdkrpc" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    eossdkrpc on GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../guides/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/aclrules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exposing the RPC port
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Basic configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/errorhandling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Error handling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/howto/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    EosSdkRpc HOWTO
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/limitations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Limitations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/simplecppclient/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Simple C++ client
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API reference
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../acl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    acl.proto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../acl_types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    acl_types.proto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    agent.proto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bgp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    bgp.proto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bgp_link/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    bgp_link.proto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bgp_path/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    bgp_path.proto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bgp_path_types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    bgp_path_types.proto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bgp_types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    bgp_types.proto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../class_map/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    class_map.proto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../class_map_types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    class_map_types.proto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../eapi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    eapi.proto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../eapi_types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    eapi_types.proto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../eth_lag_intf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    eth_lag_intf.proto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../eth_lag_intf_types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    eth_lag_intf_types.proto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../eth_phy_intf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    eth_phy_intf.proto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../eth_phy_intf_types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    eth_phy_intf_types.proto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fib_override/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    fib_override.proto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fib_override_types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    fib_override_types.proto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    intf.proto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intf_types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    intf_types.proto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ip_intf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ip_intf.proto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ip_intf_types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ip_intf_types.proto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ip_route/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ip_route.proto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ip_route_types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ip_route_types.proto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ip_types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ip_types.proto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../isis_interface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    isis_interface.proto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../isis_interface_types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    isis_interface_types.proto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../macsec/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    macsec.proto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../macsec_types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    macsec_types.proto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    mpls_route.proto
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    mpls_route.proto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#mplsroutemgrservice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteMgrService
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MplsRouteMgrService">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#watch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        watch
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#watch_mpls_integrated" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        watch_mpls_integrated
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resync_init" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        resync_init
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resync_complete" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        resync_complete
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mpls_routes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        mpls_routes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mpls_route_statuses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        mpls_route_statuses
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mpls_route_vias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        mpls_route_vias
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mpls_route_via_statuses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        mpls_route_via_statuses
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        exists
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mpls_route_set" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        mpls_route_set
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bulk_mpls_route_set" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        bulk_mpls_route_set
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mpls_route_del" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        mpls_route_del
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bulk_mpls_route_del" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        bulk_mpls_route_del
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mpls_route_via_set" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        mpls_route_via_set
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bulk_mpls_route_via_set" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        bulk_mpls_route_via_set
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mpls_route_via_del" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        mpls_route_via_del
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bulk_mpls_route_via_del" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        bulk_mpls_route_via_del
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fec_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        fec_id
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        metric
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Messages
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Messages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bulkmplsroutedelrequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BulkMplsRouteDelRequest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bulkmplsroutedelresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BulkMplsRouteDelResponse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bulkmplsroutesetrequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BulkMplsRouteSetRequest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bulkmplsroutesetresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BulkMplsRouteSetResponse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bulkmplsrouteviadelrequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BulkMplsRouteViaDelRequest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bulkmplsrouteviadelresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BulkMplsRouteViaDelResponse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bulkmplsrouteviasetrequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BulkMplsRouteViaSetRequest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bulkmplsrouteviasetresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BulkMplsRouteViaSetResponse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsintegratedackrequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsIntegratedAckRequest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsintegratedackresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsIntegratedAckResponse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsintegratedfieldscontrol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsIntegratedFieldsControl
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsroutedelrequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteDelRequest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsroutedelresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteDelResponse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsrouteexistsrequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteExistsRequest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsrouteexistsresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteExistsResponse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsroutefecidrequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteFecIdRequest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsroutefecidresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteFecIdResponse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsroutefieldscontrol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteFieldsControl
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsroutemetricrequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteMetricRequest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsroutemetricresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteMetricResponse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsrouteresynccompleterequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteResyncCompleteRequest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsrouteresynccompleteresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteResyncCompleteResponse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsrouteresyncinitrequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteResyncInitRequest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsrouteresyncinitresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteResyncInitResponse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsroutesetrequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteSetRequest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsroutesetresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteSetResponse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsroutestatusesrequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteStatusesRequest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsroutestatusesresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteStatusesResponse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsrouteviadelrequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteViaDelRequest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsrouteviadelresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteViaDelResponse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsrouteviasetrequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteViaSetRequest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsrouteviasetresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteViaSetResponse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsrouteviasetversioninfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteViaSetVersionInfo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsrouteviastatusesrequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteViaStatusesRequest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsrouteviastatusesresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteViaStatusesResponse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsrouteviasrequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteViasRequest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsrouteviasresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteViasResponse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsroutewatchrequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteWatchRequest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsroutewatchresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteWatchResponse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsroutesrequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRoutesRequest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsroutesresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRoutesResponse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nexthopgroupversioninfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NexthopGroupVersionInfo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onmplsfecdel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnMplsFecDel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onmplsfecset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnMplsFecSet
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onmplsroutedel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnMplsRouteDel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onmplsroutedump" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnMplsRouteDump
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onmplsrouteset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnMplsRouteSet
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enums" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enums
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Enums">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mplsintegratedfield" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsIntegratedField
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsroutesetviasaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteSetViasAction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsroutewatchedfield" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteWatchedField
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mpls_route_types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    mpls_route_types.proto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mpls_types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    mpls_types.proto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mpls_vrf_label/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    mpls_vrf_label.proto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mpls_vrf_label_types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    mpls_vrf_label_types.proto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nexthop_group/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    nexthop_group.proto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nexthop_group_types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    nexthop_group_types.proto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../policy_map/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    policy_map.proto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../policy_map_counters/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    policy_map_counters.proto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../policy_map_counters_types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    policy_map_counters_types.proto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../policy_map_types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    policy_map_types.proto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rpc_types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    rpc_types.proto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../structured_filter_types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    structured_filter_types.proto
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#mplsroutemgrservice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteMgrService
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MplsRouteMgrService">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#watch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        watch
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#watch_mpls_integrated" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        watch_mpls_integrated
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resync_init" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        resync_init
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resync_complete" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        resync_complete
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mpls_routes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        mpls_routes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mpls_route_statuses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        mpls_route_statuses
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mpls_route_vias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        mpls_route_vias
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mpls_route_via_statuses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        mpls_route_via_statuses
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        exists
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mpls_route_set" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        mpls_route_set
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bulk_mpls_route_set" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        bulk_mpls_route_set
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mpls_route_del" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        mpls_route_del
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bulk_mpls_route_del" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        bulk_mpls_route_del
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mpls_route_via_set" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        mpls_route_via_set
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bulk_mpls_route_via_set" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        bulk_mpls_route_via_set
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mpls_route_via_del" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        mpls_route_via_del
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bulk_mpls_route_via_del" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        bulk_mpls_route_via_del
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fec_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        fec_id
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        metric
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Messages
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Messages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bulkmplsroutedelrequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BulkMplsRouteDelRequest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bulkmplsroutedelresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BulkMplsRouteDelResponse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bulkmplsroutesetrequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BulkMplsRouteSetRequest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bulkmplsroutesetresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BulkMplsRouteSetResponse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bulkmplsrouteviadelrequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BulkMplsRouteViaDelRequest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bulkmplsrouteviadelresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BulkMplsRouteViaDelResponse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bulkmplsrouteviasetrequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BulkMplsRouteViaSetRequest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bulkmplsrouteviasetresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BulkMplsRouteViaSetResponse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsintegratedackrequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsIntegratedAckRequest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsintegratedackresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsIntegratedAckResponse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsintegratedfieldscontrol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsIntegratedFieldsControl
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsroutedelrequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteDelRequest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsroutedelresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteDelResponse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsrouteexistsrequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteExistsRequest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsrouteexistsresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteExistsResponse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsroutefecidrequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteFecIdRequest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsroutefecidresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteFecIdResponse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsroutefieldscontrol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteFieldsControl
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsroutemetricrequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteMetricRequest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsroutemetricresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteMetricResponse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsrouteresynccompleterequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteResyncCompleteRequest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsrouteresynccompleteresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteResyncCompleteResponse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsrouteresyncinitrequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteResyncInitRequest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsrouteresyncinitresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteResyncInitResponse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsroutesetrequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteSetRequest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsroutesetresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteSetResponse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsroutestatusesrequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteStatusesRequest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsroutestatusesresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteStatusesResponse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsrouteviadelrequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteViaDelRequest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsrouteviadelresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteViaDelResponse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsrouteviasetrequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteViaSetRequest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsrouteviasetresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteViaSetResponse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsrouteviasetversioninfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteViaSetVersionInfo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsrouteviastatusesrequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteViaStatusesRequest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsrouteviastatusesresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteViaStatusesResponse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsrouteviasrequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteViasRequest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsrouteviasresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteViasResponse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsroutewatchrequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteWatchRequest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsroutewatchresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteWatchResponse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsroutesrequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRoutesRequest
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsroutesresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRoutesResponse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nexthopgroupversioninfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NexthopGroupVersionInfo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onmplsfecdel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnMplsFecDel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onmplsfecset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnMplsFecSet
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onmplsroutedel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnMplsRouteDel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onmplsroutedump" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnMplsRouteDump
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onmplsrouteset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnMplsRouteSet
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enums" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enums
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Enums">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mplsintegratedfield" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsIntegratedField
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsroutesetviasaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteSetViasAction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mplsroutewatchedfield" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MplsRouteWatchedField
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="mpls_routeproto">mpls_route.proto<a class="headerlink" href="#mpls_routeproto" title="Permanent link">¶</a></h1>
+<h2 id="mplsroutemgrservice">MplsRouteMgrService<a class="headerlink" href="#mplsroutemgrservice" title="Permanent link">¶</a></h2>
+<h3 id="watch">watch<a class="headerlink" href="#watch" title="Permanent link">¶</a></h3>
+<blockquote>
+<p><strong>rpc</strong> watch(<a href="../mpls_route#mplsroutewatchrequest">MplsRouteWatchRequest</a>)
+    <a href="../mpls_route#mplsroutewatchresponse">MplsRouteWatchResponse</a></p>
+</blockquote>
+<p>Subscription to monitor changes to MPLS routes in hardware. This request stays
+active until the client cancels or the server shuts down.</p>
+<p>EosSdk reference: eos::mpls_route_handler (class)</p>
+<h3 id="watch_mpls_integrated">watch_mpls_integrated<a class="headerlink" href="#watch_mpls_integrated" title="Permanent link">¶</a></h3>
+<blockquote>
+<p><strong>rpc</strong> watch_mpls_integrated(<a href="../mpls_route#mplsintegratedackrequest">MplsIntegratedAckRequest</a>)
+    <a href="../mpls_route#mplsintegratedackresponse">MplsIntegratedAckResponse</a></p>
+</blockquote>
+<p>Subscription to monitor accurate programming of MPLS routes in hardware along
+with the NHG it was pointing to and its programmed version. This request stays
+active until the client cancels or the server shuts down.</p>
+<p>MplsIntegratedAckResponse will be generated only for versioned MPLS routes that
+point to a single versioned nexthop group (NHG version could be explicitly set
+by the client or auto-versioned), i.e., 'version_id' field set as part of
+'MplsRouteSetRequest' and 'MplsRouteVia' contains non-empty 'nexthop_group'
+field.</p>
+<h3 id="resync_init">resync_init<a class="headerlink" href="#resync_init" title="Permanent link">¶</a></h3>
+<blockquote>
+<p><strong>rpc</strong> resync_init(<a href="../mpls_route#mplsrouteresyncinitrequest">MplsRouteResyncInitRequest</a>)
+    <a href="../mpls_route#mplsrouteresyncinitresponse">MplsRouteResyncInitResponse</a></p>
+</blockquote>
+<p>Initiate a MPLS resync proccess. Starts a blank configuration to be applied once
+resync_complete is called.</p>
+<p>EosSdk reference: eos::mpls_route_mgr::resync_init</p>
+<h3 id="resync_complete">resync_complete<a class="headerlink" href="#resync_complete" title="Permanent link">¶</a></h3>
+<blockquote>
+<p><strong>rpc</strong> resync_complete(<a href="../mpls_route#mplsrouteresynccompleterequest">MplsRouteResyncCompleteRequest</a>)
+    <a href="../mpls_route#mplsrouteresynccompleteresponse">MplsRouteResyncCompleteResponse</a></p>
+</blockquote>
+<p>Ends the current MPLS resync process. Deletes the current configuration and
+applies all changes since resync_init was called.</p>
+<p>EosSdk reference: eos::mpls_route_mgr::resync_complete</p>
+<h3 id="mpls_routes">mpls_routes<a class="headerlink" href="#mpls_routes" title="Permanent link">¶</a></h3>
+<blockquote>
+<p><strong>rpc</strong> mpls_routes(<a href="../mpls_route#mplsroutesrequest">MplsRoutesRequest</a>)
+    <a href="../mpls_route#mplsroutesresponse">MplsRoutesResponse</a></p>
+</blockquote>
+<p>Returns a list of all configured MPLS routes.</p>
+<p>EosSdk reference: eos::mpls_route_mgr::mpls_route_iter</p>
+<h3 id="mpls_route_statuses">mpls_route_statuses<a class="headerlink" href="#mpls_route_statuses" title="Permanent link">¶</a></h3>
+<blockquote>
+<p><strong>rpc</strong> mpls_route_statuses(<a href="../mpls_route#mplsroutestatusesrequest">MplsRouteStatusesRequest</a>)
+    <a href="../mpls_route#mplsroutestatusesresponse">MplsRouteStatusesResponse</a></p>
+</blockquote>
+<p>Returns a list of all MPLS routes in hardware.</p>
+<p>EosSdk reference: eos::mpls_route_mgr::mpls_route_status_iter_t</p>
+<h3 id="mpls_route_vias">mpls_route_vias<a class="headerlink" href="#mpls_route_vias" title="Permanent link">¶</a></h3>
+<blockquote>
+<p><strong>rpc</strong> mpls_route_vias(<a href="../mpls_route#mplsrouteviasrequest">MplsRouteViasRequest</a>)
+    <a href="../mpls_route#mplsrouteviasresponse">MplsRouteViasResponse</a></p>
+</blockquote>
+<p>Returns a list of configured MPLS vias for a specified route.</p>
+<p>EosSdk reference: eos::mpls_route_mgr::mpls_route_via_iter_t</p>
+<h3 id="mpls_route_via_statuses">mpls_route_via_statuses<a class="headerlink" href="#mpls_route_via_statuses" title="Permanent link">¶</a></h3>
+<blockquote>
+<p><strong>rpc</strong> mpls_route_via_statuses(<a href="../mpls_route#mplsrouteviastatusesrequest">MplsRouteViaStatusesRequest</a>)
+    <a href="../mpls_route#mplsrouteviastatusesresponse">MplsRouteViaStatusesResponse</a></p>
+</blockquote>
+<p>Returns a list of MPLS vias in hardware for a specified MPLS route or FEC.</p>
+<p>The vias returned for a MPLS FEC are unbound meaning they do not have a
+route key.</p>
+<p>EosSdk reference: eos::mpls_route_mgr::mpls_route_via_status_iter_t</p>
+<h3 id="exists">exists<a class="headerlink" href="#exists" title="Permanent link">¶</a></h3>
+<blockquote>
+<p><strong>rpc</strong> exists(<a href="../mpls_route#mplsrouteexistsrequest">MplsRouteExistsRequest</a>)
+    <a href="../mpls_route#mplsrouteexistsresponse">MplsRouteExistsResponse</a></p>
+</blockquote>
+<p>Queries whether the specified route or via exists in the switch config.</p>
+<p>EosSdk reference: eos::mpls_route_mgr::exists</p>
+<h3 id="mpls_route_set">mpls_route_set<a class="headerlink" href="#mpls_route_set" title="Permanent link">¶</a></h3>
+<blockquote>
+<p><strong>rpc</strong> mpls_route_set(<a href="../mpls_route#mplsroutesetrequest">MplsRouteSetRequest</a>)
+    <a href="../mpls_route#mplsroutesetresponse">MplsRouteSetResponse</a></p>
+</blockquote>
+<p>Inserts or updates an MPLS static route in the switch config.</p>
+<p>EosSdk reference: eos::mpls_route_mgr::mpls_route_set</p>
+<h3 id="bulk_mpls_route_set">bulk_mpls_route_set<a class="headerlink" href="#bulk_mpls_route_set" title="Permanent link">¶</a></h3>
+<blockquote>
+<p><strong>rpc</strong> bulk_mpls_route_set(<a href="../mpls_route#bulkmplsroutesetrequest">BulkMplsRouteSetRequest</a>)
+    <a href="../mpls_route#bulkmplsroutesetresponse">BulkMplsRouteSetResponse</a></p>
+</blockquote>
+<p>Inserts or updates multiple MPLS static routes in the switch config in a single
+call.</p>
+<p>EosSdk reference: eos::mpls_route_mgr::mpls_route_set</p>
+<h3 id="mpls_route_del">mpls_route_del<a class="headerlink" href="#mpls_route_del" title="Permanent link">¶</a></h3>
+<blockquote>
+<p><strong>rpc</strong> mpls_route_del(<a href="../mpls_route#mplsroutedelrequest">MplsRouteDelRequest</a>)
+    <a href="../mpls_route#mplsroutedelresponse">MplsRouteDelResponse</a></p>
+</blockquote>
+<p>Removes the MPLS route and all vias matching its route key.</p>
+<p>EosSdk reference: eos::mpls_route_mgr::mpls_route_del</p>
+<h3 id="bulk_mpls_route_del">bulk_mpls_route_del<a class="headerlink" href="#bulk_mpls_route_del" title="Permanent link">¶</a></h3>
+<blockquote>
+<p><strong>rpc</strong> bulk_mpls_route_del(<a href="../mpls_route#bulkmplsroutedelrequest">BulkMplsRouteDelRequest</a>)
+    <a href="../mpls_route#bulkmplsroutedelresponse">BulkMplsRouteDelResponse</a></p>
+</blockquote>
+<p>Removes multiple MPLS routes and all vias matching their route keys in a single
+call.</p>
+<p>EosSdk reference: eos::mpls_route_mgr::mpls_route_del</p>
+<h3 id="mpls_route_via_set">mpls_route_via_set<a class="headerlink" href="#mpls_route_via_set" title="Permanent link">¶</a></h3>
+<blockquote>
+<p><strong>rpc</strong> mpls_route_via_set(<a href="../mpls_route#mplsrouteviasetrequest">MplsRouteViaSetRequest</a>)
+    <a href="../mpls_route#mplsrouteviasetresponse">MplsRouteViaSetResponse</a></p>
+</blockquote>
+<p>Add the specified via to its associated MPLS route.</p>
+<p>EosSdk reference: eos::mpls_route_mgr::mpls_route_via_set</p>
+<h3 id="bulk_mpls_route_via_set">bulk_mpls_route_via_set<a class="headerlink" href="#bulk_mpls_route_via_set" title="Permanent link">¶</a></h3>
+<blockquote>
+<p><strong>rpc</strong> bulk_mpls_route_via_set(<a href="../mpls_route#bulkmplsrouteviasetrequest">BulkMplsRouteViaSetRequest</a>)
+    <a href="../mpls_route#bulkmplsrouteviasetresponse">BulkMplsRouteViaSetResponse</a></p>
+</blockquote>
+<p>Adds multiple vias to their associated MPLS routes in a single call.</p>
+<p>EosSdk reference: eos::mpls_route_mgr::mpls_route_via_set</p>
+<h3 id="mpls_route_via_del">mpls_route_via_del<a class="headerlink" href="#mpls_route_via_del" title="Permanent link">¶</a></h3>
+<blockquote>
+<p><strong>rpc</strong> mpls_route_via_del(<a href="../mpls_route#mplsrouteviadelrequest">MplsRouteViaDelRequest</a>)
+    <a href="../mpls_route#mplsrouteviadelresponse">MplsRouteViaDelResponse</a></p>
+</blockquote>
+<p>Removes the specified via from its associated MPLS route. If all vias are
+removed from a route it will still exist but it will have no nexthop
+information.</p>
+<p>EosSdk reference: eos::mpls_route_mgr::mpls_route_via_del</p>
+<h3 id="bulk_mpls_route_via_del">bulk_mpls_route_via_del<a class="headerlink" href="#bulk_mpls_route_via_del" title="Permanent link">¶</a></h3>
+<blockquote>
+<p><strong>rpc</strong> bulk_mpls_route_via_del(<a href="../mpls_route#bulkmplsrouteviadelrequest">BulkMplsRouteViaDelRequest</a>)
+    <a href="../mpls_route#bulkmplsrouteviadelresponse">BulkMplsRouteViaDelResponse</a></p>
+</blockquote>
+<p>Removes multiple vias from their associated MPLS routes in a single call.
+If all vias are removed from a route it will still exist but it will have
+no nexthop information.</p>
+<p>EosSdk reference: eos::mpls_route_mgr::mpls_route_via_del</p>
+<h3 id="fec_id">fec_id<a class="headerlink" href="#fec_id" title="Permanent link">¶</a></h3>
+<blockquote>
+<p><strong>rpc</strong> fec_id(<a href="../mpls_route#mplsroutefecidrequest">MplsRouteFecIdRequest</a>)
+    <a href="../mpls_route#mplsroutefecidresponse">MplsRouteFecIdResponse</a></p>
+</blockquote>
+<p>Returns the FEC ID corresponding to the specified MPLS route key if the route is
+programmed in hardware. If it is not programmed in hardware then the FEC ID will
+be 0 denoting that it is not set.</p>
+<p>EosSdk reference: eos::mpls_route_mgr::mpls_route_fec_id</p>
+<h3 id="metric">metric<a class="headerlink" href="#metric" title="Permanent link">¶</a></h3>
+<blockquote>
+<p><strong>rpc</strong> metric(<a href="../mpls_route#mplsroutemetricrequest">MplsRouteMetricRequest</a>)
+    <a href="../mpls_route#mplsroutemetricresponse">MplsRouteMetricResponse</a></p>
+</blockquote>
+<p>Returns the active metric that is being used in hardware to forward traffic for
+the specified MPLS route key, or 0 if the route key does not have any active
+vias programmed.</p>
+<p>EosSdk reference: eos::mpls_route_mgr::mpls_route_metric</p>
+<!-- end Methods -->
+<!-- end Services -->
+
+<h2 id="messages">Messages<a class="headerlink" href="#messages" title="Permanent link">¶</a></h2>
+<!-- end HasMessages -->
+
+<h3 id="bulkmplsroutedelrequest">BulkMplsRouteDelRequest<a class="headerlink" href="#bulkmplsroutedelrequest" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>requests</td>
+<td>repeated <a href="../mpls_route#mplsroutedelrequest">MplsRouteDelRequest</a></td>
+<td>List of MplsRouteDelRequests.</td>
+</tr>
+</tbody>
+</table>
+<!-- end Fields -->
+<!-- end HasFields -->
+
+<h3 id="bulkmplsroutedelresponse">BulkMplsRouteDelResponse<a class="headerlink" href="#bulkmplsroutedelresponse" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>processed</td>
+<td>uint64</td>
+<td>Number of consecutive successful requests.</td>
+</tr>
+<tr>
+<td>status</td>
+<td><a href="../rpc_types#rpcresponsestatus">RpcResponseStatus</a></td>
+<td>Success or error details in the event of failure.</td>
+</tr>
+</tbody>
+</table>
+<!-- end Fields -->
+<!-- end HasFields -->
+
+<h3 id="bulkmplsroutesetrequest">BulkMplsRouteSetRequest<a class="headerlink" href="#bulkmplsroutesetrequest" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>requests</td>
+<td>repeated <a href="../mpls_route#mplsroutesetrequest">MplsRouteSetRequest</a></td>
+<td>List of MplsRouteSetRequests.</td>
+</tr>
+</tbody>
+</table>
+<!-- end Fields -->
+<!-- end HasFields -->
+
+<h3 id="bulkmplsroutesetresponse">BulkMplsRouteSetResponse<a class="headerlink" href="#bulkmplsroutesetresponse" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>processed</td>
+<td>uint64</td>
+<td>Number of consecutive successful requests.</td>
+</tr>
+<tr>
+<td>status</td>
+<td><a href="../rpc_types#rpcresponsestatus">RpcResponseStatus</a></td>
+<td>Success or error details in the event of failure.</td>
+</tr>
+</tbody>
+</table>
+<!-- end Fields -->
+<!-- end HasFields -->
+
+<h3 id="bulkmplsrouteviadelrequest">BulkMplsRouteViaDelRequest<a class="headerlink" href="#bulkmplsrouteviadelrequest" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>requests</td>
+<td>repeated <a href="../mpls_route#mplsrouteviadelrequest">MplsRouteViaDelRequest</a></td>
+<td>List of MplsRouteViaDelRequests.</td>
+</tr>
+</tbody>
+</table>
+<!-- end Fields -->
+<!-- end HasFields -->
+
+<h3 id="bulkmplsrouteviadelresponse">BulkMplsRouteViaDelResponse<a class="headerlink" href="#bulkmplsrouteviadelresponse" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>processed</td>
+<td>uint64</td>
+<td>Number of consecutive successful requests.</td>
+</tr>
+<tr>
+<td>status</td>
+<td><a href="../rpc_types#rpcresponsestatus">RpcResponseStatus</a></td>
+<td>Success or error details in the event of failure.</td>
+</tr>
+</tbody>
+</table>
+<!-- end Fields -->
+<!-- end HasFields -->
+
+<h3 id="bulkmplsrouteviasetrequest">BulkMplsRouteViaSetRequest<a class="headerlink" href="#bulkmplsrouteviasetrequest" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>requests</td>
+<td>repeated <a href="../mpls_route#mplsrouteviasetrequest">MplsRouteViaSetRequest</a></td>
+<td>List of MplsRouteViaSetRequests.</td>
+</tr>
+</tbody>
+</table>
+<!-- end Fields -->
+<!-- end HasFields -->
+
+<h3 id="bulkmplsrouteviasetresponse">BulkMplsRouteViaSetResponse<a class="headerlink" href="#bulkmplsrouteviasetresponse" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>processed</td>
+<td>uint64</td>
+<td>Number of consecutive successful requests.</td>
+</tr>
+<tr>
+<td>status</td>
+<td><a href="../rpc_types#rpcresponsestatus">RpcResponseStatus</a></td>
+<td>Success or error details in the event of failure.</td>
+</tr>
+</tbody>
+</table>
+<!-- end Fields -->
+<!-- end HasFields -->
+
+<h3 id="mplsintegratedackrequest">MplsIntegratedAckRequest<a class="headerlink" href="#mplsintegratedackrequest" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dump_fields</td>
+<td><a href="../mpls_route#mplsintegratedfieldscontrol">MplsIntegratedFieldsControl</a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<!-- end Fields -->
+<!-- end HasFields -->
+
+<h3 id="mplsintegratedackresponse">MplsIntegratedAckResponse<a class="headerlink" href="#mplsintegratedackresponse" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>stream_ready</td>
+<td>bool</td>
+<td>When this field is set to 'True' it indicates RPC server has registered for any future updates and streams them.</td>
+</tr>
+<tr>
+<td>route_version_info</td>
+<td><a href="../mpls_route#mplsrouteviasetversioninfo">MplsRouteViaSetVersionInfo</a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<!-- end Fields -->
+<!-- end HasFields -->
+
+<h3 id="mplsintegratedfieldscontrol">MplsIntegratedFieldsControl<a class="headerlink" href="#mplsintegratedfieldscontrol" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fields</td>
+<td>repeated <a href="../mpls_route#mplsintegratedfield">MplsIntegratedField</a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<!-- end Fields -->
+<!-- end HasFields -->
+
+<h3 id="mplsroutedelrequest">MplsRouteDelRequest<a class="headerlink" href="#mplsroutedelrequest" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>route_key</td>
+<td><a href="../mpls_route_types#mplsroutekey">MplsRouteKey</a></td>
+<td>The route key of the route to remove.</td>
+</tr>
+</tbody>
+</table>
+<!-- end Fields -->
+<!-- end HasFields -->
+
+<h3 id="mplsroutedelresponse">MplsRouteDelResponse<a class="headerlink" href="#mplsroutedelresponse" title="Permanent link">¶</a></h3>
+<p>Empty message.
+ <!-- end HasFields -->
+</p>
+<h3 id="mplsrouteexistsrequest">MplsRouteExistsRequest<a class="headerlink" href="#mplsrouteexistsrequest" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>oneof</strong> overloads.route_key</td>
+<td><a href="../mpls_route_types#mplsroutekey">MplsRouteKey</a></td>
+<td>The key of the route to query.</td>
+</tr>
+<tr>
+<td><strong>oneof</strong> overloads.route_via</td>
+<td><a href="../mpls_route_types#mplsroutevia">MplsRouteVia</a></td>
+<td>The route via to query.</td>
+</tr>
+</tbody>
+</table>
+<!-- end Fields -->
+<!-- end HasFields -->
+
+<h3 id="mplsrouteexistsresponse">MplsRouteExistsResponse<a class="headerlink" href="#mplsrouteexistsresponse" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>exists</td>
+<td>bool</td>
+<td>True if the route or via exists in the switch config otherwise false.</td>
+</tr>
+</tbody>
+</table>
+<!-- end Fields -->
+<!-- end HasFields -->
+
+<h3 id="mplsroutefecidrequest">MplsRouteFecIdRequest<a class="headerlink" href="#mplsroutefecidrequest" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>route_key</td>
+<td><a href="../mpls_route_types#mplsroutekey">MplsRouteKey</a></td>
+<td>The route key.</td>
+</tr>
+</tbody>
+</table>
+<!-- end Fields -->
+<!-- end HasFields -->
+
+<h3 id="mplsroutefecidresponse">MplsRouteFecIdResponse<a class="headerlink" href="#mplsroutefecidresponse" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fec_id</td>
+<td><a href="../mpls_route_types#mplsfecid">MplsFecId</a></td>
+<td>The FEC ID if the route key is programmed in hardware otherwise 0.</td>
+</tr>
+</tbody>
+</table>
+<!-- end Fields -->
+<!-- end HasFields -->
+
+<h3 id="mplsroutefieldscontrol">MplsRouteFieldsControl<a class="headerlink" href="#mplsroutefieldscontrol" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fields</td>
+<td>repeated <a href="../mpls_route#mplsroutewatchedfield">MplsRouteWatchedField</a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<!-- end Fields -->
+<!-- end HasFields -->
+
+<h3 id="mplsroutemetricrequest">MplsRouteMetricRequest<a class="headerlink" href="#mplsroutemetricrequest" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>route_key</td>
+<td><a href="../mpls_route_types#mplsroutekey">MplsRouteKey</a></td>
+<td>The route key to query. Its metric value is not used.</td>
+</tr>
+</tbody>
+</table>
+<!-- end Fields -->
+<!-- end HasFields -->
+
+<h3 id="mplsroutemetricresponse">MplsRouteMetricResponse<a class="headerlink" href="#mplsroutemetricresponse" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>metric</td>
+<td>uint32</td>
+<td>The metric being used in hardware to forward traffic for the specified route key or 0 if it does not have any active vias programmed.</td>
+</tr>
+</tbody>
+</table>
+<!-- end Fields -->
+<!-- end HasFields -->
+
+<h3 id="mplsrouteresynccompleterequest">MplsRouteResyncCompleteRequest<a class="headerlink" href="#mplsrouteresynccompleterequest" title="Permanent link">¶</a></h3>
+<p>Empty message.
+ <!-- end HasFields -->
+</p>
+<h3 id="mplsrouteresynccompleteresponse">MplsRouteResyncCompleteResponse<a class="headerlink" href="#mplsrouteresynccompleteresponse" title="Permanent link">¶</a></h3>
+<p>Empty message.
+ <!-- end HasFields -->
+</p>
+<h3 id="mplsrouteresyncinitrequest">MplsRouteResyncInitRequest<a class="headerlink" href="#mplsrouteresyncinitrequest" title="Permanent link">¶</a></h3>
+<p>Empty message.
+ <!-- end HasFields -->
+</p>
+<h3 id="mplsrouteresyncinitresponse">MplsRouteResyncInitResponse<a class="headerlink" href="#mplsrouteresyncinitresponse" title="Permanent link">¶</a></h3>
+<p>Empty message.
+ <!-- end HasFields -->
+</p>
+<h3 id="mplsroutesetrequest">MplsRouteSetRequest<a class="headerlink" href="#mplsroutesetrequest" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>route</td>
+<td><a href="../mpls_route_types#mplsroute">MplsRoute</a></td>
+<td>The MPLS route to insert or update.</td>
+</tr>
+<tr>
+<td>vias</td>
+<td>repeated <a href="../mpls_route_types#mplsroutevia">MplsRouteVia</a></td>
+<td>MPLS vias to be added to the route.</td>
+</tr>
+<tr>
+<td>vias_action</td>
+<td><a href="../mpls_route#mplsroutesetviasaction">MplsRouteSetViasAction</a></td>
+<td>action associated with vias, i.e., ADD or REPLACE.</td>
+</tr>
+<tr>
+<td>backup_vias</td>
+<td>repeated <a href="../mpls_route_types#mplsroutevia">MplsRouteVia</a></td>
+<td>MPLS backup vias to be added to the route.</td>
+</tr>
+</tbody>
+</table>
+<!-- end Fields -->
+<!-- end HasFields -->
+
+<h3 id="mplsroutesetresponse">MplsRouteSetResponse<a class="headerlink" href="#mplsroutesetresponse" title="Permanent link">¶</a></h3>
+<p>Empty message.
+ <!-- end HasFields -->
+</p>
+<h3 id="mplsroutestatusesrequest">MplsRouteStatusesRequest<a class="headerlink" href="#mplsroutestatusesrequest" title="Permanent link">¶</a></h3>
+<p>Empty message.
+ <!-- end HasFields -->
+</p>
+<h3 id="mplsroutestatusesresponse">MplsRouteStatusesResponse<a class="headerlink" href="#mplsroutestatusesresponse" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>route_key</td>
+<td><a href="../mpls_route_types#mplsroutekey">MplsRouteKey</a></td>
+<td>The keys of the MPLS routes in hardware.</td>
+</tr>
+</tbody>
+</table>
+<!-- end Fields -->
+<!-- end HasFields -->
+
+<h3 id="mplsrouteviadelrequest">MplsRouteViaDelRequest<a class="headerlink" href="#mplsrouteviadelrequest" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>route_via</td>
+<td><a href="../mpls_route_types#mplsroutevia">MplsRouteVia</a></td>
+<td>The primary via to remove.</td>
+</tr>
+<tr>
+<td>backup_route_via</td>
+<td><a href="../mpls_route_types#mplsroutevia">MplsRouteVia</a></td>
+<td>The backup via to remove.</td>
+</tr>
+</tbody>
+</table>
+<!-- end Fields -->
+<!-- end HasFields -->
+
+<h3 id="mplsrouteviadelresponse">MplsRouteViaDelResponse<a class="headerlink" href="#mplsrouteviadelresponse" title="Permanent link">¶</a></h3>
+<p>Empty message.
+ <!-- end HasFields -->
+</p>
+<h3 id="mplsrouteviasetrequest">MplsRouteViaSetRequest<a class="headerlink" href="#mplsrouteviasetrequest" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>route_via</td>
+<td><a href="../mpls_route_types#mplsroutevia">MplsRouteVia</a></td>
+<td>The primary via to add to the route.</td>
+</tr>
+<tr>
+<td>backup_route_via</td>
+<td><a href="../mpls_route_types#mplsroutevia">MplsRouteVia</a></td>
+<td>The backup via to add to the route.</td>
+</tr>
+</tbody>
+</table>
+<!-- end Fields -->
+<!-- end HasFields -->
+
+<h3 id="mplsrouteviasetresponse">MplsRouteViaSetResponse<a class="headerlink" href="#mplsrouteviasetresponse" title="Permanent link">¶</a></h3>
+<p>Empty message.
+ <!-- end HasFields -->
+</p>
+<h3 id="mplsrouteviasetversioninfo">MplsRouteViaSetVersionInfo<a class="headerlink" href="#mplsrouteviasetversioninfo" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mpls_route_key</td>
+<td><a href="../mpls_route_types#mplsroutekey">MplsRouteKey</a></td>
+<td></td>
+</tr>
+<tr>
+<td>mpls_route_version_id</td>
+<td>uint32</td>
+<td></td>
+</tr>
+<tr>
+<td>nexthop_group_version_info</td>
+<td><a href="../mpls_route#nexthopgroupversioninfo">NexthopGroupVersionInfo</a></td>
+<td></td>
+</tr>
+<tr>
+<td>hw_state</td>
+<td><a href="../mpls_route_types#viasetprogrammedhwstate">ViaSetProgrammedHwState</a></td>
+<td></td>
+</tr>
+<tr>
+<td>mpls_route_hw_programming_timestamp</td>
+<td>uint64</td>
+<td>MPLS route hw programming timestamp in UTC. Nano seconds from the Unix epoch.</td>
+</tr>
+<tr>
+<td>via_set_hw_programming_timestamp</td>
+<td>uint64</td>
+<td>Via Set (only NHG is supported) hw programming timestamp in UTC. Nano seconds from the Unix epoch.</td>
+</tr>
+<tr>
+<td>integrated_hw_programming_timestamp</td>
+<td>uint64</td>
+<td>Timestamp at which MPLS route &amp; via set (only NHG is supported) are programmed in the hardware at given versions in UTC. This field's value is maximum of above fields, mpls_route_hw_programming_timestamp and via_set_hw_programming_timestamp.</td>
+</tr>
+</tbody>
+</table>
+<!-- end Fields -->
+<!-- end HasFields -->
+
+<h3 id="mplsrouteviastatusesrequest">MplsRouteViaStatusesRequest<a class="headerlink" href="#mplsrouteviastatusesrequest" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>oneof</strong> overloads.route_key</td>
+<td><a href="../mpls_route_types#mplsroutekey">MplsRouteKey</a></td>
+<td>The key of the route to query.</td>
+</tr>
+<tr>
+<td><strong>oneof</strong> overloads.fec_id</td>
+<td><a href="../mpls_route_types#mplsfecid">MplsFecId</a></td>
+<td>The ID of the fec to query.</td>
+</tr>
+</tbody>
+</table>
+<!-- end Fields -->
+<!-- end HasFields -->
+
+<h3 id="mplsrouteviastatusesresponse">MplsRouteViaStatusesResponse<a class="headerlink" href="#mplsrouteviastatusesresponse" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>route_via</td>
+<td><a href="../mpls_route_types#mplsroutevia">MplsRouteVia</a></td>
+<td>The vias in hardware for the MPLS route key or FEC.</td>
+</tr>
+</tbody>
+</table>
+<!-- end Fields -->
+<!-- end HasFields -->
+
+<h3 id="mplsrouteviasrequest">MplsRouteViasRequest<a class="headerlink" href="#mplsrouteviasrequest" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>route_key</td>
+<td><a href="../mpls_route_types#mplsroutekey">MplsRouteKey</a></td>
+<td>The key of the route to query.</td>
+</tr>
+</tbody>
+</table>
+<!-- end Fields -->
+<!-- end HasFields -->
+
+<h3 id="mplsrouteviasresponse">MplsRouteViasResponse<a class="headerlink" href="#mplsrouteviasresponse" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>route_via</td>
+<td><a href="../mpls_route_types#mplsroutevia">MplsRouteVia</a></td>
+<td>The vias configured for the route.</td>
+</tr>
+<tr>
+<td>backup_route_via</td>
+<td><a href="../mpls_route_types#mplsroutevia">MplsRouteVia</a></td>
+<td>The backup vias configured for the route.</td>
+</tr>
+</tbody>
+</table>
+<!-- end Fields -->
+<!-- end HasFields -->
+
+<h3 id="mplsroutewatchrequest">MplsRouteWatchRequest<a class="headerlink" href="#mplsroutewatchrequest" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ack</td>
+<td>bool</td>
+<td>Set to true if an immediate acknowledgement is desired.</td>
+</tr>
+<tr>
+<td><strong>oneof</strong> overload.all</td>
+<td>bool</td>
+<td>True if all MPLS routes should be watched.</td>
+</tr>
+<tr>
+<td><strong>oneof</strong> overload.route_key</td>
+<td><a href="../mpls_route_types#mplsroutekey">MplsRouteKey</a></td>
+<td>The route key of a particular MPLS route to watch.</td>
+</tr>
+<tr>
+<td>dump_fields</td>
+<td><a href="../mpls_route#mplsroutefieldscontrol">MplsRouteFieldsControl</a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<!-- end Fields -->
+<!-- end HasFields -->
+
+<h3 id="mplsroutewatchresponse">MplsRouteWatchResponse<a class="headerlink" href="#mplsroutewatchresponse" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ack</td>
+<td>bool</td>
+<td>If true the agent is now actively watching for events.</td>
+</tr>
+<tr>
+<td><strong>oneof</strong> route_event.on_mpls_route_set</td>
+<td><a href="../mpls_route#onmplsrouteset">OnMplsRouteSet</a></td>
+<td>The specified MPLS route has been programmed to hardware or assigned a new FEC ID.</td>
+</tr>
+<tr>
+<td><strong>oneof</strong> route_event.on_mpls_route_del</td>
+<td><a href="../mpls_route#onmplsroutedel">OnMplsRouteDel</a></td>
+<td>The specified MPLS route has been deleted from hardware.</td>
+</tr>
+<tr>
+<td><strong>oneof</strong> fec_event.on_mpls_fec_set</td>
+<td><a href="../mpls_route#onmplsfecset">OnMplsFecSet</a></td>
+<td>The specified MPLS FEC has been created or updated in hardware.</td>
+</tr>
+<tr>
+<td><strong>oneof</strong> fec_event.on_mpls_fec_del</td>
+<td><a href="../mpls_route#onmplsfecdel">OnMplsFecDel</a></td>
+<td>The specified MPLS FEC has been removed from hardware.</td>
+</tr>
+<tr>
+<td>on_mpls_route_dump</td>
+<td><a href="../mpls_route#onmplsroutedump">OnMplsRouteDump</a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<!-- end Fields -->
+<!-- end HasFields -->
+
+<h3 id="mplsroutesrequest">MplsRoutesRequest<a class="headerlink" href="#mplsroutesrequest" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>report_vias</td>
+<td>bool</td>
+<td>If true, the stream response will also include vias for every reported MPLS route key.</td>
+</tr>
+</tbody>
+</table>
+<!-- end Fields -->
+<!-- end HasFields -->
+
+<h3 id="mplsroutesresponse">MplsRoutesResponse<a class="headerlink" href="#mplsroutesresponse" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>route</td>
+<td><a href="../mpls_route_types#mplsroute">MplsRoute</a></td>
+<td>A configured MPLS route.</td>
+</tr>
+<tr>
+<td>vias</td>
+<td>repeated <a href="../mpls_route_types#mplsroutevia">MplsRouteVia</a></td>
+<td>VIAs of the configured route.</td>
+</tr>
+<tr>
+<td>backup_vias</td>
+<td>repeated <a href="../mpls_route_types#mplsroutevia">MplsRouteVia</a></td>
+<td>Backup VIAs of the configured route.</td>
+</tr>
+</tbody>
+</table>
+<!-- end Fields -->
+<!-- end HasFields -->
+
+<h3 id="nexthopgroupversioninfo">NexthopGroupVersionInfo<a class="headerlink" href="#nexthopgroupversioninfo" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>version</td>
+<td>uint32</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<!-- end Fields -->
+<!-- end HasFields -->
+
+<h3 id="onmplsfecdel">OnMplsFecDel<a class="headerlink" href="#onmplsfecdel" title="Permanent link">¶</a></h3>
+<p>Notification for when an MPLS FEC is removed from hardware.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fec_id</td>
+<td><a href="../mpls_route_types#mplsfecid">MplsFecId</a></td>
+<td>The ID of the FEC which triggered the event.</td>
+</tr>
+</tbody>
+</table>
+<!-- end Fields -->
+<!-- end HasFields -->
+
+<h3 id="onmplsfecset">OnMplsFecSet<a class="headerlink" href="#onmplsfecset" title="Permanent link">¶</a></h3>
+<p>Notification for when an MPLS FEC is created or updated in hardware.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fec_id</td>
+<td><a href="../mpls_route_types#mplsfecid">MplsFecId</a></td>
+<td>The ID of the FEC which triggered the event.</td>
+</tr>
+</tbody>
+</table>
+<!-- end Fields -->
+<!-- end HasFields -->
+
+<h3 id="onmplsroutedel">OnMplsRouteDel<a class="headerlink" href="#onmplsroutedel" title="Permanent link">¶</a></h3>
+<p>Notification for when an MPLS route is deleted from hardware.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>route_key</td>
+<td><a href="../mpls_route_types#mplsroutekey">MplsRouteKey</a></td>
+<td>The route key of the MPLS route that triggered the event.</td>
+</tr>
+</tbody>
+</table>
+<!-- end Fields -->
+<!-- end HasFields -->
+
+<h3 id="onmplsroutedump">OnMplsRouteDump<a class="headerlink" href="#onmplsroutedump" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>route</td>
+<td><a href="../mpls_route_types#mplsroute">MplsRoute</a></td>
+<td></td>
+</tr>
+<tr>
+<td>vias</td>
+<td>repeated <a href="../mpls_route_types#mplsroutevia">MplsRouteVia</a></td>
+<td></td>
+</tr>
+<tr>
+<td>backup_vias</td>
+<td>repeated <a href="../mpls_route_types#mplsroutevia">MplsRouteVia</a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<!-- end Fields -->
+<!-- end HasFields -->
+
+<h3 id="onmplsrouteset">OnMplsRouteSet<a class="headerlink" href="#onmplsrouteset" title="Permanent link">¶</a></h3>
+<p>Notification for when an MPLS route is to be programmed into hardware or when it is
+assigned a new FEC ID.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>route_key</td>
+<td><a href="../mpls_route_types#mplsroutekey">MplsRouteKey</a></td>
+<td>The route key of the MPLS route that triggered the event.</td>
+</tr>
+<tr>
+<td>fec_id</td>
+<td><a href="../mpls_route_types#mplsfecid">MplsFecId</a></td>
+<td>The ID of the MPLS route's associated FEC.</td>
+</tr>
+<tr>
+<td>version_id</td>
+<td>uint32</td>
+<td>The version of the MPLS route, 0 means version is unset.</td>
+</tr>
+<tr>
+<td>on_primary_via_restored</td>
+<td><a href="../mpls_route_types#mplsonprimaryviarestored">MplsOnPrimaryViaRestored</a></td>
+<td>Behaviour when the primary via returns after transistion to backup.</td>
+</tr>
+</tbody>
+</table>
+<!-- end Fields -->
+<!-- end HasFields -->
+<!-- end Messages -->
+
+<h2 id="enums">Enums<a class="headerlink" href="#enums" title="Permanent link">¶</a></h2>
+<!-- end HasEnums -->
+
+<h3 id="mplsintegratedfield">MplsIntegratedField<a class="headerlink" href="#mplsintegratedfield" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MPLS_INTEGRATED_ALL_FIELDS</td>
+<td>0</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<!-- end Values -->
+
+<h3 id="mplsroutesetviasaction">MplsRouteSetViasAction<a class="headerlink" href="#mplsroutesetviasaction" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MPLS_ROUTE_SET_VIAS_ADD</td>
+<td>0</td>
+<td>Use this convenience method to create routes and vias in a single RPC call. While primarily designed for route creation, when utilized with an existing route key, any vias present within the MplsRouteSetRequest message will be appended to the existing set of vias for that route. If adding the vias results in a failure, the route shall be deleted.</td>
+</tr>
+<tr>
+<td>MPLS_ROUTE_SET_VIAS_REPLACE</td>
+<td>1</td>
+<td>Choosing this action with an existing route will replace vias in a make-before-break fashion within the RPC server, when possible. Vias that are common between the old set and the new set should remain untouched. If the operation fails, then the original via set is restored.</td>
+</tr>
+</tbody>
+</table>
+<!-- end Values -->
+
+<h3 id="mplsroutewatchedfield">MplsRouteWatchedField<a class="headerlink" href="#mplsroutewatchedfield" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MPLS_ROUTE_ALL_FIELDS</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>MPLS_ROUTE</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>MPLS_ROUTE_VIAS</td>
+<td>2</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<!-- end Values -->
+<!-- end Enums -->
+<!-- end Files -->
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../macsec_types/" class="md-footer__link md-footer__link--prev" aria-label="Previous: macsec_types.proto">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                macsec_types.proto
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../mpls_route_types/" class="md-footer__link md-footer__link--next" aria-label="Next: mpls_route_types.proto">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                mpls_route_types.proto
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2025 Arista Networks, Inc. All rights reserved.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/aristanetworks/eossdkrpc" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M202.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1M496 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2m-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3m-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.arista.com" target="_blank" rel="noopener" title="www.arista.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M351.9 280H161c2.9 64.5 17.2 123.9 37.5 167.4 11.4 24.5 23.7 41.8 35.1 52.4 11.2 10.5 18.9 12.2 22.9 12.2s11.7-1.7 22.9-12.2c11.4-10.6 23.7-28 35.1-52.4 20.3-43.5 34.6-102.9 37.5-167.4zm-191-48h190.9c-2.8-64.5-17.1-123.9-37.4-167.4-11.4-24.4-23.7-41.8-35.1-52.4C268.1 1.7 260.4 0 256.4 0s-11.7 1.7-22.9 12.2c-11.4 10.6-23.7 28-35.1 52.4-20.3 43.5-34.6 102.9-37.5 167.4m-48 0c3.5-85.6 25.6-165.1 57.9-217.3C78.7 47.3 10.9 131.2 1.5 232zM1.5 280c9.4 100.8 77.2 184.7 169.3 217.3-32.3-52.2-54.4-131.7-57.9-217.3zm398.4 0c-3.5 85.6-25.6 165.1-57.9 217.3 92.1-32.7 159.9-116.5 169.3-217.3zm111.4-48C501.9 131.2 434.1 47.3 342 14.7c32.3 52.2 54.4 131.7 57.9 217.3z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["header.autohide", "navigation.tabs", "navigation.indexes", "navigation.instant", "navigation.top", "navigation.footer", "content.code.copy", "content.code.select"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
