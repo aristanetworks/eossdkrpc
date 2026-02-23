@@ -55,6 +55,15 @@ enum NexthopGroupCounterState {
    NEXTHOP_GROUP_COUNTER_PROGRAMMING_COMPLETE = 2;
 }
 
+enum NexthopGroupEntryCounterType {
+   NEXTHOP_GROUP_ENTRY_COUNTERS_NOT_SET = 0;
+   NEXTHOP_GROUP_ENTRY_COUNTERS_SHARED = 1;
+   NEXTHOP_GROUP_ENTRY_COUNTERS_UNSHARED = 2;
+   // This enum value is unsupported in this release. Setting the counter type to
+   // disabled will result in an error.
+   NEXTHOP_GROUP_ENTRY_COUNTERS_DISABLED = 3;
+}
+
 message NexthopGroup {
    string name = 1;
    NexthopGroupEncapTypes type = 2;
@@ -69,8 +78,11 @@ message NexthopGroup {
    // The numeric key corresponds to the nexthop index position for the entry.
    map<uint32, NexthopGroupEntry> nexthops = 8;
    map<uint32, bytes> destination_ips = 9;
+   // Deprecated. Please use counter_type instead.
    bool counters_unshared = 10;
    bool hierarchical_fecs_enabled = 11;
+   // Can only be true if either counter_type is unshared or counter_type is unset
+   // and counters_unshared is true.
    bool counters_persistent = 12;
    // NOTE: this is actually a 16-bit value.
    uint32 version_id = 13;
@@ -83,6 +95,10 @@ message NexthopGroup {
    // corresponding entry in the same index position in the primary nexthops
    // mapping becomes inactive.
    NexthopGroupBackupNexthopsPolicy backup_nexthops_policy = 15;
+   // Type of the nexthop group counters. By default, it is not set, and the field
+   // counters_unshared will decide the type of counter (shared/unshared). If it is
+   // set, then counter_type will override counters_unshared.
+   NexthopGroupEntryCounterType counter_type = 16;
 }
 
 message NexthopGroupCounter {

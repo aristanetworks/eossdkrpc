@@ -281,8 +281,13 @@ service IntfCounterMgrService {
     */
    rpc intf_traffic_rates( IntfTrafficRatesRequest ) returns ( IntfTrafficRatesResponse ) {}
 
+   /**
+    * Streams interface counters updates.
+    */
+   rpc intf_counters_stream( IntfCountersStreamRequest ) returns ( stream IntfCountersStreamResponse );
+
    /*
-   * Streams traffic rate updates
+   * Streams traffic rate updates.
    */
    rpc intf_traffic_rates_stream( IntfTrafficRatesStreamRequest ) returns (
       stream IntfTrafficRatesStreamResponse ) {}
@@ -306,6 +311,27 @@ message IntfTrafficRatesRequest {
 message IntfTrafficRatesResponse {
    // The traffic rates associated with the interface.
    IntfTrafficRates rates = 1;
+}
+
+message IntfCountersStreamRequest {
+   // Regular expression to report only interfaces with matching names.
+   // When empty, all interfaces are sent.
+   string intf_name_regex = 1;
+}
+
+message IntfCountersStreamResponse {
+   message Entry {
+      // Interface name.
+      IntfId intf_id = 1;
+      // Last counter reading for that interface.
+      IntfCounters counters = 2;
+   }
+
+   // True when the stream is ready to stream updates.
+   bool stream_ready = 1;
+
+   // Counters data.
+   repeated Entry data = 2;
 }
 
 message IntfTrafficRatesStreamRequest {
