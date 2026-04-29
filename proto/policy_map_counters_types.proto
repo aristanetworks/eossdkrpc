@@ -7,7 +7,7 @@ package eos.remote;
 
 option go_package = "arista/EosSdkRpc";
 
-import "policy_map_types.proto";
+import public "policy_map_types.proto";
 
 /// Key that uniquely identifies a counter
 message PolicyMapCountersKey {
@@ -21,6 +21,15 @@ message PolicyMapCountersKey {
 
 /// Next-hop information of output action
 message PolicyMapCountersOutAction {
+   /// Next-hop details
+   /// TACC Only
+   oneof nexthop {
+      NexthopAction nexthops = 1;
+      string nexthop_group = 2;
+   }
+
+   /// Egress TTL
+   uint32 ttl = 3;
    /// Next-hop list details
    message NexthopAction {
       /// Recursive (indirect) next-hop
@@ -31,15 +40,6 @@ message PolicyMapCountersOutAction {
       string vrf = 3;
    }
 
-   /// Next-hop details
-   /// TACC Only
-   oneof nexthop {
-      NexthopAction nexthops = 1;
-      string nexthop_group = 2;
-   }
-
-   /// Egress TTL
-   uint32 ttl = 3;
 }
 
 /// Output action associated with counter data

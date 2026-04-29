@@ -59,8 +59,8 @@ enum NexthopGroupEntryCounterType {
    NEXTHOP_GROUP_ENTRY_COUNTERS_NOT_SET = 0;
    NEXTHOP_GROUP_ENTRY_COUNTERS_SHARED = 1;
    NEXTHOP_GROUP_ENTRY_COUNTERS_UNSHARED = 2;
-   // This enum value is unsupported in this release. Setting the counter type to
-   // disabled will result in an error.
+   // This enum value is not supported on all platforms. Setting the counter type
+   // to disabled will result in an error if the platform doesn't support it.
    NEXTHOP_GROUP_ENTRY_COUNTERS_DISABLED = 3;
 }
 
