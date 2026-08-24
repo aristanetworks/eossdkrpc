@@ -7,7 +7,7 @@ package eos.remote;
 
 option go_package = "arista/EosSdkRpc";
 
-import public "policy_map_types.proto";
+import "policy_map_types.proto";
 
 /// Key that uniquely identifies a counter
 message PolicyMapCountersKey {

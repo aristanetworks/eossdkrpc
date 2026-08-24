@@ -114,7 +114,9 @@ enum NexthopGroupProgrammedHwState {
    // At least one nexthop group entry is programmed in hardware.
    NEXTHOP_GROUP_HW_PARTIALLY_PROGRAMMED = 1;
    // All nexthop group entries are programmed in hardware.
-   NEXTHOP_GROUP_HW_ALL_PROGRAMMED = 2; 
+   NEXTHOP_GROUP_HW_ALL_PROGRAMMED = 2;
+   // Nexthop group hardware state is unknown.
+   NEXTHOP_GROUP_HW_UNKNOWN = 3;
 }
 
 message OnNexthopGroupProgrammed {
